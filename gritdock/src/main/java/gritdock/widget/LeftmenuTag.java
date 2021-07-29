@@ -5,6 +5,7 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.client.model.Branch;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
@@ -45,11 +46,11 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         long userId = Session.global().getUserId();
 
         StringWriter sb = new StringWriter();
-        Group groupBranched;
+        Branch groupBranched;
         List<Group> plist = null;
         {
             String p = GritUtil.buildGroupCodeByPath(cPath);
-            groupBranched = GritClient.group().getGroupByCode(p);
+            groupBranched = GritClient.branched().getBranchByCode(p);
 
             if (Utils.isEmpty(p)) {
                 plist = new ArrayList<>();
@@ -83,7 +84,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
     }
 
-    private void forPack(Group groupBranched, long packID, StringWriter sb, String cPath) throws SQLException {
+    private void forPack(Branch groupBranched, long packID, StringWriter sb, String cPath) throws SQLException {
 
         List<Resource> list = GritClient.getUserPaths(Session.current().getUserId(), packID);
 
@@ -92,7 +93,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
     }
 
-    private void buildItem(StringWriter sb, Group groupBranched, Resource res, String cPath) {
+    private void buildItem(StringWriter sb, Branch groupBranched, Resource res, String cPath) {
         if ("$".equals(res.display_name)) {
             sb.append("<br/><br/>");
             return;

@@ -5,6 +5,7 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.client.model.Branch;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
@@ -44,7 +45,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         //当前视图path //此处改过，20180831
         String cPath = context.path();
 
-        Group groupBranched = null;
+        Branch groupBranched = null;
         List<Group> list = null;
         {
             String p = GritUtil.buildGroupCodeByPath(cPath);
@@ -55,7 +56,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
                 cPath = GritUtil.cleanGroupCodeAtPath(cPath);
 
-                groupBranched = GritClient.group().getGroupByCode(p);
+                groupBranched = GritClient.branched().getBranchByCode(p);
                 list = GritClient.getUserModules(Session.current().getUserId(), groupBranched.group_id);
             }
         }
@@ -121,7 +122,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     }
 
-    private void buildItem(StringWriter sb, String title,Group groupBranched,Resource res, String cPath, String pack) {
+    private void buildItem(StringWriter sb, String title, Branch groupBranched, Resource res, String cPath, String pack) {
 
         if (TextUtils.isEmpty(pack)) {
             return;
