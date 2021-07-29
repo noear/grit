@@ -54,7 +54,7 @@ public class GritUtil {
                 }
             } else {
                 StringBuilder sb = new StringBuilder();
-                sb.append("/.").append(branched.group_id).append(res.link_uri).append("/@").append(res.display_name);
+                sb.append("/.").append(branched.group_code).append(res.link_uri).append("/@").append(res.display_name);
 
                 if (res.tags != null && res.tags.indexOf("@=") >= 0) {
                     sb.append("?@=");
