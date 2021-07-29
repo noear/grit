@@ -6,15 +6,27 @@ import org.noear.solon.Solon;
 import org.noear.solon.auth.AuthProcessor;
 import org.noear.solon.auth.annotation.Logical;
 import org.noear.solon.cloud.CloudClient;
+import org.noear.solon.core.handle.Context;
 
 import java.sql.SQLException;
 
 /**
+ * 授权处理实现
+ *
  * @author noear
  * @since 1.0
  */
 public abstract class GritAuthProcessorBase implements AuthProcessor {
-    public abstract long userId();
+    public long getUserId(){
+        return SessionBase.global().getUserId();
+    }
+
+    /**
+     * 用户显示名
+     * */
+    public String getUserDisplayName() {
+        return SessionBase.global().getDisplayName();
+    }
 
     @Override
     public boolean verifyIp(String ip) {
@@ -28,7 +40,23 @@ public abstract class GritAuthProcessorBase implements AuthProcessor {
             return true;
         }
 
-        return CloudClient.list().inListOfClientAndServerIp(ip);
+        boolean isOk = CloudClient.list().inListOfClientAndServerIp(ip);
+
+        long userId = getUserId();
+
+        if (userId > 0) {
+            String userDisplayName = getUserDisplayName();
+            Context ctx = Context.current();
+
+            //old
+            ctx.attrSet("user_puid", String.valueOf(userId));
+            ctx.attrSet("user_name", userDisplayName);
+            //new
+            ctx.attrSet("user_id", String.valueOf(userId));
+            ctx.attrSet("user_display_name", userDisplayName);
+        }
+
+        return isOk;
     }
 
     @Override
@@ -38,7 +66,7 @@ public abstract class GritAuthProcessorBase implements AuthProcessor {
             return true;
         }
 
-        return userId() > 0;
+        return getUserId() > 0;
     }
 
     @Override
@@ -52,7 +80,7 @@ public abstract class GritAuthProcessorBase implements AuthProcessor {
             if (GritClient.resource().hasResourcePath(path)) {
                 return true;
             } else {
-                return GritClient.userHasPath(userId(), path);
+                return GritClient.userHasPath(getUserId(), path);
             }
         } catch (SQLException e) {
             throw new GritException(e);
@@ -66,7 +94,7 @@ public abstract class GritAuthProcessorBase implements AuthProcessor {
             return true;
         }
 
-        long userId = userId();
+        long userId = getUserId();
 
         try {
             if (logical == Logical.AND) {
@@ -97,7 +125,7 @@ public abstract class GritAuthProcessorBase implements AuthProcessor {
             return true;
         }
 
-        long userId = userId();
+        long userId = getUserId();
 
         try {
             if (logical == Logical.AND) {

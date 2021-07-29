@@ -12,6 +12,13 @@ public abstract class GritPathInterceptorBase {
     }
 
     /**
+     * 用户显示名
+     * */
+    public String getUserDisplayName() {
+        return SessionBase.global().getDisplayName();
+    }
+
+    /**
      * 验证代理::true:通过,false未通过（可以重写）
      */
     public void verifyHandle(Context ctx) throws Exception {
@@ -19,7 +26,7 @@ public abstract class GritPathInterceptorBase {
         long userId = getUserId();
 
         if (userId > 0) {
-            String userDisplayName = SessionBase.global().getDisplayName();
+            String userDisplayName = getUserDisplayName();
 
             //old
             ctx.attrSet("user_puid", String.valueOf(userId));
