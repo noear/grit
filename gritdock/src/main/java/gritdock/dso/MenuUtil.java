@@ -20,21 +20,21 @@ public class MenuUtil {
 
         StringBuilder sball = new StringBuilder();
 
-        List<Group> sysList = GritClient.group().getGroupsOfBranched();
+        List<Group> branchedList = GritClient.group().getGroupsOfBranched();
 
-        for (Group s : sysList) {
-            List<Group> modList = GritClient.getUserModules(userId, s.group_id);
+        for (Group groupBranched : branchedList) {
+            List<Group> modList = GritClient.getUserModules(userId, groupBranched.group_id);
             int modSize = 0;
 
-            StringBuilder sb  =new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.append("<section>");
-            sb.append("<header>").append(s.display_name).append("</header>");
+            sb.append("<header>").append(groupBranched.display_name).append("</header>");
             sb.append("<ul>");
             for (Group m : modList) {
                 Resource res = GritClient.getUserPathsFirst(userId, m.group_id);
-                if(Utils.isEmpty(res.link_uri) == false){
+                if (Utils.isEmpty(res.link_uri) == false) {
                     sb.append("<li>")
-                            .append("<a href='").append(GritUtil.buildDockuri(res)).append("' target='_top'>")
+                            .append("<a href='").append(GritUtil.buildDockurl(groupBranched, res)).append("' target='_top'>")
                             .append(m.display_name)
                             .append("</a>")
                             .append("</li>");
@@ -45,13 +45,13 @@ public class MenuUtil {
             sb.append("</ul>");
             sb.append("</section>");
 
-            if(modSize>0){
+            if (modSize > 0) {
 
-                if("#".equals(s.tags)){ //强制独占处理
+                if ("#".equals(groupBranched.tags)) { //强制独占处理
                     sball.append("<div>");
                     sball.append(sb.toString());
                     sball.append("</div>");
-                }else{
+                } else {
                     sball.append(sb.toString());
                 }
 

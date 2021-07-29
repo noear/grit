@@ -68,31 +68,32 @@ public class LoginController extends BaseController {
             //新方案 //20181120,(uadmin)
 
             //最后一次使用的连接系统
-            String res_root = ctx.cookie("_lLnQIO4W");
+            Group groupBranched;
 
             Resource res = null;
+            String res_root = ctx.cookie("_lLnQIO4W");
 
-            //1.尝试找上次的系统权限
+
+            //1.确定分支组
             if (TextUtils.isEmpty(res_root) == false) {
-                Group group = GritClient.group().getGroupByCode(res_root);
-                res =  GritClient.getUserPathsFirstOfBranched(user.user_id, group.group_id);
+                groupBranched = GritClient.group().getGroupByCode(res_root);
+            } else {
+                groupBranched = GritClient.getUserBranchedFrist();
             }
 
             //2.如果没有，找自己默认的权限
-            if (res == null || TextUtils.isEmpty(res.link_uri)) {
-                res = GritClient.getUserPathsFirstOfBranched(user.user_id, 0);
-            }
+            res = GritClient.getUserPathsFirstOfBranched(user.user_id, groupBranched.group_id);
 
             //3.再没有，提示错误
             if (TextUtils.isEmpty(res.link_uri)) {
                 return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
             }
 
-            String def_url = GritUtil.buildDockuri(res);
+            String res_url = GritUtil.buildDockurl(groupBranched, res);
 
             return viewModel.set("code", 1)
                     .set("msg", "ok")
-                    .set("url", def_url);
+                    .set("url", res_url);
 
         }
     }

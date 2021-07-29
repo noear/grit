@@ -185,23 +185,17 @@ public class GritClient {
                 .selectItem("r.*", Resource.class);
     }
 
-    public static Resource getUserPathsFirstOfBranched(long userId) throws SQLException {
-        return getUserPathsFirstOfBranched(userId, 0);
+    public static Group getUserBranchedFrist() throws SQLException{
+        List<Group> groupsOfBranched = group().getGroupsOfBranched();
+        if (groupsOfBranched.size() == 0) {
+            return new Group();
+        } else {
+            return groupsOfBranched.get(0);
+        }
     }
 
-    public static Resource getUserPathsFirstOfBranched(long userId, long groupId) throws SQLException {
-        if (groupId == 0) {
-            //
-            //如果没有确定的分组，则取出第一个有权限的分支
-            //
-            List<Group> groupsOfBranched = group().getGroupsOfBranched();
-            if (groupsOfBranched.size() == 0) {
-                return new Resource();
-            } else {
-                groupId = groupsOfBranched.get(0).group_id;
-            }
-        }
 
+    public static Resource getUserPathsFirstOfBranched(long userId, long groupId) throws SQLException {
         List<Group> groupList = getUserModules(userId, groupId);
         for (Group group : groupList) {
             Resource res = getUserPathsFirst(userId, group.group_id);

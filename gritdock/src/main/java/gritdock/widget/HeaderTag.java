@@ -44,7 +44,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         //当前视图path //此处改过，20180831
         String cPath = context.path();
 
-        Group groupRoot = null;
+        Group groupBranched = null;
         List<Group> list = null;
         {
             String p = GritUtil.buildGroupCodeByPath(cPath);
@@ -55,8 +55,8 @@ public class HeaderTag implements TemplateDirectiveModel {
 
                 cPath = GritUtil.cleanGroupCodeAtPath(cPath);
 
-                groupRoot = GritClient.group().getGroupByCode(p);
-                list = GritClient.getUserModules(Session.current().getUserId(), groupRoot.group_id);
+                groupBranched = GritClient.group().getGroupByCode(p);
+                list = GritClient.getUserModules(Session.current().getUserId(), groupBranched.group_id);
             }
         }
 
@@ -66,13 +66,13 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         sb.append("<label>"); //new
         //cls1
-        if (groupRoot == null) {
+        if (groupBranched == null) {
             sb.append(Config.title());
         } else {
-            if (TextUtils.isEmpty(groupRoot.display_code)) {
+            if (TextUtils.isEmpty(groupBranched.display_code)) {
                 sb.append(Config.title());
             } else {
-                sb.append(groupRoot.display_code);
+                sb.append(groupBranched.display_code);
             }
         }
 
@@ -82,14 +82,14 @@ public class HeaderTag implements TemplateDirectiveModel {
         sb.append("<nav>");
 
 
-        if (groupRoot != null) {
+        if (groupBranched != null) {
             long userId = Session.current().getUserId();
             for (Group g : list) {
                 try {
                     Resource res = GritClient.getUserPathsFirst(userId, g.group_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
-                        buildItem(sb, g.display_name, res, cPath, g.link_uri); //::en_name 改为 uri_path
+                        buildItem(sb, g.display_name, groupBranched, res, cPath, g.link_uri); //::en_name 改为 uri_path
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace(); //以防万一；万一出错头都看不见了
@@ -121,14 +121,14 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     }
 
-    private void buildItem(StringWriter sb, String title, Resource res, String cPath, String pack) {
+    private void buildItem(StringWriter sb, String title,Group groupBranched,Resource res, String cPath, String pack) {
 
         if (TextUtils.isEmpty(pack)) {
             return;
         }
 
         //此处改过，201811(uadmin)
-        String newUrl = GritUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockurl(groupBranched, res);
 
         if (cPath.indexOf(pack) == 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");

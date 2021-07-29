@@ -2,6 +2,7 @@ package org.noear.grit.client;
 
 import org.noear.grit.client.impl.EncryptUtils;
 import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 
 /**
@@ -19,7 +20,7 @@ public class GritUtil {
     /**
      * 构建地址
      */
-    public static String buildDockuri(Resource res) {
+    public static String buildDockpath(Resource res) {
         if (res == null || TextUtils.isEmpty(res.link_uri)) {
             return "";
         } else {
@@ -35,6 +36,40 @@ public class GritUtil {
                 } else {
                     return res.link_uri + "/@" + res.display_name;
                 }
+            }
+        }
+    }
+
+    public static String buildDockurl(Group branched, Resource res) {
+
+
+        if (res == null || TextUtils.isEmpty(res.link_uri)) {
+            return "";
+        } else {
+            if (res.link_uri.indexOf("/$") > 0) {
+                if (res.tags == null || res.tags.indexOf("@=") < 0) {
+                    return "/." + branched.group_code + res.link_uri;
+                } else {
+                    return "/." + branched.group_code + res.link_uri + "?@=";
+                }
+            } else {
+                StringBuilder sb = new StringBuilder();
+                sb.append("/.").append(branched.group_id).append(res.link_uri).append("/@").append(res.display_name);
+
+                if (res.tags != null && res.tags.indexOf("@=") >= 0) {
+                    sb.append("?@=");
+                }
+
+                //if(res.note!=null && res.note.indexOf("://")>0){
+                if (res.is_fullview) {
+                    if(sb.indexOf("?")>0) {
+                        sb.append("&__r=").append(res.resource_id);
+                    }else{
+                        sb.append("?__r=").append(res.resource_id);
+                    }
+                }
+
+                return sb.toString();
             }
         }
     }

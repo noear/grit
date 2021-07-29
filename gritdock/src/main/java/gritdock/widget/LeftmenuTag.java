@@ -45,11 +45,11 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         long userId = Session.global().getUserId();
 
         StringWriter sb = new StringWriter();
-
+        Group groupBranched;
         List<Group> plist = null;
         {
             String p = GritUtil.buildGroupCodeByPath(cPath);
-            GritClient.branched(p);
+            groupBranched = GritClient.group().getGroupByCode(p);
 
             if (Utils.isEmpty(p)) {
                 plist = new ArrayList<>();
@@ -73,7 +73,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         sb.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/_static/img/menu_w.png'/></div>");
         sb.append("<items>");
 
-        forPack(packID, sb, cPath);
+        forPack(groupBranched, packID, sb, cPath);
 
         sb.append("</items>");
         sb.append("</menu>");
@@ -83,23 +83,23 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
     }
 
-    private void forPack(long packID, StringWriter sb, String cPath) throws SQLException {
+    private void forPack(Group groupBranched, long packID, StringWriter sb, String cPath) throws SQLException {
 
         List<Resource> list = GritClient.getUserPaths(Session.current().getUserId(), packID);
 
         for (Resource res : list) {
-            buildItem(sb, res, cPath);
+            buildItem(sb, groupBranched, res, cPath);
         }
     }
 
-    private void buildItem(StringWriter sb, Resource res, String cPath) {
+    private void buildItem(StringWriter sb, Group groupBranched, Resource res, String cPath) {
         if ("$".equals(res.display_name)) {
             sb.append("<br/><br/>");
             return;
         }
 
         //此处改过，201811(uadmin)
-        String newUrl = GritUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockurl(groupBranched, res);
 
         //此处改过，20180831
         if (cPath.indexOf(res.link_uri) >= 0) //  /x/x   => /x/x/@x
