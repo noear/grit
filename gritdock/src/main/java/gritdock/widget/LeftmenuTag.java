@@ -57,7 +57,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
                 cPath = GritUtil.cleanGroupCodeAtPath(cPath);
 
-                plist = GritClient.getUserModules(userId);
+                plist = GritClient.getUserModules(userId, groupBranched.group_id);
             }
         }
 
@@ -70,7 +70,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
 
         sb.append("<menu>");
-        sb.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/_static/img/menu_w.png'/></div>");
+        sb.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/img/menu_w.png'/></div>");
         sb.append("<items>");
 
         forPack(groupBranched, packID, sb, cPath);

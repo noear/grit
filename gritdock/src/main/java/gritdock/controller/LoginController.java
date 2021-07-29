@@ -68,7 +68,7 @@ public class LoginController extends BaseController {
             //新方案 //20181120,(uadmin)
 
             //最后一次使用的连接系统
-            Group groupBranched;
+            Group groupBranched = null;
 
             Resource res = null;
             String res_root = ctx.cookie("_lLnQIO4W");
@@ -77,7 +77,9 @@ public class LoginController extends BaseController {
             //1.确定分支组
             if (TextUtils.isEmpty(res_root) == false) {
                 groupBranched = GritClient.group().getGroupByCode(res_root);
-            } else {
+            }
+
+            if(groupBranched == null || groupBranched.group_id==0){
                 groupBranched = GritClient.getUserBranchedFrist();
             }
 

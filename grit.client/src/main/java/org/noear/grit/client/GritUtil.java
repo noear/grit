@@ -60,11 +60,10 @@ public class GritUtil {
                     sb.append("?@=");
                 }
 
-                //if(res.note!=null && res.note.indexOf("://")>0){
-                if (res.is_fullview) {
-                    if(sb.indexOf("?")>0) {
+                if (res.remark != null && res.remark.indexOf("://") > 0) {
+                    if (sb.indexOf("?") > 0) {
                         sb.append("&__r=").append(res.resource_id);
-                    }else{
+                    } else {
                         sb.append("?__r=").append(res.resource_id);
                     }
                 }
