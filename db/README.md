@@ -5,11 +5,11 @@
 
 |  对象 | LI_OBJT | 
 | -------- | -------- | 
-| stone_group               | 2     | 
-| stone_resource            | 5     | 
-| stone_resource_linked     | 6     | 
-| stone_user                | 7     | 
-| stone_user_linked         | 8     | 
+| grit_group               | 2     | 
+| grit_resource            | 5     | 
+| grit_resource_linked     | 6     | 
+| grit_user                | 7     | 
+| grit_user_linked         | 8     | 
 
 
 ##### DEFINE 内部约定

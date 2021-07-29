@@ -30,7 +30,7 @@ public class GroupServiceImpl implements GroupService {
             return new Group();
         }
 
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .whereEq("group_id", groupId)
                 .limit(1)
                 .caching(cache)
@@ -43,7 +43,7 @@ public class GroupServiceImpl implements GroupService {
             return new Group();
         }
 
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .whereEq("group_code", groupCode)
                 .limit(1)
                 .caching(cache)
@@ -67,7 +67,7 @@ public class GroupServiceImpl implements GroupService {
             return new ArrayList<>();
         }
 
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .whereEq("group_parent_id", groupId)
                 .andEq("is_disabled", 0)
                 .andEq("is_visibled", 1)
@@ -77,7 +77,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> getGroupsByBranched() throws SQLException {
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .whereEq("is_branched", 1)
                 .andEq("is_visibled", 1)
                 .andEq("is_disabled",0)
@@ -87,13 +87,13 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> getGroupsByUser(long userId) throws SQLException {
-        List<Object> groupIds = db.table("stone_user_linked")
+        List<Object> groupIds = db.table("grit_user_linked")
                                 .whereEq("user_id",userId)
-                                .andEq("lk_objt", Constants.OBJT_stone_group)
+                                .andEq("lk_objt", Constants.OBJT_grit_group)
                                 .caching(cache)
                                 .selectArray("lk_objt_id");
 
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .whereIn("group_id", groupIds)
                 .caching(cache)
                 .selectList("*", Group.class);

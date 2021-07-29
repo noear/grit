@@ -10,13 +10,22 @@ public final class Constants {
     //
     //兼容旧的 bcf objt
     //
-    public final static int OBJT_stone_group = 2;
-    public final static int OBJT_stone_resource = 5;
-    public final static int OBJT_stone_resource_linked = 6;
-    public final static int OBJT_stone_user = 7;
-    public final static int OBJT_stone_user_linked = 8;
+    public final static int OBJT_grit_group = 2;
+    public final static int OBJT_grit_resource = 5;
+    public final static int OBJT_grit_resource_linked = 6;
+    public final static int OBJT_grit_user = 7;
+    public final static int OBJT_grit_user_linked = 8;
 
-    public final static long GROUP_resource = 1;
-    public final static long GROUP_user = 2;
-    public final static long GROUP_role = 3;
+    /**
+     * 资源组根ID
+     * */
+    public final static long GROUP_resource_root_id = 1;
+    /**
+     * 用户组根ID
+     * */
+    public final static long GROUP_user_root_id = 2;
+    /**
+     * 角色组根ID
+     * */
+    public final static long GROUP_role_root_id = 3;
 }

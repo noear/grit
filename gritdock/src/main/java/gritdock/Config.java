@@ -18,11 +18,11 @@ public class Config {
     private static DbContext db;
 
     public static String evn() {
-        return Solon.cfg().get("stonedock.env", "");
+        return Solon.cfg().get("gritdock.env", "");
     }
 
     public static String title() {
-        return Solon.cfg().get("stonedock.title", Solon.cfg().appTitle());
+        return Solon.cfg().get("gritdock.title", Solon.cfg().appTitle());
     }
 
     public static DbContext db() {
@@ -35,8 +35,8 @@ public class Config {
 
     @Bean
     public void initStoneClient() {
-        cache = new MemCache(Solon.cfg().getProp("stone.cache"));
-        db = new DbContext(Solon.cfg().getProp("stone.db"));
+        cache = new MemCache(Solon.cfg().getProp("grit.cache"));
+        db = new DbContext(Solon.cfg().getProp("grit.db"));
 
         GritClient.init(db, cache);
     }

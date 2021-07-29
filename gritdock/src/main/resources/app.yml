@@ -1,15 +1,15 @@
 
 solon.app:
-  name: "stonedock"
-  group: "stone"
+  name: "gritdock"
+  group: "grit"
   title: "跨系统通用管理平台"
 
 solon.cloud.water:
   server: "water"
   config:
-    load: "stone.yml,stonedock.yml"
+    load: "grit.yml,gritdock.yml"
 
-stonedock:
+gritdock:
   env: "演示环境"
   title: "演示环境-跨系统通用管理平台"
 

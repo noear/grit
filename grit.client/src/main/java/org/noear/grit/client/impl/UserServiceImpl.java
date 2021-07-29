@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService{
             return false;
         }
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .whereEq("login_name", loginName)
                 .selectExists();
     }
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
             return new User();
         }
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .whereEq("user_id", userId)
                 .caching(cache)
                 .selectItem("*", User.class);
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService{
             return new User();
         }
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .whereEq("login_name", loginName)
                 .caching(cache)
                 .selectItem("*", User.class);
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService{
 
         String loginPasswordHash = GritUtil.buildPassword(loginName, loginPassword);
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .whereEq("login_name", loginName)
                 .andEq("login_password", loginPasswordHash)
                 .andEq("is_disabled", 0)
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService{
         if (user.user_id > 0) {
             String loginNewPasswordHash = GritUtil.buildPassword(loginName, newLoginPassword);
 
-            return db.table("stone_user")
+            return db.table("grit_user")
                     .set("login_password", loginNewPasswordHash)
                     .whereEq("user_id", user.user_id)
                     .update() > 0 ? 2 : 0;
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService{
             return 0;
         }
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .set("state", state)
                 .whereEq("user_id", userId)
                 .update();
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService{
             return 0;
         }
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .set("is_disabled", (disabled ? 1 : 0))
                 .whereEq("user_id", userId)
                 .update();
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService{
             return 0;
         }
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .set("is_visibled", (visibled ? 1 : 0))
                 .whereEq("user_id", userId)
                 .update();
@@ -153,9 +153,9 @@ public class UserServiceImpl implements UserService{
             return false;
         }
 
-        return db.table("stone_user_linked")
+        return db.table("grit_user_linked")
                 .whereEq("user_id", userId)
-                .andEq("lk_objt", Constants.OBJT_stone_group)
+                .andEq("lk_objt", Constants.OBJT_grit_group)
                 .andEq("lk_objt_id", group.group_id)
                 .caching(cache)
                 .selectExists();
@@ -167,10 +167,10 @@ public class UserServiceImpl implements UserService{
             return false;
         }
 
-        return db.table("stone_resource r")
-                .innerJoin("stone_resource_linked rl").on("r.resource_id=rl.resource_id")
+        return db.table("grit_resource r")
+                .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
                 .whereEq("rl.lk_objt_id", userId)
-                .andEq("rl.lk_objt", Constants.OBJT_stone_user)
+                .andEq("rl.lk_objt", Constants.OBJT_grit_user)
                 .andEq("r.uri_path", uri)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
@@ -183,10 +183,10 @@ public class UserServiceImpl implements UserService{
             return false;
         }
 
-        return db.table("stone_resource r")
-                .innerJoin("stone_resource_linked rl").on("r.resource_id=rl.resource_id")
+        return db.table("grit_resource r")
+                .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
                 .whereEq("rl.lk_objt_id", userId)
-                .andEq("rl.lk_objt", Constants.OBJT_stone_user)
+                .andEq("rl.lk_objt", Constants.OBJT_grit_user)
                 .andEq("r.resource_code", reourceCode)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
@@ -200,14 +200,14 @@ public class UserServiceImpl implements UserService{
             return new ArrayList<>();
         }
 
-        List<Object> groupIds = db.table("stone_user_linked")
+        List<Object> groupIds = db.table("grit_user_linked")
                 .whereEq("user_id", userId)
-                .andEq("lk_objt", Constants.OBJT_stone_group)
+                .andEq("lk_objt", Constants.OBJT_grit_group)
                 .caching(cache)
                 .selectArray("lk_objt_id");
 
 
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .whereIn("group_id", groupIds)
                 .caching(cache)
                 .selectList("*", Group.class);
@@ -235,9 +235,9 @@ public class UserServiceImpl implements UserService{
         }
 
         //1.找出我所有的资源
-        List<Integer> resourceIds = db.table("stone_resource r")
-                .innerJoin("stone_resource_linked rl").on("r.resource_id=rl.resource_id")
-                .where("rl.lk_objt_id=? AND rl.lk_objt=? AND r.is_branched=0 AND r.is_disabled=0", userId, Constants.GROUP_user)
+        List<Integer> resourceIds = db.table("grit_resource r")
+                .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
+                .where("rl.lk_objt_id=? AND rl.lk_objt=? AND r.is_branched=0 AND r.is_disabled=0", userId, Constants.GROUP_user_root_id)
                 .caching(cache)
                 .selectArray("r.rsid");
 
@@ -246,8 +246,8 @@ public class UserServiceImpl implements UserService{
         }
 
         //2.找出资源相关的组id
-        List<Integer> groupIds = db.table("stone_resource_linked rl")
-                .where("rl.lk_objt=? AND rl.resource_id IN (?...)", Constants.OBJT_stone_group, resourceIds)
+        List<Integer> groupIds = db.table("grit_resource_linked rl")
+                .where("rl.lk_objt=? AND rl.resource_id IN (?...)", Constants.OBJT_grit_group, resourceIds)
                 .caching(cache)
                 .selectArray("DISTINCT rl.lk_objt_id");
 
@@ -256,7 +256,7 @@ public class UserServiceImpl implements UserService{
         }
 
         //3.找出相关组的诚意情
-        return db.table("stone_group")
+        return db.table("grit_group")
                 .where("group_id IN (?...) AND is_disabled=0 AND is_visibled=1", groupIds)
                 .andEq("group_pid", groupId)
                 .orderBy("Order_Index")
@@ -267,13 +267,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getUserListByGroup(long groupId) throws SQLException {
-        List<Object> userIds = db.table("stone_user_linked")
-                .whereEq("lk_objt", Constants.OBJT_stone_group)
+        List<Object> userIds = db.table("grit_user_linked")
+                .whereEq("lk_objt", Constants.OBJT_grit_group)
                 .andEq("lk_objt_id",groupId)
                 .caching(cache)
                 .selectArray("user_id");
 
-        return db.table("stone_user")
+        return db.table("grit_user")
                 .whereIn("user_id", userIds)
                 .caching(cache)
                 .selectList("*", User.class);

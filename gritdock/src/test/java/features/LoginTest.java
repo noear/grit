@@ -1,4 +1,4 @@
-package clienttest;
+package features;
 
 import org.junit.runner.RunWith;
 import org.noear.solon.test.SolonJUnit4ClassRunner;

@@ -12,7 +12,7 @@ import org.noear.weed.cache.memcached.MemCache;
 import java.util.Properties;
 
 /**
- * Stone 集成插件
+ * Grit 集成插件
  *
  * @author noear
  * @since 1.0
@@ -21,8 +21,8 @@ public class XPluginImp implements Plugin {
     @Override
     public void start(SolonApp app) {
         String p_root = Solon.cfg().appName();
-        Properties p_cache = app.cfg().getProp("stone.cache");
-        Properties p_db = app.cfg().getProp("stone.db");
+        Properties p_cache = app.cfg().getProp("grit.cache");
+        Properties p_db = app.cfg().getProp("grit.db");
 
         //1.初始化
         if (p_cache.size() > 1 && p_db.size() > 1 && p_root != null) {

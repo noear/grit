@@ -29,7 +29,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource getResourceById(long resourceId) throws SQLException {
-        return db.table("stone_resource")
+        return db.table("grit_resource")
                 .whereEq("resource_id", resourceId)
                 .limit(1)
                 .caching(cache)
@@ -38,7 +38,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource getResourceByCode(String resourceCode) throws SQLException {
-        return db.table("stone_resource")
+        return db.table("grit_resource")
                 .whereEq("resource_code", resourceCode)
                 .limit(1)
                 .caching(cache)
@@ -47,7 +47,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource getResourceByPath(String resourcePath) throws SQLException {
-        return db.table("stone_resource")
+        return db.table("grit_resource")
                 .whereEq("link_uri", resourcePath)
                 .limit(1)
                 .caching(cache)
@@ -61,7 +61,7 @@ public class ResourceServiceImpl implements ResourceService {
             return false;
         }
 
-        return db.table("stone_resource")
+        return db.table("grit_resource")
                 .whereEq("uri_path", uri)
                 .caching(cache)
                 .selectExists();
@@ -89,14 +89,14 @@ public class ResourceServiceImpl implements ResourceService {
             return new ArrayList<>();
         }
 
-        List<Object> resourceIds = db.table("stone_resource_linked")
+        List<Object> resourceIds = db.table("grit_resource_linked")
                 .whereEq("lk_objt_id", groupId)
-                .andEq("lk_objt", Constants.OBJT_stone_group)
+                .andEq("lk_objt", Constants.OBJT_grit_group)
                 .caching(cache)
                 .selectArray("resource_id");
 
 
-        return db.table("stone_resource")
+        return db.table("grit_resource")
                 .whereIn("resource_id", resourceIds)
                 .caching(cache)
                 .selectList("*", Resource.class);
@@ -108,14 +108,14 @@ public class ResourceServiceImpl implements ResourceService {
             return new ArrayList<>();
         }
 
-        List<Object> resourceIds = db.table("stone_resource_linked")
+        List<Object> resourceIds = db.table("grit_resource_linked")
                 .whereEq("lk_objt_id", userId)
-                .andEq("lk_objt", Constants.OBJT_stone_user)
+                .andEq("lk_objt", Constants.OBJT_grit_user)
                 .caching(cache)
                 .selectArray("resource_id");
 
 
-        return db.table("stone_resource")
+        return db.table("grit_resource")
                 .whereIn("resource_id", resourceIds)
                 .caching(cache)
                 .selectList("*", Resource.class);
