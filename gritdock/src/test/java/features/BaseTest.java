@@ -30,14 +30,6 @@ public class BaseTest {
     }
 
     @Test
-    public void login() throws Exception {
-        User user = GritClient.login("noear", "bcf1234");
-
-        System.out.println(user);
-        assert user.user_id == 2;
-    }
-
-    @Test
     public void getGroupById() throws Exception {
         Group group = GritClient.group().getGroupById(50);
 
