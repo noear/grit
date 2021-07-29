@@ -64,7 +64,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             Resource res = GritClient.getUserPathsFirst(userId, g.group_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
-                buildItem(sb, g.display_name, res, cPath, g.link_uri); //::en_name 改为 uri_path
+                buildItem(sb, g.display_name,  res, cPath, g.link_uri); //::en_name 改为 uri_path
             }
         }
 
@@ -88,7 +88,7 @@ public class HeaderTag implements TemplateDirectiveModel {
     private void buildItem(StringBuffer sb, String title, Resource res, String cPath, String pack) {
 
         //此处改过，noear，201811(uadmin)
-        String newUrl = GritUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockpath(res);
 
         if (cPath.indexOf(pack) == 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");

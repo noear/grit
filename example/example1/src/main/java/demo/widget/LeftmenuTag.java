@@ -77,7 +77,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
 
         //此处改过，noear，201811(uadmin)
-        String newUrl = GritUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockpath(res);
 
         //此处改过，noear，20180831
         if (cPath.indexOf(res.link_uri) >= 0) {
