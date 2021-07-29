@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService{
 
         return db.table("grit_user_linked")
                 .whereEq("user_id", userId)
-                .andEq("lk_objt", Constants.OBJT_grit_group)
+                .andEq("lk_objt", Constants.OBJT_group)
                 .andEq("lk_objt_id", group.group_id)
                 .caching(cache)
                 .selectExists();
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService{
         return db.table("grit_resource r")
                 .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
                 .whereEq("rl.lk_objt_id", userId)
-                .andEq("rl.lk_objt", Constants.OBJT_grit_user)
+                .andEq("rl.lk_objt", Constants.OBJT_user)
                 .andEq("r.uri_path", uri)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
@@ -186,7 +186,7 @@ public class UserServiceImpl implements UserService{
         return db.table("grit_resource r")
                 .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
                 .whereEq("rl.lk_objt_id", userId)
-                .andEq("rl.lk_objt", Constants.OBJT_grit_user)
+                .andEq("rl.lk_objt", Constants.OBJT_user)
                 .andEq("r.resource_code", reourceCode)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService{
 
         List<Object> groupIds = db.table("grit_user_linked")
                 .whereEq("user_id", userId)
-                .andEq("lk_objt", Constants.OBJT_grit_group)
+                .andEq("lk_objt", Constants.OBJT_group)
                 .caching(cache)
                 .selectArray("lk_objt_id");
 
@@ -247,7 +247,7 @@ public class UserServiceImpl implements UserService{
 
         //2.找出资源相关的组id
         List<Integer> groupIds = db.table("grit_resource_linked rl")
-                .where("rl.lk_objt=? AND rl.resource_id IN (?...)", Constants.OBJT_grit_group, resourceIds)
+                .where("rl.lk_objt=? AND rl.resource_id IN (?...)", Constants.OBJT_group, resourceIds)
                 .caching(cache)
                 .selectArray("DISTINCT rl.lk_objt_id");
 
@@ -268,7 +268,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> getUserListByGroup(long groupId) throws SQLException {
         List<Object> userIds = db.table("grit_user_linked")
-                .whereEq("lk_objt", Constants.OBJT_grit_group)
+                .whereEq("lk_objt", Constants.OBJT_group)
                 .andEq("lk_objt_id",groupId)
                 .caching(cache)
                 .selectArray("user_id");

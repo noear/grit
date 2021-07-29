@@ -76,7 +76,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getGroupsByBranched() throws SQLException {
+    public List<Group> getGroupsOfBranched() throws SQLException {
         return db.table("grit_group")
                 .whereEq("is_branched", 1)
                 .andEq("is_visibled", 1)
@@ -89,7 +89,7 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> getGroupsByUser(long userId) throws SQLException {
         List<Object> groupIds = db.table("grit_user_linked")
                                 .whereEq("user_id",userId)
-                                .andEq("lk_objt", Constants.OBJT_grit_group)
+                                .andEq("lk_objt", Constants.OBJT_group)
                                 .caching(cache)
                                 .selectArray("lk_objt_id");
 

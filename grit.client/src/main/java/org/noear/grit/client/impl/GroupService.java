@@ -47,7 +47,7 @@ public interface GroupService {
     /**
      * 获取分杈的分组
      * */
-    List<Group> getGroupsByBranched() throws SQLException;
+    List<Group> getGroupsOfBranched() throws SQLException;
 
     /**
      * 获取用户的分组

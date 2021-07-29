@@ -10,11 +10,11 @@ public final class Constants {
     //
     //兼容旧的 bcf objt
     //
-    public final static int OBJT_grit_group = 2;
-    public final static int OBJT_grit_resource = 5;
-    public final static int OBJT_grit_resource_linked = 6;
-    public final static int OBJT_grit_user = 7;
-    public final static int OBJT_grit_user_linked = 8;
+    public final static int OBJT_group = 2;
+    public final static int OBJT_resource = 5;
+    public final static int OBJT_resource_linked = 6;
+    public final static int OBJT_user = 7;
+    public final static int OBJT_user_linked = 8;
 
     /**
      * 资源组根ID

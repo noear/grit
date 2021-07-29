@@ -75,12 +75,12 @@ public class LoginController extends BaseController {
             //1.尝试找上次的系统权限
             if (TextUtils.isEmpty(res_root) == false) {
                 Group group = GritClient.group().getGroupByCode(res_root);
-                res =  GritClient.getUserMenusFirst(user.user_id, group.group_id);
+                res =  GritClient.getUserPathsFirstOfBranched(user.user_id, group.group_id);
             }
 
             //2.如果没有，找自己默认的权限
             if (res == null || TextUtils.isEmpty(res.link_uri)) {
-                res = getFirstResource(user.user_id);
+                res = GritClient.getUserPathsFirstOfBranched(user.user_id, 0);
             }
 
             //3.再没有，提示错误
@@ -95,21 +95,6 @@ public class LoginController extends BaseController {
                     .set("url", def_url);
 
         }
-    }
-
-    private static Resource getFirstResource(long userId) throws SQLException {
-        Resource res;
-        List<Group> list = GritClient.group().getGroupsByBranched();
-
-        for (Group group : list) {
-            res = GritClient.getUserMenusFirst(userId, group.group_id);
-
-            if (TextUtils.isEmpty(res.link_uri) == false) {
-                return res;
-            }
-        }
-
-        return new Resource();
     }
 
     /*

@@ -20,7 +20,7 @@ public class MenuUtil {
 
         StringBuilder sball = new StringBuilder();
 
-        List<Group> sysList = GritClient.group().getGroupsByBranched();
+        List<Group> sysList = GritClient.group().getGroupsOfBranched();
 
         for (Group s : sysList) {
             List<Group> modList = GritClient.getUserModules(userId, s.group_id);
@@ -31,7 +31,7 @@ public class MenuUtil {
             sb.append("<header>").append(s.display_name).append("</header>");
             sb.append("<ul>");
             for (Group m : modList) {
-                Resource res = GritClient.getUserMenusFirst(userId, m.group_id);
+                Resource res = GritClient.getUserPathsFirst(userId, m.group_id);
                 if(Utils.isEmpty(res.link_uri) == false){
                     sb.append("<li>")
                             .append("<a href='").append(GritUtil.buildDockuri(res)).append("' target='_top'>")

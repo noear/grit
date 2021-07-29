@@ -91,7 +91,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         List<Object> resourceIds = db.table("grit_resource_linked")
                 .whereEq("lk_objt_id", groupId)
-                .andEq("lk_objt", Constants.OBJT_grit_group)
+                .andEq("lk_objt", Constants.OBJT_group)
                 .caching(cache)
                 .selectArray("resource_id");
 
@@ -110,7 +110,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         List<Object> resourceIds = db.table("grit_resource_linked")
                 .whereEq("lk_objt_id", userId)
-                .andEq("lk_objt", Constants.OBJT_grit_user)
+                .andEq("lk_objt", Constants.OBJT_user)
                 .caching(cache)
                 .selectArray("resource_id");
 
