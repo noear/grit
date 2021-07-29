@@ -21,6 +21,7 @@ public class GritClient {
     private static UserService userService;
     private static GroupService groupService;
     private static ResourceService resourceService;
+    private static BranchService branchService;
     private static String branchedGroupCode;
     private static long branchedGroupId;
     private static Group branchedGroup;
@@ -35,8 +36,11 @@ public class GritClient {
         GritClient.db = db;
         GritClient.cache = cache;
 
-        userService = new UserServiceImpl(db, cache);
+
         groupService = new GroupServiceImpl(db, cache);
+        branchService = new BranchServiceImpl(db, cache);
+
+        userService = new UserServiceImpl(db, cache);
         resourceService = new ResourceServiceImpl(db, cache);
     }
 
@@ -69,6 +73,13 @@ public class GritClient {
      */
     public static GroupService group() {
         return groupService;
+    }
+
+    /**
+     * 分支组接口
+     * */
+    public static BranchService branched(){
+        return branchService;
     }
 
     /**
@@ -185,15 +196,6 @@ public class GritClient {
                 .selectItem("r.*", Resource.class);
     }
 
-    public static Group getUserBranchedFrist() throws SQLException{
-        List<Group> groupsOfBranched = group().getGroupsOfBranched();
-        if (groupsOfBranched.size() == 0) {
-            return new Group();
-        } else {
-            return groupsOfBranched.get(0);
-        }
-    }
-
 
     public static Resource getUserPathsFirstOfBranched(long userId, long groupId) throws SQLException {
         List<Group> groupList = getUserModules(userId, groupId);
@@ -229,7 +231,6 @@ public class GritClient {
      * 获取用户菜单分组
      */
     public static List<Group> getUserModules(long userId, long groupId) throws SQLException {
-
 
         //1.找出我所有的资源(注意uri_path<>'')
         List<Integer> rids = db.table("grit_resource r")

@@ -1,6 +1,7 @@
 package gritdock.dso;
 
 
+import org.noear.grit.client.model.Branch;
 import org.noear.solon.Utils;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
@@ -20,9 +21,9 @@ public class MenuUtil {
 
         StringBuilder sball = new StringBuilder();
 
-        List<Group> branchedList = GritClient.group().getGroupsOfBranched();
+        List<Branch> branchedList = GritClient.branched().getBranchList();
 
-        for (Group groupBranched : branchedList) {
+        for (Branch groupBranched : branchedList) {
             List<Group> modList = GritClient.getUserModules(userId, groupBranched.group_id);
             int modSize = 0;
 

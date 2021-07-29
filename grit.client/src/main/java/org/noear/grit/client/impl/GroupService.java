@@ -43,12 +43,6 @@ public interface GroupService {
     List<Group> getChildrenByCode(String groupCode) throws SQLException;
 
 
-
-    /**
-     * 获取分杈的分组
-     * */
-    List<Group> getGroupsOfBranched() throws SQLException;
-
     /**
      * 获取用户的分组
      * */

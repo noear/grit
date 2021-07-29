@@ -2,6 +2,7 @@ package org.noear.grit.client;
 
 import org.noear.grit.client.impl.EncryptUtils;
 import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.model.Branch;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 
@@ -40,7 +41,7 @@ public class GritUtil {
         }
     }
 
-    public static String buildDockurl(Group branched, Resource res) {
+    public static String buildDockurl(Branch branch, Resource res) {
 
 
         if (res == null || TextUtils.isEmpty(res.link_uri)) {
@@ -48,13 +49,13 @@ public class GritUtil {
         } else {
             if (res.link_uri.indexOf("/$") > 0) {
                 if (res.is_fullview) {
-                    return "/." + branched.group_code + res.link_uri + "?@=";
+                    return "/." + branch.group_code + res.link_uri + "?@=";
                 }else{
-                    return "/." + branched.group_code + res.link_uri;
+                    return "/." + branch.group_code + res.link_uri;
                 }
             } else {
                 StringBuilder sb = new StringBuilder();
-                sb.append("/.").append(branched.group_code).append(res.link_uri).append("/@").append(res.display_name);
+                sb.append("/.").append(branch.group_code).append(res.link_uri).append("/@").append(res.display_name);
 
                 if (res.is_fullview) {
                     sb.append("?@=");

@@ -1,5 +1,6 @@
 package gritdock.controller;
 
+import org.noear.grit.client.model.Branch;
 import org.noear.nami.common.TextUtils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -8,7 +9,6 @@ import org.noear.solon.core.handle.MethodType;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 import org.noear.grit.client.model.User;
 import gritdock.dso.Session;
@@ -20,7 +20,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,7 +67,7 @@ public class LoginController extends BaseController {
             //新方案 //20181120,(uadmin)
 
             //最后一次使用的连接系统
-            Group groupBranched = null;
+            Branch branch = null;
 
             Resource res = null;
             String res_root = ctx.cookie("_lLnQIO4W");
@@ -76,22 +75,22 @@ public class LoginController extends BaseController {
 
             //1.确定分支组
             if (TextUtils.isEmpty(res_root) == false) {
-                groupBranched = GritClient.group().getGroupByCode(res_root);
+                branch = GritClient.branched().getBranchByCode(res_root);
             }
 
-            if(groupBranched == null || groupBranched.group_id==0){
-                groupBranched = GritClient.getUserBranchedFrist();
+            if(branch == null || branch.group_id==0){
+                branch = GritClient.branched().getBranchFristByUser(user.user_id);
             }
 
             //2.如果没有，找自己默认的权限
-            res = GritClient.getUserPathsFirstOfBranched(user.user_id, groupBranched.group_id);
+            res = GritClient.getUserPathsFirstOfBranched(user.user_id, branch.group_id);
 
             //3.再没有，提示错误
             if (TextUtils.isEmpty(res.link_uri)) {
                 return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
             }
 
-            String res_url = GritUtil.buildDockurl(groupBranched, res);
+            String res_url = GritUtil.buildDockurl(branch, res);
 
             return viewModel.set("code", 1)
                     .set("msg", "ok")
