@@ -34,7 +34,7 @@ public class Config {
     }
 
     @Bean
-    public void initStoneClient() {
+    public void initGritClient() {
         cache = new MemCache(Solon.cfg().getProp("grit.cache"));
         db = new DbContext(Solon.cfg().getProp("grit.db"));
 

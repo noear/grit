@@ -10,7 +10,7 @@ import gritdock.dso.Session;
 
 @Mapping(value = "**", before = true)
 @Component
-public class StoneInterceptor implements Handler {
+public class GritInterceptor implements Handler {
 
     @Override
     public void handle(Context ctx) throws Throwable {
