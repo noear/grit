@@ -74,7 +74,7 @@ public class DockController extends BaseController {
             viewModel.set("fun_name", res.display_name);
             viewModel.set("fun_url", optimizeUrl(res.link_uri));
 
-            if (query != null && query.indexOf("@=") >= 0) {
+            if (res.is_fullview) {
                 viewModel.set("fun_type", 1);
             } else {
                 viewModel.set("fun_type", 0);

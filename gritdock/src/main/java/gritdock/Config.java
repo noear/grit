@@ -6,6 +6,7 @@ import org.noear.solon.annotation.Configuration;
 import org.noear.grit.client.GritClient;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheServiceEx;
+import org.noear.weed.cache.LocalCache;
 import org.noear.weed.cache.memcached.MemCache;
 
 /**
@@ -35,7 +36,7 @@ public class Config {
 
     @Bean
     public void initGritClient() {
-        cache = new MemCache(Solon.cfg().getProp("grit.cache"));
+        cache = new LocalCache(); //new MemCache(Solon.cfg().getProp("grit.cache"));
         db = new DbContext(Solon.cfg().getProp("grit.db"));
 
         GritClient.init(db, cache);

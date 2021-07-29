@@ -47,16 +47,16 @@ public class GritUtil {
             return "";
         } else {
             if (res.link_uri.indexOf("/$") > 0) {
-                if (res.tags == null || res.tags.indexOf("@=") < 0) {
-                    return "/." + branched.group_code + res.link_uri;
-                } else {
+                if (res.is_fullview) {
                     return "/." + branched.group_code + res.link_uri + "?@=";
+                }else{
+                    return "/." + branched.group_code + res.link_uri;
                 }
             } else {
                 StringBuilder sb = new StringBuilder();
                 sb.append("/.").append(branched.group_code).append(res.link_uri).append("/@").append(res.display_name);
 
-                if (res.tags != null && res.tags.indexOf("@=") >= 0) {
+                if (res.is_fullview) {
                     sb.append("?@=");
                 }
 
