@@ -1,2 +1,2 @@
-# grit
-grit
+# Grit
+
