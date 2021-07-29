@@ -6,8 +6,8 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.MethodType;
 import org.noear.solon.core.handle.ModelAndView;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 import org.noear.grit.client.model.User;
@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
         }
 
-        User user = StoneClient.login(userName, passWord);
+        User user = GritClient.login(userName, passWord);
 
         if (user.user_id == 0)
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
@@ -74,8 +74,8 @@ public class LoginController extends BaseController {
 
             //1.尝试找上次的系统权限
             if (TextUtils.isEmpty(res_root) == false) {
-                Group group = StoneClient.group().getGroupByCode(res_root);
-                res =  StoneClient.getUserMenusFirst(user.user_id, group.group_id);
+                Group group = GritClient.group().getGroupByCode(res_root);
+                res =  GritClient.getUserMenusFirst(user.user_id, group.group_id);
             }
 
             //2.如果没有，找自己默认的权限
@@ -88,7 +88,7 @@ public class LoginController extends BaseController {
                 return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
             }
 
-            String def_url = StoneUtil.buildDockuri(res);
+            String def_url = GritUtil.buildDockuri(res);
 
             return viewModel.set("code", 1)
                     .set("msg", "ok")
@@ -99,10 +99,10 @@ public class LoginController extends BaseController {
 
     private static Resource getFirstResource(long userId) throws SQLException {
         Resource res;
-        List<Group> list = StoneClient.group().getGroupsByBranched();
+        List<Group> list = GritClient.group().getGroupsByBranched();
 
         for (Group group : list) {
-            res = StoneClient.getUserMenusFirst(userId, group.group_id);
+            res = GritClient.getUserMenusFirst(userId, group.group_id);
 
             if (TextUtils.isEmpty(res.link_uri) == false) {
                 return res;
@@ -145,7 +145,7 @@ public class LoginController extends BaseController {
         HashMap<String, String> result = new HashMap<>();
 
         String loginName = Session.current().getLoginName();
-        int success = StoneClient.user().modUserPassword(loginName, oldPass, newPass);
+        int success = GritClient.user().modUserPassword(loginName, oldPass, newPass);
 
         //0:出错；1：旧密码不对；2：修改成功
         if(0 == success){

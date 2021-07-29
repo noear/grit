@@ -1,6 +1,6 @@
 package org.noear.grit.client.model;
 
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.impl.utils.TextUtils;
 import org.noear.snack.ONode;
 
@@ -27,14 +27,14 @@ public class User extends UserDo {
      * 获取当前用户的所在组列表
      */
     public List<Group> getGroupList() throws SQLException {
-        return StoneClient.group().getGroupsByUser(user_id);
+        return GritClient.group().getGroupsByUser(user_id);
     }
 
     /**
      * 获取当前用户的资源列有
      */
     public List<Resource> getResourceListByGroup(long groupId) throws SQLException {
-        return StoneClient.resource().getResourceListByUserAndGroup(user_id, groupId);
+        return GritClient.resource().getResourceListByUserAndGroup(user_id, groupId);
     }
 
 

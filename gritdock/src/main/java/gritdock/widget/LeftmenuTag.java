@@ -8,8 +8,8 @@ import freemarker.template.TemplateModel;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 import gritdock.dso.Session;
@@ -48,16 +48,16 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         List<Group> plist = null;
         {
-            String p = StoneUtil.buildGroupCodeByPath(cPath);
-            StoneClient.branched(p);
+            String p = GritUtil.buildGroupCodeByPath(cPath);
+            GritClient.branched(p);
 
             if (Utils.isEmpty(p)) {
                 plist = new ArrayList<>();
             } else {
 
-                cPath = StoneUtil.cleanGroupCodeAtPath(cPath);
+                cPath = GritUtil.cleanGroupCodeAtPath(cPath);
 
-                plist = StoneClient.getUserModules(userId);
+                plist = GritClient.getUserModules(userId);
             }
         }
 
@@ -85,7 +85,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
     private void forPack(long packID, StringWriter sb, String cPath) throws SQLException {
 
-        List<Resource> list = StoneClient.getUserMenus(Session.current().getUserId(), packID);
+        List<Resource> list = GritClient.getUserMenus(Session.current().getUserId(), packID);
 
         for (Resource res : list) {
             buildItem(sb, res, cPath);
@@ -99,7 +99,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
 
         //此处改过，201811(uadmin)
-        String newUrl = StoneUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockuri(res);
 
         //此处改过，20180831
         if (cPath.indexOf(res.link_uri) >= 0) //  /x/x   => /x/x/@x

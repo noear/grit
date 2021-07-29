@@ -3,7 +3,7 @@ package gritdock;
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheServiceEx;
 import org.noear.weed.cache.memcached.MemCache;
@@ -38,6 +38,6 @@ public class Config {
         cache = new MemCache(Solon.cfg().getProp("stone.cache"));
         db = new DbContext(Solon.cfg().getProp("stone.db"));
 
-        StoneClient.init(db, cache);
+        GritClient.init(db, cache);
     }
 }

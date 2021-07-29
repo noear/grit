@@ -7,8 +7,8 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.impl.utils.TextUtils;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
@@ -47,16 +47,16 @@ public class HeaderTag implements TemplateDirectiveModel {
         Group groupRoot = null;
         List<Group> list = null;
         {
-            String p = StoneUtil.buildGroupCodeByPath(cPath);
+            String p = GritUtil.buildGroupCodeByPath(cPath);
 
             if (TextUtils.isEmpty(p)) {
                 list = new ArrayList<>();
             } else {
 
-                cPath = StoneUtil.cleanGroupCodeAtPath(cPath);
+                cPath = GritUtil.cleanGroupCodeAtPath(cPath);
 
-                groupRoot = StoneClient.group().getGroupByCode(p);
-                list = StoneClient.getUserModules(Session.current().getUserId(), groupRoot.group_id);
+                groupRoot = GritClient.group().getGroupByCode(p);
+                list = GritClient.getUserModules(Session.current().getUserId(), groupRoot.group_id);
             }
         }
 
@@ -86,7 +86,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             long userId = Session.current().getUserId();
             for (Group g : list) {
                 try {
-                    Resource res = StoneClient.getUserMenusFirst(userId, g.group_id);
+                    Resource res = GritClient.getUserMenusFirst(userId, g.group_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
                         buildItem(sb, g.display_name, res, cPath, g.link_uri); //::en_name 改为 uri_path
@@ -128,7 +128,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         }
 
         //此处改过，201811(uadmin)
-        String newUrl = StoneUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockuri(res);
 
         if (cPath.indexOf(pack) == 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");

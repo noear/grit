@@ -6,8 +6,8 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 import org.noear.weed.cache.CacheUsing;
@@ -67,10 +67,10 @@ public class DockController extends BaseController {
         String path = ctx.path();
         String query = ctx.queryString();
 
-        path = StoneUtil.cleanGroupCodeAtPath(path);
+        path = GritUtil.cleanGroupCodeAtPath(path);
 
         try {
-            Resource res = StoneClient.resource().getResourceByPath(path);
+            Resource res = GritClient.resource().getResourceByPath(path);
             viewModel.set("fun_name", res.display_name);
             viewModel.set("fun_url", optimizeUrl(res.link_uri));
 
@@ -97,15 +97,15 @@ public class DockController extends BaseController {
         String fun_name = uri.split("/@")[1]; // /x/x/@x   =>  /x/x   +  服务监控
         String fun_url = uri.split("/@")[0];
 
-        fun_url = StoneUtil.cleanGroupCodeAtPath(fun_url);
+        fun_url = GritUtil.cleanGroupCodeAtPath(fun_url);
 
         String newUrl = fun_url;
-        String p = StoneUtil.buildGroupCodeByPath(uri);
+        String p = GritUtil.buildGroupCodeByPath(uri);
         String r = ctx.param("__r");
 
         //如果有r参数传入，则用r.note获取域 (r = res_id)
         if (Utils.isEmpty(r) == false) {
-            Resource res = StoneClient.resource().getResourceById(Integer.parseInt(r));
+            Resource res = GritClient.resource().getResourceById(Integer.parseInt(r));
             if (res.link_uri != null && res.link_uri.indexOf("://") > 0) {
                 newUrl = res.link_uri + fun_url;
             }
@@ -115,7 +115,7 @@ public class DockController extends BaseController {
 
             //如果还没有域尝试从根包获取
             if (newUrl.indexOf("://") < 0) {
-                Group pack = StoneClient.group().getGroupByCode(p);
+                Group pack = GritClient.group().getGroupByCode(p);
 
                 if (Utils.isEmpty(pack.link_uri) == false) {
                     newUrl = pack.link_uri + fun_url;
@@ -160,7 +160,7 @@ public class DockController extends BaseController {
         }
 
         if (url.indexOf("{{") > 0) {
-            ONode tmp = StoneClient.user().getUserMeta(Session.current().getUserId());
+            ONode tmp = GritClient.user().getUserMeta(Session.current().getUserId());
             for (String key : tmp.obj().keySet()) {
                 url = url.replace("{{" + key + "}}", tmp.get(key).getString());
             }

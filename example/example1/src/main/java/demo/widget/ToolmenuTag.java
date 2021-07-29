@@ -9,7 +9,7 @@ import freemarker.template.TemplateModel;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.NvMap;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 
@@ -46,7 +46,7 @@ public class ToolmenuTag implements TemplateDirectiveModel {
 
         StringBuffer sb = new StringBuffer();
 
-        Group gPack = StoneClient.group().getGroupByCode(pack);
+        Group gPack = GritClient.group().getGroupByCode(pack);
 
         if (gPack.group_id > 0) {
             sb.append("<toolmenu>");
@@ -62,7 +62,7 @@ public class ToolmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(Context ctx, long userId, long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<Resource> list = StoneClient.getUserMenus(userId, packID);
+        List<Resource> list = GritClient.getUserMenus(userId, packID);
 
         for (Resource r : list) {
             buildItem(ctx, sb, r.display_name, r.link_uri, cPath);

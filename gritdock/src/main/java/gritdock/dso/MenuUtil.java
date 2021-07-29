@@ -2,8 +2,8 @@ package gritdock.dso;
 
 
 import org.noear.solon.Utils;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 import gritdock.models.MenuViewModel;
@@ -20,10 +20,10 @@ public class MenuUtil {
 
         StringBuilder sball = new StringBuilder();
 
-        List<Group> sysList = StoneClient.group().getGroupsByBranched();
+        List<Group> sysList = GritClient.group().getGroupsByBranched();
 
         for (Group s : sysList) {
-            List<Group> modList = StoneClient.getUserModules(userId, s.group_id);
+            List<Group> modList = GritClient.getUserModules(userId, s.group_id);
             int modSize = 0;
 
             StringBuilder sb  =new StringBuilder();
@@ -31,10 +31,10 @@ public class MenuUtil {
             sb.append("<header>").append(s.display_name).append("</header>");
             sb.append("<ul>");
             for (Group m : modList) {
-                Resource res = StoneClient.getUserMenusFirst(userId, m.group_id);
+                Resource res = GritClient.getUserMenusFirst(userId, m.group_id);
                 if(Utils.isEmpty(res.link_uri) == false){
                     sb.append("<li>")
-                            .append("<a href='").append(StoneUtil.buildDockuri(res)).append("' target='_top'>")
+                            .append("<a href='").append(GritUtil.buildDockuri(res)).append("' target='_top'>")
                             .append(m.display_name)
                             .append("</a>")
                             .append("</li>");

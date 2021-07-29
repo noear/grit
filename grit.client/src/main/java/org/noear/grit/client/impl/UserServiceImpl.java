@@ -1,8 +1,8 @@
 package org.noear.grit.client.impl;
 
 import org.noear.snack.ONode;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.impl.utils.TextUtils;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.User;
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
             return new User();
         }
 
-        String loginPasswordHash = StoneUtil.buildPassword(loginName, loginPassword);
+        String loginPasswordHash = GritUtil.buildPassword(loginName, loginPassword);
 
         return db.table("stone_user")
                 .whereEq("login_name", loginName)
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService{
         User user = login(loginName, loginPassword);
 
         if (user.user_id > 0) {
-            String loginNewPasswordHash = StoneUtil.buildPassword(loginName, newLoginPassword);
+            String loginNewPasswordHash = GritUtil.buildPassword(loginName, newLoginPassword);
 
             return db.table("stone_user")
                     .set("login_password", loginNewPasswordHash)
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService{
             return false;
         }
 
-        Group group = StoneClient.group().getGroupByCode(groupCode);
+        Group group = GritClient.group().getGroupByCode(groupCode);
 
         if (group.group_id < 1) {
             return false;
@@ -219,7 +219,7 @@ public class UserServiceImpl implements UserService{
             return new ArrayList<>();
         }
 
-        Group group = StoneClient.group().getGroupByCode(groupCode);
+        Group group = GritClient.group().getGroupByCode(groupCode);
 
         if (group.group_id < 1) {
             return new ArrayList<>();

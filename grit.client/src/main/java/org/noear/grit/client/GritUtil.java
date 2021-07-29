@@ -8,7 +8,7 @@ import org.noear.grit.client.model.Resource;
  * @author noear
  * @since 1.3
  */
-public class StoneUtil {
+public class GritUtil {
     /**
      * 构建密码
      */

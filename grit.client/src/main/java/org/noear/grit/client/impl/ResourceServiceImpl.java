@@ -1,6 +1,6 @@
 package org.noear.grit.client.impl;
 
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.impl.utils.TextUtils;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
@@ -78,7 +78,7 @@ public class ResourceServiceImpl implements ResourceService {
             return new ArrayList<>();
         }
 
-        Group group = StoneClient.group().getGroupByCode(groupCode);
+        Group group = GritClient.group().getGroupByCode(groupCode);
 
         return getResourceListByGroup(group.group_id);
     }
@@ -127,7 +127,7 @@ public class ResourceServiceImpl implements ResourceService {
             return new ArrayList<>();
         }
 
-        Group group = StoneClient.group().getGroupByCode(groupCode);
+        Group group = GritClient.group().getGroupByCode(groupCode);
 
         return getResourceListByUserAndGroup(userId, group.group_id);
     }

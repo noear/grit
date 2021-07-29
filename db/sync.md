@@ -1,7 +1,7 @@
 
 ```sql
--- bcf.group => stone.group
-INSERT water_stone.stone_group(
+-- bcf.group => grit.group
+INSERT water_grit.grit_group(
 group_id,group_root_id,group_parent_id,group_code,display_name,
 display_code,order_index,order_refer,link_uri,icon_uri,
 tags,is_branched,is_disabled,is_visibled,create_fulltime,update_fulltime)
@@ -13,8 +13,8 @@ FROM water_bcf.bcf_group;
 
 
 ```sql
--- bcf.user => stone.user
-INSERT water_stone.stone_user (
+-- bcf.user => grit.user
+INSERT water_grit.grit_user (
 user_id,user_code,login_name,login_password,login_token,
 display_name,remark,mail,tags,is_disabled,is_visibled,create_fulltime,update_fulltime
 )
@@ -26,8 +26,8 @@ FROM water_bcf.bcf_user;
 
 
 ```sql
--- bcf.resource => stone.resource
-INSERT water_stone.stone_resource(
+-- bcf.resource => grit.resource
+INSERT water_grit.grit_resource(
 resource_id,resource_code,display_name,order_index,link_uri,link_target,
 icon_uri,remark,is_fullview,is_disabled,
 is_visibled,create_fulltime,update_fulltime
@@ -41,7 +41,7 @@ FROM water_bcf.bcf_resource;
 
 
 ```sql
-INSERT water_stone.stone_resource_linked(
+INSERT water_grit.grit_resource_linked(
 resource_id,lk_objt,lk_objt_id
 )
 SELECT rsid,lk_objt,lk_objt_id
@@ -49,7 +49,7 @@ FROM water_bcf.bcf_resource_linked;
 ```
 
 ```sql
-INSERT water_stone.stone_user_linked(
+INSERT water_grit.grit_user_linked(
 user_id,lk_objt,lk_objt_id
 )
 SELECT puid,lk_objt,lk_objt_id

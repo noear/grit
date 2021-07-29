@@ -1,6 +1,6 @@
 package org.noear.solon.extend.grit;
 
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.model.User;
 
 /**
@@ -30,7 +30,7 @@ public abstract class SessionBase extends SessionAbstractBase {
      * 加载用户数据模型
      * */
     public void loadModel(String userID, String password) throws Exception {
-        loadModel(StoneClient.login(userID, password));
+        loadModel(GritClient.login(userID, password));
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class SessionBase extends SessionAbstractBase {
 
         if (temp > 0 && (temp != localUserId())) {
             try {
-                User user = StoneClient.user().getUserById(temp);
+                User user = GritClient.user().getUserById(temp);
                 loadModel(user);
 
             } catch (Exception ex) {

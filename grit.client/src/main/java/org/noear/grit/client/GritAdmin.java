@@ -6,5 +6,5 @@ package org.noear.grit.client;
  * @author noear
  * @since 1.0
  */
-public interface StoneAdmin {
+public interface GritAdmin {
 }

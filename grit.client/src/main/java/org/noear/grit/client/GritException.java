@@ -4,8 +4,8 @@ package org.noear.grit.client;
  * @author noear
  * @since 1.0
  */
-public class StoneException extends RuntimeException {
-    public StoneException(String message) {
+public class GritException extends RuntimeException {
+    public GritException(String message) {
         super(message);
     }
 }

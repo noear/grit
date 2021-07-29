@@ -5,7 +5,7 @@ import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.Utils;
 import org.noear.solon.core.Plugin;
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.memcached.MemCache;
 
@@ -30,8 +30,8 @@ public class XPluginImp implements Plugin {
             MemCache cache = new MemCache(p_cache);
             DbContext db = getDbDo(p_db);
 
-            StoneClient.init(db, cache);
-            StoneClient.branched(p_root);
+            GritClient.init(db, cache);
+            GritClient.branched(p_root);
         }
 
         //2.加载domain.js

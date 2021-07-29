@@ -1,7 +1,7 @@
 package org.noear.solon.extend.grit;
 
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 
 public abstract class InterceptorBase {
     /**
@@ -30,7 +30,7 @@ public abstract class InterceptorBase {
         }
 
         if (path.indexOf("/ajax/") < 0 && path.startsWith("/login") == false) {
-            if (StoneClient.resource().hasResourcePath(path)) {
+            if (GritClient.resource().hasResourcePath(path)) {
 
                 if (userId == 0) {
                     ctx.redirect("/login");
@@ -38,7 +38,7 @@ public abstract class InterceptorBase {
                     return;
                 }
 
-                if (StoneClient.userHasPath(userId, path) == false) {
+                if (GritClient.userHasPath(userId, path) == false) {
                     ctx.outputAsHtml("Sorry, no permission!");
                     ctx.setHandled(true);
                     return;

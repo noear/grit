@@ -7,8 +7,8 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 
@@ -37,7 +37,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         StringBuilder sb = new StringBuilder();
 
-        List<Group> plist = StoneClient.getUserModules(userId);
+        List<Group> plist = GritClient.getUserModules(userId);
         long packID = 0;
         for (Group p : plist) {
             if (cPath.indexOf(p.link_uri) == 0) {
@@ -63,7 +63,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(long userId, long packID, StringBuilder sb, String cPath) throws SQLException {
-        List<Resource> list = StoneClient.getUserMenus(userId, packID);
+        List<Resource> list = GritClient.getUserMenus(userId, packID);
 
         for (Resource res : list) {
             buildItem(sb, res, cPath);
@@ -77,7 +77,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
 
         //此处改过，noear，201811(uadmin)
-        String newUrl = StoneUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockuri(res);
 
         //此处改过，noear，20180831
         if (cPath.indexOf(res.link_uri) >= 0) {

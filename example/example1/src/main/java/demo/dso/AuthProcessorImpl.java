@@ -3,7 +3,7 @@ package demo.dso;
 import org.noear.solon.auth.AuthProcessor;
 import org.noear.solon.auth.annotation.Logical;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 
 /**
  * @author noear 2021/5/28 created
@@ -26,8 +26,8 @@ public class AuthProcessorImpl implements AuthProcessor {
     @Override
     public boolean verifyPath(String path, String method) {
         try {
-            if (StoneClient.resource().hasResourcePath(path)) {
-                return StoneClient.userHasPath(puid(), path);
+            if (GritClient.resource().hasResourcePath(path)) {
+                return GritClient.userHasPath(puid(), path);
             } else {
                 return true;
             }
@@ -45,13 +45,13 @@ public class AuthProcessorImpl implements AuthProcessor {
                 boolean isOk = true;
 
                 for (String p : permissions) {
-                    isOk = isOk && StoneClient.userHasPermission(puid(), p);
+                    isOk = isOk && GritClient.userHasPermission(puid(), p);
                 }
 
                 return isOk;
             } else {
                 for (String p : permissions) {
-                    if (StoneClient.userHasPermission(puid(), p)) {
+                    if (GritClient.userHasPermission(puid(), p)) {
                         return true;
                     }
                 }
@@ -71,13 +71,13 @@ public class AuthProcessorImpl implements AuthProcessor {
                 boolean isOk = true;
 
                 for (String p : roles) {
-                    isOk = isOk && StoneClient.userHasRole(puid, p); //BcfClient.isUserInGroup(puid, p);
+                    isOk = isOk && GritClient.userHasRole(puid, p); //BcfClient.isUserInGroup(puid, p);
                 }
 
                 return isOk;
             } else {
                 for (String p : roles) {
-                    if (StoneClient.userHasRole(puid, p)) {
+                    if (GritClient.userHasRole(puid, p)) {
                         return true;
                     }
                 }

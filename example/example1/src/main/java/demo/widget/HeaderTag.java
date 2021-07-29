@@ -9,8 +9,8 @@ import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
-import org.noear.grit.client.StoneUtil;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
 
@@ -42,7 +42,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             return;
         }
 
-        List<Group> list = StoneClient.getUserModules(userId);
+        List<Group> list = GritClient.getUserModules(userId);
 
         if (list.size() == 0) {
             ctx.redirect("/login");
@@ -61,7 +61,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         sb.append("<nav>");
 
         for (Group g : list) {
-            Resource res = StoneClient.getUserMenusFirst(userId, g.group_id);
+            Resource res = GritClient.getUserMenusFirst(userId, g.group_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
                 buildItem(sb, g.display_name, res, cPath, g.link_uri); //::en_name 改为 uri_path
@@ -88,7 +88,7 @@ public class HeaderTag implements TemplateDirectiveModel {
     private void buildItem(StringBuffer sb, String title, Resource res, String cPath, String pack) {
 
         //此处改过，noear，201811(uadmin)
-        String newUrl = StoneUtil.buildDockuri(res);
+        String newUrl = GritUtil.buildDockuri(res);
 
         if (cPath.indexOf(pack) == 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");

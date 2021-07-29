@@ -2,7 +2,7 @@ package demo.dso;
 
 import org.noear.solon.auth.AuthProcessorBase;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.StoneClient;
+import org.noear.grit.client.GritClient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,8 +28,8 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     @Override
     public boolean verifyPath(String path, String method) {
         try {
-            if (StoneClient.resource().hasResourcePath(path)) {
-                return StoneClient.userHasPath(puid(), path);
+            if (GritClient.resource().hasResourcePath(path)) {
+                return GritClient.userHasPath(puid(), path);
             } else {
                 return true;
             }
@@ -41,7 +41,7 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     @Override
     protected List<String> getPermissions() {
         try {
-            return StoneClient.getUserPermissions(puid()).stream().map(m -> m.resource_code).collect(Collectors.toList());
+            return GritClient.getUserPermissions(puid()).stream().map(m -> m.resource_code).collect(Collectors.toList());
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     @Override
     protected List<String> getRoles() {
         try {
-            return StoneClient.getUserRoles(puid()).stream().map(m -> m.group_code).collect(Collectors.toList());
+            return GritClient.getUserRoles(puid()).stream().map(m -> m.group_code).collect(Collectors.toList());
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {

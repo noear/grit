@@ -15,7 +15,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  * */
-public class StoneClient {
+public class GritClient {
     private static UserService userService;
     private static GroupService groupService;
     private static ResourceService resourceService;
