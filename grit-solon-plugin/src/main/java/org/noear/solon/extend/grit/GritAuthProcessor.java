@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.0
  */
-public abstract class GritAuthProcessorBase implements AuthProcessor {
+public class GritAuthProcessor implements AuthProcessor {
     public long getUserId(){
         return SessionBase.global().getUserId();
     }
