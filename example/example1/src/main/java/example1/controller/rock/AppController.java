@@ -1,19 +1,18 @@
-package demo.controller.rock;
+package example1.controller.rock;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
-import org.noear.solon.auth.annotation.AuthPermissions;
 import org.noear.solon.auth.annotation.AuthRoles;
 
 /**
  * @author noear 2021/6/1 created
  */
-@Mapping("/rock/agroup")
+@Mapping("/rock/app")
 @Controller
-public class AgroupController {
+public class AppController {
     @Mapping("")
     public void home() {
-        //agroup 首页
+        //app 首页
     }
 
     @Mapping("inner")
@@ -21,15 +20,14 @@ public class AgroupController {
         //内部列表页
     }
 
-    @AuthPermissions("agroup:edit")
     @Mapping("edit/{id}")
     public void edit(int id) {
-        //编辑显示页，需要编辑权限
+        //编辑显示页
     }
 
-    @AuthRoles("admin")
+    @AuthRoles({"admin", "operator"})
     @Mapping("edit/{id}/ajax/save")
     public void save(int id) {
-        //编辑处理接口，需要管理员权限
+        //编辑处理接口，需要管理员或操作员权限
     }
 }

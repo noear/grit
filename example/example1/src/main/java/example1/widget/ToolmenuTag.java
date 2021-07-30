@@ -1,4 +1,4 @@
-package demo.widget;
+package example1.widget;
 
 
 import freemarker.core.Environment;

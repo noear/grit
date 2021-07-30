@@ -1,4 +1,4 @@
-package demo.dso;
+package example1.dso;
 
 import org.noear.solon.auth.AuthProcessor;
 import org.noear.solon.auth.annotation.Logical;

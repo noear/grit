@@ -25,5 +25,6 @@
         <module>gritdock</module>
 
         <module>example/example1</module>
+        <module>example/example2</module>
     </modules>
 </project>

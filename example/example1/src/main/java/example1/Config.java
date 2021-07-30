@@ -1,6 +1,6 @@
-package demo;
+package example1;
 
-import demo.dso.AuthProcessorImpl;
+import example1.dso.AuthProcessorImpl;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 import org.noear.solon.auth.AuthAdapter;
