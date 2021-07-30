@@ -89,7 +89,7 @@ public class HeaderTag implements TemplateDirectiveModel {
     private void buildItem(StringBuffer sb, String title, Resource res, String cPath, String pack) {
 
         //此处改过，noear，201811(uadmin)
-        String newUrl = GritUtil.buildDockpath(res);
+        String newUrl = GritUtil.buildDockUri(res);
 
         if (cPath.indexOf(pack) == 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");

@@ -83,7 +83,7 @@ public class LoginController extends BaseController {
                 return viewModel.set("code", 0)
                         .set("msg", "提示：请联系管理员开通权限");
             } else {
-                res_url = GritUtil.buildDockpath(res);
+                res_url = GritUtil.buildDockUri(res);
 
                 return viewModel.set("code", 1)
                         .set("msg", "ok")

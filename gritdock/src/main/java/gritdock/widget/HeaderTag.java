@@ -129,7 +129,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         }
 
         //此处改过，201811(uadmin)
-        String newUrl = GritUtil.buildDockurl(groupBranched, res);
+        String newUrl = GritUtil.buildDockFullUri(groupBranched, res);
 
         if (cPath.indexOf(pack) == 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");
