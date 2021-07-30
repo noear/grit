@@ -62,7 +62,7 @@ public class ResourceServiceImpl implements ResourceService {
         }
 
         return db.table("grit_resource")
-                .whereEq("uri_path", uri)
+                .whereEq("link_uri", uri)
                 .caching(cache)
                 .selectExists();
     }

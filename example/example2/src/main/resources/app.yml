@@ -7,5 +7,5 @@ solon.app:
 solon.cloud.water:
   server: "waterapi.water"
   config:
-    load: "grit:grit.yml,grit:gritdock.yml"
+    load: "grit::grit.yml"
 
