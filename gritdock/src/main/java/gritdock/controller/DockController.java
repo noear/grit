@@ -4,6 +4,7 @@ import org.noear.snack.ONode;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.grit.client.GritClient;
@@ -20,7 +21,8 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 
 /**
- * Created by noear on 18-10-10.
+ * @author noear
+ * @since 1.0
  */
 @Controller
 public class DockController extends BaseController {
@@ -64,23 +66,22 @@ public class DockController extends BaseController {
     //支持外部url
     @Mapping("/**/$*") //视图 返回
     public ModelAndView dock1(Context ctx) {
-        String path = ctx.path();
-        String query = ctx.queryString();
+        String path = ctx.pathNew();
 
         path = GritUtil.cleanGroupCodeAtPath(path);
 
         try {
             Resource res = GritClient.resource().getResourceByPath(path);
             viewModel.set("fun_name", res.display_name);
-            viewModel.set("fun_url", optimizeUrl(res.link_uri));
+            viewModel.set("fun_url", res.link_uri);
 
             if (res.is_fullview) {
                 viewModel.set("fun_type", 1);
             } else {
                 viewModel.set("fun_type", 0);
             }
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
+            EventBus.push(e);
         }
 
         return view("dock");
@@ -94,7 +95,7 @@ public class DockController extends BaseController {
         String uri = ctx.path();
         String query = ctx.queryString();
 
-        String fun_name = uri.split("/@")[1]; // /x/x/@x   =>  /x/x   +  服务监控
+        String fun_name = uri.split("/@")[1];
         String fun_url = uri.split("/@")[0];
 
         fun_url = GritUtil.cleanGroupCodeAtPath(fun_url);
@@ -137,38 +138,18 @@ public class DockController extends BaseController {
 
 
         try {
-
-
             viewModel.set("fun_name", URLDecoder.decode(fun_name, "utf-8"));
-            viewModel.set("fun_url", optimizeUrl(newUrl));
+            viewModel.set("fun_url", newUrl);
 
             if (query != null && query.indexOf("@=") >= 0) {
                 viewModel.set("fun_type", 1);
             } else {
                 viewModel.set("fun_type", 0);
             }
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
+            EventBus.push(e);
         }
 
         return view("dock");
-    }
-
-    public String optimizeUrl(String url) throws Exception {
-        if (url == null) {
-            return null;
-        }
-
-        if (url.indexOf("{{") > 0) {
-            ONode tmp = GritClient.user().getUserMeta(Session.current().getUserId());
-            for (String key : tmp.obj().keySet()) {
-                url = url.replace("{{" + key + "}}", tmp.get(key).getString());
-            }
-
-            return url;
-        } else {
-            return url;
-        }
-
     }
 }

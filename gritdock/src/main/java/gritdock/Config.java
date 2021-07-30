@@ -17,10 +17,16 @@ public class Config {
     private static ICacheServiceEx cache;
     private static DbContext db;
 
+    /**
+     * 平台环境
+     * */
     public static String evn() {
         return Solon.cfg().get("gritdock.env", "");
     }
 
+    /**
+     * 平台标题
+     * */
     public static String title() {
         return Solon.cfg().get("gritdock.title", Solon.cfg().appTitle());
     }

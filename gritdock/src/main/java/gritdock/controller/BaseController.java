@@ -2,7 +2,6 @@ package gritdock.controller;
 
 
 import org.noear.solon.annotation.Singleton;
-import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import gritdock.Config;
 import gritdock.dso.Session;
@@ -10,19 +9,6 @@ import gritdock.util.Datetime;
 
 @Singleton(false)
 public abstract class BaseController {
-
-    //获取 StateSelectorTag 传来的值
-    public int getState(Context ctx) {
-        return getInt(ctx, "_state");
-    }
-
-    public int getInt(Context ctx, String key) {
-        return ctx.paramAsInt(key);
-    }
-
-    public String getIP(Context ctx) {
-        return ctx.realIp();
-    }
 
     /*视图数据模型*/
     protected ViewModel viewModel = new ViewModel();

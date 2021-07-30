@@ -30,23 +30,21 @@ public class LoginController extends BaseController {
 
     @Mapping("/login") //视图 返回
     public ModelAndView login(Context ctx) {
-        //Config.regWater(request);
-
         ctx.sessionClear();
 
         return view("login");
     }
 
     @Mapping("/")
-    public void index() throws Exception{
-        Context.current().redirect("/login");
+    public void index(Context ctx) throws Exception {
+        ctx.redirect("/login");
     }
     //-----------------
 
     //ajax.path like "{view}/ajax/{cmd}"
 
-    @Mapping("/login/ajax/check")  // Map<,> 返回[json]  (ViewModel 是 Map<String,Object> 的子类)
-    public ViewModel login_ajax_check(String userName, String passWord, String validationCode, Context ctx) throws Exception {
+    @Mapping("/login/ajax/check")
+    public ViewModel login_ajax_check(Context ctx, String userName, String passWord, String validationCode) throws Exception {
 
         //验证码检查
         if (!validationCode.toLowerCase().equals(Session.current().getValidation())) {
@@ -57,28 +55,31 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
         }
 
+        //用户登录
         User user = GritClient.login(userName, passWord);
 
         if (user.user_id == 0)
-            return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
+            //用户登录::失败
+            //
+            return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！");
         else {
+            //用户登录::成功
+            //
             Session.current().loadModel(user);
 
-            //新方案 //20181120,(uadmin)
-
             //最后一次使用的连接系统
+            String branchCode = ctx.cookie("_lLnQIO4W");
             Branch branch = null;
 
             Resource res = null;
-            String res_root = ctx.cookie("_lLnQIO4W");
 
 
             //1.确定分支组
-            if (TextUtils.isEmpty(res_root) == false) {
-                branch = GritClient.branched().getBranchByCode(res_root);
+            if (TextUtils.isEmpty(branchCode) == false) {
+                branch = GritClient.branched().getBranchByCode(branchCode);
             }
 
-            if(branch == null || branch.group_id==0){
+            if (branch == null || branch.group_id == 0) {
                 branch = GritClient.branched().getBranchFristByUser(user.user_id);
             }
 
@@ -90,11 +91,11 @@ public class LoginController extends BaseController {
                 return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
             }
 
-            String res_url = GritUtil.buildDockFullUri(branch, res);
+            String newUrl = GritUtil.buildDockFullUri(branch, res);
 
             return viewModel.set("code", 1)
                     .set("msg", "ok")
-                    .set("url", res_url);
+                    .set("url", newUrl);
 
         }
     }
@@ -102,7 +103,7 @@ public class LoginController extends BaseController {
     /*
      * 获取验证码图片
      */
-    @Mapping(value = "/login/validation/img",method = MethodType.GET, produces = "image/jpeg")
+    @Mapping(value = "/login/validation/img", method = MethodType.GET, produces = "image/jpeg")
     public void getValidationImg(Context ctx) throws IOException {
         // 生成验证码存入session
         String code = RandomUtils.code(4);
@@ -122,31 +123,34 @@ public class LoginController extends BaseController {
     }
 
     @Mapping("/user/modifymm")
-    public ModelAndView modifyPassword(){
+    public ModelAndView modifyPassword() {
         return view("passwordModify");
     }
 
     //确认修改密码
     @Mapping("/user/confirmModify")
-    public Map<String,String> confirmModify(String newPass, String oldPass) throws SQLException{
+    public Map<String, String> confirmModify(String newPass, String oldPass) throws SQLException {
         HashMap<String, String> result = new HashMap<>();
 
         String loginName = Session.current().getLoginName();
         int success = GritClient.user().modUserPassword(loginName, oldPass, newPass);
 
         //0:出错；1：旧密码不对；2：修改成功
-        if(0 == success){
-            result.put("code","0");
-            result.put("msg","出错了");
+        if (0 == success) {
+            result.put("code", "0");
+            result.put("msg", "出错了");
         }
-        if(1 == success){
-            result.put("code","0");
-            result.put("msg","旧密码不对");
+
+        if (1 == success) {
+            result.put("code", "0");
+            result.put("msg", "旧密码不对");
         }
-        if(2 == success){
-            result.put("code","1");
-            result.put("msg","修改成功");
+
+        if (2 == success) {
+            result.put("code", "1");
+            result.put("msg", "修改成功");
         }
+
         return result;
     }
 }
