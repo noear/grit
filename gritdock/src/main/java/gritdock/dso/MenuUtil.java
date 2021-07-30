@@ -33,7 +33,7 @@ public class MenuUtil {
             sb.append("<ul>");
             for (Group m : modList) {
                 Resource res = GritClient.getUserMenusFirstOfModule(userId, m.group_id);
-                if (Utils.isEmpty(res.link_uri) == false) {
+                if (Utils.isNotEmpty(res.link_uri)) {
                     sb.append("<li>")
                             .append("<a href='").append(GritUtil.buildDockFullUri(groupBranched, res)).append("' target='_top'>")
                             .append(m.display_name)
