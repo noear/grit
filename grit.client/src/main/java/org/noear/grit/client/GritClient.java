@@ -109,12 +109,14 @@ public class GritClient {
             return false;
         }
 
-        return db.table("grit_resource r")
-                .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
-                .where("rl.lk_objt_id=? AND rl.lk_objt = ? AND r.link_uri=? AND r.is_disabled=0 AND r.is_visibled=1", userId, Constants.OBJT_user, path)
-                .limit(1)
-                .caching(cache)
-                .selectValue("r.rsid") != null;
+        return user().userHasReourceUri(userId, path);
+
+//        return db.table("grit_resource r")
+//                .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
+//                .where("rl.lk_objt_id=? AND rl.lk_objt = ? AND r.link_uri=? AND r.is_disabled=0 AND r.is_visibled=1", userId, Constants.OBJT_user, path)
+//                .limit(1)
+//                .caching(cache)
+//                .selectValue("r.resource_id") != null;
     }
 
     /**
@@ -125,12 +127,14 @@ public class GritClient {
             return false;
         }
 
-        return db.table("grit_resource r")
-                .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
-                .where("rl.lk_objt_id=? AND rl.lk_objt = ? AND r.resource_code=? AND r.is_disabled=0 AND r.is_visibled=0", userId, Constants.OBJT_user, resourceCode)
-                .limit(1)
-                .caching(cache)
-                .selectValue("r.rsid") != null;
+        return user().userHasReourceCode(userId, resourceCode);
+
+//        return db.table("grit_resource r")
+//                .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
+//                .where("rl.lk_objt_id=? AND rl.lk_objt = ? AND r.resource_code=? AND r.is_disabled=0 AND r.is_visibled=0", userId, Constants.OBJT_user, resourceCode)
+//                .limit(1)
+//                .caching(cache)
+//                .selectValue("r.resource_id") != null;
     }
 
 
@@ -142,12 +146,14 @@ public class GritClient {
             return false;
         }
 
-        return db.table("grit_group g")
-                .innerJoin("grit_user_linked ul").on("ul.lk_objt_id = g.group_id").andEq("ul.lk_objt", Constants.OBJT_group).andEq("ul.user_id", userId)
-                .where("g.group_code=? AND r.is_disabled=0", userId, Constants.OBJT_user, roleCode)
-                .limit(1)
-                .caching(cache)
-                .selectValue("r.rsid") != null;
+        return user().userHasGroupCode(userId, roleCode);
+
+//        return db.table("grit_group g")
+//                .innerJoin("grit_user_linked ul").on("ul.lk_objt_id = g.group_id").andEq("ul.lk_objt", Constants.OBJT_group).andEq("ul.user_id", userId)
+//                .where("g.group_code=? AND r.is_disabled=0", userId, Constants.OBJT_user, roleCode)
+//                .limit(1)
+//                .caching(cache)
+//                .selectValue("r.resource_id") != null;
     }
 
 
@@ -216,9 +222,10 @@ public class GritClient {
                 .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
                 .whereEq("rl.lk_objt_id", userId)
                 .andEq("rl.lk_objt", Constants.OBJT_user)
-                .andNeq("r.link_uri", "")
+                .andEq("r.is_visibled", 1)
+                .andEq("r.is_disabled", 0)
                 .andIn("r.resource_id", ids)
-                .orderBy("r.Order_Index ASC")
+                .orderBy("r.order_index ASC")
                 .limit(1)
                 .caching(cache)
                 .selectItem("r.*", Resource.class);

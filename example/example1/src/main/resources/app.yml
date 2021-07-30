@@ -2,7 +2,7 @@
 solon.app:
   name: "gritexcmple1"
   group: "grit"
-  title: "EXAMPLE1"
+  title: "DEMO"
 
 solon.cloud.water:
   server: "waterapi.water"

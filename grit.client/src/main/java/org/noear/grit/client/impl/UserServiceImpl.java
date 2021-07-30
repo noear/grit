@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean userHasGroup(long userId, String groupCode) throws SQLException {
+    public boolean userHasGroupCode(long userId, String groupCode) throws SQLException {
         if (userId < 1 || TextUtils.isEmpty(groupCode)) {
             return false;
         }
@@ -157,6 +157,7 @@ public class UserServiceImpl implements UserService{
                 .whereEq("user_id", userId)
                 .andEq("lk_objt", Constants.OBJT_group)
                 .andEq("lk_objt_id", group.group_id)
+                .limit(1)
                 .caching(cache)
                 .selectExists();
     }
@@ -171,10 +172,11 @@ public class UserServiceImpl implements UserService{
                 .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
                 .whereEq("rl.lk_objt_id", userId)
                 .andEq("rl.lk_objt", Constants.OBJT_user)
-                .andEq("r.uri_path", uri)
+                .andEq("r.link_uri", uri)
                 .andEq("r.is_disabled", 0)
+                .limit(1)
                 .caching(cache)
-                .selectValue("r.rsid", 0L) > 0;
+                .selectValue("r.resource_id", 0L) > 0;
     }
 
     @Override
@@ -189,8 +191,9 @@ public class UserServiceImpl implements UserService{
                 .andEq("rl.lk_objt", Constants.OBJT_user)
                 .andEq("r.resource_code", reourceCode)
                 .andEq("r.is_disabled", 0)
+                .limit(1)
                 .caching(cache)
-                .selectValue("r.rsid", 0L) > 0;
+                .selectValue("r.resource_id", 0L) > 0;
     }
 
 
@@ -239,7 +242,7 @@ public class UserServiceImpl implements UserService{
                 .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
                 .where("rl.lk_objt_id=? AND rl.lk_objt=? AND r.is_branched=0 AND r.is_disabled=0", userId, Constants.GROUP_user_root_id)
                 .caching(cache)
-                .selectArray("r.rsid");
+                .selectArray("r.resource_id");
 
         if (resourceIds.size() == 0) {
             return new ArrayList<>();

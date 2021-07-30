@@ -93,7 +93,7 @@ public interface UserService {
      * @param groupCode 分组代号
      * @return 是否存在
      */
-    boolean userHasGroup(long userId, String groupCode) throws SQLException;
+    boolean userHasGroupCode(long userId, String groupCode) throws SQLException;
 
     /**
      * 用户资源是否存在

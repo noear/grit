@@ -65,7 +65,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             Resource res = GritClient.getUserMenusFirstOfModule(userId, g.group_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
-                buildItem(sb, g.display_code, res, cPath, g.link_uri); //::en_name 改为 uri_path
+                buildItem(sb, g.display_code, res, cPath, g.link_uri);
             }
         }
 

@@ -2,7 +2,7 @@
 solon.app:
   name: "wateradmin"
   group: "water"
-  title: "EXAMPLE2"
+  title: "DEMO"
 
 solon.cloud.water:
   server: "waterapi.water"
