@@ -14,6 +14,8 @@ public class ResourceDo implements Serializable {
     public long resource_id;
     /** 资源代码 */
     public String resource_code;
+    /** 资源分组ID */
+    public long group_id;
     /** 显示名 */
     public String display_name;
     /** 排序值 */
@@ -32,11 +34,11 @@ public class ResourceDo implements Serializable {
     public String tags;
     /** 属性(kv) */
     public String attributes;
-    /** 是否全视图 */
+    /** 是否全屏 */
     public boolean is_fullview;
     /** 是否禁用 */
     public boolean is_disabled;
-    /** 是否可见 */
+    /** 是否可见（可见为菜单，不可见为权限） */
     public boolean is_visibled;
 
     /** 创建时间 */

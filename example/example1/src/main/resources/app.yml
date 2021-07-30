@@ -1,0 +1,11 @@
+
+solon.app:
+  name: "gritexcmple1"
+  group: "grit"
+  title: "跨系统通用管理平台"
+
+solon.cloud.water:
+  server: "waterapi.water"
+  config:
+    load: "grit:grit.yml,grit:gritdock.yml"
+
