@@ -28,8 +28,8 @@ public class UserDo implements Serializable {
     public String mail;
     /** 标签 */
     public String tags;
-    /** 元信息(json) */
-    public String meta;
+    /** 属性(kv) */
+    public String attributes;
     /** 是否禁用 */
     public boolean is_disabled;
     /** 是否可见 */
@@ -52,7 +52,7 @@ public class UserDo implements Serializable {
                 ", remark='" + remark + '\'' +
                 ", mail='" + mail + '\'' +
                 ", tags='" + tags + '\'' +
-                ", meta='" + meta + '\'' +
+                ", attributes='" + attributes + '\'' +
                 ", is_disabled=" + is_disabled +
                 ", is_visibled=" + is_visibled +
                 ", create_fulltime=" + create_fulltime +

@@ -30,8 +30,8 @@ public class ResourceDo implements Serializable {
     public String remark;
     /** 标签 */
     public String tags;
-    /** 元信息(json) */
-    public String meta;
+    /** 属性(kv) */
+    public String attributes;
     /** 是否全视图 */
     public boolean is_fullview;
     /** 是否禁用 */
@@ -57,7 +57,7 @@ public class ResourceDo implements Serializable {
                 ", icon_uri='" + icon_uri + '\'' +
                 ", remark='" + remark + '\'' +
                 ", tags='" + tags + '\'' +
-                ", meta='" + meta + '\'' +
+                ", attributes='" + attributes + '\'' +
                 ", is_fullview=" + is_fullview +
                 ", is_disabled=" + is_disabled +
                 ", is_visibled=" + is_visibled +

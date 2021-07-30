@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public ONode getUserMeta(long userId) throws SQLException {
-        String meta = getUserById(userId).meta;
+        String meta = getUserById(userId).attributes;
         return ONode.loadStr(meta);
     }
 

@@ -46,10 +46,10 @@ public class User extends UserDo {
      * */
     public ONode getMetaNode() {
         if (metaProp == null) {
-            if (TextUtils.isEmpty(meta)) {
+            if (TextUtils.isEmpty(attributes)) {
                 metaProp = new ONode();
             } else {
-                metaProp = ONode.loadStr(meta);
+                metaProp = ONode.loadStr(attributes);
             }
         }
 

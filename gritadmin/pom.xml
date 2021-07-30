@@ -42,7 +42,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>gritadmin.App</mainClass>
+                            <mainClass>gritadmin.AdminApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

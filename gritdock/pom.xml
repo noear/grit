@@ -41,6 +41,12 @@
 
         <dependency>
             <groupId>org.noear</groupId>
+            <artifactId>weed3-solon-plugin</artifactId>
+            <version>${solon.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
             <artifactId>grit-solon-plugin</artifactId>
         </dependency>
 
@@ -103,7 +109,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>gritdock.App</mainClass>
+                            <mainClass>gritdock.DockApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

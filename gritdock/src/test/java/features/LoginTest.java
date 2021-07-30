@@ -8,7 +8,7 @@ import org.noear.grit.client.model.Resource;
 import org.noear.grit.client.model.User;
 import org.noear.solon.test.SolonJUnit4ClassRunner;
 import org.noear.solon.test.SolonTest;
-import gritdock.App;
+import gritdock.DockApp;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @author noear 2021/7/23 created
  */
 @RunWith(SolonJUnit4ClassRunner.class)
-@SolonTest(App.class)
+@SolonTest(DockApp.class)
 public class LoginTest {
 
     @Test

@@ -30,8 +30,8 @@ public class GroupDo implements Serializable {
     public String link_uri;
     /** 标签 */
     public String tags;
-    /** 元信息(json) */
-    public String meta;
+    /** 属性(kv) */
+    public String attributes;
     /** 是否分杈（多系统资源隔离） */
     public boolean is_branched;
     /** 是否禁用 */
@@ -57,7 +57,7 @@ public class GroupDo implements Serializable {
                 ", order_refer='" + order_refer + '\'' +
                 ", link_uri='" + link_uri + '\'' +
                 ", tags='" + tags + '\'' +
-                ", meta='" + meta + '\'' +
+                ", attributes='" + attributes + '\'' +
                 ", is_branched=" + is_branched +
                 ", is_disabled=" + is_disabled +
                 ", is_visibled=" + is_visibled +
