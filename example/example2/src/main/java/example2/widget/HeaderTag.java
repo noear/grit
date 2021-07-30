@@ -13,6 +13,7 @@ import org.noear.grit.client.model.Resource;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 
 import java.io.IOException;
@@ -25,80 +26,77 @@ public class HeaderTag implements TemplateDirectiveModel {
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         try {
             build(env);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            EventBus.push(e);
         }
     }
 
     private void build(Environment env) throws Exception {
-        //当前视图path //此处改过，noear，20180831
-        Context context = Context.current();
-        String cPath = context.pathNew();
-
+        Context ctx = Context.current();
         long userId = Session.current().getUserId();
 
+        String path = ctx.pathNew();
+
         if (userId == 0) {   //检查用户是已登录
-            context.redirect("/login");
+            ctx.redirect("/login");
+            return;
+        }
+
+        List<Group> moduleList = GritClient.getUserModules(userId);
+
+        if (moduleList.size() == 0) {
+            ctx.redirect("/login");
             return;
         }
 
 
-        List<Group> list = GritClient.getUserModules(userId);
+        StringBuilder buf = new StringBuilder();
+        buf.append("<header>");
 
-        if (list.size() == 0) {
-            context.redirect("/login");
-            return;
-        }
-
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("<header>");
-
-        sb.append("<label>"); //new
-        sb.append(Solon.cfg().appTitle());
-        sb.append("</label>\n");//new
+        buf.append("<label>"); //new
+        buf.append(Solon.cfg().appTitle());
+        buf.append("</label>\n");//new
 
 
-        sb.append("<nav>");
+        buf.append("<nav>");
 
-        for (Group g : list) {
-            Resource res = GritClient.getUserMenusFirstOfModule(userId, g.group_id);
+        for (Group module : moduleList) {
+            Resource res = GritClient.getUserMenusFirstOfModule(userId, module.group_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
-                buildItem(sb, g.display_name, res, cPath, g.link_uri);
+                buildModuleItem(buf, module, res, path);
             }
         }
 
-        sb.append("</nav>\n");
+        buf.append("</nav>\n");
 
-        sb.append("<aside>");//new
-        String temp = Session.current().getDisplayName();
-        if (temp != null) {
-            sb.append("<i class='fa fa-user'></i> ");
-            sb.append(temp);
+        buf.append("<aside>");
+
+        String userDisplayName = Session.current().getDisplayName();
+        if (Utils.isNotEmpty(userDisplayName)) {
+            buf.append("<i class='fa fa-user'></i> ");
+            buf.append(userDisplayName);
         }
 
-        sb.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
-        sb.append("</aside>");//new
+        buf.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
+        buf.append("</aside>");
 
-        sb.append("</header>\n");
+        buf.append("</header>\n");
 
-        env.getOut().write(sb.toString());
+        env.getOut().write(buf.toString());
     }
 
-    private void buildItem(StringBuffer sb, String title, Resource res, String cPath, String pack) {
-
-        //此处改过，noear，201811(uadmin)
+    private void buildModuleItem(StringBuilder buf, Group module, Resource res, String path) {
         String newUrl = GritUtil.buildDockUri(res);
 
-        if (cPath.indexOf(pack) == 0) {
-            sb.append("<a class='sel' href='" + newUrl + "'>");
-            sb.append(title);
-            sb.append("</a>");
+        if (path.indexOf(module.link_uri) == 0) {
+            buf.append("<a class='sel' href='" + newUrl + "'>");
+            buf.append(module.display_name);
+            buf.append("</a>");
         } else {
-            sb.append("<a href='" + newUrl + "'>");
-            sb.append(title);
-            sb.append("</a>");
+            buf.append("<a href='" + newUrl + "'>");
+            buf.append(module.display_name);
+            buf.append("</a>");
         }
     }
 }

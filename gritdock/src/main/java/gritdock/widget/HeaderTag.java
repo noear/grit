@@ -87,7 +87,7 @@ public class HeaderTag implements TemplateDirectiveModel {
                     Resource res = GritClient.getUserMenusFirstOfModule(userId, module.group_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
-                        buildItem(buf, branch, module, res, path);
+                        buildModuleItem(buf, branch, module, res, path);
                     }
                 } catch (Exception e) {
                     EventBus.push(e);
@@ -119,7 +119,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     }
 
-    private void buildItem(StringBuilder buf, Branch branch, Group module, Resource res, String path) {
+    private void buildModuleItem(StringBuilder buf, Branch branch, Group module, Resource res, String path) {
         if (TextUtils.isEmpty(module.link_uri)) {
             return;
         }

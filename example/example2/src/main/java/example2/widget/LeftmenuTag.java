@@ -15,7 +15,6 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -32,62 +31,58 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
     public void build(Environment env) throws Exception {
 
-        Context context = Context.current();
-        //当前视图path //此处改过，noear，20180831
-        String cPath = context.pathNew();
-        StringBuffer sb = new StringBuffer();
+        Context ctx = Context.current();
+        String path = ctx.pathNew();
 
-        List<Group> plist = GritClient.getUserModules(Session.global().getUserId());
-        long packID = 0;
-        for (Group p : plist) {
-            if (cPath.indexOf(p.link_uri) == 0) { //::en_name 改为 uri_path
-                packID = p.group_id;
+
+        StringBuilder buf = new StringBuilder();
+
+        List<Group> moduleList = GritClient.getUserModules(Session.global().getUserId());
+        long moduleId = 0;
+        for (Group p : moduleList) {
+            if (path.startsWith(p.link_uri)) { //::en_name 改为 uri_path
+                moduleId = p.group_id;
                 break;
             }
         }
 
-        sb.append("<menu>");
+        buf.append("<menu>");
 
-        sb.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><i class='fa fa-bars'></i></div>");
+        buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><i class='fa fa-bars'></i></div>");
 
-        sb.append("<items>");
+        buf.append("<items>");
 
-        forPack(packID, sb, cPath);
+        List<Resource> resList = GritClient.getUserMenus(Session.current().getUserId(), moduleId);
 
-        sb.append("</items>");
-
-        sb.append("</menu>");
-
-        env.getOut().write(sb.toString());
-
-    }
-
-    private void forPack(long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<Resource> list = GritClient.getUserMenus(Session.current().getUserId(), packID);
-
-        for (Resource res : list) {
-            buildItem(sb, res, cPath);
+        for (Resource res : resList) {
+            buildMenuItem(buf, res, path);
         }
+
+        buf.append("</items>");
+
+        buf.append("</menu>");
+
+        env.getOut().write(buf.toString());
+
     }
 
-    private void buildItem(StringBuffer sb, Resource res, String cPath) {
+
+    private void buildMenuItem(StringBuilder buf, Resource res, String path) {
         if ("$".equals(res.display_name)) {
-            sb.append("<br/><br/>");
+            buf.append("<br/><br/>");
             return;
         }
 
-        //此处改过，noear，201811(uadmin)
         String newUrl = GritUtil.buildDockUri(res);
 
-        //此处改过，noear，20180831
-        if (cPath.indexOf(res.link_uri) >= 0) {
-            sb.append("<a class='sel' href='" + newUrl + "'>");
-            sb.append(res.display_name);
-            sb.append("</a>");
+        if (path.indexOf(res.link_uri) >= 0) {
+            buf.append("<a class='sel' href='" + newUrl + "'>");
+            buf.append(res.display_name);
+            buf.append("</a>");
         } else {
-            sb.append("<a href='" + newUrl + "'>");
-            sb.append(res.display_name);
-            sb.append("</a>");
+            buf.append("<a href='" + newUrl + "'>");
+            buf.append(res.display_name);
+            buf.append("</a>");
         }
     }
 }

@@ -76,7 +76,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         List<Resource> resList = GritClient.getUserMenus(userId, moduleId);
 
         for (Resource res : resList) {
-            buildItem(buf, branch, res, path);
+            buildMenuItem(buf, branch, res, path);
         }
 
         buf.append("</items>");
@@ -87,7 +87,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     }
 
 
-    private void buildItem(StringBuilder sb, Branch branch, Resource res, String path) {
+    private void buildMenuItem(StringBuilder sb, Branch branch, Resource res, String path) {
         if ("$".equals(res.display_name)) {
             sb.append("<br/><br/>");
             return;
