@@ -22,9 +22,9 @@ public class GritClient {
     private static GroupService groupService;
     private static ResourceService resourceService;
     private static BranchService branchService;
-    private static String branchedGroupCode;
-    private static long branchedGroupId;
     private static Group branchedGroup;
+    private static long branchedGroupId;
+    private static String branchedGroupCode;
 
     private static DbContext db;
     private static ICacheService cache;
@@ -55,6 +55,7 @@ public class GritClient {
         try {
             branchedGroup = group().getGroupByCode(groupCode);
             branchedGroupId = branchedGroup.group_id;
+            branchedGroupCode = groupCode;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -77,8 +78,8 @@ public class GritClient {
 
     /**
      * 分支组接口
-     * */
-    public static BranchService branched(){
+     */
+    public static BranchService branched() {
         return branchService;
     }
 
@@ -103,23 +104,50 @@ public class GritClient {
     /**
      * 用户是否有路径
      */
-    public static boolean userHasPath(long userId, String path) {
-        return false;
+    public static boolean userHasPath(long userId, String path) throws SQLException {
+        if (userId < 1) {
+            return false;
+        }
+
+        return db.table("grit_resource r")
+                .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
+                .where("rl.lk_objt_id=? AND rl.lk_objt = ? AND r.link_uri=? AND r.is_disabled=0 AND r.is_visibled=1", userId, Constants.OBJT_user, path)
+                .limit(1)
+                .caching(cache)
+                .selectValue("r.rsid") != null;
     }
 
     /**
      * 用户是否有权限
      */
-    public static boolean userHasPermission(long userId, String resourceCode) {
-        return false;
+    public static boolean userHasPermission(long userId, String resourceCode) throws SQLException {
+        if (userId < 1) {
+            return false;
+        }
+
+        return db.table("grit_resource r")
+                .innerJoin("grit_resource_linked rl").on("r.resource_id = rl.resource_id")
+                .where("rl.lk_objt_id=? AND rl.lk_objt = ? AND r.resource_code=? AND r.is_disabled=0 AND r.is_visibled=0", userId, Constants.OBJT_user, resourceCode)
+                .limit(1)
+                .caching(cache)
+                .selectValue("r.rsid") != null;
     }
 
 
     /**
      * 用户是否有角色
      */
-    public static boolean userHasRole(long userId, String roleCode) {
-        return false;
+    public static boolean userHasRole(long userId, String roleCode) throws SQLException {
+        if (userId < 1) {
+            return false;
+        }
+
+        return db.table("grit_group g")
+                .innerJoin("grit_user_linked ul").on("ul.lk_objt_id = g.group_id").andEq("ul.lk_objt", Constants.OBJT_group).andEq("ul.user_id", userId)
+                .where("g.group_code=? AND r.is_disabled=0", userId, Constants.OBJT_user, roleCode)
+                .limit(1)
+                .caching(cache)
+                .selectValue("r.rsid") != null;
     }
 
 
@@ -213,7 +241,6 @@ public class GritClient {
         return new Resource();
 
     }
-
 
 
     /**
