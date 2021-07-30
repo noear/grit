@@ -2,26 +2,27 @@ package org.noear.solon.extend.grit;
 
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
+import org.noear.solon.core.handle.Handler;
 
-public abstract class GritPathInterceptorBase {
+public abstract class GritPathInterceptorBase implements Handler {
     /**
      * 用户ID
      */
-    public long getUserId() {
+    protected long getUserId() {
         return SessionBase.global().getUserId();
     }
 
     /**
      * 用户显示名
-     * */
-    public String getUserDisplayName() {
+     */
+    protected String getUserDisplayName() {
         return SessionBase.global().getDisplayName();
     }
 
     /**
      * 验证代理::true:通过,false未通过（可以重写）
      */
-    public void verifyHandle(Context ctx) throws Exception {
+    protected void verifyHandle(Context ctx) throws Exception {
         String path = ctx.path().toLowerCase();
         long userId = getUserId();
 
@@ -52,5 +53,11 @@ public abstract class GritPathInterceptorBase {
                 }
             }
         }
+    }
+
+
+    @Override
+    public void handle(Context ctx) throws Throwable {
+        verifyHandle(ctx);
     }
 }

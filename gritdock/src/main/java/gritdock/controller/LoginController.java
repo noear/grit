@@ -83,7 +83,7 @@ public class LoginController extends BaseController {
             }
 
             //2.如果没有，找自己默认的权限
-            res = GritClient.getUserPathsFirstOfBranched(user.user_id, branch.group_id);
+            res = GritClient.getUserMenusFirstOfBranched(user.user_id, branch.group_id);
 
             //3.再没有，提示错误
             if (TextUtils.isEmpty(res.link_uri)) {

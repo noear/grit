@@ -86,7 +86,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
     private void forPack(Branch groupBranched, long packID, StringWriter sb, String cPath) throws SQLException {
 
-        List<Resource> list = GritClient.getUserPaths(Session.current().getUserId(), packID);
+        List<Resource> list = GritClient.getUserMenus(Session.current().getUserId(), packID);
 
         for (Resource res : list) {
             buildItem(sb, groupBranched, res, cPath);

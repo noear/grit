@@ -17,14 +17,14 @@ import java.sql.SQLException;
  * @since 1.0
  */
 public class GritAuthProcessor implements AuthProcessor {
-    public long getUserId(){
+    protected long getUserId(){
         return SessionBase.global().getUserId();
     }
 
     /**
      * 用户显示名
      * */
-    public String getUserDisplayName() {
+    protected String getUserDisplayName() {
         return SessionBase.global().getDisplayName();
     }
 

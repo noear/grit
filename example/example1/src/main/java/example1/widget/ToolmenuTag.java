@@ -62,7 +62,7 @@ public class ToolmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(Context ctx, long userId, long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<Resource> list = GritClient.getUserPaths(userId, packID);
+        List<Resource> list = GritClient.getUserMenus(userId, packID);
 
         for (Resource r : list) {
             buildItem(ctx, sb, r.display_name, r.link_uri, cPath);

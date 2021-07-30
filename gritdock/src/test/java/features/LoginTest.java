@@ -34,7 +34,7 @@ public class LoginTest {
         assert groupList.size() > 0;
 
 
-        List<Resource> resourceList = GritClient.getUserPaths(user.user_id, groupList.get(0).group_id);
+        List<Resource> resourceList = GritClient.getUserMenus(user.user_id, groupList.get(0).group_id);
 
         System.out.println(resourceList);
         assert resourceList.size() > 0;

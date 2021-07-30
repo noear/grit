@@ -141,15 +141,15 @@ public class GritClient {
     /**
      * 获取用户菜单
      */
-    public static List<Resource> getUserPaths(long userId, String groupCode) throws SQLException {
+    public static List<Resource> getUserMenus(long userId, String groupCode) throws SQLException {
         Group group = groupService.getGroupByCode(groupCode);
-        return getUserPaths(userId, group.group_id);
+        return getUserMenus(userId, group.group_id);
     }
 
     /**
      * 获取用户菜单
      */
-    public static List<Resource> getUserPaths(long userId, long groupId) throws SQLException {
+    public static List<Resource> getUserMenus(long userId, long groupId) throws SQLException {
         //1.找出这个包下的资源id
         List<Integer> ids = db.table("grit_resource_linked rl")
                 .where("rl.lk_objt = ? AND rl.lk_objt_id = ?", Constants.OBJT_group, groupId)
@@ -172,7 +172,7 @@ public class GritClient {
     /**
      * 获取用户菜单分组
      */
-    public static Resource getUserPathsFirst(long userId, long groupId) throws SQLException {
+    public static Resource getUserMenusFirst(long userId, long groupId) throws SQLException {
         //1.找出这个包下的资源id
         List<Object> ids = db.table("grit_resource_linked rl")
                 .where("rl.lk_objt = ? AND rl.lk_objt_id = ?", Constants.OBJT_group, groupId)
@@ -197,10 +197,10 @@ public class GritClient {
     }
 
 
-    public static Resource getUserPathsFirstOfBranched(long userId, long groupId) throws SQLException {
+    public static Resource getUserMenusFirstOfBranched(long userId, long groupId) throws SQLException {
         List<Group> groupList = getUserModules(userId, groupId);
         for (Group group : groupList) {
-            Resource res = getUserPathsFirst(userId, group.group_id);
+            Resource res = getUserMenusFirst(userId, group.group_id);
 
             if (TextUtils.isEmpty(res.link_uri) == false) {
                 return res;

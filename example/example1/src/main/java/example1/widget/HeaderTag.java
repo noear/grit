@@ -61,7 +61,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         sb.append("<nav>");
 
         for (Group g : list) {
-            Resource res = GritClient.getUserPathsFirst(userId, g.group_id);
+            Resource res = GritClient.getUserMenusFirst(userId, g.group_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
                 buildItem(sb, g.display_name,  res, cPath, g.link_uri); //::en_name 改为 uri_path
