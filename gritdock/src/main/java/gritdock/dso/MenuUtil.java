@@ -29,7 +29,7 @@ public class MenuUtil {
 
             StringBuilder sb = new StringBuilder();
             sb.append("<section>");
-            sb.append("<header>").append(groupBranched.display_name).append("</header>");
+            sb.append("<header>").append(groupBranched.display_code).append("</header>");
             sb.append("<ul>");
             for (Group m : modList) {
                 Resource res = GritClient.getUserMenusFirstOfModule(userId, m.group_id);
