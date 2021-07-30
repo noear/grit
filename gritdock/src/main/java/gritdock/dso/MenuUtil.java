@@ -47,7 +47,6 @@ public class MenuUtil {
             sb.append("</section>");
 
             if (modSize > 0) {
-
                 if ("#".equals(groupBranched.tags)) { //强制独占处理
                     buf.append("<div>");
                     buf.append(sb.toString());
