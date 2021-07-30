@@ -7,7 +7,6 @@ import org.noear.grit.client.GritClient;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheServiceEx;
 import org.noear.weed.cache.LocalCache;
-import org.noear.weed.cache.memcached.MemCache;
 
 /**
  * @author noear

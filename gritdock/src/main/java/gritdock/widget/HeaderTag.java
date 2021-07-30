@@ -7,6 +7,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.grit.client.model.Branch;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
@@ -17,7 +18,6 @@ import gritdock.Config;
 import gritdock.dso.Session;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,111 +35,105 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         try {
             build(env, body);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            EventBus.push(e);
         }
     }
 
     private void build(Environment env, TemplateDirectiveBody body) throws Exception {
         Context context = Context.current();
-        //当前视图path //此处改过，20180831
-        String cPath = context.path();
 
-        Branch groupBranched = null;
+        String path = context.pathNew();
+        Branch branch = null;
+
         List<Group> list = null;
         {
-            String p = GritUtil.buildGroupCodeByPath(cPath);
+            String groupCode = GritUtil.buildGroupCodeByPath(path);
 
-            if (TextUtils.isEmpty(p)) {
+            if (TextUtils.isEmpty(groupCode)) {
                 list = new ArrayList<>();
             } else {
+                path = GritUtil.cleanGroupCodeAtPath(path);
 
-                cPath = GritUtil.cleanGroupCodeAtPath(cPath);
-
-                groupBranched = GritClient.branched().getBranchByCode(p);
-                list = GritClient.getUserModules(Session.current().getUserId(), groupBranched.group_id);
+                branch = GritClient.branched().getBranchByCode(groupCode);
+                list = GritClient.getUserModules(Session.current().getUserId(), branch.group_id);
             }
         }
 
 
-        StringWriter sb = new StringWriter();
-        sb.append("<header>");
+        StringBuilder buf = new StringBuilder();
+        buf.append("<header>");
 
-        sb.append("<label>"); //new
-        //cls1
-        if (groupBranched == null) {
-            sb.append(Config.title());
+        buf.append("<label>");
+
+        if (branch == null) {
+            buf.append(Config.title());
         } else {
-            if (TextUtils.isEmpty(groupBranched.display_code)) {
-                sb.append(Config.title());
+            if (TextUtils.isEmpty(branch.display_code)) {
+                buf.append(Config.title());
             } else {
-                sb.append(groupBranched.display_code);
+                buf.append(branch.display_code);
             }
         }
 
-        sb.append("</label>");
+        buf.append("</label>");
 
+        buf.append("<nav>");
 
-        sb.append("<nav>");
-
-
-        if (groupBranched != null) {
+        if (branch != null) {
             long userId = Session.current().getUserId();
-            for (Group g : list) {
+            for (Group module : list) {
                 try {
-                    Resource res = GritClient.getUserMenusFirstOfModule(userId, g.group_id);
+                    Resource res = GritClient.getUserMenusFirstOfModule(userId, module.group_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
-                        buildItem(sb, g.display_name, groupBranched, res, cPath, g.link_uri); //::en_name 改为 uri_path
+                        buildItem(buf, branch, module, res, path);
                     }
-                } catch (Exception ex) {
-                    ex.printStackTrace(); //以防万一；万一出错头都看不见了
+                } catch (Exception e) {
+                    EventBus.push(e);
                 }
             }
         }
 
-        sb.append("</nav>");
+        buf.append("</nav>");
 
 
-        sb.append("<aside>");
+        buf.append("<aside>");
 
         String temp = Session.current().getDisplayName();
         if (temp != null) {
-            sb.append("<t onclick='modifyMm(); return false;'>");
-            sb.append("<i class='fa fa-user'></i> ");
-            sb.append(temp);
-            sb.append("</t>");
+            buf.append("<t onclick='modifyMm(); return false;'>");
+            buf.append("<i class='fa fa-user'></i> ");
+            buf.append(temp);
+            buf.append("</t>");
         }
-        sb.append("<a onclick='_dock_home_open();'><img src='/img/app_w.png'/></a>");
+        buf.append("<a onclick='_dock_home_open();'><img src='/img/app_w.png'/></a>");
 
-        sb.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
-        sb.append("</aside>");
+        buf.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
+        buf.append("</aside>");
 
-        sb.append("</header>");
+        buf.append("</header>");
 
 
-        env.getOut().write(sb.toString());
+        env.getOut().write(buf.toString());
 
     }
 
-    private void buildItem(StringWriter sb, String title, Branch groupBranched, Resource res, String cPath, String pack) {
-
-        if (TextUtils.isEmpty(pack)) {
+    private void buildItem(StringBuilder buf, Branch branch, Group module, Resource res, String path) {
+        if (TextUtils.isEmpty(module.link_uri)) {
             return;
         }
 
-        //此处改过，201811(uadmin)
-        String newUrl = GritUtil.buildDockFullUri(groupBranched, res);
+        String newUrl = GritUtil.buildDockFullUri(branch, res);
 
-        if (cPath.indexOf(pack) == 0) {
-            sb.append("<a class='sel' href='" + newUrl + "'>");
-            sb.append(title);
-            sb.append("</a>");
+        if (path.indexOf(module.link_uri) == 0) {
+            buf.append("<a class='sel' href='" + newUrl + "'>");
+            buf.append(module.display_name);
+            buf.append("</a>");
         } else {
-            sb.append("<a href='" + newUrl + "'>");
-            sb.append(title);
-            sb.append("</a>");
+            buf.append("<a href='" + newUrl + "'>");
+            buf.append(module.display_name);
+            buf.append("</a>");
         }
-
     }
 }
