@@ -14,6 +14,9 @@ import java.util.List;
 
 public class MenuUtil {
 
+    /**
+     * 构建跨系统菜单
+     * */
     public static MenuViewModel buildSystemMenus() throws SQLException {
         MenuViewModel viewModel = new MenuViewModel();
 
