@@ -1,0 +1,11 @@
+
+solon.app:
+  name: "wateradmin"
+  group: "water"
+  title: "EXAMPLE2"
+
+solon.cloud.water:
+  server: "waterapi.water"
+  config:
+    load: "grit:grit.yml,grit:gritdock.yml"
+

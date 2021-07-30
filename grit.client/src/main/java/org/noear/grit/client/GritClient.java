@@ -172,7 +172,7 @@ public class GritClient {
     /**
      * 获取用户菜单分组
      */
-    public static Resource getUserMenusFirst(long userId, long groupId) throws SQLException {
+    public static Resource getUserMenusFirstOfModule(long userId, long groupId) throws SQLException {
         //1.找出这个包下的资源id
         List<Object> ids = db.table("grit_resource_linked rl")
                 .where("rl.lk_objt = ? AND rl.lk_objt_id = ?", Constants.OBJT_group, groupId)
@@ -196,11 +196,14 @@ public class GritClient {
                 .selectItem("r.*", Resource.class);
     }
 
+    public static Resource getUserMenusFirstOfBranched(long userId) throws SQLException {
+        return getUserMenusFirstOfBranched(userId, branchedGroupId);
+    }
 
     public static Resource getUserMenusFirstOfBranched(long userId, long groupId) throws SQLException {
         List<Group> groupList = getUserModules(userId, groupId);
         for (Group group : groupList) {
-            Resource res = getUserMenusFirst(userId, group.group_id);
+            Resource res = getUserMenusFirstOfModule(userId, group.group_id);
 
             if (TextUtils.isEmpty(res.link_uri) == false) {
                 return res;
@@ -210,6 +213,8 @@ public class GritClient {
         return new Resource();
 
     }
+
+
 
     /**
      * 获取用户菜单分组

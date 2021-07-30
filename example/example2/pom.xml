@@ -29,6 +29,12 @@
 
         <dependency>
             <groupId>org.noear</groupId>
+            <artifactId>water-solon-plugin</artifactId>
+            <version>${solon.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
             <artifactId>grit-solon-plugin</artifactId>
         </dependency>
     </dependencies>

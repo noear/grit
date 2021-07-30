@@ -2,7 +2,7 @@
 solon.app:
   name: "gritexcmple1"
   group: "grit"
-  title: "跨系统通用管理平台"
+  title: "EXAMPLE1"
 
 solon.cloud.water:
   server: "waterapi.water"

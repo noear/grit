@@ -1,18 +1,19 @@
-package example1.widget;
+package example2.widget;
 
+import example2.dso.Session;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import org.noear.solon.Solon;
-import org.noear.solon.Utils;
-import org.noear.solon.annotation.Component;
-import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.model.Group;
 import org.noear.grit.client.model.Resource;
+import org.noear.solon.Solon;
+import org.noear.solon.Utils;
+import org.noear.solon.annotation.Component;
+import org.noear.solon.core.handle.Context;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,21 +32,21 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     private void build(Environment env) throws Exception {
         //当前视图path //此处改过，noear，20180831
-        Context ctx = Context.current();
-        String cPath = ctx.path();
-        long userId = ctx.session("user_id", 0L);
-        String userDisplayName = ctx.session("user_display_name", "");
+        Context context = Context.current();
+        String cPath = context.pathNew();
 
+        long userId = Session.current().getUserId();
 
         if (userId == 0) {   //检查用户是已登录
-            ctx.redirect("/login");
+            context.redirect("/login");
             return;
         }
+
 
         List<Group> list = GritClient.getUserModules(userId);
 
         if (list.size() == 0) {
-            ctx.redirect("/login");
+            context.redirect("/login");
             return;
         }
 
@@ -64,17 +65,17 @@ public class HeaderTag implements TemplateDirectiveModel {
             Resource res = GritClient.getUserMenusFirstOfModule(userId, g.group_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
-                buildItem(sb, g.display_name,  res, cPath, g.link_uri); //::en_name 改为 uri_path
+                buildItem(sb, g.display_code, res, cPath, g.link_uri); //::en_name 改为 uri_path
             }
         }
 
         sb.append("</nav>\n");
 
         sb.append("<aside>");//new
-
-        if (Utils.isNotEmpty(userDisplayName)) {
+        String temp = Session.current().getDisplayName();
+        if (temp != null) {
             sb.append("<i class='fa fa-user'></i> ");
-            sb.append(userDisplayName);
+            sb.append(temp);
         }
 
         sb.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
@@ -99,6 +100,5 @@ public class HeaderTag implements TemplateDirectiveModel {
             sb.append(title);
             sb.append("</a>");
         }
-
     }
 }

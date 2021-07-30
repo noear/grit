@@ -32,7 +32,7 @@ public class MenuUtil {
             sb.append("<header>").append(groupBranched.display_name).append("</header>");
             sb.append("<ul>");
             for (Group m : modList) {
-                Resource res = GritClient.getUserMenusFirst(userId, m.group_id);
+                Resource res = GritClient.getUserMenusFirstOfModule(userId, m.group_id);
                 if (Utils.isEmpty(res.link_uri) == false) {
                     sb.append("<li>")
                             .append("<a href='").append(GritUtil.buildDockurl(groupBranched, res)).append("' target='_top'>")
