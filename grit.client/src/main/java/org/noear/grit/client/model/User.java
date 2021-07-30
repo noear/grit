@@ -1,11 +1,12 @@
 package org.noear.grit.client.model;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.client.impl.utils.PropUtils;
 import org.noear.grit.client.impl.utils.TextUtils;
-import org.noear.snack.ONode;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 用户领域模型
@@ -40,26 +41,27 @@ public class User extends UserDo {
 
     /////////////////////////////////////
 
-    ONode metaProp;
+    Properties attributesProp;
+
     /**
-     * 获取元信息的数据节点
-     * */
-    public ONode getMetaNode() {
-        if (metaProp == null) {
+     * 获取属性集
+     */
+    public Properties getAttributeProp() {
+        if (attributesProp == null) {
             if (TextUtils.isEmpty(attributes)) {
-                metaProp = new ONode();
+                attributesProp = new Properties();
             } else {
-                metaProp = ONode.loadStr(attributes);
+                attributesProp = PropUtils.build(attributes);
             }
         }
 
-        return metaProp;
+        return attributesProp;
     }
 
     /**
-     * 获取元信息的数据实体
+     * 获取属性
      * */
-    public <T> T getMetaBean(Class<T> tClass) {
-        return getMetaNode().toObject(tClass);
+    public String getAttribute(String name) {
+        return getAttributeProp().getProperty(name);
     }
 }
