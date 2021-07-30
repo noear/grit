@@ -27,9 +27,9 @@ public abstract class BaseController {
         //设置必要参数
         viewModel.put("app", Solon.cfg().appTitle());
 
-        viewModel.put("css", "/_static/css");
-        viewModel.put("js", "/_static/js");
-        viewModel.put("img", "/_static/img");
+        viewModel.put("css", "/css");
+        viewModel.put("js", "/js");
+        viewModel.put("img", "/img");
 
         return viewModel.view(viewName + ".ftl");
     }
