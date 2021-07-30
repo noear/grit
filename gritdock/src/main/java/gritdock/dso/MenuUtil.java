@@ -19,7 +19,7 @@ public class MenuUtil {
 
         long userId = Session.current().getUserId();
 
-        StringBuilder sball = new StringBuilder();
+        StringBuilder buf = new StringBuilder();
 
         List<Branch> branchedList = GritClient.branched().getBranchList();
 
@@ -49,18 +49,18 @@ public class MenuUtil {
             if (modSize > 0) {
 
                 if ("#".equals(groupBranched.tags)) { //强制独占处理
-                    sball.append("<div>");
-                    sball.append(sb.toString());
-                    sball.append("</div>");
+                    buf.append("<div>");
+                    buf.append(sb.toString());
+                    buf.append("</div>");
                 } else {
-                    sball.append(sb.toString());
+                    buf.append(sb.toString());
                 }
 
                 viewModel.count++;
             }
         }
 
-        viewModel.code = sball.toString();
+        viewModel.code = buf.toString();
 
         return viewModel;
     }
