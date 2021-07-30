@@ -51,12 +51,14 @@ CREATE TABLE `grit_resource` (
 
 
 CREATE TABLE `grit_resource_linked` (
+  `link_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
   `lk_objt` int(11) NOT NULL COMMENT '连接对象',
   `lk_objt_id` bigint(20) NOT NULL COMMENT '连接对象ID',
-  PRIMARY KEY (`resource_id`,`lk_objt`,`lk_objt_id`) USING BTREE,
+  PRIMARY KEY (`link_id`) USING BTREE,
+  UNIQUE KEY `IX_grit_resource_linked__key` (`resource_id`,`lk_objt`,`lk_objt_id`) USING BTREE,
   KEY `IX_grit_resource_linked__lk_objt` (`lk_objt`,`lk_objt_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci  ROW_FORMAT=DYNAMIC COMMENT='grit-资源连接表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源连接表';
 
 
 CREATE TABLE `grit_user` (
@@ -80,11 +82,13 @@ CREATE TABLE `grit_user` (
 
 
 CREATE TABLE `grit_user_linked` (
+  `link_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `lk_objt` int(11) NOT NULL COMMENT '连接对象',
   `lk_objt_id` bigint(20) NOT NULL COMMENT '连接对象ID',
-  PRIMARY KEY (`user_id`,`lk_objt`,`lk_objt_id`) USING BTREE,
+  PRIMARY KEY (`link_id`) USING BTREE,
+  UNIQUE KEY `IX_grit_user_linked__key` (`user_id`,`lk_objt`,`lk_objt_id`) USING BTREE,
   KEY `IX_grit_user_linked__lk_objt` (`lk_objt`,`lk_objt_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci  COMMENT='grit-用户连接表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='grit-用户连接表';
 
 ```
