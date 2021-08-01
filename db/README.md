@@ -4,10 +4,10 @@
 ##### LK_OBJT 内部约定
 
 |  对象 | LI_OBJT | 
-| -------- | -------- | 
-| grit_group               | 2     | 
-| grit_resource            | 5     | 
+| -------- | -------- |
+| grit_resource (type[namespace, group, permission_page, permission_operation, permission_data])            | 5     | 
 | grit_resource_linked     | 6     | 
+| grit_user_group          | 2     | 
 | grit_user                | 7     | 
 | grit_user_linked         | 8     | 
 
@@ -23,3 +23,10 @@
 ## 兼容
 mysql 5.6+
 h2
+
+
+grit_resource (type[group,page,operation,data])
+grit_resource_linked
+grit_user_group         
+grit_user               
+grit_user_linked       
