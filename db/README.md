@@ -5,7 +5,7 @@
 
 |  对象 | LI_OBJT | 
 | -------- | -------- |
-| grit_resource (type[namespace, group, permission_page, permission_operation, permission_data])            | 5     | 
+| grit_resource (type[0 node, 1 namespace, 2 group, 11 permission_page, 12 permission_operation, 13 permission_data])           | 5     | 
 | grit_resource_linked     | 6     | 
 | grit_user_group          | 2     | 
 | grit_user                | 7     | 
