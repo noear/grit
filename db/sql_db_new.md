@@ -12,12 +12,15 @@ CREATE TABLE `grit_group` (
   `attributes` varchar(4000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '属性(kv)',
   `is_disabled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用',
   `is_visibled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见',
-  `create_fulltime` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `create_fulltime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_fulltime` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`group_id`) USING BTREE,
   KEY `IX_grit_group__group_parent_id` (`group_parent_id`) USING BTREE,
   KEY `IX_grit_group__group_code` (`group_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-分组表';
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-分组表';
+
+INSERT INTO grit_group(group_id,group_parent_id,display_name) VALUES(2,0,'User group');
+INSERT INTO grit_group(group_id,group_parent_id,display_name) VALUES(3,0,'Role group');
 
 
 CREATE TABLE `grit_resource` (
@@ -36,7 +39,7 @@ CREATE TABLE `grit_resource` (
   `is_fullview` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否全屏',
   `is_visibled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见（可见为页面，不可见为操作）',
   `is_disabled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用',
-  `create_fulltime` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `create_fulltime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_fulltime` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`resource_id`) USING BTREE,
   KEY `IX_grit_resource__resource_code` (`resource_code`) USING BTREE,
@@ -48,6 +51,7 @@ CREATE TABLE `grit_resource_linked` (
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
   `lk_objt` int(11) NOT NULL COMMENT '连接对象',
   `lk_objt_id` bigint(20) NOT NULL COMMENT '连接对象ID',
+  `create_fulltime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`resource_id`,`lk_objt`,`lk_objt_id`) USING BTREE,
   KEY `IX_grit_resource_linked__lk_objt` (`lk_objt_id`,`lk_objt`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源连接表';
@@ -64,7 +68,7 @@ CREATE TABLE `grit_user` (
   `attributes` varchar(4000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '属性(kv)',
   `is_disabled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用',
   `is_visibled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见',
-  `create_fulltime` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `create_fulltime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_fulltime` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE KEY `IX_grit_user__login_name` (`login_name`) USING BTREE
@@ -75,6 +79,7 @@ CREATE TABLE `grit_user_linked` (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `lk_objt` int(11) NOT NULL COMMENT '连接对象',
   `lk_objt_id` bigint(20) NOT NULL COMMENT '连接对象ID',
+  `create_fulltime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`user_id`,`lk_objt`,`lk_objt_id`) USING BTREE,
   KEY `IX_grit_user_linked__lk_objt` (`lk_objt_id`,`lk_objt`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='grit-用户连接表';
