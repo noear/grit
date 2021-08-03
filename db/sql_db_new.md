@@ -47,6 +47,7 @@ CREATE TABLE `grit_resource` (
   KEY `IX_grit_resource__resource_parent_id` (`resource_parent_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源表';
 
+
 CREATE TABLE `grit_resource_linked` (
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
   `lk_objt` int(11) NOT NULL COMMENT '连接对象',
