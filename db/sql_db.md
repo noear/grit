@@ -2,7 +2,7 @@
 ## 建库脚本
 
 ```sql
-
+-- 分组（资源组，用户组共用）
 CREATE TABLE `grit_group` (
   `group_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分组ID',
   `group_root_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '分组根ID',
