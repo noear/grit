@@ -75,7 +75,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(userId, resourceGroupId);
 
         for (Resource res : resList) {
-            buildGroupItem(buf, resourceSpace, res, path);
+            buildItem(buf, resourceSpace, res, path);
         }
 
         buf.append("</items>");
@@ -86,7 +86,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     }
 
 
-    private void buildGroupItem(StringBuilder sb, ResourceSpace resourceSpace, Resource res, String path) {
+    private void buildItem(StringBuilder sb, ResourceSpace resourceSpace, Resource res, String path) {
         if ("$".equals(res.display_name)) {
             sb.append("<br/><br/>");
             return;

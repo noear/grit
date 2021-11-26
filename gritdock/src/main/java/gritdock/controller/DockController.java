@@ -35,7 +35,7 @@ public class DockController extends BaseController {
 
         //获取所有模块菜单
         CacheUsing cu = new CacheUsing(Config.cache());
-        MenuViewModel vm = cu.getEx("user_menus_x_" + userId, () -> MenuUtil.buildSystemMenus());
+        MenuViewModel vm = cu.getEx("user_menus_x_" + userId, () -> MenuUtil.buildSpaceMenus());
 
         int section_margin = 20;
         int header_margin = 5;
