@@ -2,7 +2,9 @@ package org.noear.grit.server.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.*;
+import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.AuthService;
+import org.noear.solon.annotation.Before;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
 
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
+@Before(BeforeHandler.class)
 @Mapping("/grit/v1/AuthService")
 @Remoting
 public class AuthServiceImpl implements AuthService {

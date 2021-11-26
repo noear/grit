@@ -5,7 +5,9 @@ import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
+import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.SubjectService;
+import org.noear.solon.annotation.Before;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
@@ -21,6 +23,7 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.0
  */
+@Before(BeforeHandler.class)
 @Mapping("/grit/v1/SubjectService")
 @Remoting
 public class SubjectServiceImpl implements SubjectService {

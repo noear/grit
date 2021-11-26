@@ -31,24 +31,33 @@ public class GritClientRpcImpl implements GritClient {
     public GritClientRpcImpl() {
         // gritServer=> "http://gritrpc";
         String gritServer = System.getProperty("grit.server");
+        String gritToken = System.getProperty("grit.token");
 
-        if (TextUtils.isEmpty(gritServer) == false) {
-            subjectService = createService(gritServer, SubjectService.class);
-            subjectLinkService = createService(gritServer, SubjectLinkService.class);
+        if (TextUtils.isEmpty(gritServer) == false || TextUtils.isEmpty(gritToken) == false) {
+            subjectService = createService(gritServer, gritToken, SubjectService.class);
+            subjectLinkService = createService(gritServer, gritToken, SubjectLinkService.class);
 
-            resourceService = createService(gritServer, ResourceService.class);
-            resourceLinkService = createService(gritServer, ResourceLinkService.class);
-            resourceSpaceService = createService(gritServer, ResourceSpaceService.class);
+            resourceService = createService(gritServer, gritToken, ResourceService.class);
+            resourceLinkService = createService(gritServer, gritToken, ResourceLinkService.class);
+            resourceSpaceService = createService(gritServer, gritToken, ResourceSpaceService.class);
 
-            authService = createService(gritServer, AuthService.class);
+            authService = createService(gritServer, gritToken, AuthService.class);
         } else {
-            System.out.println("[Grit] Invalid configuration: grit.server");
+            if (TextUtils.isEmpty(gritServer)) {
+                System.out.println("[Grit] Invalid configuration: grit.server");
+            }
+
+            if (TextUtils.isEmpty(gritToken)) {
+                System.out.println("[Grit] Invalid configuration: grit.token");
+            }
         }
     }
 
-    private <T> T createService(String gritServer, Class<T> clz) {
+    private <T> T createService(String gritServer, String gritToken, Class<T> clz) {
         return Nami.builder().url(gritServer + "/grit/v1/" + clz.getName())
-                .encoder(SnackEncoder.instance).decoder(SnackDecoder.instance)
+                .encoder(SnackEncoder.instance)
+                .decoder(SnackDecoder.instance)
+                .headerSet("Grit-Token", gritToken)
                 .create(clz);
     }
 

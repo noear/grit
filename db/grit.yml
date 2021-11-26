@@ -26,6 +26,7 @@ grit.ldap:
 # for client
 #
 grit.server: "http://gritadmin:8080"
+grit.token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 server.session:
   state.domain: "grit.noear.org"
