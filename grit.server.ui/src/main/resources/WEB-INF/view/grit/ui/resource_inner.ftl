@@ -97,10 +97,10 @@
     <flex>
         <left class="col-4">
             <file>
-                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w60">导入</a></label>
+                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor">导入</a></label>
             </file>
 
-            <button type='button' class="minor w60 mar10-l" onclick="exp('${tag_name!}')" >导出</button>
+            <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
             <#if state==1>
                 <button type='button' class="minor mar10-l" onclick="del(0,'禁用')" >禁用</button>
@@ -129,11 +129,11 @@
         <thead>
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
-            <td width="50px" class="left">Id</td>
-            <td class="left">显示名</td>
+            <td width="200px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
-            <td width="90px" class="left">是否可见</td>
+            <td width="80px" class="left">是否全屏</td>
+            <td width="80px" class="left">是否可见</td>
             <td width="50px">操作</td>
         </tr>
         </thead>
@@ -141,7 +141,6 @@
         <#list list as group>
             <tr>
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${group.resource_id}" /><a></a></label></checkbox></td>
-                <td class="left">${group.resource_id!}</td>
                 <td class="left">
                     <#if group.resource_type = 0>
                         |-
@@ -153,7 +152,8 @@
                 </td>
                 <td class="left">${group.link_uri!}</td>
                 <td class="left">${group.link_target!}</td>
-                <td class="left">${group.is_visibled?string("True","False")}</td>
+                <td >${group.is_fullview?string("True","")}</td>
+                <td >${group.is_visibled?string("True","")}</td>
                 <td class="op"><a href="/grit/resource/edit?resource_id=${group.resource_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
