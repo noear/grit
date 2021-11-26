@@ -93,26 +93,14 @@
     });
 </script>
 <body>
-
 <toolbar>
-    <left>
-        <form>
-            <input type="hidden"  name="space_id" value="${space_id!}"/>
-            <input type="hidden" name="state" value="${state!}" />
-            <a class="w60">显示名：</a><input type="text"  name="key" placeholder="key" value="${key!}" class="w350"/>
-            <button type="submit">查询</button>
-            <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}">添加资源空间</a>
-            <#if (space_id!0) gt 0>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}">添加资源分组</a>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}">添加资源</a>
-            </#if>
-        </form>
-
-        <div><a class="w60"></a><file>
-                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入</a></label>
+    <flex>
+        <left class="col-4">
+            <file>
+                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w60">导入</a></label>
             </file>
 
-            <button type='button' class="minor w80 mar10-l" onclick="exp('${tag_name!}')" >导出</button>
+            <button type='button' class="minor w60 mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
             <#if state==1>
                 <button type='button' class="minor mar10-l" onclick="del(0,'禁用')" >禁用</button>
@@ -120,25 +108,32 @@
                 <button type='button' class="minor mar10-l" onclick="del(1,'启用')" >启用</button>
                 <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
             </#if>
-        </div>
-    </left>
-    <right>
-        <selector>
-            <a class="${(state =1)?string('sel','')}" href="inner?space_id=${space_id}&state=1">启用</a>
-            <a class="${(state !=1)?string('sel','')}" href="inner?space_id=${space_id}&state=0">未启用</a>
-        </selector>
-    </right>
+        </left>
+        <mid class="col-4">
+            <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=2">添加空间</a>
+            <#if (space_id!0) gt 0>
+                <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=1">添加分组</a>
+                <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=0">添加资源</a>
+            </#if>
+        </mid>
+        <right class="col-4">
+            <selector>
+                <a class="${(state =1)?string('sel','')}" href="inner?space_id=${space_id}&state=1">启用</a>
+                <a class="${(state !=1)?string('sel','')}" href="inner?space_id=${space_id}&state=0">未启用</a>
+            </selector>
+        </right>
+    </flex>
 </toolbar>
 <datagrid class="list">
     <table>
         <thead>
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
-            <td width="100px" class="left">Id</td>
-            <td width="100px" class="left">代号</td>
+            <td width="50px" class="left">Id</td>
             <td class="left">显示名</td>
             <td class="left">路径</td>
-            <td width="100px" class="left">是否可见</td>
+            <td width="90px" class="left">路径目标</td>
+            <td width="90px" class="left">是否可见</td>
             <td width="50px">操作</td>
         </tr>
         </thead>
@@ -147,9 +142,17 @@
             <tr>
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${group.resource_id}" /><a></a></label></checkbox></td>
                 <td class="left">${group.resource_id!}</td>
-                <td class="left">${group.resource_code!}</td>
-                <td class="left">${group.display_name!}</td>
+                <td class="left">
+                    <#if group.resource_type = 0>
+                        |-
+                    </#if>
+                    ${group.display_name!}
+                    <#if group.resource_code?length gt 0>
+                        (${group.resource_code!})
+                    </#if>
+                </td>
                 <td class="left">${group.link_uri!}</td>
+                <td class="left">${group.link_target!}</td>
                 <td class="left">${group.is_visibled?string("True","False")}</td>
                 <td class="op"><a href="/grit/resource/edit?resource_id=${group.resource_id}" class="t2">编辑</a></td>
             </tr>

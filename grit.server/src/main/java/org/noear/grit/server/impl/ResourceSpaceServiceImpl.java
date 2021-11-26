@@ -2,6 +2,7 @@ package org.noear.grit.server.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
+import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.TagCounts;
 import org.noear.grit.model.type.ResourceType;
@@ -16,6 +17,7 @@ import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,5 +93,27 @@ public class ResourceSpaceServiceImpl implements ResourceSpaceService {
         return db.table("grit_resource")
                 .whereEq("resource_type", ResourceType.space.code)
                 .selectList("*", ResourceSpace.class);
+    }
+
+    @Override
+    public List<Resource> getAdminResourceListBySpace(long resourceId) throws SQLException {
+        if(resourceId == 0){
+            return new ArrayList<>();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_sid", resourceId)
+                .selectList("*", Resource.class);
+    }
+
+    @Override
+    public List<Resource> getAdminSubResourceListByPid(long resourceId) throws SQLException {
+        if(resourceId == 0){
+            return new ArrayList<>();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_pid", resourceId)
+                .selectList("*", Resource.class);
     }
 }
