@@ -64,90 +64,48 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public List<ResourceEntity> getUriListByGroup(long subjectId, long resourceGroupId) throws SQLException {
-        //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toList());
-
-        //加上自己的主体id
-        subjectIds.add(subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
         return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndGroup(subjectIds, resourceGroupId, true);
     }
 
     @Override
     public List<ResourceEntity> getUriListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
-        //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toList());
-
-        //加上自己的主体id
-        subjectIds.add(subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
         return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndSpace(subjectIds, resourceSpaceId, true);
     }
 
     @Override
     public ResourceEntity getUriFristBySpace(long subjectId, long resourceSpaceId) throws SQLException {
-        //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toList());
-
-        //加上自己的主体id
-        subjectIds.add(subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
         return GritClient.global().resourceLink().getResourceEntityFristBySubjectsAndSpace(subjectIds, resourceSpaceId, true);
     }
 
     @Override
     public ResourceEntity getUriFristByGroup(long subjectId, long resourceGroupId) throws SQLException {
-        //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toList());
-
-        //加上自己的主体id
-        subjectIds.add(subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
         return GritClient.global().resourceLink().getResourceEntityFristBySubjectsAndGroup(subjectIds, resourceGroupId, true);
     }
 
     @Override
     public List<ResourceGroup> getUriGroupListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
-        //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toList());
-
-        //加上自己的主体id
-        subjectIds.add(subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
         return GritClient.global().resourceLink().getResourceGroupListBySubjects(subjectIds, resourceSpaceId, true);
     }
 
     @Override
     public List<ResourceEntity> getPermissionList(long subjectId, long resourceSpaceId) throws SQLException {
-        //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toList());
-
-        //加上自己的主体id
-        subjectIds.add(subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
         return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndSpace(subjectIds, resourceSpaceId, false);
     }
@@ -155,5 +113,22 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public List<SubjectGroup> getRoleList(long subjectId) throws SQLException {
         return GritClient.global().subjectLink().getSubjectGroupListByEntity(subjectId);
+    }
+
+    /**
+     * 获取实验验证时的所有主体Id
+     * */
+    private List<Long> getSubjectIdsByEntityOnAuth(long subjectEntityId) throws SQLException{
+        //获取所在组的主体id
+        List<Long> subjectIds = GritClient.global().subjectLink()
+                .getSubjectGroupListByEntity(subjectEntityId)
+                .stream()
+                .map(s -> s.subject_id)
+                .collect(Collectors.toList());
+
+        //加上自己的主体id
+        subjectIds.add(subjectEntityId);
+
+        return subjectIds;
     }
 }
