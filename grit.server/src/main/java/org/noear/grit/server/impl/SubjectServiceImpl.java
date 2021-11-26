@@ -32,42 +32,6 @@ public class SubjectServiceImpl implements SubjectService {
     @Inject("grit.cache")
     private  ICacheService cache;
 
-    /**
-     * 添加主体
-     *
-     * @param subject 主体
-     */
-    @Override
-    public long addSubject(Subject subject) throws SQLException {
-        return db.table("grit_subject")
-                .setEntity(subject).usingNull(false)
-                .insert();
-    }
-
-    @Override
-    public long addSubjectEntity(SubjectEntity subjectEntity, long groupSubjectId) throws SQLException {
-        long subjectEntityId = db.table("grit_subject")
-                .setEntity(subjectEntity).usingNull(false)
-                .insert();
-
-        GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
-
-        return subjectEntityId;
-    }
-
-    /**
-     * 更新主体
-     *
-     * @param subjectId 主体Id
-     * @param subject   主体
-     */
-    @Override
-    public boolean updSubject(long subjectId, Subject subject) throws SQLException {
-        return db.table("grit_subject")
-                .setEntity(subject).usingNull(false)
-                .whereEq("subject_id", subjectId)
-                .update() > 0;
-    }
 
     /**
      * 检测主体是否存在

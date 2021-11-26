@@ -12,9 +12,9 @@ import org.noear.grit.service.*;
 public interface GritClient {
     /**
      * 获取全局对象
-     * */
+     */
     static GritClient global() {
-        if(GritUtil.client == null){
+        if (GritUtil.client == null) {
             GritUtil.client = new GritClientRpcImpl();
         }
 
@@ -25,7 +25,7 @@ public interface GritClient {
 
     /**
      * 设置全局对象
-     * */
+     */
     static void setGlobal(GritClient client) {
         GritUtil.client = client;
     }
@@ -49,17 +49,6 @@ public interface GritClient {
     /////////////////////////////////////////////
 
     /**
-     * 主体接口
-     */
-    SubjectService subject();
-
-    /**
-     * 主体关联接口
-     */
-    SubjectLinkService subjectLink();
-
-
-    /**
      * 资源接口
      */
     ResourceService resource();
@@ -74,6 +63,25 @@ public interface GritClient {
      * 资源管理接口
      */
     ResourceAdminService resourceAdmin();
+
+
+    /////////////////////////////////////////////
+
+    /**
+     * 主体接口
+     */
+    SubjectService subject();
+
+    /**
+     * 主体关联接口
+     */
+    SubjectLinkService subjectLink();
+
+    /**
+     * 主体管理接口
+     */
+    SubjectAdminService subjectAdmin();
+
 
     /**
      * 签权接口
