@@ -3,7 +3,7 @@ package org.noear.grit.model.data;
 import java.io.Serializable;
 
 /**
- * 主体
+ * 主体。分2个概念：实体、分组
  *
  * @author noear
  * @since 1.0

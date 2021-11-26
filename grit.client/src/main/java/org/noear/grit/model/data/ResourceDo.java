@@ -3,7 +3,7 @@ package org.noear.grit.model.data;
 import java.io.Serializable;
 
 /**
- * 资源
+ * 资源。分3个概念：实体，分组，空间
  *
  * @author noear
  * @since 1.0
