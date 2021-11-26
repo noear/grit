@@ -25,9 +25,9 @@ import java.util.List;
 @Mapping("/api/v1/ResourceService")
 @Remoting
 public class ResourceServiceImpl implements ResourceService {
-    @Db
+    @Db("grit.db")
     private  DbContext db;
-    @Inject
+    @Inject("grit.cache")
     private  ICacheService cache;
 
 

@@ -23,10 +23,10 @@ import java.util.List;
 @Mapping("/api/v1/SubjectLinkService")
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {
-    @Db
-    private DbContext db;
-    @Inject
-    private ICacheService cache;
+    @Db("grit.db")
+    private  DbContext db;
+    @Inject("grit.cache")
+    private  ICacheService cache;
 
     /**
      * 添加主体连接

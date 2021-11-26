@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Mapping("/api/v1/ResourceLinkService")
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {
-    @Db
+    @Db("grit.db")
     private  DbContext db;
-    @Inject
+    @Inject("grit.cache")
     private  ICacheService cache;
 
 

@@ -1,5 +1,6 @@
-package org.noear.grit.client;
+package org.noear.grit.client.impl;
 
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.service.*;

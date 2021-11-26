@@ -18,12 +18,12 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class Config {
-    @Bean
+    @Bean(value = "grit.cache", typed = true)
     public CacheService cache(@Inject("${grit.cache}") CacheServiceSupplier supplier) {
         return new CacheServiceWrap(supplier.get());
     }
 
-    @Bean
+    @Bean(value = "grit.db", typed = true)
     public DataSource db(@Inject("${grit.db}") HikariDataSource ds) {
         return ds;
     }

@@ -1,5 +1,6 @@
 package org.noear.grit.client;
 
+import org.noear.grit.client.impl.GritClientRpcImpl;
 import org.noear.grit.service.*;
 
 

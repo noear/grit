@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 @Mapping("/api/v1/ResourceSpaceService")
 @Remoting
 public class ResourceSpaceServiceImpl implements ResourceSpaceService {
-    @Db
+    @Db("grit.db")
     private  DbContext db;
-    @Inject
+    @Inject("grit.cache")
     private  ICacheService cache;
 
     @Override
