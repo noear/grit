@@ -62,7 +62,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         long resourceGroupId = 0;
         for (ResourceGroup resourceGroup : groupList) {
-            if (path.indexOf(resourceGroup.link_uri) == 0) { //::en_name 改为 uri_path
+            if (path.indexOf(resourceGroup.link_uri) == 0) {
                 resourceGroupId = resourceGroup.resource_id;
                 break;
             }
