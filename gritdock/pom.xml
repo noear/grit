@@ -26,6 +26,34 @@
             <groupId>org.noear</groupId>
             <artifactId>water-solon-plugin</artifactId>
             <version>${solon.ver}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zaxxer</groupId>
+                    <artifactId>HikariCP</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.noear</groupId>
+                    <artifactId>weed3</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.noear</groupId>
+                    <artifactId>weed3.cache.memcached</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.noear</groupId>
+                    <artifactId>weed3.cache.redis</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.noear</groupId>
+                    <artifactId>redisx</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
