@@ -82,6 +82,7 @@ public interface GritClient {
      */
     SubjectAdminService subjectAdmin();
 
+    /////////////////////////////////////////////
 
     /**
      * 签权接口

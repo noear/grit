@@ -16,12 +16,13 @@ import java.sql.SQLException;
  * @since 1.0
  */
 public class GritClientRpcImpl implements GritClient {
-    private SubjectService subjectService;
-    private SubjectLinkService subjectLinkService;
-
     private ResourceService resourceService;
     private ResourceLinkService resourceLinkService;
     private ResourceAdminService resourceAdminService;
+
+    private SubjectService subjectService;
+    private SubjectLinkService subjectLinkService;
+    private SubjectAdminService subjectAdminService;
 
     private AuthService authService;
 
@@ -34,12 +35,13 @@ public class GritClientRpcImpl implements GritClient {
         String gritToken = System.getProperty("grit.token");
 
         if (TextUtils.isEmpty(gritServer) == false || TextUtils.isEmpty(gritToken) == false) {
-            subjectService = createService(gritServer, gritToken, SubjectService.class);
-            subjectLinkService = createService(gritServer, gritToken, SubjectLinkService.class);
-
             resourceService = createService(gritServer, gritToken, ResourceService.class);
             resourceLinkService = createService(gritServer, gritToken, ResourceLinkService.class);
             resourceAdminService = createService(gritServer, gritToken, ResourceAdminService.class);
+
+            subjectService = createService(gritServer, gritToken, SubjectService.class);
+            subjectLinkService = createService(gritServer, gritToken, SubjectLinkService.class);
+            subjectAdminService = createService(gritServer, gritToken, SubjectAdminService.class);
 
 
             authService = createService(gritServer, gritToken, AuthService.class);
@@ -95,22 +97,9 @@ public class GritClientRpcImpl implements GritClient {
     }
 
 
+
+
     /////////////////////////////////////////////
-
-    /**
-     * 主体接口
-     */
-    public SubjectService subject() {
-        return subjectService;
-    }
-
-    /**
-     * 主体关联接口
-     */
-    public SubjectLinkService subjectLink() {
-        return subjectLinkService;
-    }
-
 
     /**
      * 资源接口
@@ -131,6 +120,30 @@ public class GritClientRpcImpl implements GritClient {
     public ResourceAdminService resourceAdmin() {
         return null;
     }
+
+
+    /////////////////////////////////////////////
+
+    /**
+     * 主体接口
+     */
+    public SubjectService subject() {
+        return subjectService;
+    }
+
+    /**
+     * 主体关联接口
+     */
+    public SubjectLinkService subjectLink() {
+        return subjectLinkService;
+    }
+
+    @Override
+    public SubjectAdminService subjectAdmin() {
+        return null;
+    }
+
+    /////////////////////////////////////////////
 
     /**
      * 签权接口

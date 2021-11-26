@@ -15,16 +15,18 @@ import java.sql.SQLException;
 @Component
 public class GritClientLocalImpl implements GritClient {
     @Inject
-    private SubjectService subjectService;
-    @Inject
-    private SubjectLinkService subjectLinkService;
-
-    @Inject
     private ResourceService resourceService;
     @Inject
     private ResourceLinkService resourceLinkService;
     @Inject
     private ResourceAdminService resourceAdminService;
+
+    @Inject
+    private SubjectService subjectService;
+    @Inject
+    private SubjectLinkService subjectLinkService;
+    @Inject
+    private SubjectAdminService subjectAdminService;
 
     @Inject
     private AuthService authService;
@@ -68,20 +70,6 @@ public class GritClientLocalImpl implements GritClient {
 
     /////////////////////////////////////////////
 
-    /**
-     * 主体接口
-     */
-    public SubjectService subject() {
-        return subjectService;
-    }
-
-    /**
-     * 主体关联接口
-     */
-    public SubjectLinkService subjectLink() {
-        return subjectLinkService;
-    }
-
 
     /**
      * 资源接口
@@ -105,6 +93,34 @@ public class GritClientLocalImpl implements GritClient {
     public ResourceAdminService resourceAdmin() {
         return resourceAdminService;
     }
+
+
+    /////////////////////////////////////////////
+
+    /**
+     * 主体接口
+     */
+    public SubjectService subject() {
+        return subjectService;
+    }
+
+    /**
+     * 主体关联接口
+     */
+    public SubjectLinkService subjectLink() {
+        return subjectLinkService;
+    }
+
+    /**
+     * 主体管理接口
+     * */
+    @Override
+    public SubjectAdminService subjectAdmin() {
+        return subjectAdminService;
+    }
+
+
+    /////////////////////////////////////////////
 
 
     /**
