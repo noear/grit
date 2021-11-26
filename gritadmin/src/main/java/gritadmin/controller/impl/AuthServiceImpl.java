@@ -1,8 +1,10 @@
-package org.noear.grit.client.impl;
+package gritadmin.controller.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.*;
 import org.noear.grit.service.AuthService;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.Remoting;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
+@Mapping("/api/v1/AuthService")
+@Remoting
 public class AuthServiceImpl implements AuthService {
     @Override
     public Subject login(String loginName, String loginPassword) throws SQLException {

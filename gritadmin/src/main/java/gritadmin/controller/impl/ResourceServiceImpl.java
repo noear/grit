@@ -1,12 +1,16 @@
-package org.noear.grit.client.impl;
+package gritadmin.controller.impl;
 
-import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceType;
 import org.noear.grit.service.ResourceService;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
+import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
@@ -18,14 +22,13 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
+@Mapping("/api/v1/ResourceService")
+@Remoting
 public class ResourceServiceImpl implements ResourceService {
-    private final DbContext db;
-    private final ICacheService cache;
-
-    public ResourceServiceImpl(DbContext db, ICacheService cache) {
-        this.db = db;
-        this.cache = cache;
-    }
+    @Db
+    private  DbContext db;
+    @Inject
+    private  ICacheService cache;
 
 
     /**

@@ -1,10 +1,10 @@
-package org.noear.grit.client;
+package gritadmin.dso;
 
-import org.noear.grit.client.impl.*;
+import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.service.*;
-import org.noear.weed.DbContext;
-import org.noear.weed.cache.ICacheService;
+import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 
 import java.sql.SQLException;
 
@@ -12,33 +12,27 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.0
  */
-public class GritClientImpl implements GritClient{
-    private final SubjectService subjectService;
-    private final SubjectLinkService subjectLinkService;
+@Component
+public class GritClientLocalImpl implements GritClient {
+    @Inject
+    private SubjectService subjectService;
+    @Inject
+    private SubjectLinkService subjectLinkService;
 
-    private final ResourceService resourceService;
-    private final ResourceLinkService resourceLinkService;
-    private final ResourceSpaceService resourceSpaceService;
+    @Inject
+    private ResourceService resourceService;
+    @Inject
+    private ResourceLinkService resourceLinkService;
+    @Inject
+    private ResourceSpaceService resourceSpaceService;
 
-    private final AuthService authService;
+    @Inject
+    private AuthService authService;
 
 
     private long currentSpaceId;
     private String currentSpaceCode;
 
-    /**
-     * 初始化
-     */
-    public GritClientImpl(DbContext db, ICacheService cache) {
-        resourceService = new ResourceServiceImpl(db, cache);
-        resourceSpaceService = new ResourceSpaceServiceImpl(db, cache);
-        resourceLinkService = new ResourceLinkServiceImpl(db, cache);
-
-        subjectService = new SubjectServiceImpl(db, cache);
-        subjectLinkService = new SubjectLinkServiceImpl(db, cache);
-
-        authService = new AuthServiceImpl();
-    }
 
     /**
      * 设置当前资源空间代号

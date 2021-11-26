@@ -1,8 +1,13 @@
-package org.noear.grit.client.impl;
+package gritadmin.controller.impl;
 
-import org.noear.grit.model.domain.*;
+import org.noear.grit.model.domain.SubjectEntity;
+import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.grit.service.SubjectLinkService;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
+import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
@@ -15,21 +20,20 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
+@Mapping("/api/v1/SubjectLinkService")
+@Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {
-    private final DbContext db;
-    private final ICacheService cache;
-
-    public SubjectLinkServiceImpl(DbContext db, ICacheService cache) {
-        this.db = db;
-        this.cache = cache;
-    }
+    @Db
+    private DbContext db;
+    @Inject
+    private ICacheService cache;
 
     /**
      * 添加主体连接
      *
-     * @param subjectId 主体Id
+     * @param subjectId      主体Id
      * @param groupSubjectId 分组的主体Id
-     * */
+     */
     @Override
     public long addSubjectLink(long subjectId, long groupSubjectId) throws SQLException {
         return db.table("grit_subject_linked")
@@ -43,7 +47,7 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
      * 删除主体连接
      *
      * @param linkIds 主体Ids
-     * */
+     */
     @Override
     public void delSubjectLink(long... linkIds) throws SQLException {
         db.table("grit_subject_linked")
@@ -96,57 +100,4 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
                 .caching(cache)
                 .selectList("*", SubjectGroup.class);
     }
-
-
-
-//    @Override
-//    public List<ResourceGroup> getReourceGroupListByUser(long userId, long groupId) throws SQLException {
-//        if (userId < 1 || groupId < 1L) {
-//            return new ArrayList<>();
-//        }
-//
-//        //1.找出我所有的资源
-//        List<Integer> resourceIds = db.table("grit_resource r")
-//                .innerJoin("grit_resource_linked rl").on("r.resource_id=rl.resource_id")
-//                .where("rl.lk_objt_id=? AND rl.lk_objt=? AND r.is_branched=0 AND r.is_disabled=0", userId, Constants.GROUP_user_root_id)
-//                .caching(cache)
-//                .selectArray("r.resource_id");
-//
-//        if (resourceIds.size() == 0) {
-//            return new ArrayList<>();
-//        }
-//
-//        //2.找出资源相关的组id
-//        List<Integer> groupIds = db.table("grit_resource_linked rl")
-//                .where("rl.lk_objt=? AND rl.resource_id IN (?...)", Constants.OBJT_group, resourceIds)
-//                .caching(cache)
-//                .selectArray("DISTINCT rl.lk_objt_id");
-//
-//        if (groupIds.size() == 0) {
-//            return new ArrayList<>();
-//        }
-//
-//        //3.找出相关组的诚意情
-//        return db.table("grit_group")
-//                .where("group_id IN (?...) AND is_disabled=0 AND is_visibled=1", groupIds)
-//                .andEq("group_pid", groupId)
-//                .orderBy("Order_Index")
-//                .caching(cache)
-//                .selectList("*", ResourceGroup.class);
-//
-//    }
-//
-//    @Override
-//    public List<Subject> getUserListByGroup(long groupId) throws SQLException {
-//        List<Object> userIds = db.table("grit_subject_linked")
-//                .whereEq("lk_objt", Constants.OBJT_group)
-//                .andEq("lk_objt_id", groupId)
-//                .caching(cache)
-//                .selectArray("user_id");
-//
-//        return db.table("grit_user")
-//                .whereIn("user_id", userIds)
-//                .caching(cache)
-//                .selectList("*", Subject.class);
-//    }
 }

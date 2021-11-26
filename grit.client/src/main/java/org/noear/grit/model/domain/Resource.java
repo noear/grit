@@ -1,7 +1,7 @@
 package org.noear.grit.model.domain;
 
-import org.noear.grit.client.impl.utils.PropUtils;
-import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.utils.PropUtils;
+import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.ResourceDo;
 
 import java.util.Properties;

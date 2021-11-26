@@ -11,7 +11,7 @@ import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.Resource;
 import gritdock.Config;

@@ -1,9 +1,16 @@
-package org.noear.grit.client.impl;
+package gritadmin.controller.impl;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.model.domain.*;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.ResourceSpace;
+import org.noear.grit.model.domain.Subject;
 import org.noear.grit.service.ResourceLinkService;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
+import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
@@ -17,14 +24,14 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
+@Mapping("/api/v1/ResourceLinkService")
+@Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {
-    private final DbContext db;
-    private final ICacheService cache;
+    @Db
+    private  DbContext db;
+    @Inject
+    private  ICacheService cache;
 
-    public ResourceLinkServiceImpl(DbContext db, ICacheService cache) {
-        this.db = db;
-        this.cache = cache;
-    }
 
     /**
      * 添加资源关联

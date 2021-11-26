@@ -1,4 +1,4 @@
-package org.noear.grit.client.impl.utils;
+package org.noear.grit.client.utils;
 
 /**
  * 文本工具

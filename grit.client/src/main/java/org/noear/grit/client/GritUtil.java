@@ -1,7 +1,7 @@
 package org.noear.grit.client;
 
-import org.noear.grit.client.impl.utils.EncryptUtils;
-import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.utils.EncryptUtils;
+import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Resource;
 

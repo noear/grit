@@ -1,11 +1,15 @@
-package org.noear.grit.client.impl;
+package gritadmin.controller.impl;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.impl.utils.TextUtils;
+import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.ResourceType;
 import org.noear.grit.service.ResourceSpaceService;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
+import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
@@ -18,14 +22,13 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
+@Mapping("/api/v1/ResourceSpaceService")
+@Remoting
 public class ResourceSpaceServiceImpl implements ResourceSpaceService {
-    private final DbContext db;
-    private final ICacheService cache;
-
-    public ResourceSpaceServiceImpl(DbContext db, ICacheService cache) {
-        this.db = db;
-        this.cache = cache;
-    }
+    @Db
+    private  DbContext db;
+    @Inject
+    private  ICacheService cache;
 
     @Override
     public ResourceSpace getSpaceByCode(String resourceSpaceCode) throws SQLException {
