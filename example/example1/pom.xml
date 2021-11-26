@@ -18,13 +18,13 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.auth</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
         </dependency>
 
         <dependency>

@@ -18,19 +18,19 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.cloud</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.extend.sessionstate.jwt</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
         </dependency>
 
 <!--        <dependency>-->
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>weed3-solon-plugin</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
         </dependency>
 
         <dependency>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>weed3.cache.memcached</artifactId>
-            <version>${weed3.version}</version>
+            <version>${weed3.ver}</version>
         </dependency>
 
         <dependency>
@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-test</artifactId>
-            <version>${solon.version}</version>
+            <version>${solon.ver}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
