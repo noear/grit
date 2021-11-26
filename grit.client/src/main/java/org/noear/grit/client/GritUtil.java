@@ -13,6 +13,9 @@ public class GritUtil {
 
     /**
      * 构建密码
+     *
+     * @param longName      登录名（同时做为盐）
+     * @param loginPassword 登录密码
      */
     public static String buildPassword(String longName, String loginPassword) {
         return EncryptUtils.sha1(longName + "#" + loginPassword);
@@ -20,6 +23,8 @@ public class GritUtil {
 
     /**
      * 构建地址
+     *
+     * @param res 资源
      */
     public static String buildDockUri(Resource res) {
         if (res == null || TextUtils.isEmpty(res.link_uri)) {
@@ -43,7 +48,10 @@ public class GritUtil {
 
     /**
      * 构建带空间的地址
-     * */
+     *
+     * @param space 资源空间
+     * @param res   资源
+     */
     public static String buildDockSpaceUri(ResourceSpace space, Resource res) {
         if (res == null || TextUtils.isEmpty(res.link_uri)) {
             return "";
@@ -77,7 +85,9 @@ public class GritUtil {
 
     /**
      * 从路径中解析出空间代号
-     * */
+     *
+     * @param path 路径
+     */
     public static String parseSpaceCodeByPath(String path) {
         int start_idx = path.indexOf(".");
 
@@ -93,7 +103,9 @@ public class GritUtil {
 
     /**
      * 从路径中将空间代号清降掉
-     * */
+     *
+     * @param path 路径
+     */
     public static String cleanSpaceCodeAtPath(String path) {
         return path.replaceAll("/\\.[^/]*", "");
     }
