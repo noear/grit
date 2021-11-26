@@ -1,4 +1,7 @@
 
+#
+# for server
+#
 grit.cache:
   driverType: "redis"
   server: "redis.water.io:6379"
@@ -11,6 +14,17 @@ grit.db:
   password: "123456"
   username: "demo"
 
+grit.ldap:
+  url: "ldap://127.0.0.1:389"
+  baseDn: "DC=company,DC=com"
+  bindDn: "cn=admin,dc=company,dc=com"
+  paasword: "123456"
+  userFilter: "cn=%s"
+  groupFilter: "cn=%s"
+
+#
+# for client
+#
 grit.server: "http://gritadmin:8080"
 
 server.session:
