@@ -46,7 +46,7 @@ public interface ResourceService {
     Resource getResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException;
 
     default Resource getResourceByCode(String resourceCode) throws SQLException {
-        return getResourceByCode(GritClient.currentResourceSpaceId(), resourceCode);
+        return getResourceByCode(GritClient.getCurrentSpaceId(), resourceCode);
     }
 
 
@@ -58,7 +58,7 @@ public interface ResourceService {
     Resource getResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException;
 
     default Resource getResourceByUri(String resourceUri) throws SQLException {
-        return getResourceByUri(GritClient.currentResourceSpaceId(), resourceUri);
+        return getResourceByUri(GritClient.getCurrentSpaceId(), resourceUri);
     }
 
     /**
@@ -70,7 +70,7 @@ public interface ResourceService {
     boolean hasResourceCode(long resourceSpaceId, String resourceCode) throws SQLException;
 
     default boolean hasResourceCode(String resourceCode) throws SQLException {
-        return hasResourceCode(GritClient.currentResourceSpaceId(), resourceCode);
+        return hasResourceCode(GritClient.getCurrentSpaceId(), resourceCode);
     }
 
     /**
@@ -82,7 +82,7 @@ public interface ResourceService {
     boolean hasResourceUri(long resourceSpaceId, String resourceUri) throws SQLException;
 
     default boolean hasResourceUri(String resourceUri) throws SQLException {
-        return hasResourceUri(GritClient.currentResourceSpaceId(), resourceUri);
+        return hasResourceUri(GritClient.getCurrentSpaceId(), resourceUri);
     }
 
     /**

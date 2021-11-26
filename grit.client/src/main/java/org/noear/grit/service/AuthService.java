@@ -42,7 +42,7 @@ public interface AuthService {
      * @param uri             路径（例：/user/add）
      */
     default boolean subjectHasUri(long subjectId,  String uri) throws SQLException{
-        return subjectHasUri(subjectId, GritClient.currentResourceSpaceId(), uri);
+        return subjectHasUri(subjectId, GritClient.getCurrentSpaceId(), uri);
     }
 
     /**
@@ -61,7 +61,7 @@ public interface AuthService {
      * @param permission      权限（例：user:add）
      */
     default boolean subjectHasPermission(long subjectId, String permission) throws SQLException{
-        return subjectHasPermission(subjectId, GritClient.currentResourceSpaceId(), permission);
+        return subjectHasPermission(subjectId, GritClient.getCurrentSpaceId(), permission);
     }
 
     /**
@@ -87,7 +87,7 @@ public interface AuthService {
      * 获取主体的路径列表
      */
     default List<ResourceEntity> getSubjectUriListBySpace(long subjectId) throws SQLException{
-        return getSubjectUriListBySpace(subjectId, GritClient.currentResourceSpaceId());
+        return getSubjectUriListBySpace(subjectId, GritClient.getCurrentSpaceId());
     }
 
     /**
@@ -99,7 +99,7 @@ public interface AuthService {
      * 获取主体的第一次路径
      */
     default ResourceEntity getSubjectUriFristBySpace(long subjectId) throws SQLException{
-        return getSubjectUriFristBySpace(subjectId, GritClient.currentResourceSpaceId());
+        return getSubjectUriFristBySpace(subjectId, GritClient.getCurrentSpaceId());
     }
 
     /**
@@ -118,7 +118,7 @@ public interface AuthService {
      * 获取主体的路径分组列表
      */
     default List<ResourceGroup> getSubjectUriGroupListBySpace(long subjectId) throws SQLException{
-        return getSubjectUriGroupListBySpace(subjectId, GritClient.currentResourceSpaceId());
+        return getSubjectUriGroupListBySpace(subjectId, GritClient.getCurrentSpaceId());
     }
 
 
@@ -132,7 +132,7 @@ public interface AuthService {
      * 获取主体的权限列表
      */
     default List<ResourceEntity> getSubjectPermissionList(long subjectId) throws SQLException {
-        return getSubjectPermissionList(subjectId, GritClient.currentResourceSpaceId());
+        return getSubjectPermissionList(subjectId, GritClient.getCurrentSpaceId());
     }
 
 

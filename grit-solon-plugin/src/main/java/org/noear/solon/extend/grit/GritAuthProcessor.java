@@ -94,7 +94,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         List<String> permissionList = null;
         Context ctx = Context.current();
 
-        String sessionKey = GritClient.currentResourceSpaceCode() + ":" + "user_permissionList";
+        String sessionKey = GritClient.getCurrentSpaceCode() + ":" + "user_permissionList";
 
         //尝试从会话状态获取
         if (ctx != null) {
@@ -127,7 +127,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         List<String> roleList = null;
         Context ctx = Context.current();
 
-        String sessionKey = GritClient.currentResourceSpaceCode() + ":" + "user_roleList";
+        String sessionKey = GritClient.getCurrentSpaceCode() + ":" + "user_roleList";
 
         //尝试从会话状态获取
         if (ctx != null) {

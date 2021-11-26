@@ -24,8 +24,8 @@ public class GritClient {
 
     private static AuthService authService;
 
-    private static long currentResourceSpaceId;
-    private static String currentResourceSpaceCode;
+    private static long currentSpaceId;
+    private static String currentSpaceCode;
 
     /**
      * 初始化
@@ -42,35 +42,37 @@ public class GritClient {
     }
 
     /**
-     * 隔离分组
+     * 设置当前资源空间代号
      */
-    public static void switchResourceSpace(String resourceSpaceCode) {
-        if (resourceSpaceCode == null || resourceSpaceCode.equals(currentResourceSpaceCode)) {
+    public static void setCurrentSpaceCode(String resourceSpaceCode) {
+        if (resourceSpaceCode == null || resourceSpaceCode.equals(currentSpaceCode)) {
             return;
         }
 
         try {
             ResourceSpace space = resourceSpace().getSpaceByCode( resourceSpaceCode);
-            currentResourceSpaceId = space.resource_id;
-            currentResourceSpaceCode = resourceSpaceCode;
+            currentSpaceId = space.resource_id;
+            currentSpaceCode = resourceSpaceCode;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * 当前资源空间Id
+     * 获取当前资源空间代号
      */
-    public static long currentResourceSpaceId() {
-        return currentResourceSpaceId;
+    public static String getCurrentSpaceCode() {
+        return currentSpaceCode;
     }
 
     /**
-     * 当前资源空间代号
+     * 获取当前资源空间Id
      */
-    public static String currentResourceSpaceCode() {
-        return currentResourceSpaceCode;
+    public static long getCurrentSpaceId() {
+        return currentSpaceId;
     }
+
+
 
     /////////////////////////////////////////////
 

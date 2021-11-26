@@ -27,7 +27,7 @@ public class LoginTest {
         assert user.subject_id == 2;
 
 
-        GritClient.switchResourceSpace("wateradmin");
+        GritClient.switchSpace("wateradmin");
 
         List<ResourceGroup> groupList = GritClient.auth().getSubjectUriGroupListBySpace(user.subject_id);
         System.out.println(groupList);

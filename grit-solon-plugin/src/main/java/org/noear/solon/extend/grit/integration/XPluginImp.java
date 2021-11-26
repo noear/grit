@@ -31,7 +31,7 @@ public class XPluginImp implements Plugin {
             DbContext db = getDbDo(dbProp);
 
             GritClient.init(db, cache);
-            GritClient.switchResourceSpace(appName);
+            GritClient.setCurrentSpaceCode(appName);
         }
 
         //2.加载domain.js
