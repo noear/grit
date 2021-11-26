@@ -1,0 +1,14 @@
+
+solon.app:
+  name: "grit.server.ui-test"
+  group: "grit"
+
+
+solon.cloud.water:
+  server: "waterapi:9371"
+  config:
+    load: "grit.yml"
+
+
+grit.cache:
+  driverType: "local"

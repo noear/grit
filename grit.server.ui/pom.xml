@@ -25,5 +25,19 @@
             <artifactId>solon-web</artifactId>
             <version>${solon.ver}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>water-solon-plugin</artifactId>
+            <version>${solon.ver}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-test</artifactId>
+            <version>${solon.ver}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
