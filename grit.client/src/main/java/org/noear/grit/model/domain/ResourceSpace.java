@@ -1,5 +1,7 @@
 package org.noear.grit.model.domain;
 
+import org.noear.grit.model.type.ResourceType;
+
 /**
  * 资源空间
  *

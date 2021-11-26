@@ -1,5 +1,7 @@
 package org.noear.grit.model.domain;
 
+import org.noear.grit.model.type.ResourceType;
+
 /**
  * 资源分组领域模型（主要有：资源分组；用户分组；角色分组）
  *

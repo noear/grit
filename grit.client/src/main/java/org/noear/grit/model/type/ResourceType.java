@@ -1,4 +1,4 @@
-package org.noear.grit.model.domain;
+package org.noear.grit.model.type;
 
 /**
  * 资源类型

@@ -3,7 +3,7 @@ package gritadmin.controller.impl;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
-import org.noear.grit.model.domain.ResourceType;
+import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.service.ResourceSpaceService;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;

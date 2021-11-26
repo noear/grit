@@ -4,7 +4,7 @@ import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceEntity;
-import org.noear.grit.model.domain.ResourceType;
+import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.service.ResourceService;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;

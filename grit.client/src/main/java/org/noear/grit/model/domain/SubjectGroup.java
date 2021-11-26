@@ -1,5 +1,7 @@
 package org.noear.grit.model.domain;
 
+import org.noear.grit.model.type.SubjectType;
+
 /**
  * 主体分组
  *
