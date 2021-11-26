@@ -30,7 +30,7 @@ public abstract class SessionBase extends SessionAbstractBase {
      * 加载用户数据模型
      * */
     public void loadSubject(String loginName, String loginPassword) throws Exception {
-        loadSubject(GritClient.auth().login(loginName, loginPassword));
+        loadSubject(GritClient.global().auth().login(loginName, loginPassword));
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class SessionBase extends SessionAbstractBase {
 
         if (temp > 0 && (temp != localUserId())) {
             try {
-                Subject user = GritClient.subject().getSubjectById(temp);
+                Subject user = GritClient.global().subject().getSubjectById(temp);
                 loadSubject(user);
 
             } catch (Exception ex) {

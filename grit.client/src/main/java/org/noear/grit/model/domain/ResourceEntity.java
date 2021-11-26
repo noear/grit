@@ -27,6 +27,6 @@ public class ResourceEntity extends Resource {
      * 获取授权的主体列表
      */
     public List<Subject> getAuthSubjectList() throws SQLException {
-        return GritClient.resourceLink().getSubjectListByResource(resource_id);
+        return GritClient.global().resourceLink().getSubjectListByResource(resource_id);
     }
 }

@@ -42,7 +42,7 @@ public interface AuthService {
      * @param uri             路径（例：/user/add）
      */
     default boolean hasUri(long subjectId, String uri) throws SQLException{
-        return hasUri(subjectId, GritClient.getCurrentSpaceId(), uri);
+        return hasUri(subjectId, GritClient.global().getCurrentSpaceId(), uri);
     }
 
     /**
@@ -61,7 +61,7 @@ public interface AuthService {
      * @param permission      权限（例：user:add）
      */
     default boolean hasPermission(long subjectId, String permission) throws SQLException{
-        return hasPermission(subjectId, GritClient.getCurrentSpaceId(), permission);
+        return hasPermission(subjectId, GritClient.global().getCurrentSpaceId(), permission);
     }
 
     /**
@@ -95,7 +95,7 @@ public interface AuthService {
      * @param subjectId 主体Id
      */
     default List<ResourceEntity> getUriListBySpace(long subjectId) throws SQLException{
-        return getUriListBySpace(subjectId, GritClient.getCurrentSpaceId());
+        return getUriListBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
     /**
@@ -112,7 +112,7 @@ public interface AuthService {
      * @param subjectId
      */
     default ResourceEntity getUriFristBySpace(long subjectId) throws SQLException{
-        return getUriFristBySpace(subjectId, GritClient.getCurrentSpaceId());
+        return getUriFristBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
     /**
@@ -131,7 +131,7 @@ public interface AuthService {
      * 获取主体的授与路径分组列表
      */
     default List<ResourceGroup> getUriGroupListBySpace(long subjectId) throws SQLException{
-        return getUriGroupListBySpace(subjectId, GritClient.getCurrentSpaceId());
+        return getUriGroupListBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
 
@@ -145,7 +145,7 @@ public interface AuthService {
      * 获取主体的授与权限列表
      */
     default List<ResourceEntity> getPermissionList(long subjectId) throws SQLException {
-        return getPermissionList(subjectId, GritClient.getCurrentSpaceId());
+        return getPermissionList(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
 

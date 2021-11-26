@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
         }
 
         //用户登录
-        Subject subject = GritClient.auth().login(userName, passWord);
+        Subject subject = GritClient.global().auth().login(userName, passWord);
 
         if (subject.subject_id == 0)
             //用户登录::失败
@@ -76,15 +76,15 @@ public class LoginController extends BaseController {
 
             //1.确定分支组
             if (Utils.isEmpty(branchCode) == false) {
-                branch = GritClient.resourceSpace().getSpaceByCode(branchCode);
+                branch = GritClient.global().resourceSpace().getSpaceByCode(branchCode);
             }
 
             if (branch == null || branch.resource_id == null) {
-                branch = GritClient.resourceSpace().getSpaceFristByUser(subject.subject_id);
+                branch = GritClient.global().resourceSpace().getSpaceFristByUser(subject.subject_id);
             }
 
             //2.如果没有，找自己默认的权限
-            res = GritClient.auth().getUriFristBySpace(subject.subject_id, branch.resource_id);
+            res = GritClient.global().auth().getUriFristBySpace(subject.subject_id, branch.resource_id);
 
             //3.再没有，提示错误
             if (Utils.isEmpty(res.link_uri)) {
@@ -133,7 +133,7 @@ public class LoginController extends BaseController {
         HashMap<String, String> result = new HashMap<>();
 
         String loginName = Session.current().getLoginName();
-        int success = GritClient.subject().modSubjectPassword(loginName, oldPass, newPass);
+        int success = GritClient.global().subject().modSubjectPassword(loginName, oldPass, newPass);
 
         //0:出错；1：旧密码不对；2：修改成功
         if (0 == success) {

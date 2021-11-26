@@ -55,8 +55,8 @@ public class HeaderTag implements TemplateDirectiveModel {
             } else {
                 path = GritUtil.cleanSpaceCodeAtPath(path);
 
-                resourceSpace = GritClient.resourceSpace().getSpaceByCode(spaceCode);
-                list = GritClient.auth().getUriGroupListBySpace(Session.current().getUserId(), resourceSpace.resource_id);
+                resourceSpace = GritClient.global().resourceSpace().getSpaceByCode(spaceCode);
+                list = GritClient.global().auth().getUriGroupListBySpace(Session.current().getUserId(), resourceSpace.resource_id);
             }
         }
 
@@ -84,7 +84,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             long userId = Session.current().getUserId();
             for (ResourceGroup resourceGroup : list) {
                 try {
-                    Resource res = GritClient.auth().getUriFristByGroup(userId, resourceGroup.resource_id);
+                    Resource res = GritClient.global().auth().getUriFristByGroup(userId, resourceGroup.resource_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
                         buildGroupItem(buf, resourceSpace, resourceGroup, res, path);

@@ -44,6 +44,6 @@ public class Config {
         cache = new LocalCache(); //new MemCache(Solon.cfg().getProp("grit.cache"));
         db = new DbContext(Solon.cfg().getProp("grit.db"));
 
-        GritClient.init(db, cache);
+        //GritClient.global().init(db, cache);
     }
 }

@@ -24,7 +24,7 @@ public class DockController extends BaseController {
         String uri = ctx.pathNew().toLowerCase();
         String query = ctx.queryString();
 
-        Resource res = GritClient.resource().getResourceByUri(uri);
+        Resource res = GritClient.global().resource().getResourceByUri(uri);
         viewModel.put("fun_name", res.display_name);
         viewModel.put("fun_url", res.remark);
 

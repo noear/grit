@@ -186,7 +186,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
 
     @Override
     public List<ResourceGroup> getResourceGroupListBySubjects(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        List<Long> groupIds = GritClient.resource().getSubResourceListById(resourceSpaceId)
+        List<Long> groupIds = GritClient.global().resource().getSubResourceListById(resourceSpaceId)
                 .stream()
                 .map(r->r.resource_id)
                 .collect(Collectors.toList());

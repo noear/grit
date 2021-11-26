@@ -79,10 +79,10 @@ public class GritAuthProcessor extends AuthProcessorBase {
         }
 
         try {
-            if (GritClient.resource().hasResourceUri(path)) {
+            if (GritClient.global().resource().hasResourceUri(path)) {
                 return true;
             } else {
-                return GritClient.auth().hasUri(getUserId(), path);
+                return GritClient.global().auth().hasUri(getUserId(), path);
             }
         } catch (SQLException e) {
             throw new GritException(e);
@@ -94,7 +94,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         List<String> permissionList = null;
         Context ctx = Context.current();
 
-        String sessionKey = GritClient.getCurrentSpaceCode() + ":" + "user_permissionList";
+        String sessionKey = GritClient.global().getCurrentSpaceCode() + ":" + "user_permissionList";
 
         //尝试从会话状态获取
         if (ctx != null) {
@@ -103,7 +103,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
 
         if (permissionList == null) {
             try {
-                permissionList = GritClient.auth()
+                permissionList = GritClient.global().auth()
                         .getPermissionList(getUserId())
                         .stream()
                         .filter(s -> Utils.isNotEmpty(s.resource_code))
@@ -127,7 +127,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         List<String> roleList = null;
         Context ctx = Context.current();
 
-        String sessionKey = GritClient.getCurrentSpaceCode() + ":" + "user_roleList";
+        String sessionKey = GritClient.global().getCurrentSpaceCode() + ":" + "user_roleList";
 
         //尝试从会话状态获取
         if (ctx != null) {
@@ -136,7 +136,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
 
         if (roleList == null) {
             try {
-                roleList = GritClient.auth()
+                roleList = GritClient.global().auth()
                         .getRoleList(getUserId())
                         .stream()
                         .filter(s -> Utils.isNotEmpty(s.subject_code))

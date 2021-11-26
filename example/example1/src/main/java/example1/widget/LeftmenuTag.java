@@ -38,7 +38,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         StringBuilder sb = new StringBuilder();
 
-        List<ResourceGroup> plist = GritClient.auth().getUriGroupListBySpace(userId);
+        List<ResourceGroup> plist = GritClient.global().auth().getUriGroupListBySpace(userId);
         long packID = 0;
         for (ResourceGroup p : plist) {
             if (cPath.indexOf(p.link_uri) == 0) {
@@ -64,7 +64,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(long userId, long packID, StringBuilder sb, String cPath) throws SQLException {
-        List<ResourceEntity> list = GritClient.auth().getUriListByGroup(userId, packID);
+        List<ResourceEntity> list = GritClient.global().auth().getUriListByGroup(userId, packID);
 
         for (Resource res : list) {
             buildItem(sb, res, cPath);

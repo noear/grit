@@ -22,19 +22,19 @@ public class LoginTest {
     @Test
     public void login() throws Exception {
 
-        Subject user = GritClient.auth().login("noear", "bcf1234"); //1D050B5785B44868E6C41EE9ED990354A7FA5A55
+        Subject user = GritClient.global().auth().login("noear", "bcf1234"); //1D050B5785B44868E6C41EE9ED990354A7FA5A55
         System.out.println(user);
         assert user.subject_id == 2;
 
 
-        GritClient.switchSpace("wateradmin");
+        GritClient.global().setCurrentSpaceCode("wateradmin");
 
-        List<ResourceGroup> groupList = GritClient.auth().getUriGroupListBySpace(user.subject_id);
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(user.subject_id);
         System.out.println(groupList);
         assert groupList.size() > 0;
 
 
-        List<ResourceEntity> resourceList = GritClient.auth().getUriListByGroup(user.subject_id, groupList.get(0).resource_id);
+        List<ResourceEntity> resourceList = GritClient.global().auth().getUriListByGroup(user.subject_id, groupList.get(0).resource_id);
 
         System.out.println(resourceList);
         assert resourceList.size() > 0;

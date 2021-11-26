@@ -28,20 +28,20 @@ public class ResourceGroup extends Resource {
      * 获取上级分组
      */
     public Resource getSupGroup() throws SQLException {
-        return GritClient.resource().getResourceById(resource_pid);
+        return GritClient.global().resource().getResourceById(resource_pid);
     }
 
     /**
      * 获取下级分组列表
      */
     public List<Resource> getSubGroupList() throws SQLException {
-        return GritClient.resource().getSubResourceListById(resource_id);
+        return GritClient.global().resource().getSubResourceListById(resource_id);
     }
 
     /**
      * 获取下级资源列表
      */
     public List<ResourceEntity> getSubResourceEngityList() throws SQLException {
-        return GritClient.resource().getSubResourceEngityListById(resource_pid);
+        return GritClient.global().resource().getSubResourceEngityListById(resource_pid);
     }
 }

@@ -69,7 +69,7 @@ public class DockController extends BaseController {
         path = GritUtil.cleanSpaceCodeAtPath(path);
 
         try {
-            Resource res = GritClient.resource().getResourceByUri(path);
+            Resource res = GritClient.global().resource().getResourceByUri(path);
             viewModel.set("fun_name", res.display_name);
             viewModel.set("fun_url", res.link_uri);
 
@@ -104,7 +104,7 @@ public class DockController extends BaseController {
 
         //如果有r参数传入，则用r.note获取域 (r = res_id)
         if (Utils.isEmpty(r) == false) {
-            Resource res = GritClient.resource().getResourceById(Integer.parseInt(r));
+            Resource res = GritClient.global().resource().getResourceById(Integer.parseInt(r));
             if (res.link_uri != null && res.link_uri.indexOf("://") > 0) {
                 newUrl = res.link_uri + fun_url;
             }
@@ -114,7 +114,7 @@ public class DockController extends BaseController {
 
             //如果还没有域尝试从根包获取
             if (newUrl.indexOf("://") < 0) {
-                Resource pack = GritClient.resource().getResourceByUri(p);
+                Resource pack = GritClient.global().resource().getResourceByUri(p);
 
                 if (Utils.isEmpty(pack.link_uri) == false) {
                     newUrl = pack.link_uri + fun_url;

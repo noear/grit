@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
     public void login_auto() throws Exception {
         long userId = Session.current().getUserId();
         if (userId > 0) {
-            String res_url = GritClient.auth().getUriFristBySpace(userId).link_uri;
+            String res_url = GritClient.global().auth().getUriFristBySpace(userId).link_uri;
             if (Utils.isEmpty(res_url) == false) {
                 redirect(res_url);
                 return;
@@ -67,7 +67,7 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
         }
 
-        Subject user = GritClient.auth().login(userName, passWord);
+        Subject user = GritClient.global().auth().login(userName, passWord);
 
         if (user.subject_id == 0)
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
@@ -76,7 +76,7 @@ public class LoginController extends BaseController {
             Session.current().loadSubject(user);
 
             //新方案 //noear,20181120,(uadmin)
-            Resource res = GritClient.auth().getUriFristBySpace(user.subject_id);
+            Resource res = GritClient.global().auth().getUriFristBySpace(user.subject_id);
             String res_url = null;
 
             if (Utils.isEmpty(res.link_uri)) {

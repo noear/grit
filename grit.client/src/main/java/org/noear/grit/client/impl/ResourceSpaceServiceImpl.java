@@ -53,7 +53,7 @@ public class ResourceSpaceServiceImpl implements ResourceSpaceService {
     @Override
     public List<ResourceSpace> getSpaceListByUser(long subjectId) throws SQLException {
         //获取所在组的主体id
-        List<Long> subjectIds = GritClient.subjectLink()
+        List<Long> subjectIds = GritClient.global().subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
                 .stream()
                 .map(s -> s.subject_id)
@@ -62,7 +62,7 @@ public class ResourceSpaceServiceImpl implements ResourceSpaceService {
         //加上自己的主体id
         subjectIds.add(subjectId);
 
-        return GritClient.resourceLink().getResourceSpaceListBySubjects(subjectIds, true);
+        return GritClient.global().resourceLink().getResourceSpaceListBySubjects(subjectIds, true);
 
     }
 

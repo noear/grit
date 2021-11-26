@@ -24,10 +24,10 @@ public class MenuUtil {
 
         StringBuilder buf = new StringBuilder();
 
-        List<ResourceSpace> branchedList = GritClient.resourceSpace().getSpaceList();
+        List<ResourceSpace> branchedList = GritClient.global().resourceSpace().getSpaceList();
 
         for (ResourceSpace groupBranched : branchedList) {
-            List<ResourceGroup> modList = GritClient.auth().getUriGroupListBySpace(userId, groupBranched.resource_id);
+            List<ResourceGroup> modList = GritClient.global().auth().getUriGroupListBySpace(userId, groupBranched.resource_id);
             int modSize = 0;
 
             StringBuilder sb = new StringBuilder();
@@ -35,7 +35,7 @@ public class MenuUtil {
             sb.append("<header>").append(groupBranched.display_name).append("</header>");
             sb.append("<ul>");
             for (ResourceGroup m : modList) {
-                Resource res = GritClient.auth().getUriFristBySpace(userId, m.resource_id);
+                Resource res = GritClient.global().auth().getUriFristBySpace(userId, m.resource_id);
                 if (Utils.isNotEmpty(res.link_uri)) {
                     sb.append("<li>")
                             .append("<a href='").append(GritUtil.buildDockSpaceUri(groupBranched, res)).append("' target='_top'>")

@@ -17,20 +17,20 @@ import gritdock.DockApp;
 public class BaseTest {
     @Test
     public void getUser() throws Exception {
-        Subject user = GritClient.subject().getSubjectById(2);
+        Subject user = GritClient.global().subject().getSubjectById(2);
 
         System.out.println(user);
         assert user.subject_id == 2;
 
 
-        Subject user2 = GritClient.subject().getSubjectByLoginName("noear");
+        Subject user2 = GritClient.global().subject().getSubjectByLoginName("noear");
 
         assert user.subject_id == user2.subject_id;
     }
 
     @Test
     public void getGroupById() throws Exception {
-        Resource group = GritClient.resource().getResourceById(50);
+        Resource group = GritClient.global().resource().getResourceById(50);
 
         System.out.println(group);
         assert group.resource_id == 50;
@@ -39,7 +39,7 @@ public class BaseTest {
 
     @Test
     public void getResourceById() throws Exception {
-        Resource resource = GritClient.resource().getResourceById(10);
+        Resource resource = GritClient.global().resource().getResourceById(10);
 
         System.out.println(resource);
         assert resource.resource_id == 10;

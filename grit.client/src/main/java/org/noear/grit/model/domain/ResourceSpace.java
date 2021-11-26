@@ -27,6 +27,6 @@ public class ResourceSpace extends Resource {
      * 获取下级分组列表
      */
     public List<Resource> getSubGroupList() throws SQLException {
-        return GritClient.resource().getSubResourceListById(resource_id);
+        return GritClient.global().resource().getSubResourceListById(resource_id);
     }
 }

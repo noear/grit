@@ -45,7 +45,7 @@ public class SubjectServiceImpl implements SubjectService {
                 .setEntity(subjectEntity).usingNull(false)
                 .insert();
 
-        GritClient.subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
+        GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
 
         return subjectEntityId;
     }

@@ -50,7 +50,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         List<ResourceGroup> moduleList = null;
         {
             String groupCode = GritUtil.parseSpaceCodeByPath(path);
-            branch = GritClient.resourceSpace().getSpaceByCode(groupCode);
+            branch = GritClient.global().resourceSpace().getSpaceByCode(groupCode);
 
             if (Utils.isEmpty(groupCode)) {
                 moduleList = new ArrayList<>();
@@ -58,7 +58,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
                 path = GritUtil.cleanSpaceCodeAtPath(path);
 
-                moduleList = GritClient.auth().getUriGroupListBySpace(userId, branch.resource_id);
+                moduleList = GritClient.global().auth().getUriGroupListBySpace(userId, branch.resource_id);
             }
         }
 
@@ -74,7 +74,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/img/menu_w.png'/></div>");
         buf.append("<items>");
 
-        List<ResourceEntity> resList = GritClient.auth().getUriListByGroup(userId, moduleId);
+        List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(userId, moduleId);
 
         for (Resource res : resList) {
             buildMenuItem(buf, branch, res, path);

@@ -10,6 +10,8 @@ import org.noear.grit.model.domain.Resource;
  * @since 1.0
  */
 public class GritUtil {
+    protected static GritClient client;
+
 
     /**
      * 构建密码

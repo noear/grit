@@ -30,8 +30,8 @@ public class XPluginImp implements Plugin {
             MemCache cache = new MemCache(cacheProp);
             DbContext db = getDbDo(dbProp);
 
-            GritClient.init(db, cache);
-            GritClient.setCurrentSpaceCode(appName);
+            //GritClient.global().init(db, cache);
+            GritClient.global().setCurrentSpaceCode(appName);
         }
 
         //2.加载domain.js
