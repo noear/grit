@@ -25,7 +25,7 @@ import java.util.List;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
-@Mapping("/grit/v1/ResourceService")
+@Mapping("/grit/api/ResourceService")
 @Remoting
 public class ResourceServiceImpl implements ResourceService {
     @Db("grit.db")

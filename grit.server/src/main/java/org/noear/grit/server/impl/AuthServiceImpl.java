@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
-@Mapping("/grit/v1/AuthService")
+@Mapping("/grit/api/AuthService")
 @Remoting
 public class AuthServiceImpl implements AuthService {
     @Override

@@ -24,7 +24,7 @@ import java.sql.SQLException;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
-@Mapping("/grit/v1/SubjectService")
+@Mapping("/grit/api/SubjectService")
 @Remoting
 public class SubjectServiceImpl implements SubjectService {
     @Db("grit.db")

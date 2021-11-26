@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
-@Mapping("/grit/v1/ResourceSpaceService")
+@Mapping("/grit/api/ResourceSpaceService")
 @Remoting
 public class ResourceSpaceServiceImpl implements ResourceSpaceService {
     @Db("grit.db")

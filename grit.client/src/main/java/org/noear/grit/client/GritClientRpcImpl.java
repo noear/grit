@@ -54,7 +54,7 @@ public class GritClientRpcImpl implements GritClient {
     }
 
     private <T> T createService(String gritServer, String gritToken, Class<T> clz) {
-        return Nami.builder().url(gritServer + "/grit/v1/" + clz.getName())
+        return Nami.builder().url(gritServer + "/grit/api/" + clz.getName())
                 .encoder(SnackEncoder.instance)
                 .decoder(SnackDecoder.instance)
                 .headerSet("Grit-Token", gritToken)
