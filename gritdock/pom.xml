@@ -21,11 +21,11 @@
             <version>${solon.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.noear</groupId>-->
-<!--            <artifactId>solon.cloud</artifactId>-->
-<!--            <version>${solon.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.cloud</artifactId>
+            <version>${solon.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
@@ -33,11 +33,11 @@
             <version>${solon.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>water-solon-plugin</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.noear</groupId>-->
+<!--            <artifactId>water-solon-plugin</artifactId>-->
+<!--            <version>${solon.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.noear</groupId>

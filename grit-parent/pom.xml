@@ -17,6 +17,7 @@
         <solon.version>1.6.1</solon.version>
         <weed3.version>3.4.9</weed3.version>
         <snack3.version>3.2.0</snack3.version>
+        <redisx.version>1.3.1</redisx.version>
         <snakeyaml.version>1.29</snakeyaml.version>
 
         <grit.version>1.0</grit.version>
@@ -42,6 +43,12 @@
            </dependency>
 
            <dependency>
+               <groupId>org.noear</groupId>
+               <artifactId>redisx</artifactId>
+               <version>${redisx.version}</version>
+           </dependency>
+
+           <dependency>
                <groupId>mysql</groupId>
                <artifactId>mysql-connector-java</artifactId>
                <version>5.1.49</version>
@@ -51,12 +58,6 @@
                <groupId>com.zaxxer</groupId>
                <artifactId>HikariCP</artifactId>
                <version>4.0.3</version>
-           </dependency>
-
-           <dependency>
-               <groupId>redis.clients</groupId>
-               <artifactId>jedis</artifactId>
-               <version>3.2.0</version>
            </dependency>
 
            <dependency>
