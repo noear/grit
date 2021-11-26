@@ -14,6 +14,10 @@ public interface GritClient {
      * 获取全局对象
      * */
     static GritClient global() {
+        if(GritUtil.client == null){
+            GritUtil.client = new GritClientRpcImpl();
+        }
+
         return GritUtil.client;
     }
 

@@ -1,15 +1,10 @@
 package org.noear.solon.extend.grit.integration;
 
-import com.zaxxer.hikari.HikariDataSource;
 import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.Utils;
 import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
-import org.noear.weed.DbContext;
-import org.noear.weed.cache.memcached.MemCache;
-
-import java.util.Properties;
 
 /**
  * Grit 集成插件
@@ -21,15 +16,9 @@ public class XPluginImp implements Plugin {
     @Override
     public void start(SolonApp app) {
         String appName = Solon.cfg().appName();
-        Properties cacheProp = app.cfg().getProp("grit.cache");
-        Properties dbProp = app.cfg().getProp("grit.db");
 
-        //1.初始化
-        if (cacheProp.size() > 1 && dbProp.size() > 1 && appName != null) {
-
-            MemCache cache = new MemCache(cacheProp);
-            DbContext db = getDbDo(dbProp);
-
+        //1.初始化资源空间
+        if (appName != null) {
             //GritClient.global().init(db, cache);
             GritClient.global().setCurrentSpaceCode(appName);
         }
@@ -44,12 +33,5 @@ public class XPluginImp implements Plugin {
                 }
             }
         });
-    }
-
-    private DbContext getDbDo(Properties prop) {
-        HikariDataSource source = new HikariDataSource();
-        Utils.injectProperties(source, prop);
-
-        return new DbContext(source);
     }
 }
