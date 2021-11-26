@@ -50,7 +50,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         List<ResourceGroup> groupList = null;
         {
             String spaceCode = GritUtil.parseSpaceCodeByPath(path);
-            resourceSpace = GritClient.global().resourceSpace().getSpaceByCode(spaceCode);
+            resourceSpace = GritClient.global().resource().getSpaceByCode(spaceCode);
 
             if (Utils.isEmpty(spaceCode)) {
                 groupList = new ArrayList<>();

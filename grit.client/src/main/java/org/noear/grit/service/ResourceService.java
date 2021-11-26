@@ -4,6 +4,7 @@ import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceSpace;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,20 +16,7 @@ import java.util.List;
  * @since 1.0
  */
 public interface ResourceService {
-    /**
-     * 添加资源
-     *
-     * @param resource 资源
-     */
-    long addResource(ResourceDo resource) throws SQLException;
 
-    /**
-     * 更新资源
-     *
-     * @param resourceId 资源Id
-     * @param resource   资源
-     */
-    boolean updResource(long resourceId, ResourceDo resource) throws SQLException;
 
 
     /**
@@ -98,4 +86,20 @@ public interface ResourceService {
      * @param resourceId 资源Id
      */
     List<ResourceEntity> getSubResourceEngityListById(long resourceId) throws SQLException;
+
+
+    ////////////////////
+
+    /**
+     * 获取资源空间
+     *
+     * @param resourceSpaceCode 资源空间代号
+     */
+    ResourceSpace getSpaceByCode(String resourceSpaceCode) throws SQLException;
+
+    /**
+     * 获取所有的资源空间列表
+     */
+    List<ResourceSpace> getSpaceList() throws SQLException;
+
 }

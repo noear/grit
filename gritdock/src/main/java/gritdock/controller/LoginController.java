@@ -76,11 +76,11 @@ public class LoginController extends BaseController {
 
             //1.确定分支组
             if (Utils.isEmpty(branchCode) == false) {
-                branch = GritClient.global().resourceSpace().getSpaceByCode(branchCode);
+                branch = GritClient.global().resource().getSpaceByCode(branchCode);
             }
 
             if (branch == null || branch.resource_id == null) {
-                branch = GritClient.global().resourceSpace().getSpaceFristByUser(subject.subject_id);
+                branch = GritClient.global().auth().getSpaceFrist(subject.subject_id);
             }
 
             //2.如果没有，找自己默认的权限

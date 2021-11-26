@@ -118,6 +118,34 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().subjectLink().getSubjectGroupListByEntity(subjectId);
     }
 
+
+    ////////////////////////
+
+
+    @Override
+    public List<ResourceSpace> getSpaceList(long subjectId) throws SQLException {
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
+
+        return GritClient.global().resourceLink().getResourceSpaceListBySubjects(subjectIds, true);
+
+    }
+
+
+    @Override
+    public ResourceSpace getSpaceFrist(long subjectId) throws SQLException {
+        List<ResourceSpace> branchList = getSpaceList(subjectId);
+
+        if (branchList.size() == 0) {
+            return new ResourceSpace();
+        } else {
+            return branchList.get(0);
+        }
+    }
+
+    ////////////////////
+
+
     /**
      * 获取实验验证时的所有主体Id
      * */

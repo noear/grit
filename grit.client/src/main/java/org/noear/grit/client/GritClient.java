@@ -69,10 +69,11 @@ public interface GritClient {
      */
     ResourceLinkService resourceLink();
 
+
     /**
-     * 资源空间接口
+     * 资源管理接口
      */
-    ResourceSpaceService resourceSpace();
+    ResourceAdminService resourceAdmin();
 
     /**
      * 签权接口

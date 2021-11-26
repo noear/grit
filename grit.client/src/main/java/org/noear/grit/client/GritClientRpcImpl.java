@@ -21,7 +21,7 @@ public class GritClientRpcImpl implements GritClient {
 
     private ResourceService resourceService;
     private ResourceLinkService resourceLinkService;
-    private ResourceSpaceService resourceSpaceService;
+    private ResourceAdminService resourceAdminService;
 
     private AuthService authService;
 
@@ -39,7 +39,8 @@ public class GritClientRpcImpl implements GritClient {
 
             resourceService = createService(gritServer, gritToken, ResourceService.class);
             resourceLinkService = createService(gritServer, gritToken, ResourceLinkService.class);
-            resourceSpaceService = createService(gritServer, gritToken, ResourceSpaceService.class);
+            resourceAdminService = createService(gritServer, gritToken, ResourceAdminService.class);
+
 
             authService = createService(gritServer, gritToken, AuthService.class);
         } else {
@@ -71,7 +72,7 @@ public class GritClientRpcImpl implements GritClient {
         }
 
         try {
-            ResourceSpace space = resourceSpace().getSpaceByCode(resourceSpaceCode);
+            ResourceSpace space = resource().getSpaceByCode(resourceSpaceCode);
             currentSpaceId = space.resource_id;
             currentSpaceCode = resourceSpaceCode;
         } catch (SQLException e) {
@@ -125,11 +126,10 @@ public class GritClientRpcImpl implements GritClient {
         return resourceLinkService;
     }
 
-    /**
-     * 资源空间接口
-     */
-    public ResourceSpaceService resourceSpace() {
-        return resourceSpaceService;
+
+    @Override
+    public ResourceAdminService resourceAdmin() {
+        return null;
     }
 
     /**

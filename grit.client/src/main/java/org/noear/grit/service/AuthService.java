@@ -1,10 +1,7 @@
 package org.noear.grit.service;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.model.domain.ResourceEntity;
-import org.noear.grit.model.domain.ResourceGroup;
-import org.noear.grit.model.domain.Subject;
-import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.model.domain.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -153,4 +150,21 @@ public interface AuthService {
      * 获取主体的角色列表
      */
     List<SubjectGroup> getRoleList(long subjectId) throws SQLException;
+
+
+
+
+    /**
+     * 获取主体的资源空间列表
+     *
+     * @param subjectId 主体Id
+     */
+    List<ResourceSpace> getSpaceList(long subjectId) throws SQLException;
+
+    /**
+     * 获取主体的第一个资源空间
+     *
+     * @param subjectId 主体Id
+     */
+    ResourceSpace getSpaceFrist(long subjectId) throws SQLException;
 }

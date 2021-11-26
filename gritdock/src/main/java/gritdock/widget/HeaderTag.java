@@ -55,7 +55,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             } else {
                 path = GritUtil.cleanSpaceCodeAtPath(path);
 
-                resourceSpace = GritClient.global().resourceSpace().getSpaceByCode(spaceCode);
+                resourceSpace = GritClient.global().resource().getSpaceByCode(spaceCode);
                 list = GritClient.global().auth().getUriGroupListBySpace(Session.current().getUserId(), resourceSpace.resource_id);
             }
         }

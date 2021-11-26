@@ -1,9 +1,11 @@
 package org.noear.grit.server.impl;
 
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.ResourceService;
@@ -18,6 +20,7 @@ import org.noear.weed.cache.ICacheService;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 资源服务实现
@@ -35,43 +38,7 @@ public class ResourceServiceImpl implements ResourceService {
     private  ICacheService cache;
 
 
-    /**
-     * 添加资源
-     *
-     * @param resource 资源
-     */
-    @Override
-    public long addResource(ResourceDo resource) throws SQLException {
-        if (resource == null) {
-            return -1;
-        }
 
-        return db.table("grit_resource")
-                .setEntity(resource).usingNull(false)
-                .insert();
-    }
-
-    /**
-     * 更新资源
-     *
-     * @param resourceId 资源Id
-     * @param resource   资源
-     */
-    @Override
-    public boolean updResource(long resourceId, ResourceDo resource) throws SQLException {
-        if (resource == null) {
-            return false;
-        }
-
-        if (resourceId < 1) {
-            return false;
-        }
-
-        return db.table("grit_resource")
-                .setEntity(resource).usingNull(false)
-                .whereEq("resource_id", resourceId)
-                .update() > 0;
-    }
 
     /**
      * 资源获取
@@ -200,4 +167,29 @@ public class ResourceServiceImpl implements ResourceService {
                 .caching(cache)
                 .selectList("*", ResourceEntity.class);
     }
+
+    ///////////////////////////
+    @Override
+    public ResourceSpace getSpaceByCode(String resourceSpaceCode) throws SQLException {
+        if (TextUtils.isEmpty(resourceSpaceCode)) {
+            return new ResourceSpace();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_code", resourceSpaceCode)
+                .limit(1)
+                .caching(cache)
+                .selectItem("*", ResourceSpace.class);
+    }
+
+    @Override
+    public List<ResourceSpace> getSpaceList() throws SQLException {
+        return db.table("grit_resource")
+                .whereEq("resource_type", ResourceType.space.code)
+                .andEq("is_visibled", 1)
+                .andEq("is_disabled", 0)
+                .caching(cache)
+                .selectList("*", ResourceSpace.class);
+    }
+
 }

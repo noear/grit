@@ -26,7 +26,7 @@ public class MenuService {
 
         StringBuilder buf = new StringBuilder();
 
-        List<ResourceSpace> resourceSpaceList = GritClient.global().resourceSpace().getSpaceList();
+        List<ResourceSpace> resourceSpaceList = GritClient.global().resource().getSpaceList();
 
         for (ResourceSpace resourceSpace : resourceSpaceList) {
             List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(userId, resourceSpace.resource_id);

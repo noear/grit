@@ -20,7 +20,7 @@ import java.util.List;
 public class ResourceController extends BaseController {
     @Mapping
     public Object home(Long space_id) throws SQLException {
-        List<ResourceSpace> list = GritClient.global().resourceSpace().getAdminSpaceList();
+        List<ResourceSpace> list = GritClient.global().resourceAdmin().getSpaceList();
 
         if (space_id == null) {
             if (list.size() > 0) {
@@ -37,7 +37,7 @@ public class ResourceController extends BaseController {
     @Mapping("inner")
     public Object inner(long space_id, String key, int state) throws SQLException {
 
-        List<Resource> list = GritClient.global().resourceSpace().getAdminResourceListBySpace(space_id);
+        List<Resource> list = GritClient.global().resourceAdmin().getResourceListBySpace(space_id);
         List<Resource> list2 = new ArrayList<>(list.size());
 
         list.stream().filter(r -> r.resource_pid == space_id)

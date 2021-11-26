@@ -24,7 +24,7 @@ public class GritClientLocalImpl implements GritClient {
     @Inject
     private ResourceLinkService resourceLinkService;
     @Inject
-    private ResourceSpaceService resourceSpaceService;
+    private ResourceAdminService resourceAdminService;
 
     @Inject
     private AuthService authService;
@@ -43,7 +43,7 @@ public class GritClientLocalImpl implements GritClient {
         }
 
         try {
-            ResourceSpace space = resourceSpace().getSpaceByCode(resourceSpaceCode);
+            ResourceSpace space = resource().getSpaceByCode(resourceSpaceCode);
             currentSpaceId = space.resource_id;
             currentSpaceCode = resourceSpaceCode;
         } catch (SQLException e) {
@@ -97,12 +97,15 @@ public class GritClientLocalImpl implements GritClient {
         return resourceLinkService;
     }
 
+
     /**
-     * 资源空间接口
-     */
-    public ResourceSpaceService resourceSpace() {
-        return resourceSpaceService;
+     * 资源管理接口
+     * */
+    @Override
+    public ResourceAdminService resourceAdmin() {
+        return resourceAdminService;
     }
+
 
     /**
      * 签权接口

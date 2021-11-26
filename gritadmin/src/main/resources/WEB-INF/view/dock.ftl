@@ -31,8 +31,11 @@
         <menu>
             <div onclick="$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}"><i class='fa fa-bars'></i></div>
             <items>
-                <a class='sel' href='/grit/resource/' target="dock">资源管理</a>
-                <a href='/grit/subject/' target="dock">主体管理</a>
+                <a class='sel' href='/grit/resource/space/' target="dock">资源空间</a>
+                <a class='sel' href='/grit/resource/group/' target="dock">资源组</a>
+                <a class='sel' href='/grit/resource/entity' target="dock">资源</a>
+                <a href='/grit/subject/group/' target="dock">主体组</a>
+                <a href='/grit/subject/entity/' target="dock">主体</a>
                 <a href='/grit/config/' target="dock">权限配置</a>
             </items>
         </menu>
