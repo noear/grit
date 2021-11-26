@@ -5,12 +5,13 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,11 +38,11 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         StringBuilder sb = new StringBuilder();
 
-        List<Group> plist = GritClient.getUserModules(userId);
+        List<ResourceGroup> plist = GritClient.auth().getSubjectUriGroupListBySpace(userId);
         long packID = 0;
-        for (Group p : plist) {
+        for (ResourceGroup p : plist) {
             if (cPath.indexOf(p.link_uri) == 0) {
-                packID = p.group_id;
+                packID = p.resource_id;
                 break;
             }
         }
@@ -63,7 +64,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(long userId, long packID, StringBuilder sb, String cPath) throws SQLException {
-        List<Resource> list = GritClient.getUserMenus(userId, packID);
+        List<ResourceEntity> list = GritClient.auth().getSubjectUriListByGroup(userId, packID);
 
         for (Resource res : list) {
             buildItem(sb, res, cPath);

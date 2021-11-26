@@ -1,14 +1,15 @@
 package org.noear.grit.client.impl;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.impl.utils.TextUtils;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.data.ResourceDo;
+import org.noear.grit.model.domain.Resource;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceType;
+import org.noear.grit.service.ResourceService;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,113 +28,161 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
 
+    /**
+     * 添加资源
+     *
+     * @param resource 资源
+     */
     @Override
-    public Resource getResourceById(long resourceId) throws SQLException {
+    public long addResource(ResourceDo resource) throws SQLException {
+        if (resource == null) {
+            return -1;
+        }
+
         return db.table("grit_resource")
-                .whereEq("resource_id", resourceId)
-                .limit(1)
-                .caching(cache)
-                .selectItem("*", Resource.class);
+                .setEntity(resource).usingNull(false)
+                .insert();
     }
 
+    /**
+     * 更新资源
+     *
+     * @param resourceId 资源Id
+     * @param resource   资源
+     */
     @Override
-    public Resource getResourceByCode(String resourceCode) throws SQLException {
-        return db.table("grit_resource")
-                .whereEq("resource_code", resourceCode)
-                .limit(1)
-                .caching(cache)
-                .selectItem("*", Resource.class);
-    }
+    public boolean updResource(long resourceId, ResourceDo resource) throws SQLException {
+        if (resource == null) {
+            return false;
+        }
 
-    @Override
-    public Resource getResourceByPath(String resourcePath) throws SQLException {
-        return db.table("grit_resource")
-                .whereEq("link_uri", resourcePath)
-                .limit(1)
-                .caching(cache)
-                .selectItem("*", Resource.class);
-    }
-
-
-    @Override
-    public boolean hasResourcePath(String uri) throws SQLException {
-        if (TextUtils.isEmpty(uri)) {
+        if (resourceId < 1) {
             return false;
         }
 
         return db.table("grit_resource")
-                .whereEq("link_uri", uri)
+                .setEntity(resource).usingNull(false)
+                .whereEq("resource_id", resourceId)
+                .update() > 0;
+    }
+
+    /**
+     * 资源获取
+     *
+     * @param resourceId 资源Id
+     */
+    @Override
+    public Resource getResourceById(long resourceId) throws SQLException {
+        return db.table("grit_resource")
+                .whereEq("resource_id", resourceId)
+                .caching(cache)
+                .selectItem("*", Resource.class);
+    }
+
+    /**
+     * 资源获取
+     *
+     * @param resourceCode 资源代号
+     */
+    @Override
+    public Resource getResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException {
+        if (TextUtils.isEmpty(resourceCode)) {
+            return new Resource();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_code", resourceCode)
+                .andIf(resourceSpaceId > 0,  "resource_sid=?", resourceSpaceId)
+                .limit(1)
+                .caching(cache)
+                .selectItem("*", Resource.class);
+    }
+
+    /**
+     * 资源获取
+     *
+     * @param resourceUri 资源路径
+     */
+    @Override
+    public Resource getResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException {
+        if (TextUtils.isEmpty(resourceUri)) {
+            return new Resource();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("link_uri", resourceUri)
+                .andIf(resourceSpaceId > 0,  "resource_sid=?", resourceSpaceId)
+                .limit(1)
+                .caching(cache)
+                .selectItem("*", Resource.class);
+    }
+
+
+
+    /**
+     * 检测资源代号是否存在
+     *
+     * @param resourceCode 资源代号
+     * @return 是否存在
+     */
+    @Override
+    public boolean hasResourceCode(long resourceSpaceId, String resourceCode) throws SQLException {
+        if (TextUtils.isEmpty(resourceCode)) {
+            return false;
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_code", resourceCode)
+                .andIf(resourceSpaceId > 0,  "resource_sid=?", resourceSpaceId)
                 .caching(cache)
                 .selectExists();
     }
 
-    @Override
-    public boolean hasResourceCode(String resourceCode) throws SQLException {
-        return false;
-    }
 
+    /**
+     * 极测资源路径是否存在
+     *
+     * @param resourceUri 资源路径
+     * @return 是否存在
+     */
     @Override
-    public List<Resource> getResourceListByGroup(String groupCode) throws SQLException {
-        if (TextUtils.isEmpty(groupCode)) {
-            return new ArrayList<>();
+    public boolean hasResourceUri(long resourceSpaceId, String resourceUri) throws SQLException {
+        if (TextUtils.isEmpty(resourceUri)) {
+            return false;
         }
-
-        Group group = GritClient.group().getGroupByCode(groupCode);
-
-        return getResourceListByGroup(group.group_id);
-    }
-
-    @Override
-    public List<Resource> getResourceListByGroup(long groupId) throws SQLException {
-        if (groupId < 1) {
-            return new ArrayList<>();
-        }
-
-        List<Object> resourceIds = db.table("grit_resource_linked")
-                .whereEq("lk_objt_id", groupId)
-                .andEq("lk_objt", Constants.OBJT_group)
-                .caching(cache)
-                .selectArray("resource_id");
-
 
         return db.table("grit_resource")
-                .whereIn("resource_id", resourceIds)
+                .whereEq("link_uri", resourceUri)
+                .andIf(resourceSpaceId > 0,  "resource_sid=?", resourceSpaceId)
+                .caching(cache)
+                .selectExists();
+    }
+
+
+    /**
+     * 下级资源列表根据组获取
+     *
+     * @param resourceId 资源Id
+     */
+    @Override
+    public List<Resource> getSubResourceListById(long resourceId) throws SQLException {
+        return db.table("grit_resource")
+                .whereEq("resource_pid", resourceId)
                 .caching(cache)
                 .selectList("*", Resource.class);
     }
 
+    /**
+     * 下级资源列表根据组获取
+     *
+     * @param resourceId 资源Id
+     */
     @Override
-    public List<Resource> getResourceListByUser(long userId) throws SQLException {
-        if (userId < 1) {
-            return new ArrayList<>();
-        }
-
-        List<Object> resourceIds = db.table("grit_resource_linked")
-                .whereEq("lk_objt_id", userId)
-                .andEq("lk_objt", Constants.OBJT_user)
-                .caching(cache)
-                .selectArray("resource_id");
-
-
+    public List<ResourceEntity> getSubResourceEngityListById(long resourceId) throws SQLException {
         return db.table("grit_resource")
-                .whereIn("resource_id", resourceIds)
+                .whereEq("resource_pid", resourceId)
+                .andEq("resource_type", ResourceType.entity.code)
                 .caching(cache)
-                .selectList("*", Resource.class);
-    }
-
-    @Override
-    public List<Resource> getResourceListByUserAndGroup(long userId, String groupCode) throws SQLException {
-        if (TextUtils.isEmpty(groupCode)) {
-            return new ArrayList<>();
-        }
-
-        Group group = GritClient.group().getGroupByCode(groupCode);
-
-        return getResourceListByUserAndGroup(userId, group.group_id);
-    }
-
-    @Override
-    public List<Resource> getResourceListByUserAndGroup(long userId, long groupId) throws SQLException {
-        return null;
+                .selectList("*", ResourceEntity.class);
     }
 }

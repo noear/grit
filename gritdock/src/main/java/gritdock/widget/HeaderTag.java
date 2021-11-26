@@ -5,15 +5,15 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import org.noear.grit.client.model.Branch;
+import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.impl.utils.TextUtils;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import gritdock.Config;
 import gritdock.dso.Session;
 
@@ -44,9 +44,9 @@ public class HeaderTag implements TemplateDirectiveModel {
         Context context = Context.current();
 
         String path = context.pathNew();
-        Branch branch = null;
+        ResourceSpace branch = null;
 
-        List<Group> list = null;
+        List<ResourceGroup> list = null;
         {
             String groupCode = GritUtil.buildGroupCodeByPath(path);
 
@@ -55,8 +55,8 @@ public class HeaderTag implements TemplateDirectiveModel {
             } else {
                 path = GritUtil.cleanGroupCodeAtPath(path);
 
-                branch = GritClient.branched().getBranchByCode(groupCode);
-                list = GritClient.getUserModules(Session.current().getUserId(), branch.group_id);
+                branch = GritClient.resourceSpace().getSpaceByCode(groupCode);
+                list = GritClient.auth().getSubjectUriGroupListBySpace(Session.current().getUserId(), branch.resource_id);
             }
         }
 
@@ -69,10 +69,10 @@ public class HeaderTag implements TemplateDirectiveModel {
         if (branch == null) {
             buf.append(Config.title());
         } else {
-            if (TextUtils.isEmpty(branch.display_code)) {
+            if (TextUtils.isEmpty(branch.display_name)) {
                 buf.append(Config.title());
             } else {
-                buf.append(branch.display_code);
+                buf.append(branch.display_name);
             }
         }
 
@@ -82,9 +82,9 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         if (branch != null) {
             long userId = Session.current().getUserId();
-            for (Group module : list) {
+            for (ResourceGroup module : list) {
                 try {
-                    Resource res = GritClient.getUserMenusFirstOfModule(userId, module.group_id);
+                    Resource res = GritClient.auth().getSubjectUriFristByGroup(userId, module.resource_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
                         buildModuleItem(buf, branch, module, res, path);
@@ -119,7 +119,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     }
 
-    private void buildModuleItem(StringBuilder buf, Branch branch, Group module, Resource res, String path) {
+    private void buildModuleItem(StringBuilder buf, ResourceSpace branch, ResourceGroup module, Resource res, String path) {
         if (TextUtils.isEmpty(module.link_uri)) {
             return;
         }

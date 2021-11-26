@@ -77,10 +77,10 @@ public class GritAuthProcessor implements AuthProcessor {
         }
 
         try {
-            if (GritClient.resource().hasResourcePath(path)) {
+            if (GritClient.resource().hasResourceUri(path)) {
                 return true;
             } else {
-                return GritClient.userHasPath(getUserId(), path);
+                return GritClient.auth().subjectHasUri(getUserId(), path);
             }
         } catch (SQLException e) {
             throw new GritException(e);
@@ -101,13 +101,13 @@ public class GritAuthProcessor implements AuthProcessor {
                 boolean isOk = true;
 
                 for (String p : permissions) {
-                    isOk = isOk && GritClient.userHasPermission(userId, p);
+                    isOk = isOk && GritClient.auth().subjectHasPermission(userId, p);
                 }
 
                 return isOk;
             } else {
                 for (String p : permissions) {
-                    if (GritClient.userHasPermission(userId, p)) {
+                    if (GritClient.auth().subjectHasPermission(userId, p)) {
                         return true;
                     }
                 }
@@ -132,13 +132,13 @@ public class GritAuthProcessor implements AuthProcessor {
                 boolean isOk = true;
 
                 for (String p : roles) {
-                    isOk = isOk && GritClient.userHasRole(userId, p);
+                    isOk = isOk && GritClient.auth().subjectHasRole(userId, p);
                 }
 
                 return isOk;
             } else {
                 for (String p : roles) {
-                    if (GritClient.userHasRole(userId, p)) {
+                    if (GritClient.auth().subjectHasRole(userId, p)) {
                         return true;
                     }
                 }

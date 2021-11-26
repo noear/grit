@@ -5,9 +5,10 @@
 
 CREATE TABLE `grit_resource` (
   `resource_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
-  `resource_pid` bigint(20) NOT NULL DEFAULT '-1' COMMENT '资源父ID',
-  `resource_type` int(11) NOT NULL DEFAULT '0' COMMENT '资源类型(0:entity, 1:group, 2:namespace)',
-  `resource_code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '资源代码(例，user:del)',
+  `resource_pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '资源父ID',
+  `resource_sid` bigint(20) NOT NULL DEFAULT '0' COMMENT '资源空间ID',
+  `resource_type` int(11) NOT NULL DEFAULT '0' COMMENT '资源类型(0:entity, 1:group, 2:space)',
+  `resource_code` varchar(50) NOT NULL DEFAULT '' COMMENT '资源代码(例，user:del)',
   `display_name` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '显示名',
   `order_index` int(11) DEFAULT '0' COMMENT '排序值',
   `link_uri` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '链接地址(例，/user/add)',
@@ -24,6 +25,7 @@ CREATE TABLE `grit_resource` (
   PRIMARY KEY (`resource_id`) USING BTREE,
   KEY `IX_grit_resource__resource_code` (`resource_code`) USING BTREE,
   KEY `IX_grit_resource__resource_pid` (`resource_pid`) USING BTREE,
+  KEY `IX_grit_resource__resource_sid` (`resource_sid`) USING BTREE,
   KEY `IX_grit_resource__link_uri` (`link_uri`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源表';
 

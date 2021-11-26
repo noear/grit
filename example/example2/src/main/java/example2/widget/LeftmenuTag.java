@@ -9,8 +9,9 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 
@@ -37,11 +38,11 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         StringBuilder buf = new StringBuilder();
 
-        List<Group> moduleList = GritClient.getUserModules(Session.global().getUserId());
+        List<ResourceGroup> moduleList = GritClient.auth().getSubjectUriGroupListBySpace(Session.global().getUserId());
         long moduleId = 0;
-        for (Group p : moduleList) {
+        for (ResourceGroup p : moduleList) {
             if (path.startsWith(p.link_uri)) { //::en_name 改为 uri_path
-                moduleId = p.group_id;
+                moduleId = p.resource_id;
                 break;
             }
         }
@@ -52,7 +53,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         buf.append("<items>");
 
-        List<Resource> resList = GritClient.getUserMenus(Session.current().getUserId(), moduleId);
+        List<ResourceEntity> resList = GritClient.auth().getSubjectUriListByGroup(Session.current().getUserId(), moduleId);
 
         for (Resource res : resList) {
             buildMenuItem(buf, res, path);

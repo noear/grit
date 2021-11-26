@@ -1,7 +1,7 @@
 package example2.dso;
 
+import org.noear.grit.model.domain.Subject;
 import org.noear.solon.extend.grit.SessionBase;
-import org.noear.grit.client.model.User;
 
 /**
  * 跨应用会话管理
@@ -18,8 +18,8 @@ public final class Session extends SessionBase {
     //当前项目的扩展
 
     @Override
-    public void loadModel(User user) throws Exception {
-        setUserId(user.user_id);
+    public void loadModel(Subject user) throws Exception {
+        setUserId(user.subject_id);
         setLoginName(user.login_name);
         setDisplayName(user.display_name);
     }

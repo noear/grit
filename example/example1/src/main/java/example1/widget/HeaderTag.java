@@ -5,14 +5,15 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +43,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             return;
         }
 
-        List<Group> list = GritClient.getUserModules(userId);
+        List<ResourceGroup> list = GritClient.auth().getSubjectUriGroupListBySpace(userId);
 
         if (list.size() == 0) {
             ctx.redirect("/login");
@@ -60,11 +61,13 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         sb.append("<nav>");
 
-        for (Group g : list) {
-            Resource res = GritClient.getUserMenusFirstOfModule(userId, g.group_id);
+        for (ResourceGroup g : list) {
+            List<ResourceEntity> resourceList = GritClient.auth().getSubjectUriListByGroup(userId, g.resource_id);
 
-            if (Utils.isEmpty(res.link_uri) == false) {
-                buildItem(sb, g.display_name,  res, cPath, g.link_uri); //::en_name 改为 uri_path
+            if (resourceList.size() > 0) {
+                if (Utils.isEmpty(resourceList.get(0).link_uri) == false) {
+                    buildItem(sb, g.display_name, resourceList.get(0), cPath, g.link_uri); //::en_name 改为 uri_path
+                }
             }
         }
 

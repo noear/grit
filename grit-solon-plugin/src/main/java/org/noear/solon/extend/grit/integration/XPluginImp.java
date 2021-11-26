@@ -20,18 +20,18 @@ import java.util.Properties;
 public class XPluginImp implements Plugin {
     @Override
     public void start(SolonApp app) {
-        String p_root = Solon.cfg().appName();
-        Properties p_cache = app.cfg().getProp("grit.cache");
-        Properties p_db = app.cfg().getProp("grit.db");
+        String appName = Solon.cfg().appName();
+        Properties cacheProp = app.cfg().getProp("grit.cache");
+        Properties dbProp = app.cfg().getProp("grit.db");
 
         //1.初始化
-        if (p_cache.size() > 1 && p_db.size() > 1 && p_root != null) {
+        if (cacheProp.size() > 1 && dbProp.size() > 1 && appName != null) {
 
-            MemCache cache = new MemCache(p_cache);
-            DbContext db = getDbDo(p_db);
+            MemCache cache = new MemCache(cacheProp);
+            DbContext db = getDbDo(dbProp);
 
             GritClient.init(db, cache);
-            GritClient.branched(p_root);
+            GritClient.switchResourceSpace(appName);
         }
 
         //2.加载domain.js

@@ -1,6 +1,5 @@
 package gritdock.controller;
 
-import org.noear.snack.ONode;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -9,8 +8,7 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.Resource;
 import org.noear.weed.cache.CacheUsing;
 import gritdock.Config;
 import gritdock.dso.Session;
@@ -71,7 +69,7 @@ public class DockController extends BaseController {
         path = GritUtil.cleanGroupCodeAtPath(path);
 
         try {
-            Resource res = GritClient.resource().getResourceByPath(path);
+            Resource res = GritClient.resource().getResourceByUri(path);
             viewModel.set("fun_name", res.display_name);
             viewModel.set("fun_url", res.link_uri);
 
@@ -116,7 +114,7 @@ public class DockController extends BaseController {
 
             //如果还没有域尝试从根包获取
             if (newUrl.indexOf("://") < 0) {
-                Group pack = GritClient.group().getGroupByCode(p);
+                Resource pack = GritClient.resource().getResourceByUri(p);
 
                 if (Utils.isEmpty(pack.link_uri) == false) {
                     newUrl = pack.link_uri + fun_url;

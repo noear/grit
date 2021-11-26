@@ -1,8 +1,8 @@
 package gritdock.dso;
 
 
+import org.noear.grit.model.domain.Subject;
 import org.noear.solon.extend.grit.SessionBase;
-import org.noear.grit.client.model.User;
 
 /**
  * 跨应用会话管理
@@ -19,10 +19,10 @@ public final class Session extends SessionBase {
     //当前项目的扩展
 
     @Override
-    public void loadModel(User user) throws Exception {
-        setUserId(user.user_id);
-        setLoginName(user.login_name);
-        setDisplayName(user.display_name);
+    public void loadModel(Subject subject) throws Exception {
+        setUserId(subject.subject_id);
+        setLoginName(subject.login_name);
+        setDisplayName(subject.display_name);
     }
 
 

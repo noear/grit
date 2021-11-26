@@ -5,15 +5,16 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import org.noear.grit.client.model.Branch;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import gritdock.dso.Session;
 
 import java.io.IOException;
@@ -43,13 +44,13 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         long userId = Session.current().getUserId();
 
         String path = ctx.pathNew();
-        Branch branch;
+        ResourceSpace branch;
 
         StringBuilder buf = new StringBuilder();
-        List<Group> moduleList = null;
+        List<ResourceGroup> moduleList = null;
         {
             String groupCode = GritUtil.buildGroupCodeByPath(path);
-            branch = GritClient.branched().getBranchByCode(groupCode);
+            branch = GritClient.resourceSpace().getSpaceByCode(groupCode);
 
             if (Utils.isEmpty(groupCode)) {
                 moduleList = new ArrayList<>();
@@ -57,14 +58,14 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
                 path = GritUtil.cleanGroupCodeAtPath(path);
 
-                moduleList = GritClient.getUserModules(userId, branch.group_id);
+                moduleList = GritClient.auth().getSubjectUriGroupListBySpace(userId, branch.resource_id);
             }
         }
 
         long moduleId = 0;
-        for (Group module : moduleList) {
+        for (ResourceGroup module : moduleList) {
             if (path.indexOf(module.link_uri) == 0) { //::en_name 改为 uri_path
-                moduleId = module.group_id;
+                moduleId = module.resource_id;
                 break;
             }
         }
@@ -73,7 +74,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/img/menu_w.png'/></div>");
         buf.append("<items>");
 
-        List<Resource> resList = GritClient.getUserMenus(userId, moduleId);
+        List<ResourceEntity> resList = GritClient.auth().getSubjectUriListByGroup(userId, moduleId);
 
         for (Resource res : resList) {
             buildMenuItem(buf, branch, res, path);
@@ -87,7 +88,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     }
 
 
-    private void buildMenuItem(StringBuilder sb, Branch branch, Resource res, String path) {
+    private void buildMenuItem(StringBuilder sb, ResourceSpace branch, Resource res, String path) {
         if ("$".equals(res.display_name)) {
             sb.append("<br/><br/>");
             return;

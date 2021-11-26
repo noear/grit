@@ -2,12 +2,11 @@ package features;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.noear.grit.model.domain.Subject;
 import org.noear.solon.test.SolonJUnit4ClassRunner;
 import org.noear.solon.test.SolonTest;
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
-import org.noear.grit.client.model.User;
+import org.noear.grit.model.domain.Resource;
 import gritdock.DockApp;
 
 /**
@@ -18,23 +17,23 @@ import gritdock.DockApp;
 public class BaseTest {
     @Test
     public void getUser() throws Exception {
-        User user = GritClient.user().getUserById(2);
+        Subject user = GritClient.subject().getSubjectById(2);
 
         System.out.println(user);
-        assert user.user_id == 2;
+        assert user.subject_id == 2;
 
 
-        User user2 = GritClient.user().getUserByLoginName("noear");
+        Subject user2 = GritClient.subject().getSubjectByLoginName("noear");
 
-        assert user.user_id == user2.user_id;
+        assert user.subject_id == user2.subject_id;
     }
 
     @Test
     public void getGroupById() throws Exception {
-        Group group = GritClient.group().getGroupById(50);
+        Resource group = GritClient.resource().getResourceById(50);
 
         System.out.println(group);
-        assert group.group_id == 50;
+        assert group.resource_id == 50;
     }
 
 

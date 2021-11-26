@@ -1,12 +1,12 @@
 package gritdock.dso;
 
 
-import org.noear.grit.client.model.Branch;
+import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.Utils;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import gritdock.models.MenuViewModel;
 
 import java.sql.SQLException;
@@ -24,18 +24,18 @@ public class MenuUtil {
 
         StringBuilder buf = new StringBuilder();
 
-        List<Branch> branchedList = GritClient.branched().getBranchList();
+        List<ResourceSpace> branchedList = GritClient.resourceSpace().getSpaceList();
 
-        for (Branch groupBranched : branchedList) {
-            List<Group> modList = GritClient.getUserModules(userId, groupBranched.group_id);
+        for (ResourceSpace groupBranched : branchedList) {
+            List<ResourceGroup> modList = GritClient.auth().getSubjectUriGroupListBySpace(userId, groupBranched.resource_id);
             int modSize = 0;
 
             StringBuilder sb = new StringBuilder();
             sb.append("<section>");
-            sb.append("<header>").append(groupBranched.display_code).append("</header>");
+            sb.append("<header>").append(groupBranched.display_name).append("</header>");
             sb.append("<ul>");
-            for (Group m : modList) {
-                Resource res = GritClient.getUserMenusFirstOfModule(userId, m.group_id);
+            for (ResourceGroup m : modList) {
+                Resource res = GritClient.auth().getSubjectUriFristBySpace(userId, m.resource_id);
                 if (Utils.isNotEmpty(res.link_uri)) {
                     sb.append("<li>")
                             .append("<a href='").append(GritUtil.buildDockFullUri(groupBranched, res)).append("' target='_top'>")
@@ -50,7 +50,7 @@ public class MenuUtil {
             sb.append("</section>");
 
             if (modSize > 0) {
-                if ("#".equals(groupBranched.tags)) { //强制独占处理
+                if ("#".equals(groupBranched.link_tags)) { //强制独占处理
                     buf.append("<div>");
                     buf.append(sb.toString());
                     buf.append("</div>");

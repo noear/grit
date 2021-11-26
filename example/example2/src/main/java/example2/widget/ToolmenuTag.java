@@ -8,8 +8,9 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.NvMap;
 import org.noear.solon.core.handle.Context;
@@ -45,13 +46,13 @@ public class ToolmenuTag implements TemplateDirectiveModel {
         String cPath = request.pathNew();
         StringBuffer sb = new StringBuffer();
 
-        Group gPack = GritClient.group().getGroupByCode(pack);
+        Resource gPack = GritClient.resource().getResourceByCode(pack);
 
-        if (gPack.group_id > 0) {
+        if (gPack.resource_id > 0) {
             sb.append("<toolmenu>");
             sb.append("<tabbar>");
 
-            forPack(request, gPack.group_id, sb, cPath);
+            forPack(request, gPack.resource_id, sb, cPath);
 
             sb.append("</tabbar>");
             sb.append("</toolmenu>");
@@ -61,7 +62,7 @@ public class ToolmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(Context request, long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<Resource> list = GritClient.getUserMenus(Session.current().getUserId(), packID);
+        List<ResourceEntity> list = GritClient.auth().getSubjectUriListByGroup(Session.current().getUserId(), packID);
 
         for (Resource r : list) {
             buildItem(request, sb, r.display_name, r.link_uri, cPath);

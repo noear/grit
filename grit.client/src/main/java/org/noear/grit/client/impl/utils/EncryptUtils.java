@@ -1,4 +1,4 @@
-package org.noear.grit.client.impl;
+package org.noear.grit.client.impl.utils;
 
 import java.security.MessageDigest;
 

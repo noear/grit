@@ -1,7 +1,8 @@
 package gritdock.controller;
 
-import org.noear.grit.client.model.Branch;
-import org.noear.nami.common.TextUtils;
+import org.noear.grit.model.domain.ResourceSpace;
+import org.noear.grit.model.domain.Subject;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Context;
@@ -9,8 +10,7 @@ import org.noear.solon.core.handle.MethodType;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Resource;
-import org.noear.grit.client.model.User;
+import org.noear.grit.model.domain.Resource;
 import gritdock.dso.Session;
 import gritdock.util.ImageUtils;
 import gritdock.util.RandomUtils;
@@ -51,43 +51,43 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：验证码错误！");
         }
 
-        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(passWord)) {
+        if (Utils.isEmpty(userName) || Utils.isEmpty(passWord)) {
             return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
         }
 
         //用户登录
-        User user = GritClient.login(userName, passWord);
+        Subject subject = GritClient.auth().login(userName, passWord);
 
-        if (user.user_id == 0)
+        if (subject.subject_id == 0)
             //用户登录::失败
             //
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！");
         else {
             //用户登录::成功
             //
-            Session.current().loadModel(user);
+            Session.current().loadModel(subject);
 
             //最后一次使用的连接系统
             String branchCode = ctx.cookie("_lLnQIO4W");
-            Branch branch = null;
+            ResourceSpace branch = null;
 
             Resource res = null;
 
 
             //1.确定分支组
-            if (TextUtils.isEmpty(branchCode) == false) {
-                branch = GritClient.branched().getBranchByCode(branchCode);
+            if (Utils.isEmpty(branchCode) == false) {
+                branch = GritClient.resourceSpace().getSpaceByCode(branchCode);
             }
 
-            if (branch == null || branch.group_id == 0) {
-                branch = GritClient.branched().getBranchFristByUser(user.user_id);
+            if (branch == null || branch.resource_id == null) {
+                branch = GritClient.resourceSpace().getSpaceFristByUser(subject.subject_id);
             }
 
             //2.如果没有，找自己默认的权限
-            res = GritClient.getUserMenusFirstOfBranched(user.user_id, branch.group_id);
+            res = GritClient.auth().getSubjectUriFristBySpace(subject.subject_id, branch.resource_id);
 
             //3.再没有，提示错误
-            if (TextUtils.isEmpty(res.link_uri)) {
+            if (Utils.isEmpty(res.link_uri)) {
                 return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
             }
 
@@ -133,7 +133,7 @@ public class LoginController extends BaseController {
         HashMap<String, String> result = new HashMap<>();
 
         String loginName = Session.current().getLoginName();
-        int success = GritClient.user().modUserPassword(loginName, oldPass, newPass);
+        int success = GritClient.subject().modSubjectPassword(loginName, oldPass, newPass);
 
         //0:出错；1：旧密码不对；2：修改成功
         if (0 == success) {

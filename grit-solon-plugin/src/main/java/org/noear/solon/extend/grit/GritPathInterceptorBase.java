@@ -38,7 +38,7 @@ public abstract class GritPathInterceptorBase implements Handler {
         }
 
         if (path.indexOf("/ajax/") < 0 && path.startsWith("/login") == false) {
-            if (GritClient.resource().hasResourcePath(path)) {
+            if (GritClient.resource().hasResourceUri(path)) {
 
                 if (userId == 0) {
                     ctx.redirect("/login");
@@ -46,7 +46,7 @@ public abstract class GritPathInterceptorBase implements Handler {
                     return;
                 }
 
-                if (GritClient.userHasPath(userId, path) == false) {
+                if (GritClient.auth().subjectHasUri(userId, path) == false) {
                     ctx.outputAsHtml("Sorry, no permission!");
                     ctx.setHandled(true);
                     return;

@@ -1,7 +1,7 @@
 package org.noear.solon.extend.grit;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.model.User;
+import org.noear.grit.model.domain.Subject;
 
 /**
  * 跨应用会话状态
@@ -30,13 +30,13 @@ public abstract class SessionBase extends SessionAbstractBase {
      * 加载用户数据模型
      * */
     public void loadModel(String userID, String password) throws Exception {
-        loadModel(GritClient.login(userID, password));
+        loadModel(GritClient.auth().login(userID, password));
     }
 
     /**
      * 加载用户数据模型
      * */
-    public abstract void loadModel(User model) throws Exception;
+    public abstract void loadModel(Subject model) throws Exception;
 
 
     /**
@@ -47,7 +47,7 @@ public abstract class SessionBase extends SessionAbstractBase {
 
         if (temp > 0 && (temp != localUserId())) {
             try {
-                User user = GritClient.user().getUserById(temp);
+                Subject user = GritClient.subject().getSubjectById(temp);
                 loadModel(user);
 
             } catch (Exception ex) {

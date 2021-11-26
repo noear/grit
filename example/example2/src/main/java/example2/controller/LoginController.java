@@ -3,8 +3,8 @@ package example2.controller;
 import example2.dso.Session;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Resource;
-import org.noear.grit.client.model.User;
+import org.noear.grit.model.domain.Resource;
+import org.noear.grit.model.domain.Subject;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
     public void login_auto() throws Exception {
         long userId = Session.current().getUserId();
         if (userId > 0) {
-            String res_url = GritClient.getUserMenusFirstOfBranched(userId).link_uri;
+            String res_url = GritClient.auth().getSubjectUriFristBySpace(userId).link_uri;
             if (Utils.isEmpty(res_url) == false) {
                 redirect(res_url);
                 return;
@@ -67,16 +67,16 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
         }
 
-        User user = GritClient.login(userName, passWord);
+        Subject user = GritClient.auth().login(userName, passWord);
 
-        if (user.user_id == 0)
+        if (user.subject_id == 0)
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
         else {
 
             Session.current().loadModel(user);
 
             //新方案 //noear,20181120,(uadmin)
-            Resource res = GritClient.getUserMenusFirstOfBranched(user.user_id);
+            Resource res = GritClient.auth().getSubjectUriFristBySpace(user.subject_id);
             String res_url = null;
 
             if (Utils.isEmpty(res.link_uri)) {

@@ -3,9 +3,9 @@ package features;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
-import org.noear.grit.client.model.User;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Subject;
 import org.noear.solon.test.SolonJUnit4ClassRunner;
 import org.noear.solon.test.SolonTest;
 import gritdock.DockApp;
@@ -22,19 +22,19 @@ public class LoginTest {
     @Test
     public void login() throws Exception {
 
-        User user = GritClient.login("noear", "bcf1234"); //1D050B5785B44868E6C41EE9ED990354A7FA5A55
+        Subject user = GritClient.auth().login("noear", "bcf1234"); //1D050B5785B44868E6C41EE9ED990354A7FA5A55
         System.out.println(user);
-        assert user.user_id == 2;
+        assert user.subject_id == 2;
 
 
-        GritClient.branched("wateradmin");
+        GritClient.switchResourceSpace("wateradmin");
 
-        List<Group> groupList = GritClient.getUserModules(user.user_id);
+        List<ResourceGroup> groupList = GritClient.auth().getSubjectUriGroupListBySpace(user.subject_id);
         System.out.println(groupList);
         assert groupList.size() > 0;
 
 
-        List<Resource> resourceList = GritClient.getUserMenus(user.user_id, groupList.get(0).group_id);
+        List<ResourceEntity> resourceList = GritClient.auth().getSubjectUriListByGroup(user.subject_id, groupList.get(0).resource_id);
 
         System.out.println(resourceList);
         assert resourceList.size() > 0;

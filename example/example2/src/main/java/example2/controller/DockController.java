@@ -1,7 +1,7 @@
 package example2.controller;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.Resource;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -9,7 +9,6 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 
 import java.net.URLDecoder;
-import java.sql.SQLException;
 
 /**
  * 界面容器
@@ -25,7 +24,7 @@ public class DockController extends BaseController {
         String uri = ctx.pathNew().toLowerCase();
         String query = ctx.queryString();
 
-        Resource res = GritClient.resource().getResourceByPath(uri);
+        Resource res = GritClient.resource().getResourceByUri(uri);
         viewModel.put("fun_name", res.display_name);
         viewModel.put("fun_url", res.remark);
 

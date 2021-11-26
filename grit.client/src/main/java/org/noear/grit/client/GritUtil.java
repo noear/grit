@@ -1,13 +1,13 @@
 package org.noear.grit.client;
 
-import org.noear.grit.client.impl.EncryptUtils;
+import org.noear.grit.client.impl.utils.EncryptUtils;
 import org.noear.grit.client.impl.utils.TextUtils;
-import org.noear.grit.client.model.Branch;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceSpace;
+import org.noear.grit.model.domain.Resource;
 
 /**
  * @author noear
- * @since 1.3
+ * @since 1.0
  */
 public class GritUtil {
 
@@ -41,19 +41,22 @@ public class GritUtil {
         }
     }
 
-    public static String buildDockFullUri(Branch branch, Resource res) {
+    /**
+     * 构建带空间的地址
+     * */
+    public static String buildDockFullUri(ResourceSpace space, Resource res) {
         if (res == null || TextUtils.isEmpty(res.link_uri)) {
             return "";
         } else {
             if (res.link_uri.indexOf("/$") > 0) {
                 if (res.is_fullview) {
-                    return "/." + branch.group_code + res.link_uri + "?@=";
+                    return "/." + space.resource_code + res.link_uri + "?@=";
                 } else {
-                    return "/." + branch.group_code + res.link_uri;
+                    return "/." + space.resource_code + res.link_uri;
                 }
             } else {
                 StringBuilder sb = new StringBuilder();
-                sb.append("/.").append(branch.group_code).append(res.link_uri).append("/@").append(res.display_name);
+                sb.append("/.").append(space.resource_code).append(res.link_uri).append("/@").append(res.display_name);
 
                 if (res.is_fullview) {
                     sb.append("?@=");

@@ -8,8 +8,9 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.client.model.Group;
-import org.noear.grit.client.model.Resource;
+import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
@@ -42,7 +43,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             return;
         }
 
-        List<Group> moduleList = GritClient.getUserModules(userId);
+        List<ResourceGroup> moduleList = GritClient.auth().getSubjectUriGroupListBySpace(userId);
 
         if (moduleList.size() == 0) {
             ctx.redirect("/login");
@@ -60,8 +61,8 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         buf.append("<nav>");
 
-        for (Group module : moduleList) {
-            Resource res = GritClient.getUserMenusFirstOfModule(userId, module.group_id);
+        for (ResourceGroup module : moduleList) {
+            ResourceEntity res = GritClient.auth().getSubjectUriFristByGroup(userId, module.resource_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
                 buildModuleItem(buf, module, res, path);
@@ -86,7 +87,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         env.getOut().write(buf.toString());
     }
 
-    private void buildModuleItem(StringBuilder buf, Group module, Resource res, String path) {
+    private void buildModuleItem(StringBuilder buf, ResourceGroup module, Resource res, String path) {
         String newUrl = GritUtil.buildDockUri(res);
 
         if (path.indexOf(module.link_uri) == 0) {
