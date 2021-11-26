@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @Mapping("/grit/api/ResourceLinkService")
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {
-    @Db("grit.db")
+    @Inject("grit.db")
     private  DbContext db;
     @Inject("grit.cache")
     private  ICacheService cache;

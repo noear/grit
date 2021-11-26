@@ -16,6 +16,7 @@ import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ import java.util.List;
 @Mapping("/grit/api/ResourceService")
 @Remoting
 public class ResourceServiceImpl implements ResourceService {
-    @Db("grit.db")
+    @Inject("grit.db")
     private  DbContext db;
     @Inject("grit.cache")
     private  ICacheService cache;
@@ -172,6 +173,10 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public List<Resource> getSubResourceListById(long resourceId) throws SQLException {
+        if(resourceId == 0){
+            return new ArrayList<>();
+        }
+
         return db.table("grit_resource")
                 .whereEq("resource_pid", resourceId)
                 .caching(cache)
@@ -185,6 +190,10 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public List<ResourceEntity> getSubResourceEngityListById(long resourceId) throws SQLException {
+        if(resourceId == 0){
+            return new ArrayList<>();
+        }
+
         return db.table("grit_resource")
                 .whereEq("resource_pid", resourceId)
                 .andEq("resource_type", ResourceType.entity.code)

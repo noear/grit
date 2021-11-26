@@ -3,6 +3,7 @@ package org.noear.grit.server.impl;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
+import org.noear.grit.model.domain.TagCounts;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.ResourceSpaceService;
@@ -28,10 +29,10 @@ import java.util.stream.Collectors;
 @Mapping("/grit/api/ResourceSpaceService")
 @Remoting
 public class ResourceSpaceServiceImpl implements ResourceSpaceService {
-    @Db("grit.db")
-    private  DbContext db;
+    @Inject("grit.db")
+    private DbContext db;
     @Inject("grit.cache")
-    private  ICacheService cache;
+    private ICacheService cache;
 
     @Override
     public ResourceSpace getSpaceByCode(String resourceSpaceCode) throws SQLException {
@@ -55,6 +56,7 @@ public class ResourceSpaceServiceImpl implements ResourceSpaceService {
                 .caching(cache)
                 .selectList("*", ResourceSpace.class);
     }
+
 
     @Override
     public List<ResourceSpace> getSpaceListByUser(long subjectId) throws SQLException {
@@ -81,5 +83,13 @@ public class ResourceSpaceServiceImpl implements ResourceSpaceService {
         } else {
             return branchList.get(0);
         }
+    }
+
+
+    @Override
+    public List<ResourceSpace> getAdminSpaceList() throws SQLException {
+        return db.table("grit_resource")
+                .whereEq("resource_type", ResourceType.space.code)
+                .selectList("*", ResourceSpace.class);
     }
 }

@@ -1,8 +1,8 @@
 
 
 solon.app:
-  name: dritadmin
-  group: drit
+  name: gritadmin
+  group: grit
   title: "跨系统通用管理平台"
 
 

@@ -26,7 +26,7 @@ import java.util.List;
 @Mapping("/grit/api/SubjectLinkService")
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {
-    @Db("grit.db")
+    @Inject("grit.db")
     private  DbContext db;
     @Inject("grit.cache")
     private  ICacheService cache;

@@ -27,7 +27,7 @@ import java.sql.SQLException;
 @Mapping("/grit/api/SubjectService")
 @Remoting
 public class SubjectServiceImpl implements SubjectService {
-    @Db("grit.db")
+    @Inject("grit.db")
     private  DbContext db;
     @Inject("grit.cache")
     private  ICacheService cache;

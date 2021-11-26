@@ -10,18 +10,16 @@
     <script src="${js}/layer.js"></script>
     <script>
         $(function () {
-            if ('${tag_name!}') {
-                $('#${tag_name!}').addClass('sel');
+            if ('${space_id!}') {
+                $('#e${space_id!}').addClass('sel');
             } else {
                 $('tree li:first').addClass('sel');
             }
         });
-        var tagName = '${tag_name!}';
-        function node_onclick(tag_name,obj) {
-            tagName = tag_name
+        function node_onclick(space_id,obj) {
             $('li.sel').removeClass('sel');
             $(obj).addClass("sel");
-            $("#table").attr('src',"/grit/resource/inner?tag_name="+tagName);
+            $("#table").attr('src',"/grit/resource/inner?space_id="+space_id);
         };
     </script>
 </head>
@@ -30,14 +28,14 @@
     <middle>
         <tree id="tree">
             <ul>
-                <#list tags as m>
-                    <li onclick="node_onclick('${m.tag}',this)" id="${m.tag}">${m.tag} (${m.counts})</li>
+                <#list list as m>
+                    <li onclick="node_onclick('${m.resource_id}',this)" id="e${m.resource_id}">${m.resource_code}</li>
                 </#list>
             </ul>
         </tree>
     </middle>
     <right class="frm">
-        <iframe src="/cfg/resource/inner?tag_name=${tag_name!}" frameborder="0" id="table"></iframe>
+        <iframe src="/grit/resource/inner?space_id=${space_id!}" frameborder="0" id="table"></iframe>
     </right>
 </main>
 </body>
