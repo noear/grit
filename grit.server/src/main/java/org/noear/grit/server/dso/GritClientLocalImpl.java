@@ -1,4 +1,4 @@
-package gritadmin.dso;
+package org.noear.grit.server.dso;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.ResourceSpace;

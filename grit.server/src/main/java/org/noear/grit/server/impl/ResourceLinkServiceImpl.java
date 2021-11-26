@@ -1,4 +1,4 @@
-package gritadmin.controller.impl;
+package org.noear.grit.server.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.ResourceEntity;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
-@Mapping("/api/v1/ResourceLinkService")
+@Mapping("/grit/v1/ResourceLinkService")
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {
     @Db("grit.db")

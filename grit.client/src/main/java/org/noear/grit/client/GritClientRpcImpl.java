@@ -1,6 +1,5 @@
-package org.noear.grit.client.impl;
+package org.noear.grit.client;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.service.*;
@@ -48,7 +47,7 @@ public class GritClientRpcImpl implements GritClient {
     }
 
     private <T> T createService(String gritServer, Class<T> clz) {
-        return Nami.builder().url(gritServer + "/api/v1/" + clz.getName())
+        return Nami.builder().url(gritServer + "/grit/v1/" + clz.getName())
                 .encoder(SnackEncoder.instance).decoder(SnackDecoder.instance)
                 .create(clz);
     }

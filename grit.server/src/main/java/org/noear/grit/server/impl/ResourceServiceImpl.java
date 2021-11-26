@@ -1,4 +1,4 @@
-package gritadmin.controller.impl;
+package org.noear.grit.server.impl;
 
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.ResourceDo;
@@ -22,7 +22,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Mapping("/api/v1/ResourceService")
+@Mapping("/grit/v1/ResourceService")
 @Remoting
 public class ResourceServiceImpl implements ResourceService {
     @Db("grit.db")

@@ -1,8 +1,6 @@
-package gritadmin;
+package org.noear.grit.server.dso;
 
 import com.zaxxer.hikari.HikariDataSource;
-import gritadmin.dso.CacheServiceWrap;
-import gritadmin.dso.GritClientLocalImpl;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;

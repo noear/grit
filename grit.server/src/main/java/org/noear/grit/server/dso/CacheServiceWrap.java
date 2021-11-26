@@ -1,11 +1,12 @@
-package gritadmin.dso;
+package org.noear.grit.server.dso;
 
 import org.noear.solon.Solon;
 import org.noear.solon.data.cache.CacheService;
 import org.noear.weed.cache.ICacheServiceEx;
 
 /**
- * @author noear 2021/11/26 created
+ * @author noear
+ * @since 1.0
  */
 public class CacheServiceWrap implements CacheService, ICacheServiceEx {
     CacheService real;

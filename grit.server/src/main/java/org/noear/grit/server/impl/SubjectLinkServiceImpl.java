@@ -1,4 +1,4 @@
-package gritadmin.controller.impl;
+package org.noear.grit.server.impl;
 
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Mapping("/api/v1/SubjectLinkService")
+@Mapping("/grit/v1/SubjectLinkService")
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {
     @Db("grit.db")

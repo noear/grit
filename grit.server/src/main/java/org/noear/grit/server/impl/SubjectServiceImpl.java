@@ -1,4 +1,4 @@
-package gritadmin.controller.impl;
+package org.noear.grit.server.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
@@ -21,7 +21,7 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.0
  */
-@Mapping("/api/v1/SubjectService")
+@Mapping("/grit/v1/SubjectService")
 @Remoting
 public class SubjectServiceImpl implements SubjectService {
     @Db("grit.db")

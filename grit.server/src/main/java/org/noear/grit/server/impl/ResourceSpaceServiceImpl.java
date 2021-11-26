@@ -1,4 +1,4 @@
-package gritadmin.controller.impl;
+package org.noear.grit.server.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
-@Mapping("/api/v1/ResourceSpaceService")
+@Mapping("/grit/v1/ResourceSpaceService")
 @Remoting
 public class ResourceSpaceServiceImpl implements ResourceSpaceService {
     @Db("grit.db")
