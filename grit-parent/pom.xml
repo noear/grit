@@ -28,6 +28,7 @@
     <modules>
         <module>../grit.client</module>
         <module>../grit.server</module>
+        <module>../grit.server.ui</module>
         <module>../grit-solon-plugin</module>
     </modules>
 
