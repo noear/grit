@@ -9,5 +9,5 @@ import org.noear.solon.annotation.Mapping;
  */
 @Mapping("/grit/resource/space")
 @Controller
-public class ResourceSpaceController {
+public class ResourceSpaceController extends BaseController{
 }

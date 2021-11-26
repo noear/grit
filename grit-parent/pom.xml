@@ -48,6 +48,12 @@
 
            <dependency>
                <groupId>org.noear</groupId>
+               <artifactId>grit.server.ui</artifactId>
+               <version>${grit.version}</version>
+           </dependency>
+
+           <dependency>
+               <groupId>org.noear</groupId>
                <artifactId>grit-solon-plugin</artifactId>
                <version>${grit.version}</version>
            </dependency>
