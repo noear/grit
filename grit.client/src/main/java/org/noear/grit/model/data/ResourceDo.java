@@ -1,5 +1,7 @@
 package org.noear.grit.model.data;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * @author noear
  * @since 1.0
  */
+@Getter
 public class ResourceDo implements Serializable {
     /** 资源ID */
     public Long resource_id;

@@ -34,13 +34,15 @@ public class ResourceController extends BaseController {
     }
 
     @Mapping("inner")
-    public Object inner(Long space_id) throws SQLException{
+    public Object inner(Long space_id, String key, int state) throws SQLException{
         if(space_id == null){
             space_id = 0L;
         }
 
         List<Resource> list = GritClient.global().resource().getSubResourceListById(space_id);
 
+        viewModel.put("key",key);
+        viewModel.put("state", state);
         viewModel.put("space_id", space_id);
         viewModel.put("list", list);
 
