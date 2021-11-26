@@ -65,7 +65,7 @@ public class LoginController extends BaseController {
         else {
             //用户登录::成功
             //
-            Session.current().loadModel(subject);
+            Session.current().loadSubject(subject);
 
             //最后一次使用的连接系统
             String branchCode = ctx.cookie("_lLnQIO4W");

@@ -29,14 +29,14 @@ public abstract class SessionBase extends SessionAbstractBase {
     /**
      * 加载用户数据模型
      * */
-    public void loadModel(String userID, String password) throws Exception {
-        loadModel(GritClient.auth().login(userID, password));
+    public void loadSubject(String loginName, String loginPassword) throws Exception {
+        loadSubject(GritClient.auth().login(loginName, loginPassword));
     }
 
     /**
      * 加载用户数据模型
      * */
-    public abstract void loadModel(Subject model) throws Exception;
+    public abstract void loadSubject(Subject subject) throws Exception;
 
 
     /**
@@ -48,7 +48,7 @@ public abstract class SessionBase extends SessionAbstractBase {
         if (temp > 0 && (temp != localUserId())) {
             try {
                 Subject user = GritClient.subject().getSubjectById(temp);
-                loadModel(user);
+                loadSubject(user);
 
             } catch (Exception ex) {
                 ex.printStackTrace();

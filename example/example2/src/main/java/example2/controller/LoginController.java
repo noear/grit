@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
         else {
 
-            Session.current().loadModel(user);
+            Session.current().loadSubject(user);
 
             //新方案 //noear,20181120,(uadmin)
             Resource res = GritClient.auth().getSubjectUriFristBySpace(user.subject_id);

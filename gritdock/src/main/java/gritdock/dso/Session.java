@@ -19,7 +19,7 @@ public final class Session extends SessionBase {
     //当前项目的扩展
 
     @Override
-    public void loadModel(Subject subject) throws Exception {
+    public void loadSubject(Subject subject) throws Exception {
         setUserId(subject.subject_id);
         setLoginName(subject.login_name);
         setDisplayName(subject.display_name);
