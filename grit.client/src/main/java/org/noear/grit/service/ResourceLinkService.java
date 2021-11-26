@@ -129,7 +129,7 @@ public interface ResourceLinkService {
      * 获取主体在某一个资源分组下的第一个授权资源
      *
      * @param subjectIds      主体Ids
-     * @param resourceSpaceId 资源空间Id
+     * @param resourceGroupId 资源空间Id
      */
     ResourceEntity getResourceEntityFristBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException;
 

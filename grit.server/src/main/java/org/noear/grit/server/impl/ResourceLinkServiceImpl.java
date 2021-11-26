@@ -12,7 +12,6 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
-import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
@@ -196,7 +195,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
 
     @Override
     public List<ResourceGroup> getResourceGroupListBySubjects(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        List<Long> groupIds = GritClient.global().resource().getSubResourceListById(resourceSpaceId)
+        List<Long> groupIds = GritClient.global().resource().getSubResourceListByPid(resourceSpaceId)
                 .stream()
                 .map(r->r.resource_id)
                 .collect(Collectors.toList());

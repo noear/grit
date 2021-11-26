@@ -139,7 +139,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @param resourceId 资源Id
      */
     @Override
-    public List<Resource> getSubResourceListById(long resourceId) throws SQLException {
+    public List<Resource> getSubResourceListByPid(long resourceId) throws SQLException {
         if(resourceId == 0){
             return new ArrayList<>();
         }
@@ -156,7 +156,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @param resourceId 资源Id
      */
     @Override
-    public List<ResourceEntity> getSubResourceEngityListById(long resourceId) throws SQLException {
+    public List<ResourceEntity> getSubResourceEngityListByPid(long resourceId) throws SQLException {
         if(resourceId == 0){
             return new ArrayList<>();
         }

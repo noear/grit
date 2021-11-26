@@ -78,14 +78,14 @@ public interface ResourceService {
      *
      * @param resourceId 资源Id
      */
-    List<Resource> getSubResourceListById(long resourceId) throws SQLException;
+    List<Resource> getSubResourceListByPid(long resourceId) throws SQLException;
 
     /**
      * 下级资源列表根据组获取
      *
      * @param resourceId 资源Id
      */
-    List<ResourceEntity> getSubResourceEngityListById(long resourceId) throws SQLException;
+    List<ResourceEntity> getSubResourceEngityListByPid(long resourceId) throws SQLException;
 
 
     ////////////////////
