@@ -1,10 +1,5 @@
 package org.noear.grit.model.domain;
 
-import org.noear.grit.client.GritClient;
-
-import java.sql.SQLException;
-import java.util.List;
-
 /**
  * 资源分组领域模型（主要有：资源分组；用户分组；角色分组）
  *
@@ -21,27 +16,5 @@ public class ResourceGroup extends Resource {
 
         resource_id = resourceGoupId;
         resource_type = ResourceType.group.code;
-    }
-
-
-    /**
-     * 获取上级分组
-     */
-    public Resource getSupGroup() throws SQLException {
-        return GritClient.global().resource().getResourceById(resource_pid);
-    }
-
-    /**
-     * 获取下级分组列表
-     */
-    public List<Resource> getSubGroupList() throws SQLException {
-        return GritClient.global().resource().getSubResourceListById(resource_id);
-    }
-
-    /**
-     * 获取下级资源列表
-     */
-    public List<ResourceEntity> getSubResourceEngityList() throws SQLException {
-        return GritClient.global().resource().getSubResourceEngityListById(resource_pid);
     }
 }
