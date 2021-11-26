@@ -11,3 +11,6 @@ solon.cloud.water:
   config:
     load: "grit.yml"
 
+
+grit.cache:
+  driverType: "local"
