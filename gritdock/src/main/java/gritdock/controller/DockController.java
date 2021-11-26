@@ -1,7 +1,9 @@
 package gritdock.controller;
 
+import gritdock.dso.MenuService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
@@ -9,10 +11,7 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.domain.Resource;
-import org.noear.weed.cache.CacheUsing;
-import gritdock.Config;
 import gritdock.dso.Session;
-import gritdock.dso.MenuUtil;
 import gritdock.model.MenuViewModel;
 
 import java.net.URLDecoder;
@@ -25,6 +24,9 @@ import java.sql.SQLException;
 @Controller
 public class DockController extends BaseController {
 
+    @Inject
+    MenuService menuService;
+
     /**
      * 显示所有权限
      */
@@ -34,8 +36,7 @@ public class DockController extends BaseController {
         long userId = Session.current().getUserId();
 
         //获取所有模块菜单
-        CacheUsing cu = new CacheUsing(Config.cache());
-        MenuViewModel vm = cu.getEx("user_menus_x_" + userId, () -> MenuUtil.buildSpaceMenus());
+        MenuViewModel vm = menuService.getSpaceMenus(userId);
 
         int section_margin = 20;
         int header_margin = 5;

@@ -1,29 +1,28 @@
 package gritdock.dso;
 
-
-import org.noear.grit.model.domain.ResourceSpace;
-import org.noear.solon.Utils;
+import gritdock.model.MenuViewModel;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
-import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.Resource;
-import gritdock.model.MenuViewModel;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.ResourceSpace;
+import org.noear.solon.Utils;
+import org.noear.solon.data.annotation.Cache;
+import org.noear.solon.extend.aspect.annotation.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- * 菜单工具
- * */
-public class MenuUtil {
+ * @author noear
+ * @since 1.0
+ */
+@Service
+public class MenuService {
 
-    /**
-     * 构建跨空间菜单
-     * */
-    public static MenuViewModel buildSpaceMenus() throws SQLException {
+    @Cache
+    public MenuViewModel getSpaceMenus(long userId) throws SQLException {
         MenuViewModel viewModel = new MenuViewModel();
-
-        long userId = Session.current().getUserId();
 
         StringBuilder buf = new StringBuilder();
 
