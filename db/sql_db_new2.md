@@ -5,7 +5,7 @@
 
 CREATE TABLE `grit_resource` (
   `resource_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
-  `resource_pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '资源父ID',
+  `resource_pid` bigint(20) NOT NULL DEFAULT '-1' COMMENT '资源父ID',
   `resource_type` int(11) NOT NULL DEFAULT '0' COMMENT '资源类型(0:entity, 1:group, 2:namespace)',
   `resource_code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '资源代码(例，user:del)',
   `display_name` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '显示名',
@@ -31,7 +31,6 @@ CREATE TABLE `grit_resource` (
 CREATE TABLE `grit_resource_linked` (
   `link_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '连接ID',
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
-  `resource_type` int(11) NOT NULL DEFAULT '0' COMMENT '资源类型(0:entity, 1:group, 2:namespace)',
   `subject_id` bigint(20) NOT NULL COMMENT '主体ID',
   `subject_type` int(11) NOT NULL DEFAULT '0' COMMENT '主体类型',
   `gmt_create` bigint(20) NULL COMMENT '创建时间',
@@ -42,8 +41,8 @@ CREATE TABLE `grit_resource_linked` (
 
 CREATE TABLE `grit_subject` (
   `subject_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主体ID',
-  `subject_parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主体父ID',
-  `subject_type` int(11) NOT NULL DEFAULT '0' COMMENT '主体类型(0:group, 1:entity)',
+  `subject_pid` bigint(20) NOT NULL DEFAULT '-1' COMMENT '主体父ID',
+  `subject_type` int(11) NOT NULL DEFAULT '0' COMMENT '主体类型(0:entity, 1:group)',
   `subject_code` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '主体代号',
   `login_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '主体登录名,默认用guid填充',
   `login_password` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '主体登录密码',
@@ -57,11 +56,12 @@ CREATE TABLE `grit_subject` (
   `gmt_create` bigint(20) NULL COMMENT '创建时间',
   `gmt_modified` bigint(20) NULL COMMENT '更新时间',
   PRIMARY KEY (`subject_id`) USING BTREE,
-  UNIQUE KEY `IX_grit_subject__login_name` (`login_name`) USING BTREE
+  UNIQUE KEY `IX_grit_subject__login_name` (`login_name`) USING BTREE,
+  KEY `IX_grit_subject__subject_pid` (`subject_pid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-主体表';
 
 
-CREATE TABLE `grit_subject_group` (
+CREATE TABLE `grit_subject_linked` (
   `link_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '连接ID',
   `subject_id` bigint(20) NOT NULL COMMENT '主体ID',
   `group_subject_id` bigint(20) NOT NULL COMMENT '分组主体ID',
