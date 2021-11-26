@@ -10,3 +10,4 @@ solon.cloud.water:
   server: "waterapi:9371"
   config:
     load: "grit.yml"
+
