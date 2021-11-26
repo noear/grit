@@ -1,0 +1,18 @@
+
+grit.cache:
+  driverType: "redis"
+  server: "redis.water.io:6379"
+  password: "L8vcQgep"
+  db: "9"
+
+grit.db:
+  schema: "grit"
+  url: "jdbc:mysql://mysql.water.io:3306/grit?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true"
+  password: "123456"
+  username: "demo"
+
+grit.server: "http://gritadmin:8080"
+
+server.session:
+  state.domain: "grit.noear.org"
+  timeout: "7200"

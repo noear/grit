@@ -21,27 +21,22 @@
             <version>${solon.ver}</version>
         </dependency>
 
+        <!-- 可以换成任何 solon cloud 的其它配置服务组件 -->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon.cloud</artifactId>
+            <artifactId>water-solon-plugin</artifactId>
             <version>${solon.ver}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>grit-solon-plugin</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.extend.sessionstate.jwt</artifactId>
             <version>${solon.ver}</version>
-        </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.noear</groupId>-->
-<!--            <artifactId>water-solon-plugin</artifactId>-->
-<!--            <version>${solon.version}</version>-->
-<!--        </dependency>-->
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>grit-solon-plugin</artifactId>
         </dependency>
 
         <dependency>
