@@ -50,12 +50,14 @@ public class GritAuthProcessor extends AuthProcessorBase {
             String userDisplayName = getUserDisplayName();
             Context ctx = Context.current();
 
-            //old
-            ctx.attrSet("user_puid", String.valueOf(userId));
-            ctx.attrSet("user_name", userDisplayName);
-            //new
-            ctx.attrSet("user_id", String.valueOf(userId));
-            ctx.attrSet("user_display_name", userDisplayName);
+            if (ctx != null) {
+                //old
+                ctx.attrSet("user_puid", String.valueOf(userId));
+                ctx.attrSet("user_name", userDisplayName);
+                //new
+                ctx.attrSet("user_id", String.valueOf(userId));
+                ctx.attrSet("user_display_name", userDisplayName);
+            }
         }
 
         return isOk;

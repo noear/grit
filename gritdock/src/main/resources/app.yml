@@ -7,7 +7,7 @@ solon.app:
 solon.cloud.water:
   server: "waterapi:9371"
   config:
-    load: "grit.yml,gritdock.yml"
+    load: "grit.yml"
 
 gritdock:
   env: "演示环境"

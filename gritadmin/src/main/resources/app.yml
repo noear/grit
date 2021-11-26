@@ -1,0 +1,12 @@
+
+
+solon.app:
+  name: dritadmin
+  group: drit
+  title: "跨系统通用管理平台"
+
+
+solon.cloud.water:
+  server: "waterapi:9371"
+  config:
+    load: "grit.yml"
