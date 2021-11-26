@@ -8,7 +8,7 @@ import org.noear.grit.model.type.ResourceType;
  * @author noear
  * @since 1.0
  */
-public class ResourceSpace extends Resource {
+public class ResourceSpace extends ResourceGroup {
     public ResourceSpace() {
         this(0);
     }
