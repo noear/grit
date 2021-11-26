@@ -44,19 +44,19 @@ public class HeaderTag implements TemplateDirectiveModel {
         Context context = Context.current();
 
         String path = context.pathNew();
-        ResourceSpace branch = null;
+        ResourceSpace resourceSpace = null;
 
         List<ResourceGroup> list = null;
         {
-            String groupCode = GritUtil.buildGroupCodeByPath(path);
+            String spaceCode = GritUtil.parseSpaceCodeByPath(path);
 
-            if (TextUtils.isEmpty(groupCode)) {
+            if (TextUtils.isEmpty(spaceCode)) {
                 list = new ArrayList<>();
             } else {
-                path = GritUtil.cleanGroupCodeAtPath(path);
+                path = GritUtil.cleanSpaceCodeAtPath(path);
 
-                branch = GritClient.resourceSpace().getSpaceByCode(groupCode);
-                list = GritClient.auth().getSubjectUriGroupListBySpace(Session.current().getUserId(), branch.resource_id);
+                resourceSpace = GritClient.resourceSpace().getSpaceByCode(spaceCode);
+                list = GritClient.auth().getUriGroupListBySpace(Session.current().getUserId(), resourceSpace.resource_id);
             }
         }
 
@@ -66,13 +66,13 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         buf.append("<label>");
 
-        if (branch == null) {
+        if (resourceSpace == null) {
             buf.append(Config.title());
         } else {
-            if (TextUtils.isEmpty(branch.display_name)) {
+            if (TextUtils.isEmpty(resourceSpace.display_name)) {
                 buf.append(Config.title());
             } else {
-                buf.append(branch.display_name);
+                buf.append(resourceSpace.display_name);
             }
         }
 
@@ -80,14 +80,14 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         buf.append("<nav>");
 
-        if (branch != null) {
+        if (resourceSpace != null) {
             long userId = Session.current().getUserId();
-            for (ResourceGroup module : list) {
+            for (ResourceGroup resourceGroup : list) {
                 try {
-                    Resource res = GritClient.auth().getSubjectUriFristByGroup(userId, module.resource_id);
+                    Resource res = GritClient.auth().getUriFristByGroup(userId, resourceGroup.resource_id);
 
                     if (TextUtils.isEmpty(res.link_uri) == false) {
-                        buildModuleItem(buf, branch, module, res, path);
+                        buildGroupItem(buf, resourceSpace, resourceGroup, res, path);
                     }
                 } catch (Exception e) {
                     EventBus.push(e);
@@ -119,20 +119,20 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     }
 
-    private void buildModuleItem(StringBuilder buf, ResourceSpace branch, ResourceGroup module, Resource res, String path) {
-        if (TextUtils.isEmpty(module.link_uri)) {
+    private void buildGroupItem(StringBuilder buf, ResourceSpace resourceSpace, ResourceGroup resourceGroup, Resource res, String path) {
+        if (TextUtils.isEmpty(resourceGroup.link_uri)) {
             return;
         }
 
-        String newUrl = GritUtil.buildDockFullUri(branch, res);
+        String newUrl = GritUtil.buildDockSpaceUri(resourceSpace, res);
 
-        if (path.indexOf(module.link_uri) == 0) {
+        if (path.indexOf(resourceGroup.link_uri) == 0) {
             buf.append("<a class='sel' href='" + newUrl + "'>");
-            buf.append(module.display_name);
+            buf.append(resourceGroup.display_name);
             buf.append("</a>");
         } else {
             buf.append("<a href='" + newUrl + "'>");
-            buf.append(module.display_name);
+            buf.append(resourceGroup.display_name);
             buf.append("</a>");
         }
     }

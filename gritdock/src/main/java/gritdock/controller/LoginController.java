@@ -84,14 +84,14 @@ public class LoginController extends BaseController {
             }
 
             //2.如果没有，找自己默认的权限
-            res = GritClient.auth().getSubjectUriFristBySpace(subject.subject_id, branch.resource_id);
+            res = GritClient.auth().getUriFristBySpace(subject.subject_id, branch.resource_id);
 
             //3.再没有，提示错误
             if (Utils.isEmpty(res.link_uri)) {
                 return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
             }
 
-            String newUrl = GritUtil.buildDockFullUri(branch, res);
+            String newUrl = GritUtil.buildDockSpaceUri(branch, res);
 
             return viewModel.set("code", 1)
                     .set("msg", "ok")

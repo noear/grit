@@ -82,7 +82,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
             if (GritClient.resource().hasResourceUri(path)) {
                 return true;
             } else {
-                return GritClient.auth().subjectHasUri(getUserId(), path);
+                return GritClient.auth().hasUri(getUserId(), path);
             }
         } catch (SQLException e) {
             throw new GritException(e);
@@ -104,7 +104,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         if (permissionList == null) {
             try {
                 permissionList = GritClient.auth()
-                        .getSubjectPermissionList(getUserId())
+                        .getPermissionList(getUserId())
                         .stream()
                         .filter(s -> Utils.isNotEmpty(s.resource_code))
                         .map(s -> s.resource_code)
@@ -137,7 +137,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         if (roleList == null) {
             try {
                 roleList = GritClient.auth()
-                        .getSubjectRoleList(getUserId())
+                        .getRoleList(getUserId())
                         .stream()
                         .filter(s -> Utils.isNotEmpty(s.subject_code))
                         .map(s -> s.subject_code)

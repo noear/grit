@@ -13,7 +13,7 @@ import org.noear.weed.cache.CacheUsing;
 import gritdock.Config;
 import gritdock.dso.Session;
 import gritdock.dso.MenuUtil;
-import gritdock.models.MenuViewModel;
+import gritdock.model.MenuViewModel;
 
 import java.net.URLDecoder;
 import java.sql.SQLException;
@@ -66,7 +66,7 @@ public class DockController extends BaseController {
     public ModelAndView dock1(Context ctx) {
         String path = ctx.pathNew();
 
-        path = GritUtil.cleanGroupCodeAtPath(path);
+        path = GritUtil.cleanSpaceCodeAtPath(path);
 
         try {
             Resource res = GritClient.resource().getResourceByUri(path);
@@ -96,10 +96,10 @@ public class DockController extends BaseController {
         String fun_name = uri.split("/@")[1];
         String fun_url = uri.split("/@")[0];
 
-        fun_url = GritUtil.cleanGroupCodeAtPath(fun_url);
+        fun_url = GritUtil.cleanSpaceCodeAtPath(fun_url);
 
         String newUrl = fun_url;
-        String p = GritUtil.buildGroupCodeByPath(uri);
+        String p = GritUtil.parseSpaceCodeByPath(uri);
         String r = ctx.param("__r");
 
         //如果有r参数传入，则用r.note获取域 (r = res_id)

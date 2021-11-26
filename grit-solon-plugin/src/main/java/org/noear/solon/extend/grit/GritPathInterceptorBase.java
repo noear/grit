@@ -46,7 +46,7 @@ public abstract class GritPathInterceptorBase implements Handler {
                     return;
                 }
 
-                if (GritClient.auth().subjectHasUri(userId, path) == false) {
+                if (GritClient.auth().hasUri(userId, path) == false) {
                     ctx.outputAsHtml("Sorry, no permission!");
                     ctx.setHandled(true);
                     return;

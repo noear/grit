@@ -29,7 +29,7 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     public boolean verifyPath(String path, String method) {
         try {
             if (GritClient.resource().hasResourceUri(path)) {
-                return GritClient.auth().subjectHasUri(puid(), path);
+                return GritClient.auth().hasUri(puid(), path);
             } else {
                 return true;
             }
@@ -41,7 +41,7 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     @Override
     protected List<String> getPermissions() {
         try {
-            return GritClient.auth().getSubjectPermissionList(puid()).stream().map(m -> m.resource_code).collect(Collectors.toList());
+            return GritClient.auth().getPermissionList(puid()).stream().map(m -> m.resource_code).collect(Collectors.toList());
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     @Override
     protected List<String> getRoles() {
         try {
-            return GritClient.auth().getSubjectRoleList(puid()).stream().map(m -> m.subject_code).collect(Collectors.toList());
+            return GritClient.auth().getRoleList(puid()).stream().map(m -> m.subject_code).collect(Collectors.toList());
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {

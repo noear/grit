@@ -49,16 +49,16 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         StringBuilder buf = new StringBuilder();
         List<ResourceGroup> moduleList = null;
         {
-            String groupCode = GritUtil.buildGroupCodeByPath(path);
+            String groupCode = GritUtil.parseSpaceCodeByPath(path);
             branch = GritClient.resourceSpace().getSpaceByCode(groupCode);
 
             if (Utils.isEmpty(groupCode)) {
                 moduleList = new ArrayList<>();
             } else {
 
-                path = GritUtil.cleanGroupCodeAtPath(path);
+                path = GritUtil.cleanSpaceCodeAtPath(path);
 
-                moduleList = GritClient.auth().getSubjectUriGroupListBySpace(userId, branch.resource_id);
+                moduleList = GritClient.auth().getUriGroupListBySpace(userId, branch.resource_id);
             }
         }
 
@@ -74,7 +74,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/img/menu_w.png'/></div>");
         buf.append("<items>");
 
-        List<ResourceEntity> resList = GritClient.auth().getSubjectUriListByGroup(userId, moduleId);
+        List<ResourceEntity> resList = GritClient.auth().getUriListByGroup(userId, moduleId);
 
         for (Resource res : resList) {
             buildMenuItem(buf, branch, res, path);
@@ -94,7 +94,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
             return;
         }
 
-        String newUrl = GritUtil.buildDockFullUri(branch, res);
+        String newUrl = GritUtil.buildDockSpaceUri(branch, res);
 
         if (path.indexOf(res.link_uri) >= 0) {
             sb.append("<a class='sel' href='" + newUrl + "'>");

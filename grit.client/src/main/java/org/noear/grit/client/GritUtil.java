@@ -44,7 +44,7 @@ public class GritUtil {
     /**
      * 构建带空间的地址
      * */
-    public static String buildDockFullUri(ResourceSpace space, Resource res) {
+    public static String buildDockSpaceUri(ResourceSpace space, Resource res) {
         if (res == null || TextUtils.isEmpty(res.link_uri)) {
             return "";
         } else {
@@ -75,7 +75,10 @@ public class GritUtil {
         }
     }
 
-    public static String buildGroupCodeByPath(String path) {
+    /**
+     * 从路径中解析出空间代号
+     * */
+    public static String parseSpaceCodeByPath(String path) {
         int start_idx = path.indexOf(".");
 
         if (start_idx == 1) {
@@ -88,8 +91,10 @@ public class GritUtil {
         }
     }
 
-    public static String cleanGroupCodeAtPath(String path) {
+    /**
+     * 从路径中将空间代号清降掉
+     * */
+    public static String cleanSpaceCodeAtPath(String path) {
         return path.replaceAll("/\\.[^/]*", "");
     }
-
 }

@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
     public void login_auto() throws Exception {
         long userId = Session.current().getUserId();
         if (userId > 0) {
-            String res_url = GritClient.auth().getSubjectUriFristBySpace(userId).link_uri;
+            String res_url = GritClient.auth().getUriFristBySpace(userId).link_uri;
             if (Utils.isEmpty(res_url) == false) {
                 redirect(res_url);
                 return;
@@ -76,7 +76,7 @@ public class LoginController extends BaseController {
             Session.current().loadSubject(user);
 
             //新方案 //noear,20181120,(uadmin)
-            Resource res = GritClient.auth().getSubjectUriFristBySpace(user.subject_id);
+            Resource res = GritClient.auth().getUriFristBySpace(user.subject_id);
             String res_url = null;
 
             if (Utils.isEmpty(res.link_uri)) {

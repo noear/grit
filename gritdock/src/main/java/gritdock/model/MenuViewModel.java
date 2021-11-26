@@ -1,4 +1,4 @@
-package gritdock.models;
+package gritdock.model;
 
 import java.io.Serializable;
 

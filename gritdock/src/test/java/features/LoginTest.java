@@ -29,12 +29,12 @@ public class LoginTest {
 
         GritClient.switchSpace("wateradmin");
 
-        List<ResourceGroup> groupList = GritClient.auth().getSubjectUriGroupListBySpace(user.subject_id);
+        List<ResourceGroup> groupList = GritClient.auth().getUriGroupListBySpace(user.subject_id);
         System.out.println(groupList);
         assert groupList.size() > 0;
 
 
-        List<ResourceEntity> resourceList = GritClient.auth().getSubjectUriListByGroup(user.subject_id, groupList.get(0).resource_id);
+        List<ResourceEntity> resourceList = GritClient.auth().getUriListByGroup(user.subject_id, groupList.get(0).resource_id);
 
         System.out.println(resourceList);
         assert resourceList.size() > 0;

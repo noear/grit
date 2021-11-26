@@ -9,7 +9,6 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.ResourceEntity;
-import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.Resource;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.NvMap;
@@ -62,7 +61,7 @@ public class ToolmenuTag implements TemplateDirectiveModel {
     }
 
     private void forPack(Context request, long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<ResourceEntity> list = GritClient.auth().getSubjectUriListByGroup(Session.current().getUserId(), packID);
+        List<ResourceEntity> list = GritClient.auth().getUriListByGroup(Session.current().getUserId(), packID);
 
         for (Resource r : list) {
             buildItem(request, sb, r.display_name, r.link_uri, cPath);

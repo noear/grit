@@ -43,7 +43,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             return;
         }
 
-        List<ResourceGroup> list = GritClient.auth().getSubjectUriGroupListBySpace(userId);
+        List<ResourceGroup> list = GritClient.auth().getUriGroupListBySpace(userId);
 
         if (list.size() == 0) {
             ctx.redirect("/login");
@@ -62,7 +62,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         sb.append("<nav>");
 
         for (ResourceGroup g : list) {
-            List<ResourceEntity> resourceList = GritClient.auth().getSubjectUriListByGroup(userId, g.resource_id);
+            List<ResourceEntity> resourceList = GritClient.auth().getUriListByGroup(userId, g.resource_id);
 
             if (resourceList.size() > 0) {
                 if (Utils.isEmpty(resourceList.get(0).link_uri) == false) {

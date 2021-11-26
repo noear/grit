@@ -21,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean subjectHasUri(long subjectId, long resourceSpaceId, String uri) throws SQLException {
+    public boolean hasUri(long subjectId, long resourceSpaceId, String uri) throws SQLException {
         if (subjectId < 1) {
             return false;
         }
@@ -36,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean subjectHasPermission(long subjectId, long resourceSpaceId, String permission) throws SQLException {
+    public boolean hasPermission(long subjectId, long resourceSpaceId, String permission) throws SQLException {
         if (subjectId < 1) {
             return false;
         }
@@ -51,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean subjectHasRole(long subjectId, String roleSubjectCode) throws SQLException {
+    public boolean hasRole(long subjectId, String roleSubjectCode) throws SQLException {
 
         Subject subjectGroup = GritClient.subject().getSubjectByCode(roleSubjectCode);
 
@@ -59,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<ResourceEntity> getSubjectUriListByGroup(long subjectId, long resourceGroupId) throws SQLException {
+    public List<ResourceEntity> getUriListByGroup(long subjectId, long resourceGroupId) throws SQLException {
         //获取所在组的主体id
         List<Long> subjectIds = GritClient.subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<ResourceEntity> getSubjectUriListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
+    public List<ResourceEntity> getUriListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取所在组的主体id
         List<Long> subjectIds = GritClient.subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
@@ -89,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResourceEntity getSubjectUriFristBySpace(long subjectId, long resourceSpaceId) throws SQLException {
+    public ResourceEntity getUriFristBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取所在组的主体id
         List<Long> subjectIds = GritClient.subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
@@ -104,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResourceEntity getSubjectUriFristByGroup(long subjectId, long resourceGroupId) throws SQLException {
+    public ResourceEntity getUriFristByGroup(long subjectId, long resourceGroupId) throws SQLException {
         //获取所在组的主体id
         List<Long> subjectIds = GritClient.subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
@@ -119,7 +119,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<ResourceGroup> getSubjectUriGroupListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
+    public List<ResourceGroup> getUriGroupListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取所在组的主体id
         List<Long> subjectIds = GritClient.subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
@@ -134,7 +134,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<ResourceEntity> getSubjectPermissionList(long subjectId, long resourceSpaceId) throws SQLException {
+    public List<ResourceEntity> getPermissionList(long subjectId, long resourceSpaceId) throws SQLException {
         //获取所在组的主体id
         List<Long> subjectIds = GritClient.subjectLink()
                 .getSubjectGroupListByEntity(subjectId)
@@ -149,7 +149,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<SubjectGroup> getSubjectRoleList(long subjectId) throws SQLException {
+    public List<SubjectGroup> getRoleList(long subjectId) throws SQLException {
         return GritClient.subjectLink().getSubjectGroupListByEntity(subjectId);
     }
 }
