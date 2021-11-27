@@ -114,7 +114,7 @@
         <thead>
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
-            <td width="50px" class="left">排序</td>
+            <td width="50px" >排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
@@ -129,7 +129,7 @@
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
                 <td class="left">
-                    <#if m1.resource_type = 0>
+                    <#if m1.level gt 0>
                         |-
                     </#if>
                     ${m1.display_name!}
