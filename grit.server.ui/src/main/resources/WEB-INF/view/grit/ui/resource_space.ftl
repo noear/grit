@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html class="frm10">
 <head>
-    <title>${app} - 资源管理</title>
+    <title>${app} - 资源空间管理</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8 "/>
     <link rel="stylesheet" href="${css}/main.css"/>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html class="frm10">
 <head>
-    <title>${app} - 配置列表-编辑</title>
+    <title>${app} - 资源编辑</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8 "/>
