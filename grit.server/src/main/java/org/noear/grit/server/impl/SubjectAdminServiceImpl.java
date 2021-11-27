@@ -12,6 +12,7 @@ import org.noear.solon.annotation.Before;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
+import org.noear.solon.data.annotation.Tran;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
@@ -60,11 +61,30 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
      * @param subject   主体
      */
     @Override
-    public boolean updSubject(long subjectId, SubjectDo subject) throws SQLException {
+    public boolean updSubjectById(long subjectId, SubjectDo subject) throws SQLException {
         return db.table("grit_subject")
                 .setEntity(subject).usingNull(false)
                 .whereEq("subject_id", subjectId)
                 .update() > 0;
+    }
+
+    @Tran
+    @Override
+    public boolean delSubjectById(long subjectId) throws SQLException {
+        boolean isOk = db.table("grit_subject")
+                .whereEq("subject_id", subjectId)
+                .delete() > 0;
+
+        db.table("grit_subject_linked")
+                .whereEq("subject_id", subjectId)
+                .orEq("group_subject_id", subjectId)
+                .delete();
+
+        db.table("grit_resource_linked")
+                .whereEq("subject_id", subjectId)
+                .delete();
+
+        return isOk;
     }
 
     /**

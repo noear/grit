@@ -1,12 +1,8 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.data.SubjectDo;
-import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.Subject;
-import org.noear.grit.model.type.ResourceType;
-import org.noear.grit.model.type.SubjectType;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
@@ -48,7 +44,7 @@ public class SubjectController extends BaseController {
 
         if (subject_id > 0) {
             GritClient.global().subjectAdmin()
-                    .updSubject(subject_id, subject);
+                    .updSubjectById(subject_id, subject);
         } else {
             GritClient.global().subjectAdmin()
                     .addSubject(subject);
@@ -58,9 +54,8 @@ public class SubjectController extends BaseController {
     }
 
     @Mapping("edit/ajax/del")
-    public Object edit_ajax_del(long resource_id) throws SQLException{
-
-        GritClient.global().resourceAdmin().delResourceById(resource_id);
+    public Object edit_ajax_del(long subject_id) throws SQLException{
+        GritClient.global().subjectAdmin().delSubjectById(subject_id);
 
         return Result.succeed();
     }

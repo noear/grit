@@ -1,7 +1,6 @@
 package org.noear.grit.service;
 
 import org.noear.grit.model.data.SubjectDo;
-import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
@@ -35,7 +34,14 @@ public interface SubjectAdminService {
      * @param subjectId 主体Id
      * @param subject   主体
      */
-    boolean updSubject(long subjectId, SubjectDo subject) throws SQLException;
+    boolean updSubjectById(long subjectId, SubjectDo subject) throws SQLException;
+
+    /**
+     * 删除主体
+     *
+     * @param subjectId 主体Id
+     */
+    boolean delSubjectById(long subjectId) throws SQLException;
 
 
     /**

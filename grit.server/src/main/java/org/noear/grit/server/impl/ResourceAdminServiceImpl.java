@@ -85,9 +85,15 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             return false;
         }
 
-        return db.table("grit_resource")
+        boolean isOk = db.table("grit_resource")
                 .whereEq("resource_id", resourceId)
                 .delete() > 0;
+
+        db.table("grit_resource_linked")
+                .whereEq("resource_id", resourceId)
+                .delete();
+
+        return isOk;
     }
 
     /**
