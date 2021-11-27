@@ -10,7 +10,8 @@ import org.noear.solon.core.handle.Result;
 import java.sql.SQLException;
 
 /**
- * @author noear 2021/11/27 created
+ * @author noear
+ * @since 1.0
  */
 @Mapping("/grit/subject")
 @Controller
@@ -28,7 +29,7 @@ public class SubjectController extends BaseController {
 
         viewModel.put("m1", m1);
 
-        return view("grit/ui/resource_edit");
+        return view("grit/ui/subject_edit");
     }
 
     @Mapping("edit/ajax/save")
