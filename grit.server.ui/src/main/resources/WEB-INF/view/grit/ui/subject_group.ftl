@@ -123,22 +123,22 @@
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
-        <#list list as m1>
+        <#list list as n1>
             <tr>
-                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
+                <td><checkbox><label><input type="checkbox" name="sel_id" value="${n1.data.subject_id}" /><a></a></label></checkbox></td>
                 <td class="left">
-                    <#if m1.subject_type = 0>
+                    <#if n1.level gt 0>
                         |-
                     </#if>
-                    ${m1.display_name!}
-                    <#if m1.subject_code?length gt 0>
-                        (${m1.subject_code!})
+                    ${n1.data.display_name!}
+                    <#if n1.data.subject_code?length gt 0>
+                        (${n1.data.subject_code!})
                     </#if>
                 </td>
-                <td >${m1.order_index}</td>
-                <td >${m1.is_visibled?string("True","")}</td>
-                <td >${m1.is_disabled?string("True","")}</td>
-                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}" class="t2">编辑</a></td>
+                <td >${n1.data.order_index}</td>
+                <td >${n1.data.is_visibled?string("True","")}</td>
+                <td >${n1.data.is_disabled?string("True","")}</td>
+                <td class="op"><a href="/grit/subject/edit?subject_id=${n1.data.subject_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

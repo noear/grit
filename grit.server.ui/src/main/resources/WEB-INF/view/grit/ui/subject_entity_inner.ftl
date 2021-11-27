@@ -127,9 +127,6 @@
             <tr>
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
                 <td class="left">
-                    <#if m1.subject_type = 0>
-                        |-
-                    </#if>
                     ${m1.display_name!}
                     <#if m1.subject_code?length gt 0>
                         (${m1.subject_code!})

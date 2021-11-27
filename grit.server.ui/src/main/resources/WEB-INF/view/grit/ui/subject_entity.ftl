@@ -28,8 +28,13 @@
     <middle>
         <tree id="tree">
             <ul>
-                <#list list as m>
-                    <li onclick="node_onclick('${m.subject_id}',this)" id="e${m.subject_id}">${m.display_name}</li>
+                <#list list as n1>
+                    <li onclick="node_onclick('${n1.data.subject_id}',this)" id="e${n1.data.subject_id}">
+                        <#if n1.level gt 0>
+                            |-
+                        </#if>
+                        ${n1.data.display_name}
+                    </li>
                 </#list>
             </ul>
         </tree>
