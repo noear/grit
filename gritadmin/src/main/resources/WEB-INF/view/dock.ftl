@@ -14,6 +14,14 @@
         body > header aside a{display:inline-block; height:100%; padding:0 15px; }
         body > header aside .split{border-left:1px solid #444;}
     </style>
+    <script>
+        $(function (){
+           $("menu a").click(function (){
+               $("a.sel").removeClass("sel");
+               $(this).addClass("sel");
+           });
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -22,7 +30,6 @@
     </nav>
     <aside>
         <a><i class='fa fa-user'></i> 管理员</a>
-        <a class='split' href='/admin/@设置?@='><i class='fa fa-cogs'></i></a>
         <a class='split' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>
     </aside>
 </header>
@@ -37,7 +44,6 @@
                 <br /><br />
                 <a href='/grit/subject/group' target="dock">主体组</a>
                 <a href='/grit/subject/entity' target="dock">主体</a>
-                <a href='/grit/config/' target="dock">权限配置</a>
             </items>
         </menu>
     </left>
