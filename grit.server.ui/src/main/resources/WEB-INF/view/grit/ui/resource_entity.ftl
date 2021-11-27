@@ -37,7 +37,6 @@
             <ul>
                 <div style="margin: 5px;">
                     <select style="width: 100%;" id="space_id"  onchange="queryForm();">
-                        <option value=""></option>
                         <#list spaceList as m>
                             <option value=${m.resource_id}>${m.resource_code}</option>
                         </#list>
