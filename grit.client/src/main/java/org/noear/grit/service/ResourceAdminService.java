@@ -26,7 +26,14 @@ public interface ResourceAdminService {
      * @param resourceId 资源Id
      * @param resource   资源
      */
-    boolean updResource(long resourceId, ResourceDo resource) throws SQLException;
+    boolean updResourceById(long resourceId, ResourceDo resource) throws SQLException;
+
+    /**
+     * 删除资源
+     *
+     * @param resourceId 资源Id
+     * */
+    boolean delResourceById(long resourceId) throws SQLException;
 
     /**
      * 获取资源

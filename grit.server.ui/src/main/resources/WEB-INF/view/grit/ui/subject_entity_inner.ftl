@@ -104,10 +104,7 @@
         <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">添加主体</a>
     </left>
     <right class="col-4">
-        <selector>
-            <a class="${(state =1)?string('sel','')}" href="/grit/resource/space?state=1">启用</a>
-            <a class="${(state !=1)?string('sel','')}" href="/grit/resource/space?state=0">未启用</a>
-        </selector>
+
     </right>
 </toolbar>
 <datagrid class="list">

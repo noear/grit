@@ -54,12 +54,12 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * @param resource   资源
      */
     @Override
-    public boolean updResource(long resourceId, ResourceDo resource) throws SQLException {
+    public boolean updResourceById(long resourceId, ResourceDo resource) throws SQLException {
         if (resource == null) {
             return false;
         }
 
-        if (resourceId < 1) {
+        if (resourceId == 0) {
             return false;
         }
 
@@ -70,12 +70,32 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     }
 
     /**
+     * 删除资源
+     *
+     * @param resourceId 资源Id
+     * */
+    @Override
+    public boolean delResourceById(long resourceId) throws SQLException {
+        if (resourceId == 0) {
+            return false;
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_id", resourceId)
+                .delete() > 0;
+    }
+
+    /**
      * 资源获取
      *
      * @param resourceId 资源Id
      */
     @Override
     public Resource getResourceById(long resourceId) throws SQLException {
+        if (resourceId == 0) {
+            return new Resource();
+        }
+
         return db.table("grit_resource")
                 .whereEq("resource_id", resourceId)
                 .selectItem("*", Resource.class);

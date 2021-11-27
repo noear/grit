@@ -101,21 +101,13 @@
 
             <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
-            <#if state==1>
-                <button type='button' class="minor mar10-l" onclick="del(0,'禁用')" >禁用</button>
-            <#else>
-                <button type='button' class="minor mar10-l" onclick="del(1,'启用')" >启用</button>
-                <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
-            </#if>
+
             <#if (space_id!0) gt 0>
                 <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=1">添加分组</a>
             </#if>
         </left>
         <right>
-            <selector>
-                <a class="${(state =1)?string('sel','')}" href="inner?space_id=${space_id}&state=1">启用</a>
-                <a class="${(state !=1)?string('sel','')}" href="inner?space_id=${space_id}&state=0">未启用</a>
-            </selector>
+
         </right>
 </toolbar>
 <datagrid class="list">
