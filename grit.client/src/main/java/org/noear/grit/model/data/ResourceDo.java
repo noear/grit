@@ -36,6 +36,8 @@ public class ResourceDo implements Serializable {
     public String icon_uri;
     /** 备注 */
     public String remark;
+    /** 节点级别 */
+    public Integer level;
     /** 属性(kv) */
     public String attrs;
     /** 是否全屏 */

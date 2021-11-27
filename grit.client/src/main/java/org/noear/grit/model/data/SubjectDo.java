@@ -30,10 +30,12 @@ public class SubjectDo implements Serializable {
     public Integer order_index;
     /** 备注 */
     public String remark;
-    /** 邮箱 */
-    public String mail;
+    /** 节点级别 */
+    public Integer level;
     /** 属性(kv) */
     public String attrs;
+    /** 邮箱 */
+    public String mail;
     /** 是否禁用 */
     public Boolean is_disabled;
     /** 是否可见 */
