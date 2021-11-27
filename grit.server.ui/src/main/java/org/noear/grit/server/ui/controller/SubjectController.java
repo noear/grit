@@ -3,6 +3,7 @@ package org.noear.grit.server.ui.controller;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
+import org.noear.grit.model.type.SubjectType;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
@@ -34,7 +35,7 @@ public class SubjectController extends BaseController {
     }
 
     @Mapping("edit/ajax/save")
-    public Object edit_ajax_save(long subject_id, SubjectDo subject) throws SQLException {
+    public Object edit_ajax_save(long subject_id, long group_id,SubjectDo subject) throws SQLException {
         if(subject.is_disabled == null){
             subject.is_disabled = false;
         }
@@ -48,8 +49,13 @@ public class SubjectController extends BaseController {
             GritClient.global().subjectAdmin()
                     .updSubjectById(subject_id, subject);
         } else {
-            GritClient.global().subjectAdmin()
-                    .addSubject(subject);
+            if(subject.subject_type == SubjectType.entity.code){
+                GritClient.global().subjectAdmin()
+                        .addSubjectEntity(subject, group_id);
+            }else {
+                GritClient.global().subjectAdmin()
+                        .addSubject(subject);
+            }
         }
 
         return Result.succeed();

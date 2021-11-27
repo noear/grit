@@ -49,7 +49,9 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
                 .setEntity(subject).usingNull(false)
                 .insert();
 
-        GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
+        if (groupSubjectId > 0) {
+            GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
+        }
 
         return subjectEntityId;
     }
