@@ -8,6 +8,10 @@
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
+    <style>
+        tree li.dis{text-decoration:line-through; color:#888;}
+        tree li.hid{color:blue;}
+    </style>
     <script>
         $(function () {
             if ('${group_id!}') {
@@ -42,8 +46,11 @@
                         </#list>
                     </select>
                 </div>
-                <#list groupList as m>
-                    <li onclick="node_onclick('${m.resource_id}',this)" id="e${m.resource_id}">${m.display_name}</li>
+                <#list groupList as m1>
+                    <li title="Id: ${m1.resource_id}"
+                        class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}"
+                        onclick="node_onclick('${m1.resource_id}',this)"
+                        id="e${m1.resource_id}">${m1.display_name}</li>
                 </#list>
             </ul>
         </tree>
