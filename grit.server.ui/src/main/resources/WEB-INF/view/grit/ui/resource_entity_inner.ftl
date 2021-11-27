@@ -10,8 +10,8 @@
     <script src="${js}/layer.js"></script>
     <style>
         datagrid b{color: #8D8D8D;font-weight: normal}
-        datagrid tr.dis{text-decoration:line-through}
-        datagrid tr.hid{color:#888;}
+        datagrid tr.dis{text-decoration:line-through; color:#888;}
+        datagrid tr.hid{color:blue;}
     </style>
 </head>
 <script>
