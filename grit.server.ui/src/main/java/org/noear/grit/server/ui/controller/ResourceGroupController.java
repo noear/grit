@@ -44,11 +44,11 @@ public class ResourceGroupController extends BaseController{
         List<ResourceGroup> list2 = new ArrayList<>(list.size());
 
         list.stream().filter(r -> r.resource_pid == space_id)
-                .sorted(new ResourceComparator())
+                .sorted(ResourceComparator.instance)
                 .forEachOrdered(r -> {
                     list2.add(r);
                     list.stream().filter(r2 -> r2.resource_pid == r.resource_id)
-                            .sorted(new ResourceComparator())
+                            .sorted(ResourceComparator.instance)
                             .forEachOrdered(r2 -> list2.add(r2));
                 });
 
