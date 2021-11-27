@@ -114,10 +114,10 @@
         <thead>
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
+            <td width="50px" class="left">排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
-            <td width="80px" class="left">排序</td>
             <td width="80px" class="left">是否可见</td>
             <td width="80px" class="left">是否禁用</td>
             <td width="50px">操作</td>
@@ -127,6 +127,7 @@
         <#list list as m1>
             <tr>
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
+                <td >${m1.order_index}</td>
                 <td class="left">
                     <#if m1.resource_type = 0>
                         |-
@@ -138,7 +139,6 @@
                 </td>
                 <td class="left">${m1.link_uri!}</td>
                 <td class="left">${m1.link_target!}</td>
-                <td >${m1.order_index}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
                 <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>

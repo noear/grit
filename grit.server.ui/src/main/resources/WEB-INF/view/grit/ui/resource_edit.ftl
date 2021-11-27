@@ -186,6 +186,12 @@
                 <td><input type="text" id="order_index" value="${m1.order_index!}"/></td>
             </tr>
 
+
+            <tr>
+                <th>备注</th>
+                <td><input type="text" class="longtxt" id="remark" value="${m1.remark!}"/></td>
+            </tr>
+
             <tr>
                 <th>图标路径</th>
                 <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/></td>
@@ -204,10 +210,6 @@
             <tr>
                 <th>链接标签</th>
                 <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
-            </tr>
-            <tr>
-                <th>备注</th>
-                <td><input type="text" class="longtxt" id="remark" value="${m1.remark!}"/></td>
             </tr>
 
             <tr>
