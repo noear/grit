@@ -25,6 +25,7 @@
 
     <script>
         var resource_id = '${m1.resource_id!}';
+        var resource_type = ${m1.resource_type!0};
 
         function save() {
             var vm = formToMap('form');
@@ -43,9 +44,9 @@
                 success:function (data) {
                     if(data.code==200) {
                         top.layer.msg('操作成功')
-                        // setTimeout(function(){
-                        //     location.href="/cfg/prop?tag_name="+vm.tag;
-                        // },800);
+                        setTimeout(function(){
+                            location.href="/cfg/prop?tag_name="+vm.tag;
+                        },800);
                     }else{
                         top.layer.msg(data.msg);
                     }
@@ -70,7 +71,13 @@
                     if(data.code==200) {
                         top.layer.msg('操作成功')
                         setTimeout(function(){
-                            parent.location.href="/cfg/prop?tag_name=${m1.tag!}";
+                            if(resource_type == 2){
+                                location.href="/grit/resource/space";
+                            }else if(resource_type == 1){
+                                location.href="/grit/resource/group?space_id=${m1.resource_sid!}";
+                            }else{
+                                location.href="/grit/resource/entity?group_id=${m1.resource_pid!}";
+                            }
                         },800);
                     }else{
                         top.layer.msg(data.msg);
