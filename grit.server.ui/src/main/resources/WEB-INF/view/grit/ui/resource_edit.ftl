@@ -183,9 +183,10 @@
 
 <detail>
     <form>
-
+        <input type="hidden" id="resource_type" value="${m1.resource_type!0}">
+        <input type="hidden" id="resource_pid" value="${m1.resource_pid!0}">
+        <input type="hidden" id="resource_sid" value="${m1.resource_sid!0}">
         <table>
-            <tr>
             <tr>
                 <th>代号</th>
                 <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/></td>
