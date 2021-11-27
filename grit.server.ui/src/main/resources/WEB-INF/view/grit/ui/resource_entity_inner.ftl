@@ -108,7 +108,7 @@
                 <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
             </#if>
             <#if (group_id!0) gt 0>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${group_id!}&type=1">添加分组</a>
+                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${group_id!}&type=1">添加资源</a>
             </#if>
         </left>
         <right>

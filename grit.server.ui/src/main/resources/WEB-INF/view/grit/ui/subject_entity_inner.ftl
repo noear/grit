@@ -101,7 +101,7 @@
 
         <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
-        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">添加分组</a>
+        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">添加主体</a>
     </left>
     <right class="col-4">
         <selector>
