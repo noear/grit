@@ -72,4 +72,11 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
                 .whereEq("subject_type", SubjectType.group.code)
                 .selectList("*", SubjectGroup.class);
     }
+
+    @Override
+    public List<Subject> getSubSubjectListByPid(long subjectId) throws SQLException {
+        return db.table("grit_subject")
+                .whereEq("subject_pid", subjectId)
+                .selectList("*", Subject.class);
+    }
 }

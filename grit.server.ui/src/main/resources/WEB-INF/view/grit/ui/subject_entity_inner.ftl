@@ -94,40 +94,29 @@
 </script>
 <body>
 <toolbar>
-        <left >
-            <file>
-                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor">导入</a></label>
-            </file>
+    <left class="col-4">
+        <file>
+            <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor">导入</a></label>
+        </file>
 
-            <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
+        <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
-            <#if state==1>
-                <button type='button' class="minor mar10-l" onclick="del(0,'禁用')" >禁用</button>
-            <#else>
-                <button type='button' class="minor mar10-l" onclick="del(1,'启用')" >启用</button>
-                <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
-            </#if>
-            <#if (group_id!0) gt 0>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${group_id!}&type=0">添加资源</a>
-            </#if>
-        </left>
-        <right >
-            <selector>
-                <a class="${(state =1)?string('sel','')}" href="inner?group_id=${group_id}&state=1">启用</a>
-                <a class="${(state !=1)?string('sel','')}" href="inner?group_id=${group_id}&state=0">未启用</a>
-            </selector>
-        </right>
+        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">添加分组</a>
+    </left>
+    <right class="col-4">
+        <selector>
+            <a class="${(state =1)?string('sel','')}" href="/grit/resource/space?state=1">启用</a>
+            <a class="${(state !=1)?string('sel','')}" href="/grit/resource/space?state=0">未启用</a>
+        </selector>
+    </right>
 </toolbar>
 <datagrid class="list">
     <table>
         <thead>
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
-            <td width="250px" class="left">显示名</td>
-            <td class="left">路径</td>
-            <td width="90px" class="left">路径目标</td>
+            <td class="left">显示名</td>
             <td width="80px" class="left">排序</td>
-            <td width="80px" class="left">是否全屏</td>
             <td width="80px" class="left">是否可见</td>
             <td width="80px" class="left">是否禁用</td>
             <td width="50px">操作</td>
@@ -136,23 +125,20 @@
         <tbody id="tbody" class="sel_from">
         <#list list as m1>
             <tr>
-                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
+                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
                 <td class="left">
-                    <#if m1.resource_type = 0>
+                    <#if m1.subject_type = 0>
                         |-
                     </#if>
                     ${m1.display_name!}
-                    <#if m1.resource_code?length gt 0>
-                        (${m1.resource_code!})
+                    <#if m1.subject_code?length gt 0>
+                        (${m1.subject_code!})
                     </#if>
                 </td>
-                <td class="left">${m1.link_uri!}</td>
-                <td class="left">${m1.link_target!}</td>
                 <td >${m1.order_index}</td>
-                <td >${m1.is_fullview?string("True","")}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>
