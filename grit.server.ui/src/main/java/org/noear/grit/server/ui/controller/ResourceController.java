@@ -37,11 +37,8 @@ public class ResourceController extends BaseController {
                     m1.resource_sid = m2.resource_id;
                 }
             }
-        }else{
-            type = m1.resource_type;
         }
 
-        viewModel.put("type", type);
         viewModel.put("m1", m1);
 
         return view("grit/ui/resource_edit");

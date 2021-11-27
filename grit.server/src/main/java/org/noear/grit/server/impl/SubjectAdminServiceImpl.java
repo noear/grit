@@ -1,6 +1,7 @@
 package org.noear.grit.server.impl;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
@@ -35,16 +36,16 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
      * @param subject 主体
      */
     @Override
-    public long addSubject(Subject subject) throws SQLException {
+    public long addSubject(SubjectDo subject) throws SQLException {
         return db.table("grit_subject")
                 .setEntity(subject).usingNull(false)
                 .insert();
     }
 
     @Override
-    public long addSubjectEntity(SubjectEntity subjectEntity, long groupSubjectId) throws SQLException {
+    public long addSubjectEntity(SubjectDo subject, long groupSubjectId) throws SQLException {
         long subjectEntityId = db.table("grit_subject")
-                .setEntity(subjectEntity).usingNull(false)
+                .setEntity(subject).usingNull(false)
                 .insert();
 
         GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
@@ -59,11 +60,27 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
      * @param subject   主体
      */
     @Override
-    public boolean updSubject(long subjectId, Subject subject) throws SQLException {
+    public boolean updSubject(long subjectId, SubjectDo subject) throws SQLException {
         return db.table("grit_subject")
                 .setEntity(subject).usingNull(false)
                 .whereEq("subject_id", subjectId)
                 .update() > 0;
+    }
+
+    /**
+     * 获取主体
+     *
+     * @param subjectId 主体Id
+     */
+    @Override
+    public Subject getSubjectById(long subjectId) throws SQLException {
+        if (subjectId < 1) {
+            return new Subject();
+        }
+
+        return db.table("grit_subject")
+                .whereEq("subject_id", subjectId)
+                .selectItem("*", Subject.class);
     }
 
     @Override

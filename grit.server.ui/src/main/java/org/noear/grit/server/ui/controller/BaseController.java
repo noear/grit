@@ -6,7 +6,8 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.validation.annotation.Valid;
 
 /**
- * Created by noear on 14-9-11.
+ * @author noear
+ * @since 1.0
  */
 @Valid
 @Singleton(false)

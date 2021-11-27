@@ -5,10 +5,8 @@ import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
-import org.noear.grit.model.type.ResourceType;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
-import org.noear.solon.core.handle.Result;
 
 import java.sql.SQLException;
 import java.util.List;

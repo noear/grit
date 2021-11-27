@@ -1,5 +1,6 @@
 package org.noear.grit.service;
 
+import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
@@ -18,7 +19,7 @@ public interface SubjectAdminService {
      *
      * @param subject 主体
      */
-    long addSubject(Subject subject) throws SQLException;
+    long addSubject(SubjectDo subject) throws SQLException;
 
     /**
      * 添加主体，并关联分组
@@ -26,7 +27,7 @@ public interface SubjectAdminService {
      * @param subjectEntity  主体实体
      * @param groupSubjectId 分组的主体Id
      */
-    long addSubjectEntity(SubjectEntity subjectEntity, long groupSubjectId) throws SQLException;
+    long addSubjectEntity(SubjectDo subject, long groupSubjectId) throws SQLException;
 
     /**
      * 更新主体
@@ -34,7 +35,15 @@ public interface SubjectAdminService {
      * @param subjectId 主体Id
      * @param subject   主体
      */
-    boolean updSubject(long subjectId, Subject subject) throws SQLException;
+    boolean updSubject(long subjectId, SubjectDo subject) throws SQLException;
+
+
+    /**
+     * 获取主体
+     *
+     * @param subjectId 主体Id
+     */
+    Subject getSubjectById(long subjectId) throws SQLException;
 
 
     /**

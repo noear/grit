@@ -1,72 +1,67 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.comparator.ResourceComparator;
-import org.noear.grit.client.comparator.SubjectComparator;
-import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.data.ResourceDo;
+import org.noear.grit.model.data.SubjectDo;
+import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.Subject;
-import org.noear.grit.model.domain.SubjectEntity;
-import org.noear.grit.model.domain.SubjectGroup;
-import org.noear.grit.server.model.view.TreeNodeVo;
+import org.noear.grit.model.type.ResourceType;
+import org.noear.grit.model.type.SubjectType;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Result;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author noear 2021/11/27 created
  */
-@Mapping("/grit/subject/entity")
+@Mapping("/grit/subject")
 @Controller
 public class SubjectController extends BaseController {
-    @Mapping
-    public Object home(Long group_id) throws SQLException {
-        List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
-        List<TreeNodeVo<SubjectGroup>> list2 = new ArrayList<>(list.size());
+    @Mapping("edit")
+    public Object edit(long subject_id,long group_id, int type) throws SQLException {
+        Subject m1 = GritClient.global().subjectAdmin().getSubjectById(subject_id);
 
-        list.stream().filter(r -> r.subject_pid == 0)
-                .sorted(SubjectComparator.instance)
-                .forEachOrdered(r -> {
-                    list2.add(new TreeNodeVo<>(r,0));
-                    list.stream().filter(r2 -> r2.subject_pid == r.subject_id)
-                            .sorted(SubjectComparator.instance)
-                            .forEachOrdered(r2 -> list2.add(new TreeNodeVo<>(r2,1)));
-                });
-
-        if (group_id == null) {
-            if (list2.size() > 0) {
-                group_id = list2.get(0).getData().subject_id;
-            }
+        if (m1.subject_id == null) {
+            m1.subject_type = type;
+            m1.is_disabled = false;
+            m1.is_visibled = true;
+            m1.subject_pid = group_id;
         }
 
-        viewModel.put("group_id", group_id);
-        viewModel.put("list", list2);
+        viewModel.put("m1", m1);
 
-        return view("grit/ui/subject_entity");
+        return view("grit/ui/resource_edit");
     }
 
-    @Mapping("inner")
-    public Object inner(long group_id, String key, Integer state) throws SQLException {
-        if (state == null) {
-            state = 1;
+    @Mapping("edit/ajax/save")
+    public Object edit_ajax_save(long subject_id, SubjectDo subject) throws SQLException {
+        if(subject.is_disabled == null){
+            subject.is_disabled = false;
         }
 
-        List<SubjectEntity> list = GritClient.global().subjectAdmin().getSubjectEntityListByGroup(group_id);
-        List<SubjectEntity> list2 = new ArrayList<>(list.size());
-
-        list.stream().sorted(SubjectComparator.instance)
-                .forEachOrdered(r -> {
-                    list2.add(r);
-                });
+        if(subject.is_visibled == null){
+            subject.is_visibled = false;
+        }
 
 
-        viewModel.put("key", key);
-        viewModel.put("state", state);
-        viewModel.put("group_id", group_id);
-        viewModel.put("list", list2);
+        if (subject_id > 0) {
+            GritClient.global().subjectAdmin()
+                    .updSubject(subject_id, subject);
+        } else {
+            GritClient.global().subjectAdmin()
+                    .addSubject(subject);
+        }
 
-        return view("grit/ui/subject_entity_inner");
+        return Result.succeed();
+    }
+
+    @Mapping("edit/ajax/del")
+    public Object edit_ajax_del(long resource_id) throws SQLException{
+
+        GritClient.global().resourceAdmin().delResourceById(resource_id);
+
+        return Result.succeed();
     }
 }
