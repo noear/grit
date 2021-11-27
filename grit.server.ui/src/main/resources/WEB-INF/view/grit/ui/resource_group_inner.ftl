@@ -123,7 +123,7 @@
         <thead>
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
-            <td width="200px" class="left">显示名</td>
+            <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
             <td width="80px" class="left">排序</td>
