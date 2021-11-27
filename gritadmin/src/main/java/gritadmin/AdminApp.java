@@ -10,6 +10,7 @@ public class AdminApp {
     public static void main(String[] args) {
         Solon.start(AdminApp.class, args, app -> {
             app.cfg().loadEnv("grit.");
+            app.onError(e -> e.printStackTrace());
         });
     }
 }
