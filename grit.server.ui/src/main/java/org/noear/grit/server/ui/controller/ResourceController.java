@@ -43,7 +43,7 @@ public class ResourceController extends BaseController {
         viewModel.put("type", type);
         viewModel.put("m1", m1);
 
-        return view("grit/ui/resource_entity_edit");
+        return view("grit/ui/resource_edit");
     }
 
     @Mapping("edit/ajax/save")
