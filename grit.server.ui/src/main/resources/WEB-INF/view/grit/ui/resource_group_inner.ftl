@@ -94,8 +94,7 @@
 </script>
 <body>
 <toolbar>
-    <flex>
-        <left class="col-4">
+        <left>
             <file>
                 <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor">导入</a></label>
             </file>
@@ -108,21 +107,16 @@
                 <button type='button' class="minor mar10-l" onclick="del(1,'启用')" >启用</button>
                 <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
             </#if>
-        </left>
-        <mid class="col-4">
-            <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=2">添加空间</a>
             <#if (space_id!0) gt 0>
                 <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=1">添加分组</a>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=0">添加资源</a>
             </#if>
-        </mid>
-        <right class="col-4">
+        </left>
+        <right>
             <selector>
                 <a class="${(state =1)?string('sel','')}" href="inner?space_id=${space_id}&state=1">启用</a>
                 <a class="${(state !=1)?string('sel','')}" href="inner?space_id=${space_id}&state=0">未启用</a>
             </selector>
         </right>
-    </flex>
 </toolbar>
 <datagrid class="list">
     <table>
@@ -138,23 +132,23 @@
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
-        <#list list as group>
+        <#list list as m1>
             <tr>
-                <td><checkbox><label><input type="checkbox" name="sel_id" value="${group.resource_id}" /><a></a></label></checkbox></td>
+                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
                 <td class="left">
-                    <#if group.resource_type = 0>
+                    <#if m1.resource_type = 0>
                         |-
                     </#if>
-                    ${group.display_name!}
-                    <#if group.resource_code?length gt 0>
-                        (${group.resource_code!})
+                    ${m1.display_name!}
+                    <#if m1.resource_code?length gt 0>
+                        (${m1.resource_code!})
                     </#if>
                 </td>
-                <td class="left">${group.link_uri!}</td>
-                <td class="left">${group.link_target!}</td>
-                <td >${group.is_fullview?string("True","")}</td>
-                <td >${group.is_visibled?string("True","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${group.resource_id}" class="t2">编辑</a></td>
+                <td class="left">${m1.link_uri!}</td>
+                <td class="left">${m1.link_target!}</td>
+                <td >${m1.is_fullview?string("True","")}</td>
+                <td >${m1.is_visibled?string("True","")}</td>
+                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

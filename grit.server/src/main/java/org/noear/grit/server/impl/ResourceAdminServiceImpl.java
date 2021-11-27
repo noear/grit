@@ -2,6 +2,7 @@ package org.noear.grit.server.impl;
 
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.server.dso.BeforeHandler;
@@ -90,7 +91,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
     @Override
     public List<Resource> getResourceListBySpace(long resourceId) throws SQLException {
-        if(resourceId == 0){
+        if (resourceId == 0) {
             return new ArrayList<>();
         }
 
@@ -100,8 +101,20 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     }
 
     @Override
+    public List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException {
+        if (resourceId == 0) {
+            return new ArrayList<>();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_sid", resourceId)
+                .andEq("resource_type", ResourceType.group.code)
+                .selectList("*", ResourceGroup.class);
+    }
+
+    @Override
     public List<Resource> getSubResourceListByPid(long resourceId) throws SQLException {
-        if(resourceId == 0){
+        if (resourceId == 0) {
             return new ArrayList<>();
         }
 

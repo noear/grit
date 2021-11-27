@@ -2,6 +2,7 @@ package org.noear.grit.service;
 
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
+import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 
 import java.sql.SQLException;
@@ -41,6 +42,12 @@ public interface ResourceAdminService {
      * 获取管理用的空间内所有资源
      * */
     List<Resource> getResourceListBySpace(long resourceId) throws SQLException;
+
+
+    /**
+     * 获取管理用的空间内所有资源
+     * */
+    List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException;
 
     /**
      * 获取管理用的下级资源表表

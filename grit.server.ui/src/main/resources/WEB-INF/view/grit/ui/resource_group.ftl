@@ -19,7 +19,7 @@
         function node_onclick(space_id,obj) {
             $('li.sel').removeClass('sel');
             $(obj).addClass("sel");
-            $("#table").attr('src',"/grit/resource/inner?space_id="+space_id);
+            $("#table").attr('src',"/grit/resource/group/inner?space_id="+space_id);
         };
     </script>
 </head>
@@ -35,7 +35,7 @@
         </tree>
     </middle>
     <right class="frm">
-        <iframe src="/grit/resource/inner?space_id=${space_id!}" frameborder="0" id="table"></iframe>
+        <iframe src="/grit/resource/group/inner?space_id=${space_id!}" frameborder="0" id="table"></iframe>
     </right>
 </main>
 </body>
