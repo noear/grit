@@ -127,8 +127,8 @@
                 <td >${m1.order_index}</td>
                 <td class="left">
                     ${m1.display_name!}
-                    <#if m1.subject_code?length gt 0>
-                        (${m1.subject_code!})
+                    <#if m1.login_name?length gt 0>
+                        (${m1.login_name!})
                     </#if>
                 </td>
                 <td >${m1.is_visibled?string("True","")}</td>
