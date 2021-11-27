@@ -21,6 +21,7 @@ public class ResourceGroupController extends BaseController{
     @Mapping
     public Object home(Long space_id) throws SQLException {
         List<ResourceSpace> list = GritClient.global().resourceAdmin().getSpaceList();
+        list.sort(ResourceComparator.instance);
 
         if (space_id == null) {
             if (list.size() > 0) {
