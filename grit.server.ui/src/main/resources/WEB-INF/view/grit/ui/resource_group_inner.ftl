@@ -103,7 +103,7 @@
 
 
             <#if (space_id!0) gt 0>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?space_id=${space_id!}&type=1">添加分组</a>
+                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${space_id!}&type=1">添加分组</a>
             </#if>
         </left>
         <right>

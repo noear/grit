@@ -75,7 +75,13 @@ public class ResourceController extends BaseController {
                 Resource m2 = GritClient.global().resourceAdmin().getResourceById(group_id);
                 m1.resource_pid = group_id;
                 m1.resource_sid = m2.resource_sid; //传导sid
+
+                if(m2.resource_type == ResourceType.space.code){
+                    m1.resource_sid = m2.resource_id;
+                }
             }
+        }else{
+            type = m1.resource_type;
         }
 
         viewModel.put("type", type);
