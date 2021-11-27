@@ -5,6 +5,7 @@ import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.client.comparator.SubjectComparator;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.Subject;
+import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -41,8 +42,8 @@ public class SubjectController extends BaseController {
             state = 1;
         }
 
-        List<Subject> list = GritClient.global().subjectAdmin().getSubSubjectListByPid(group_id);
-        List<Subject> list2 = new ArrayList<>(list.size());
+        List<SubjectEntity> list = GritClient.global().subjectAdmin().getSubjectEntityListByGroup(group_id);
+        List<SubjectEntity> list2 = new ArrayList<>(list.size());
 
         list.stream().sorted(SubjectComparator.instance)
                 .forEachOrdered(r -> {
