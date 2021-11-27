@@ -175,12 +175,24 @@
                 <th>显示名*</th>
                 <td><input type="text" id="display_name" value="${m1.display_name!}"/></td>
             </tr>
+
+            <#if m1.subject_type == 0>
+                <tr>
+                    <th>登录名*</th>
+                    <td><input type="text" id="login_name" value="${m1.login_name!}"/></td>
+                </tr>
+
+                <tr>
+                    <th>登录密码</th>
+                    <td><input type="text" id="login_password" value="${m1.login_password!}"/></td>
+                </tr>
+            </#if>
+
+
             <tr>
                 <th>排序</th>
                 <td><input type="text" id="order_index" value="${m1.order_index!}"/></td>
             </tr>
-
-
             <tr>
                 <th>备注</th>
                 <td><input type="text" id="remark" value="${m1.remark!}"/></td>

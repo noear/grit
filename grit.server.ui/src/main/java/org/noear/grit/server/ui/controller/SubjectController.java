@@ -4,6 +4,7 @@ import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.type.SubjectType;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 @Controller
 public class SubjectController extends BaseController {
     @Mapping("edit")
-    public Object edit(long subject_id,long group_id, int type) throws SQLException {
+    public Object edit(long subject_id, long group_id, int type) throws SQLException {
         Subject m1 = GritClient.global().subjectAdmin().getSubjectById(subject_id);
 
         if (m1.subject_id == null) {
@@ -49,6 +50,10 @@ public class SubjectController extends BaseController {
             GritClient.global().subjectAdmin()
                     .updSubjectById(subject_id, subject);
         } else {
+            if(subject.subject_type == SubjectType.group.code){
+                subject.login_name = Utils.guid();
+            }
+
             if(subject.subject_type == SubjectType.entity.code){
                 GritClient.global().subjectAdmin()
                         .addSubjectEntity(subject, group_id);

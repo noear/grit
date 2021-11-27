@@ -102,7 +102,7 @@
 
         <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
-        <a class="btn edit mar10-l" href="/grit/subject/edit?type=0">添加主体</a>
+        <a class="btn edit mar10-l" href="/grit/subject/edit?type=0&group_id=${group_id!0}">添加主体</a>
     </left>
     <right class="col-4">
 
@@ -133,7 +133,7 @@
                 </td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
-                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>
