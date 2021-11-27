@@ -27,6 +27,7 @@ public class SubjectController extends BaseController {
             m1.subject_pid = group_id;
         }
 
+        viewModel.put("group_id",group_id);
         viewModel.put("m1", m1);
 
         return view("grit/ui/subject_edit");

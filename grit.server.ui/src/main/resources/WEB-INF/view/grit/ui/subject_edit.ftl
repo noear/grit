@@ -48,7 +48,7 @@
                             if(subject_type == 1){
                                 location.href="/grit/subject/group";
                             }else{
-                                location.href="/grit/subject/entity/inner?group_id=${m1.subject_pid!}";
+                                location.href="/grit/subject/entity/inner?group_id=${group_id!}";
                             }
                         },800);
                     }else{
@@ -78,7 +78,7 @@
                             if(subject_type == 1){
                                 location.href="/grit/subject/group";
                             }else{
-                                location.href="/grit/subject/entity/inner?group_id=${m1.subject_pid!}";
+                                location.href="/grit/subject/entity/inner?group_id=${group_id!}";
                             }
                         },800);
                     }else{
