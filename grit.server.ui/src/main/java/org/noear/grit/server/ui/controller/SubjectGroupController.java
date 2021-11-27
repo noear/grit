@@ -39,7 +39,7 @@ public class SubjectGroupController extends BaseController{
 
 
         viewModel.put("state", state);
-        viewModel.put("list", list);
+        viewModel.put("list", list2);
 
         return view("grit/ui/subject_group");
     }

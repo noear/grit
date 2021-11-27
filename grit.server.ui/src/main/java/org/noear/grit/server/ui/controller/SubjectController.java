@@ -7,6 +7,7 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.server.model.view.TreeNodeVo;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 
@@ -23,15 +24,25 @@ public class SubjectController extends BaseController {
     @Mapping
     public Object home(Long group_id) throws SQLException {
         List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
+        List<TreeNodeVo<SubjectGroup>> list2 = new ArrayList<>(list.size());
+
+        list.stream().filter(r -> r.subject_pid == 0)
+                .sorted(SubjectComparator.instance)
+                .forEachOrdered(r -> {
+                    list2.add(new TreeNodeVo<>(r,0));
+                    list.stream().filter(r2 -> r2.subject_pid == r.subject_id)
+                            .sorted(SubjectComparator.instance)
+                            .forEachOrdered(r2 -> list2.add(new TreeNodeVo<>(r2,1)));
+                });
 
         if (group_id == null) {
-            if (list.size() > 0) {
-                group_id = list.get(0).subject_id;
+            if (list2.size() > 0) {
+                group_id = list2.get(0).getData().subject_id;
             }
         }
 
         viewModel.put("group_id", group_id);
-        viewModel.put("list", list);
+        viewModel.put("list", list2);
 
         return view("grit/ui/subject_entity");
     }
