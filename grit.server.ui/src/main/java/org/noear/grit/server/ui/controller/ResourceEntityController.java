@@ -1,6 +1,7 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
@@ -22,7 +23,7 @@ public class ResourceEntityController extends BaseController {
     @Mapping
     public Object home(Long space_id, Long group_id) throws SQLException {
         List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
-
+        spaceList.sort(ResourceComparator.instance);
         if (space_id == null) {
             if (spaceList.size() > 0) {
                 space_id = spaceList.get(0).resource_id;
@@ -30,7 +31,7 @@ public class ResourceEntityController extends BaseController {
         }
 
         List<ResourceGroup> groupList = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
-
+        groupList.sort(ResourceComparator.instance);
         if (group_id == null) {
             if (groupList.size() > 0) {
                 group_id = groupList.get(0).resource_id;
