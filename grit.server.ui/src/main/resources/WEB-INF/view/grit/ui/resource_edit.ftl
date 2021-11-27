@@ -195,7 +195,7 @@
             <tr>
                 <th>图标资源</th>
                 <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/>
-                <n-l>图片地址或者字体图库</n-l>
+                <n-l>图片地址或者图标字体</n-l>
                 </td>
             </tr>
 

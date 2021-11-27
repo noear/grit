@@ -49,6 +49,18 @@ public class ResourceController extends BaseController {
 
     @Mapping("edit/ajax/save")
     public Object edit_ajax_save(long resource_id, ResourceDo resource) throws SQLException {
+        if(resource.is_disabled == null){
+            resource.is_disabled = false;
+        }
+
+        if(resource.is_visibled == null){
+            resource.is_visibled = false;
+        }
+
+        if(resource.is_fullview == null){
+            resource.is_fullview = false;
+        }
+
         if (resource_id > 0) {
             GritClient.global().resourceAdmin()
                     .updResourceById(resource_id, resource);
