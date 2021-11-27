@@ -174,9 +174,7 @@
     <right class="form">
         <n>ctrl + s 可快捷保存</n>
         <button type="button" class="w80" onclick="save()">保存</button>
-        <#if is_admin == 1>
-            <button type="button" class="minor" onclick="del()">删除</button>
-        </#if>
+        <button type="button" class="minor" onclick="del()">删除</button>
     </right>
 </toolbar>
 
@@ -221,15 +219,21 @@
             </tr>
             <tr>
                 <th>是否全屏</th>
-                <td><input type="text" id="is_fullview" value="${m1.is_fullview!}"/></td>
+                <td>
+                    <switcher><label><input type="checkbox" id="is_fullview" value="1" ${m1.is_fullview?string("checked","")} /><a></a></label></switcher>
+                </td>
             </tr>
             <tr>
                 <th>是否可见</th>
-                <td><input type="text" id="is_visibled" value="${m1.is_visibled!}"/></td>
+                <td>
+                    <switcher><label><input type="checkbox" id="is_visibled" value="1" ${m1.is_visibled?string("checked","")} /><a></a></label></switcher>
+                </td>
             </tr>
             <tr>
                 <th>是否禁用</th>
-                <td><input type="text" id="is_disabled" value="${m1.is_disabled!}"/></td>
+                <td>
+                    <switcher><label><input type="checkbox" id="is_disabled" value="1" ${m1.is_disabled?string("checked","")} /><a></a></label></switcher>
+                </td>
             </tr>
             <tr>
                 <th>扩展属性</th>
