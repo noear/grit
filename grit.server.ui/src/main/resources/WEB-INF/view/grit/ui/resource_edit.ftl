@@ -48,9 +48,9 @@
                             if(resource_type == 2){
                                 location.href="/grit/resource/space";
                             }else if(resource_type == 1){
-                                location.href="/grit/resource/group?space_id=${m1.resource_sid!}";
+                                location.href="/grit/resource/group/inner?space_id=${m1.resource_sid!}";
                             }else{
-                                location.href="/grit/resource/entity?group_id=${m1.resource_pid!}";
+                                location.href="/grit/resource/entity/inner?group_id=${m1.resource_pid!}";
                             }
                         },800);
                     }else{
@@ -178,17 +178,25 @@
                 <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/></td>
             </tr>
             <tr>
-                <th>显示名</th>
+                <th>显示名*</th>
                 <td><input type="text" id="display_name" value="${m1.display_name!}"/></td>
             </tr>
             <tr>
                 <th>排序</th>
                 <td><input type="text" id="order_index" value="${m1.order_index!}"/></td>
             </tr>
+
+            <tr>
+                <th>图标路径</th>
+                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/></td>
+            </tr>
+
             <tr>
                 <th>链接路径</th>
                 <td><input type="text" class="longtxt" id="link_uri" value="${m1.link_uri!}"/></td>
             </tr>
+
+            <#if m1.resource_type==0>
             <tr>
                 <th>链接目标</th>
                 <td><input type="text" id="link_target" value="${m1.link_target!}"/></td>
@@ -198,19 +206,17 @@
                 <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
             </tr>
             <tr>
-                <th>图标路径</th>
-                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/></td>
-            </tr>
-            <tr>
                 <th>备注</th>
                 <td><input type="text" class="longtxt" id="remark" value="${m1.remark!}"/></td>
             </tr>
+
             <tr>
                 <th>是否全屏</th>
                 <td>
                     <switcher><label><input type="checkbox" id="is_fullview" value="1" ${m1.is_fullview?string("checked","")} /><a></a></label></switcher>
                 </td>
             </tr>
+            </#if>
             <tr>
                 <th>是否可见</th>
                 <td>
