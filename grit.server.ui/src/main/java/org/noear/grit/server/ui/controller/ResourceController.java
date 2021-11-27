@@ -1,6 +1,7 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.solon.annotation.Controller;
@@ -47,7 +48,7 @@ public class ResourceController extends BaseController {
     }
 
     @Mapping("edit/ajax/save")
-    public Object edit_ajax_save(long resource_id, Resource resource) throws SQLException {
+    public Object edit_ajax_save(long resource_id, ResourceDo resource) throws SQLException {
         if (resource_id > 0) {
             GritClient.global().resourceAdmin()
                     .updResourceById(resource_id, resource);

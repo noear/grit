@@ -41,7 +41,7 @@
                 url:"/grit/resource/edit/ajax/save",
                 data:vm,
                 success:function (data) {
-                    if(data.code==1) {
+                    if(data.code==200) {
                         top.layer.msg('操作成功')
                         // setTimeout(function(){
                         //     location.href="/cfg/prop?tag_name="+vm.tag;
@@ -78,31 +78,6 @@
                 }
             });
         }
-
-
-
-        var ext_tools = ace.require("ace/ext/language_tools");
-
-        ext_tools.addCompleter({
-            getCompletions: function(editor, session, pos, prefix, callback) {
-                callback(null,
-                    [
-                        {name: "schema",value: "schema", meta: "",type: "local",score: 1000},
-                        {name: "url",value: "url", meta: "",type: "local",score: 1000},
-                        {name: "username",value: "username", meta: "",type: "local",score: 1000},
-                        {name: "password",value: "password", meta: "",type: "local",score: 1000},
-                        {name: "server",value: "server", meta: "",type: "local",score: 1000},
-                        {name: "user",value: "user", meta: "",type: "local",score: 1000},
-                        {name: "name",value: "name", meta: "",type: "local",score: 1000},
-                        {name: "accessKeyId",value: "accessKeyId", meta: "",type: "local",score: 1000},
-                        {name: "accessSecret",value: "accessSecret", meta: "",type: "local",score: 1000},
-                        {name: "regionId",value: "regionId", meta: "",type: "local",score: 1000},
-                        {name: "endpoint",value: "endpoint", meta: "",type: "local",score: 1000},
-                        {name: "bucket",value: "bucket", meta: "",type: "local",score: 1000}
-                    ]);
-            }
-        });
-
 
         function build_editor(mod){
             if(window.editor){
@@ -162,9 +137,9 @@
 <toolbar class="blockquote">
     <left>
         <h2 class="ln30"><a href="#" onclick="history.back(-1)" class="noline">
-                <#if type==2>
+                <#if m1.resource_type==2>
                     资源空间
-                <#elseif type==1>
+                <#elseif m1.resource_type==1>
                     资源组
                 <#else>
                     资源
@@ -199,7 +174,7 @@
             </tr>
             <tr>
                 <th>链接路径</th>
-                <td><input type="text" id="link_uri" value="${m1.link_uri!}"/></td>
+                <td><input type="text" class="longtxt" id="link_uri" value="${m1.link_uri!}"/></td>
             </tr>
             <tr>
                 <th>链接目标</th>
@@ -211,11 +186,11 @@
             </tr>
             <tr>
                 <th>图标路径</th>
-                <td><input type="text" id="icon_uri" value="${m1.icon_uri!}"/></td>
+                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/></td>
             </tr>
             <tr>
                 <th>备注</th>
-                <td><input type="text" id="remark" value="${m1.remark!}"/></td>
+                <td><input type="text" class="longtxt" id="remark" value="${m1.remark!}"/></td>
             </tr>
             <tr>
                 <th>是否全屏</th>
@@ -235,24 +210,6 @@
                     <switcher><label><input type="checkbox" id="is_disabled" value="1" ${m1.is_disabled?string("checked","")} /><a></a></label></switcher>
                 </td>
             </tr>
-            <tr>
-                <th>扩展属性</th>
-                <td>
-                    <div style="line-height: 1em;">
-                        <boxlist>
-                            <label><input type="radio" name="edit_mode" onclick="editor_shift('text')" value="text" /><a>text</a></label>
-                            <label><input type="radio" name="edit_mode" onclick="editor_shift('properties')" value="properties" /><a>properties</a></label>
-                            <label><input type="radio" name="edit_mode" onclick="editor_shift('yaml')" value="yaml" /><a>yaml</a></label>
-                            <label><input type="radio" name="edit_mode" onclick="editor_shift('json')" value="json" /><a>json</a></label>
-                        </boxlist>
-                    </div>
-                    <div>
-                        <textarea id="attrs" class="hidden">${m1.attrs!}</textarea>
-                        <pre style="height:300px;width:calc(100vw - 260px);"  id="attrs_edit">${m1.attrs!}</pre>
-                    </div>
-                </td>
-            </tr>
-
         </table>
     </form>
 </detail>
