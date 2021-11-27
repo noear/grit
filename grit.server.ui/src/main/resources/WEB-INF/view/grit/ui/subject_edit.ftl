@@ -167,10 +167,12 @@
         <input type="hidden" id="subject_pid" value="${m1.subject_pid!0}">
         <input type="hidden" id="group_id" value="${group_id!0}">
         <table>
+            <#if m1.subject_type == 0>
             <tr>
                 <th>代号</th>
                 <td><input type="text" id="subject_code" autofocus value="${m1.subject_code!}"/></td>
             </tr>
+            </#if>
             <tr>
                 <th>显示名*</th>
                 <td><input type="text" id="display_name" value="${m1.display_name!}"/></td>
