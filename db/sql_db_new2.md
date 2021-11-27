@@ -55,7 +55,6 @@ CREATE TABLE `grit_subject` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `level` int(11) NOT NULL DEFAULT '0' COMMENT '节点级别',
   `attrs` varchar(4000) DEFAULT NULL COMMENT '属性(kv)',
-  `mail` varchar(200) DEFAULT NULL COMMENT '邮箱',
   `is_disabled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用',
   `is_visibled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见',
   `gmt_create` bigint(20) DEFAULT NULL COMMENT '创建时间',
