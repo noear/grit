@@ -126,6 +126,7 @@
             <td width="200px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
+            <td width="80px" class="left">排序</td>
             <td width="80px" class="left">是否全屏</td>
             <td width="80px" class="left">是否可见</td>
             <td width="80px" class="left">是否禁用</td>
@@ -147,6 +148,7 @@
                 </td>
                 <td class="left">${m1.link_uri!}</td>
                 <td class="left">${m1.link_target!}</td>
+                <td >${m1.order_index}</td>
                 <td >${m1.is_fullview?string("True","")}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
