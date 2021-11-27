@@ -1,8 +1,7 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.utils.ResourceComparator;
-import org.noear.grit.model.domain.Resource;
+import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.annotation.Controller;

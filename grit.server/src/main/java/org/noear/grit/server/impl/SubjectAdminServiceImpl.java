@@ -3,6 +3,8 @@ package org.noear.grit.server.impl;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
+import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.model.type.SubjectType;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.SubjectAdminService;
 import org.noear.solon.annotation.Before;
@@ -13,6 +15,7 @@ import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author noear 2021/11/27 created
@@ -61,5 +64,12 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
                 .setEntity(subject).usingNull(false)
                 .whereEq("subject_id", subjectId)
                 .update() > 0;
+    }
+
+    @Override
+    public List<SubjectGroup> getGroupList() throws SQLException {
+        return db.table("grit_subject")
+                .whereEq("subject_type", SubjectType.group.code)
+                .selectList("*", SubjectGroup.class);
     }
 }

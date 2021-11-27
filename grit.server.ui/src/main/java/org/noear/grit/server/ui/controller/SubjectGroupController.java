@@ -1,7 +1,7 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.model.domain.ResourceSpace;
+import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 
@@ -20,11 +20,11 @@ public class SubjectGroupController extends BaseController{
             state = 1;
         }
 
-        List<ResourceSpace> list = GritClient.global().resourceAdmin().getSpaceList();
+        List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
 
         viewModel.put("state", state);
         viewModel.put("list", list);
 
-        return view("grit/ui/resource_space");
+        return view("grit/ui/subject_group");
     }
 }

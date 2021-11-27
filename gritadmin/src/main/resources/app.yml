@@ -11,6 +11,10 @@ solon.cloud.water:
   config:
     load: "grit.yml,gritadmin.yml"
 
+solon.logging.logger:
+  "org.eclipse.jetty.*":
+    level: "WARN"
+  "com.zaxxer.hikari.*":
+    level: "WARN"
 
-grit.cache:
-  driverType: "local"
+

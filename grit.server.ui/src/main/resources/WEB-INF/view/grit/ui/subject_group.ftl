@@ -101,7 +101,7 @@
 
         <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
 
-        <a class="btn edit mar10-l" href="/grit/resource/edit?type=2">添加空间</a>
+        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">添加分组</a>
     </left>
     <right class="col-4">
         <selector>
@@ -116,9 +116,6 @@
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
             <td width="200px" class="left">显示名</td>
-            <td class="left">路径</td>
-            <td width="90px" class="left">路径目标</td>
-            <td width="80px" class="left">是否全屏</td>
             <td width="80px" class="left">是否可见</td>
             <td width="50px">操作</td>
         </tr>
@@ -126,21 +123,18 @@
         <tbody id="tbody" class="sel_from">
         <#list list as m1>
             <tr>
-                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
+                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
                 <td class="left">
-                    <#if m1.resource_type = 0>
+                    <#if m1.subject_type = 0>
                         |-
                     </#if>
                     ${m1.display_name!}
-                    <#if m1.resource_code?length gt 0>
-                        (${m1.resource_code!})
+                    <#if m1.subject_code?length gt 0>
+                        (${m1.subject_code!})
                     </#if>
                 </td>
-                <td class="left">${m1.link_uri!}</td>
-                <td class="left">${m1.link_target!}</td>
-                <td >${m1.is_fullview?string("True","")}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>
