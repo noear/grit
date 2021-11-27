@@ -189,12 +189,14 @@
 
             <tr>
                 <th>备注</th>
-                <td><input type="text" class="longtxt" id="remark" value="${m1.remark!}"/></td>
+                <td><input type="text" id="remark" value="${m1.remark!}"/></td>
             </tr>
 
             <tr>
-                <th>图标路径</th>
-                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/></td>
+                <th>图标资源</th>
+                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/>
+                <n>图片地址或者字体图库</n>
+                </td>
             </tr>
 
             <tr>
