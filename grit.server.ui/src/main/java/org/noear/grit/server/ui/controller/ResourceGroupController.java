@@ -36,7 +36,10 @@ public class ResourceGroupController extends BaseController{
     }
 
     @Mapping("inner")
-    public Object inner(long space_id, String key, int state) throws SQLException {
+    public Object inner(long space_id, String key, Integer state) throws SQLException {
+        if(state == null){
+            state = 1;
+        }
 
         List<ResourceGroup> list = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
         List<ResourceGroup> list2 = new ArrayList<>(list.size());

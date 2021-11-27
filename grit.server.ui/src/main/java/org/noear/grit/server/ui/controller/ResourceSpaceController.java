@@ -16,7 +16,11 @@ import java.util.List;
 @Controller
 public class ResourceSpaceController extends BaseController{
     @Mapping
-    public Object home(int state) throws SQLException {
+    public Object home(Integer state) throws SQLException {
+        if(state == null){
+            state = 1;
+        }
+
         List<ResourceSpace> list = GritClient.global().resourceAdmin().getSpaceList();
 
         viewModel.put("state", state);
