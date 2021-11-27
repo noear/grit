@@ -38,6 +38,10 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
      */
     @Override
     public long addSubject(SubjectDo subject) throws SQLException {
+        if(subject.subject_type == SubjectType.entity.code){
+            subject.subject_pid = -1L;
+        }
+
         return db.table("grit_subject")
                 .setEntity(subject).usingNull(false)
                 .insert();
@@ -45,6 +49,10 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
 
     @Override
     public long addSubjectEntity(SubjectDo subject, long groupSubjectId) throws SQLException {
+        if(subject.subject_type == SubjectType.entity.code){
+            subject.subject_pid = -1L;
+        }
+
         long subjectEntityId = db.table("grit_subject")
                 .setEntity(subject).usingNull(false)
                 .insert();
@@ -64,6 +72,10 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
      */
     @Override
     public boolean updSubjectById(long subjectId, SubjectDo subject) throws SQLException {
+        if(subject.subject_type == SubjectType.entity.code){
+            subject.subject_pid = -1L;
+        }
+
         return db.table("grit_subject")
                 .setEntity(subject).usingNull(false)
                 .whereEq("subject_id", subjectId)

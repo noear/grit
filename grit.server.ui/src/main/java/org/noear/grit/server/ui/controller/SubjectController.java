@@ -45,7 +45,6 @@ public class SubjectController extends BaseController {
             subject.is_visibled = false;
         }
 
-
         if (subject_id > 0) {
             GritClient.global().subjectAdmin()
                     .updSubjectById(subject_id, subject);
