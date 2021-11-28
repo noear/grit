@@ -176,7 +176,7 @@ public interface AuthService {
     List<ResourceSpace> getSpaceList(long subjectId) throws SQLException;
 
     /**
-     * 获取主体的第一个资源空间
+     * 获取主体的首个资源空间
      *
      * @param subjectId 主体Id
      */

@@ -16,6 +16,7 @@ import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -118,7 +119,9 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .selectItem("*", Resource.class);
     }
 
-
+    /**
+     * 获取管理用的资源空间列表
+     */
     @Override
     public List<ResourceSpace> getSpaceList() throws SQLException {
         return db.table("grit_resource")
@@ -126,6 +129,11 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .selectList("*", ResourceSpace.class);
     }
 
+    /**
+     * 获取管理用的空间内所有资源
+     *
+     * @param resourceId 资源Id
+     * */
     @Override
     public List<Resource> getResourceListBySpace(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -137,6 +145,11 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .selectList("*", Resource.class);
     }
 
+    /**
+     * 获取管理用的空间内所有资源
+     *
+     * @param resourceId 资源Id
+     * */
     @Override
     public List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -149,6 +162,11 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .selectList("*", ResourceGroup.class);
     }
 
+    /**
+     * 获取管理用的下级资源表表
+     *
+     * @param resourceId 资源Id
+     * */
     @Override
     public List<Resource> getSubResourceListByPid(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -158,5 +176,36 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         return db.table("grit_resource")
                 .whereEq("resource_pid", resourceId)
                 .selectList("*", Resource.class);
+    }
+
+    ///////////////////
+
+    /**
+     * 添加资源关联
+     *
+     * @param resourceId  资源Id
+     * @param subjectId   主体Id
+     * @param subjectType 主体类型
+     */
+    @Override
+    public long addResourceLink(long resourceId, long subjectId, int subjectType) throws SQLException {
+        return db.table("grit_resource_linked")
+                .set("resource_id", resourceId)
+                .set("subject_id", subjectId)
+                .set("subject_type", subjectType)
+                .set("gmt_create", System.currentTimeMillis())
+                .insert();
+    }
+
+    /**
+     * 删除资源关联
+     *
+     * @param linkIds 资源连接Ids
+     */
+    @Override
+    public void delResourceLink(long... linkIds) throws SQLException {
+        db.table("grit_resource_linked")
+                .whereIn("link_id", Arrays.asList(linkIds))
+                .delete();
     }
 }

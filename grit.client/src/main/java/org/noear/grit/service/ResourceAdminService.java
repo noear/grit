@@ -37,6 +37,8 @@ public interface ResourceAdminService {
 
     /**
      * 获取资源
+     *
+     * @param resourceId 资源Id
      * */
     Resource getResourceById(long resourceId) throws SQLException;
 
@@ -47,17 +49,42 @@ public interface ResourceAdminService {
 
     /**
      * 获取管理用的空间内所有资源
+     *
+     * @param resourceId 资源Id
      * */
     List<Resource> getResourceListBySpace(long resourceId) throws SQLException;
 
 
     /**
      * 获取管理用的空间内所有资源
+     *
+     * @param resourceId 资源Id
      * */
     List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException;
 
     /**
      * 获取管理用的下级资源表表
+     *
+     * @param resourceId 资源Id
      * */
     List<Resource> getSubResourceListByPid(long resourceId) throws SQLException;
+
+
+    ////////////////
+
+    /**
+     * 添加资源关联
+     *
+     * @param resourceId  资源Id
+     * @param subjectId   主体Id
+     * @param subjectType 主体类型
+     */
+    long addResourceLink(long resourceId, long subjectId, int subjectType) throws SQLException;
+
+    /**
+     * 删除资源关联
+     *
+     * @param linkIds 资源连接Ids
+     */
+    void delResourceLink(long... linkIds) throws SQLException;
 }

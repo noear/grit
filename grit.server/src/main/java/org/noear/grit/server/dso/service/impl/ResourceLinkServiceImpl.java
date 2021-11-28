@@ -36,34 +36,11 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
 
 
     /**
-     * 添加资源关联
+     * 检测是否存在连接
      *
-     * @param resourceId  资源Id
-     * @param subjectId   主体Id
-     * @param subjectType 主体类型
+     * @param resourceId 资源Id
+     * @param subjectId  主体Id
      */
-    @Override
-    public long addResourceLink(long resourceId, long subjectId, int subjectType) throws SQLException {
-        return db.table("grit_resource_linked")
-                .set("resource_id", resourceId)
-                .set("subject_id", subjectId)
-                .set("subject_type", subjectType)
-                .set("gmt_create", System.currentTimeMillis())
-                .insert();
-    }
-
-    /**
-     * 删除资源关联
-     *
-     * @param linkIds 资源连接Ids
-     */
-    @Override
-    public void delResourceLink(long... linkIds) throws SQLException {
-        db.table("grit_resource_linked")
-                .whereIn("link_id", Arrays.asList(linkIds))
-                .delete();
-    }
-
     @Override
     public boolean hasResourceLink(long resourceId, long subjectId) throws SQLException {
         return db.table("grit_resource_linked")
@@ -91,7 +68,8 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
     /**
      * 获取主体所有的授权资源列表
      *
-     * @param subjectId 主体Id
+     * @param subjectId  主体Id
+     * @param isVisibled 是否可见（null表示全部）
      * @return 资源列表
      */
     @Override
@@ -126,6 +104,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .selectList("s.*", ResourceEntity.class);
     }
 
+    /**
+     * 获取主体在某一个资源空间下的授权资源列表
+     *
+     * @param subjectId       主体Id
+     * @param resourceSpaceId 资源空间Id
+     * @return 资源列表
+     */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectAndSpace(long subjectId, long resourceSpaceId, Boolean isVisibled) throws SQLException {
         return db.table("grit_resource_linked l")
@@ -139,6 +124,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .selectList("s.*", ResourceEntity.class);
     }
 
+    /**
+     * 获取主体在某一个资源组下的授权资源列表
+     *
+     * @param subjectIds      主体Ids
+     * @param resourceGroupId 资源组Id
+     * @return 资源列表
+     */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
         return db.table("grit_resource_linked l")
@@ -152,6 +144,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .selectList("s.*", ResourceEntity.class);
     }
 
+    /**
+     * 获取主体在某一个资源空间下的授权资源列表
+     *
+     * @param subjectIds      主体Ids
+     * @param resourceSpaceId 资源空间Id
+     * @return 资源列表
+     */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
         return db.table("grit_resource_linked l")
@@ -165,34 +164,14 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .selectList("s.*", ResourceEntity.class);
     }
 
-    @Override
-    public ResourceEntity getResourceEntityFristBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        return db.table("grit_resource_linked l")
-                .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
-                .andIn("l.subject_id", subjectIds)
-                .andEq("r.resource_sid", resourceSpaceId)
-                .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
-                .andEq("r.is_disabled", 0)
-                .limit(1)
-                .caching(cache)
-                .selectItem("s.*", ResourceEntity.class);
-    }
 
-    @Override
-    public ResourceEntity getResourceEntityFristBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
-        return db.table("grit_resource_linked l")
-                .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
-                .andIn("l.subject_id", subjectIds)
-                .andEq("r.resource_pid", resourceGroupId)
-                .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
-                .andEq("r.is_disabled", 0)
-                .limit(1)
-                .caching(cache)
-                .selectItem("s.*", ResourceEntity.class);
-    }
 
+    /**
+     * 获取主体的授权资源分组列表
+     *
+     * @param subjectIds 主体Ids
+     * @return 资源列表
+     */
     @Override
     public List<ResourceGroup> getResourceGroupListBySubjects(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
         List<Long> groupIds = GritClient.global().resource().getSubResourceListByPid(resourceSpaceId)
@@ -219,6 +198,12 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .selectList("*", ResourceGroup.class);
     }
 
+    /**
+     * 获取主体的授权资源空间列表
+     *
+     * @param subjectIds 主体Ids
+     * @return 资源列表
+     */
     @Override
     public List<ResourceSpace> getResourceSpaceListBySubjects(List<Long> subjectIds, Boolean isVisibled) throws SQLException {
         List<Long> spaceIds = db.table("grit_resource_linked l")
@@ -237,5 +222,46 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andEq("is_disabled", 0)
                 .caching(cache)
                 .selectList("*", ResourceSpace.class);
+    }
+
+
+    /**
+     * 获取主体在某一个资源空间下的第一个授权资源
+     *
+     * @param subjectIds      主体Ids
+     * @param resourceSpaceId 资源空间Id
+     */
+    @Override
+    public ResourceEntity getResourceEntityFristBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+        return db.table("grit_resource_linked l")
+                .innerJoin("grit_resource r")
+                .on("l.subject_id=r.resource_id")
+                .andIn("l.subject_id", subjectIds)
+                .andEq("r.resource_sid", resourceSpaceId)
+                .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
+                .andEq("r.is_disabled", 0)
+                .limit(1)
+                .caching(cache)
+                .selectItem("s.*", ResourceEntity.class);
+    }
+
+    /**
+     * 获取主体在某一个资源分组下的第一个授权资源
+     *
+     * @param subjectIds      主体Ids
+     * @param resourceGroupId 资源空间Id
+     */
+    @Override
+    public ResourceEntity getResourceEntityFristBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
+        return db.table("grit_resource_linked l")
+                .innerJoin("grit_resource r")
+                .on("l.subject_id=r.resource_id")
+                .andIn("l.subject_id", subjectIds)
+                .andEq("r.resource_pid", resourceGroupId)
+                .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
+                .andEq("r.is_disabled", 0)
+                .limit(1)
+                .caching(cache)
+                .selectItem("s.*", ResourceEntity.class);
     }
 }

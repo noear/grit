@@ -17,22 +17,6 @@ import java.util.List;
 public interface ResourceLinkService {
 
     /**
-     * 添加资源关联
-     *
-     * @param resourceId  资源Id
-     * @param subjectId   主体Id
-     * @param subjectType 主体类型
-     */
-    long addResourceLink(long resourceId, long subjectId, int subjectType) throws SQLException;
-
-    /**
-     * 删除资源关联
-     *
-     * @param linkIds 资源连接Ids
-     */
-    void delResourceLink(long... linkIds) throws SQLException;
-
-    /**
      * 检测是否存在连接
      *
      * @param resourceId 资源Id

@@ -147,6 +147,12 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().getResourceEntityFristBySubjectsAndGroup(subjectIds, resourceGroupId, true);
     }
 
+    /**
+     * 获取主体的授与路径分组列表
+     *
+     * @param subjectId 主体Id
+     * @param resourceSpaceId 资源空间Id
+     */
     @Override
     public List<ResourceGroup> getUriGroupListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取实体相关的所有主体Id
@@ -155,6 +161,12 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().getResourceGroupListBySubjects(subjectIds, resourceSpaceId, true);
     }
 
+    /**
+     * 获取主体的授与权限列表
+     *
+     * @param subjectId 主体Id
+     * @param resourceSpaceId 资源空间Id
+     */
     @Override
     public List<ResourceEntity> getPermissionList(long subjectId, long resourceSpaceId) throws SQLException {
         //获取实体相关的所有主体Id
@@ -163,6 +175,11 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndSpace(subjectIds, resourceSpaceId, false);
     }
 
+    /**
+     * 获取主体的角色列表
+     *
+     * @param subjectId 主体Id
+     */
     @Override
     public List<SubjectGroup> getRoleList(long subjectId) throws SQLException {
         return GritClient.global().subjectLink().getSubjectGroupListByEntity(subjectId);
@@ -172,6 +189,11 @@ public class AuthServiceImpl implements AuthService {
     ////////////////////////
 
 
+    /**
+     * 获取主体的资源空间列表
+     *
+     * @param subjectId 主体Id
+     */
     @Override
     public List<ResourceSpace> getSpaceList(long subjectId) throws SQLException {
         //获取实体相关的所有主体Id
@@ -182,6 +204,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
+    /**
+     * 获取主体的首个资源空间
+     *
+     * @param subjectId 主体Id
+     */
     @Override
     public ResourceSpace getSpaceFrist(long subjectId) throws SQLException {
         List<ResourceSpace> branchList = getSpaceList(subjectId);

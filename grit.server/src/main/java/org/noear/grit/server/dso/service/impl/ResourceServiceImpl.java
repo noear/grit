@@ -34,8 +34,6 @@ public class ResourceServiceImpl implements ResourceService {
     private  ICacheService cache;
 
 
-
-
     /**
      * 资源获取
      *
@@ -165,6 +163,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     ///////////////////////////
+    /**
+     * 获取资源空间
+     *
+     * @param resourceSpaceCode 资源空间代号
+     */
     @Override
     public ResourceSpace getSpaceByCode(String resourceSpaceCode) throws SQLException {
         if (TextUtils.isEmpty(resourceSpaceCode)) {
@@ -178,6 +181,9 @@ public class ResourceServiceImpl implements ResourceService {
                 .selectItem("*", ResourceSpace.class);
     }
 
+    /**
+     * 获取所有的资源空间列表
+     */
     @Override
     public List<ResourceSpace> getSpaceList() throws SQLException {
         return db.table("grit_resource")
