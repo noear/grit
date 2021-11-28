@@ -89,7 +89,7 @@
 <article>
     <#list groupList as g>
     <section>
-        <header class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}">
+        <header class="${g.is_visibled?string("","hid")} ${g.is_disabled?string("dis","")}">
             <#if g.level gt 0>
                 |-
             </#if>
