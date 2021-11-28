@@ -48,6 +48,8 @@ public class AuthController extends BaseController {
 
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
+        Subject subject = GritClient.global().subjectAdmin().getSubjectById(subject_id);
+
         List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
         spaceList.sort(ResourceComparator.instance);
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
@@ -60,6 +62,7 @@ public class AuthController extends BaseController {
         resourceList = ResourceTreeUtils.build(resourceList, space_id);
 
         viewModel.put("subject_id", subject_id);
+        viewModel.put("subject", subject);
 
         viewModel.put("space_id", space_id);
         viewModel.put("spaceList", spaceList);

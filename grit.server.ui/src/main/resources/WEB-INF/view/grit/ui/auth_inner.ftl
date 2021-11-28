@@ -48,7 +48,9 @@
 <body>
 <toolbar>
     <left class="col-4">
-
+        <strong>
+            ${subject.display_name!}
+        </strong>
     </left>
     <right class="col-4">
         <select style="width: 200px;" id="space_id"  onchange="queryForm();">
