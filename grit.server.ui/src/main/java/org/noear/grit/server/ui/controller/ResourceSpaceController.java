@@ -17,15 +17,10 @@ import java.util.List;
 @Controller
 public class ResourceSpaceController extends BaseController{
     @Mapping
-    public Object home(Integer state) throws SQLException {
-        if(state == null){
-            state = 1;
-        }
-
+    public Object home() throws SQLException {
         List<ResourceSpace> list = GritClient.global().resourceAdmin().getSpaceList();
         list.sort(ResourceComparator.instance);
 
-        viewModel.put("state", state);
         viewModel.put("list", list);
 
         return view("grit/ui/resource_space");

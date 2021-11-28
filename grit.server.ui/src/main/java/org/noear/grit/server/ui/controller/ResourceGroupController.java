@@ -34,13 +34,11 @@ public class ResourceGroupController extends BaseController{
     }
 
     @Mapping("inner")
-    public Object inner(long space_id, String key, Integer state) throws SQLException {
-        if(state == null){
-            state = 1;
-        }
-
+    public Object inner(long space_id) throws SQLException {
         List<ResourceGroup> list = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
         List<ResourceGroup> list2 = new ArrayList<>(list.size());
+
+        ResourceSpaceCookie.set(space_id);
 
         list.stream().filter(r -> r.resource_pid == space_id)
                 .sorted(ResourceComparator.instance)
@@ -52,8 +50,6 @@ public class ResourceGroupController extends BaseController{
                 });
 
 
-        viewModel.put("key", key);
-        viewModel.put("state", state);
         viewModel.put("space_id", space_id);
         viewModel.put("list", list2);
 

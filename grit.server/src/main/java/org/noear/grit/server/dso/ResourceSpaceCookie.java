@@ -13,12 +13,13 @@ import java.util.List;
  * @since 1.0
  */
 public class ResourceSpaceCookie {
+    private static final String COOKIE_KEY = "grit_log__space";
+
     public static <T extends ResourceDo> long build(long spaceId, List<T> tags) {
         if (spaceId == 0L) {
-            String tmp = cookieGet();
-            if (Utils.isNotEmpty(tmp)) {
-                spaceId = Long.parseLong(tmp);
-            }
+
+            spaceId = get();
+
         }
 
         if (spaceId > 0) {
@@ -35,15 +36,21 @@ public class ResourceSpaceCookie {
         return spaceId;
     }
 
-    public static String cookieGet(){
-        return Context.current().cookie("grit_log__space");
+    public static long get() {
+        String tmp = Context.current().cookie(COOKIE_KEY);
+
+        if (Utils.isNotEmpty(tmp)) {
+            return Long.parseLong(tmp);
+        } else {
+            return 0;
+        }
     }
 
-    public static void cookieSet(String tag){
-        if(Utils.isEmpty(tag)){
+    public static void set(long space_id) {
+        if (space_id == 0) {
             return;
         }
 
-        Context.current().cookieSet("grit_log__space", tag);
+        Context.current().cookieSet(COOKIE_KEY, String.valueOf(space_id));
     }
 }

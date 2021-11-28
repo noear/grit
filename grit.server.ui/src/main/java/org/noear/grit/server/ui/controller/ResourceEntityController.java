@@ -24,6 +24,7 @@ public class ResourceEntityController extends BaseController {
         List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
         spaceList.sort(ResourceComparator.instance);
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
+        ResourceSpaceCookie.set(space_id);
 
         List<ResourceGroup> groupList = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
         groupList.sort(ResourceComparator.instance);
@@ -42,15 +43,9 @@ public class ResourceEntityController extends BaseController {
     }
 
     @Mapping("inner")
-    public Object inner(long group_id, String key, Integer state) throws SQLException {
-        if (state == null) {
-            state = 1;
-        }
-
+    public Object inner(long group_id) throws SQLException {
         List<Resource> list = GritClient.global().resourceAdmin().getSubResourceListByPid(group_id);
 
-        viewModel.put("key", key);
-        viewModel.put("state", state);
         viewModel.put("group_id", group_id);
         viewModel.put("list", list);
 
