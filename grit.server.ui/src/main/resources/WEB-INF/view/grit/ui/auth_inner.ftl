@@ -13,7 +13,8 @@
         .dis{text-decoration:line-through; color:#888;}
         .hid{color:blue;}
 
-        section header{line-height: 40px; height: 40px; font-weight: bold; margin-bottom: 5px;}
+        section header{line-height: 40px; height: 40px; margin-bottom: 5px;}
+        section header a{cursor: default; color: #666;}
         section boxlist{}
         section boxlist label{margin: 0 0 5px;}
     </style>
@@ -60,6 +61,20 @@
         window.open("ajax/export?tag=${tag_name!}&ids=" + vm.sel_id, "_blank");
     }
 
+    function selNode(cls, type){
+        if(type){
+            //1
+            $("."+cls).each(function (e){
+                $(e).attr('checked', true);
+            });
+        }else{
+            //0
+            $("."+cls).each(function (e){
+                $(e).attr('checked', !$(e).attr('checked'));
+            });
+        }
+    }
+
     function queryForm() {
         location.href = "/grit/auth/inner?subject_id=${subject_id!0}&space_id="+$('#space_id').val();
     };
@@ -93,15 +108,18 @@
     <#list groupList as g>
     <section>
         <header class="${g.is_visibled?string("","hid")} ${g.is_disabled?string("dis","")}">
+            <strong>
             <#if g.level gt 0>
                 |-
             </#if>
             ${g.display_name!}
+            </strong>
+            ( <a onclick="selNode('g${g.resource_id}',1)">全选</a> | <a onclick="selNode('g${g.resource_id}',0)">反选</a> )
         </header>
         <boxlist>
             <#list resourceList as r>
                 <#if r.resource_pid == g.resource_id>
-                   <label><input type="checkbox" id="r${r.resource_id}" /><a>${r.display_name}</a></label>
+                   <label><input class="g${g.resource_id}" type="checkbox" name="authRes" value="${r.resource_id}" /><a>${r.display_name}</a></label>
                     <#if r.display_name == '$'>
                         <br/>
                     </#if>
