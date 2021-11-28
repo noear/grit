@@ -46,6 +46,11 @@ public class AuthController extends BaseController {
         return Result.succeed(list);
     }
 
+    @Mapping("ajax/save")
+    public Object auth_save(){
+        return Result.succeed();
+    }
+
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
         Subject subject = GritClient.global().subjectAdmin().getSubjectById(subject_id);

@@ -23,6 +23,30 @@
     let subject_id = ${subject_id!0};
     let space_id   = ${space_id!0};
 
+    function save() {
+        var vm = formToMap('form');
+
+        vm.subject_id= subject_id;
+        vm.space_id = space_id;
+
+        alert(JSON.stringify(vm));
+
+        return;
+
+        $.ajax({
+            type:"POST",
+            url:"/grit/auth/ajax/save",
+            data:vm,
+            success:function (data) {
+                if(data.code==200) {
+                    top.layer.msg('操作成功');
+                }else{
+                    top.layer.msg(data.msg);
+                }
+            }
+        });
+    }
+
     function selNode(cls, type){
         if(type){
             //1
@@ -47,44 +71,51 @@
 </script>
 <body>
 <toolbar>
-    <left class="col-4">
+    <div class="center">
         <strong>
             ${subject.display_name!}
         </strong>
-    </left>
-    <right class="col-4">
-        <select style="width: 200px;" id="space_id"  onchange="queryForm();">
-            <#list spaceList as m>
-                <option value=${m.resource_id}>${m.display_name!}</option>
-            </#list>
-        </select>
-    </right>
+    </div>
+    <div>
+        <left>
+            <select style="width: 200px;" id="space_id"  onchange="queryForm();">
+                <#list spaceList as m>
+                    <option value=${m.resource_id}>${m.display_name!}</option>
+                </#list>
+            </select>
+        </left>
+        <right>
+            <button type="button" class="edit" onclick="save()">保存</button>
+        </right>
+    </div>
+
 </toolbar>
 <article>
-    <#list groupList as g>
-    <section>
-        <header class="${g.is_visibled?string("","hid")} ${g.is_disabled?string("dis","")}">
-            <strong>
-            <#if g.level gt 0>
-                |-
-            </#if>
-            ${g.display_name!}
-            </strong>
-            ( <a onclick="selNode('g${g.resource_id}',1)">全选</a> | <a onclick="selNode('g${g.resource_id}',0)">反选</a> )
-        </header>
-        <boxlist>
-            <#list resourceList as r>
-                <#if r.resource_pid == g.resource_id>
-                   <label><input class="g${g.resource_id}" type="checkbox" name="authRes" value="${r.resource_id}" /><a>${r.display_name}</a></label>
-                    <#if r.display_name == '$'>
-                        <br/>
-                    </#if>
-                </#if>
-            </#list>
-        </boxlist>
-    </section>
-    </#list>
-
+    <form>
+        <#list groupList as g>
+            <section>
+                <header class="${g.is_visibled?string("","hid")} ${g.is_disabled?string("dis","")}">
+                    <strong>
+                        <#if g.level gt 0>
+                            |-
+                        </#if>
+                        ${g.display_name!}
+                    </strong>
+                    ( <a onclick="selNode('g${g.resource_id}',1)">全选</a> | <a onclick="selNode('g${g.resource_id}',0)">反选</a> )
+                </header>
+                <boxlist>
+                    <#list resourceList as r>
+                        <#if r.resource_pid == g.resource_id>
+                            <label><input class="g${g.resource_id}" type="checkbox" name="authRes" value="${r.resource_id}" /><a>${r.display_name}</a></label>
+                            <#if r.display_name == '$'>
+                                <br/>
+                            </#if>
+                        </#if>
+                    </#list>
+                </boxlist>
+            </section>
+        </#list>
+    </form>
 </article>
 
 </body>
