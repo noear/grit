@@ -20,7 +20,7 @@ public class XPluginImp implements Plugin {
         //1.初始化资源空间
         if (appName != null) {
             //GritClient.global().init(db, cache);
-            GritClient.global().setCurrentSpaceCode(appName);
+            GritClient.global().setCurrentSpaceByCode(appName);
         }
 
         //2.加载domain.js

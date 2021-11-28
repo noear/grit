@@ -27,7 +27,7 @@ public class LoginTest {
         assert user.subject_id == 2;
 
 
-        GritClient.global().setCurrentSpaceCode("wateradmin");
+        GritClient.global().setCurrentSpaceByCode("wateradmin");
 
         List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(user.subject_id);
         System.out.println(groupList);

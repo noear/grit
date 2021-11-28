@@ -39,7 +39,7 @@ public class GritClientLocalImpl implements GritClient {
     /**
      * 设置当前资源空间代号
      */
-    public void setCurrentSpaceCode(String resourceSpaceCode) {
+    public void setCurrentSpaceByCode(String resourceSpaceCode) {
         if (resourceSpaceCode == null || resourceSpaceCode.equals(currentSpaceCode)) {
             return;
         }

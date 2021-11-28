@@ -31,9 +31,9 @@ public interface GritClient {
     }
 
     /**
-     * 设置当前资源空间代号
+     * 设置当前资源空间
      */
-    void setCurrentSpaceCode(String resourceSpaceCode);
+    void setCurrentSpaceByCode(String resourceSpaceCode);
 
     /**
      * 获取当前资源空间代号

@@ -66,9 +66,9 @@ public class GritClientRpcImpl implements GritClient {
 
 
     /**
-     * 设置当前资源空间代号
+     * 设置当前资源空间
      */
-    public void setCurrentSpaceCode(String resourceSpaceCode) {
+    public void setCurrentSpaceByCode(String resourceSpaceCode) {
         if (resourceSpaceCode == null || resourceSpaceCode.equals(currentSpaceCode)) {
             return;
         }
@@ -104,6 +104,7 @@ public class GritClientRpcImpl implements GritClient {
     /**
      * 资源接口
      */
+    @Override
     public ResourceService resource() {
         return resourceService;
     }
@@ -111,14 +112,18 @@ public class GritClientRpcImpl implements GritClient {
     /**
      * 资源关联接口
      */
+    @Override
     public ResourceLinkService resourceLink() {
         return resourceLinkService;
     }
 
 
+    /**
+     * 资源管理接口
+     */
     @Override
     public ResourceAdminService resourceAdmin() {
-        return null;
+        return resourceAdminService;
     }
 
 
@@ -127,6 +132,7 @@ public class GritClientRpcImpl implements GritClient {
     /**
      * 主体接口
      */
+    @Override
     public SubjectService subject() {
         return subjectService;
     }
@@ -134,13 +140,17 @@ public class GritClientRpcImpl implements GritClient {
     /**
      * 主体关联接口
      */
+    @Override
     public SubjectLinkService subjectLink() {
         return subjectLinkService;
     }
 
+    /**
+     * 主体管理接口
+     */
     @Override
     public SubjectAdminService subjectAdmin() {
-        return null;
+        return subjectAdminService;
     }
 
     /////////////////////////////////////////////
