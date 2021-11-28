@@ -80,9 +80,9 @@
                             if(resource_type == 2){
                                 location.href="/grit/resource/space";
                             }else if(resource_type == 1){
-                                location.href="/grit/resource/group?space_id=${m1.resource_sid!}";
+                                location.href="/grit/resource/group/inner?space_id=${m1.resource_sid!}";
                             }else{
-                                location.href="/grit/resource/entity?group_id=${m1.resource_pid!}";
+                                location.href="/grit/resource/entity/inner?group_id=${m1.resource_pid!}";
                             }
                         },800);
                     }else{
@@ -174,7 +174,7 @@
         <input type="hidden" id="resource_sid" value="${m1.resource_sid!0}">
         <table>
             <tr>
-                <th>代号</th>
+                <th>代号<#if m1.resource_type==2>*</#if></th>
                 <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/></td>
             </tr>
             <tr>

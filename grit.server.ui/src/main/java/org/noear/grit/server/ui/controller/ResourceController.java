@@ -59,6 +59,10 @@ public class ResourceController extends BaseController {
             resource.is_fullview = false;
         }
 
+        if(resource.order_index == null){
+            resource.order_index = 0;
+        }
+
         //必填
         if(Utils.isEmpty(resource.display_name)){
             return Result.failure("The display name cannot be empty");
