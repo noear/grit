@@ -71,7 +71,6 @@ public class ResourceController extends BaseController {
 
     @Mapping("edit/ajax/del")
     public Object edit_ajax_del(long resource_id) throws SQLException{
-
         GritClient.global().resourceAdmin().delResourceById(resource_id);
 
         return Result.succeed();

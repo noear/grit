@@ -123,22 +123,22 @@
         <tbody id="tbody" class="sel_from">
         <#list list as n1>
             <tr>
-                <td><checkbox><label><input type="checkbox" name="sel_id" value="${n1.data.subject_id}" /><a></a></label></checkbox></td>
-                <td >${n1.data.order_index}</td>
+                <td><checkbox><label><input type="checkbox" name="sel_id" value="${n1.subject_id}" /><a></a></label></checkbox></td>
+                <td >${n1.order_index}</td>
                 <td class="left">
                     <#if n1.level gt 0>
                         |-
                     </#if>
-                    ${n1.data.display_name!}
-                    <#if n1.data.subject_code?length gt 0>
-                        (${n1.data.subject_code!})
+                    ${n1.display_name!}
+                    <#if n1.subject_code?length gt 0>
+                        (${n1.subject_code!})
                     </#if>
                 </td>
-                <td >${n1.data.is_visibled?string("True","")}</td>
-                <td >${n1.data.is_disabled?string("True","")}</td>
+                <td >${n1.is_visibled?string("True","")}</td>
+                <td >${n1.is_disabled?string("True","")}</td>
                 <td class="op">
-                    <a href="/grit/subject/edit?subject_id=${n1.data.subject_id}" class="btn minor">编辑</a>
-                    <a href="/grit/subject/edit?group_id=${n1.data.subject_id}&type=1" class="btn minor">添加下级</a>
+                    <a href="/grit/subject/edit?subject_id=${n1.subject_id}" class="btn minor">编辑</a>
+                    <a href="/grit/subject/edit?group_id=${n1.subject_id}&type=1" class="btn minor">添加下级</a>
                 </td>
             </tr>
         </#list>

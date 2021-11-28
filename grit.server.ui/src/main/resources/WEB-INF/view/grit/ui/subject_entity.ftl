@@ -29,11 +29,11 @@
         <tree id="tree">
             <ul>
                 <#list list as n1>
-                    <li onclick="node_onclick('${n1.data.subject_id}',this)" id="e${n1.data.subject_id}">
+                    <li onclick="node_onclick('${n1.subject_id}',this)" id="e${n1.subject_id}">
                         <#if n1.level gt 0>
                             |-
                         </#if>
-                        ${n1.data.display_name}
+                        ${n1.display_name}
                     </li>
                 </#list>
             </ul>

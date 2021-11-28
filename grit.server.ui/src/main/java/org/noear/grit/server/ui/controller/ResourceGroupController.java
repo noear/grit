@@ -2,6 +2,7 @@ package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.ResourceComparator;
+import org.noear.grit.client.utils.ResourceTreeUtils;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
@@ -9,7 +10,6 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,26 +36,12 @@ public class ResourceGroupController extends BaseController{
     @Mapping("inner")
     public Object inner(long space_id) throws SQLException {
         List<ResourceGroup> list = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
-        List<ResourceGroup> list2 = new ArrayList<>(list.size());
+        list = ResourceTreeUtils.build(list,space_id);
 
         ResourceSpaceCookie.set(space_id);
 
-        list.stream().filter(r -> r.resource_pid == space_id)
-                .sorted(ResourceComparator.instance)
-                .forEachOrdered(r -> {
-                    r.level = 0;
-                    list2.add(r);
-                    list.stream().filter(r2 -> r2.resource_pid == r.resource_id)
-                            .sorted(ResourceComparator.instance)
-                            .forEachOrdered(r2 -> {
-                                r2.level = 1;
-                                list2.add(r2);
-                            });
-                });
-
-
         viewModel.put("space_id", space_id);
-        viewModel.put("list", list2);
+        viewModel.put("list", list);
 
         return view("grit/ui/resource_group_inner");
     }
