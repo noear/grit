@@ -58,6 +58,8 @@
         $("#imp_file").change(function () {
             imp(this.files[0]);
         })
+
+        $('#space_id').val(${space_id!});
     });
 </script>
 <body>
@@ -70,7 +72,11 @@
         <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
     </left>
     <right class="col-4">
-
+        <select style="width: 200px;" id="space_id"  onchange="queryForm();">
+            <#list spaceList as m>
+                <option value=${m.resource_id}>${m.resource_code}</option>
+            </#list>
+        </select>
     </right>
 </toolbar>
 <div>

@@ -3,8 +3,10 @@ package org.noear.grit.server.ui.controller;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.SubjectComparator;
 import org.noear.grit.client.utils.SujectTreeUtils;
+import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @Mapping("/grit/auth")
 @Controller
-public class AuthController extends BaseController{
+public class AuthController extends BaseController {
     @Mapping
     public Object home(Long group_id) throws SQLException {
         List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
@@ -45,8 +47,13 @@ public class AuthController extends BaseController{
     }
 
     @Mapping("inner")
-    public Object inner(long subject_id) throws SQLException {
+    public Object inner(long subject_id, long space_id) throws SQLException {
+        List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
+        space_id = ResourceSpaceCookie.build(space_id, spaceList);
+        ResourceSpaceCookie.set(space_id);
 
+        viewModel.put("space_id", space_id);
+        viewModel.put("spaceList", spaceList);
         return view("grit/ui/auth_inner");
     }
 }
