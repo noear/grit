@@ -6,6 +6,7 @@ import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
 
@@ -18,10 +19,12 @@ import java.sql.SQLException;
 @Mapping("/grit/resource")
 @Controller
 public class ResourceController extends BaseController {
-
+    @Inject
+    GritClient gritClient;
+    
     @Mapping("edit")
     public Object edit(long resource_id, long group_id, int type) throws SQLException {
-        Resource m1 = GritClient.global().resourceAdmin().getResourceById(resource_id);
+        Resource m1 = gritClient.resourceAdmin().getResourceById(resource_id);
 
         if (m1.resource_id == null) {
             m1.resource_type = type;
@@ -30,7 +33,7 @@ public class ResourceController extends BaseController {
             m1.is_visibled = true;
 
             if(group_id > 0) {
-                Resource m2 = GritClient.global().resourceAdmin().getResourceById(group_id);
+                Resource m2 = gritClient.resourceAdmin().getResourceById(group_id);
                 m1.resource_pid = group_id;
                 m1.resource_sid = m2.resource_sid; //传导sid
 
@@ -69,10 +72,10 @@ public class ResourceController extends BaseController {
         }
 
         if (resource_id > 0) {
-            GritClient.global().resourceAdmin()
+            gritClient.resourceAdmin()
                     .updResourceById(resource_id, resource);
         } else {
-            GritClient.global().resourceAdmin()
+            gritClient.resourceAdmin()
                     .addResource(resource);
         }
 
@@ -81,7 +84,7 @@ public class ResourceController extends BaseController {
 
     @Mapping("edit/ajax/del")
     public Object edit_ajax_del(long resource_id) throws SQLException{
-        GritClient.global().resourceAdmin().delResourceById(resource_id);
+        gritClient.resourceAdmin().delResourceById(resource_id);
 
         return Result.succeed();
     }

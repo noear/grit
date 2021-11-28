@@ -7,6 +7,7 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
@@ -19,10 +20,13 @@ import java.util.List;
 @Mapping("/grit/resource/group")
 @Controller
 public class ResourceGroupController extends BaseController{
+    @Inject
+    GritClient gritClient;
+    
     @Mapping
     public Object home(long space_id) throws SQLException {
 
-        List<ResourceSpace> list = GritClient.global().resourceAdmin().getSpaceList();
+        List<ResourceSpace> list = gritClient.resourceAdmin().getSpaceList();
         list.sort(ResourceComparator.instance);
 
         space_id = ResourceSpaceCookie.build(space_id, list);
@@ -35,7 +39,7 @@ public class ResourceGroupController extends BaseController{
 
     @Mapping("inner")
     public Object inner(long space_id) throws SQLException {
-        List<ResourceGroup> list = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
+        List<ResourceGroup> list = gritClient.resourceAdmin().getResourceGroupListBySpace(space_id);
         list = ResourceTreeUtils.build(list,space_id);
 
         ResourceSpaceCookie.set(space_id);

@@ -6,6 +6,7 @@ import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
@@ -18,9 +19,12 @@ import java.util.List;
 @Mapping("/grit/subject/entity")
 @Controller
 public class SubjectEntityController extends BaseController {
+    @Inject
+    GritClient gritClient;
+    
     @Mapping
     public Object home(Long group_id) throws SQLException {
-        List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
+        List<SubjectGroup> list = gritClient.subjectAdmin().getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
         if (group_id == null) {
@@ -41,7 +45,7 @@ public class SubjectEntityController extends BaseController {
             state = 1;
         }
 
-        List<SubjectEntity> list = GritClient.global().subjectAdmin().getSubjectEntityListByGroup(group_id);
+        List<SubjectEntity> list = gritClient.subjectAdmin().getSubjectEntityListByGroup(group_id);
         list.sort(SubjectComparator.instance);
 
 

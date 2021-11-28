@@ -9,6 +9,7 @@ import org.noear.grit.model.domain.*;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
 
@@ -24,9 +25,12 @@ import java.util.stream.Collectors;
 @Mapping("/grit/auth")
 @Controller
 public class AuthController extends BaseController {
+    @Inject
+    GritClient gritClient;
+
     @Mapping
     public Object home(Long group_id) throws SQLException {
-        List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
+        List<SubjectGroup> list = gritClient.subjectAdmin().getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
         if (group_id == null) {
@@ -43,7 +47,7 @@ public class AuthController extends BaseController {
 
     @Mapping("subject.entity.get")
     public Object entity_get(long group_id) throws SQLException {
-        List<SubjectEntity> list = GritClient.global().subjectAdmin().getSubjectEntityListByGroup(group_id);
+        List<SubjectEntity> list = gritClient.subjectAdmin().getSubjectEntityListByGroup(group_id);
         list.sort(SubjectComparator.instance);
 
         return Result.succeed(list);
@@ -56,7 +60,7 @@ public class AuthController extends BaseController {
         }
 
         //先清
-        GritClient.global().resourceAdmin()
+        gritClient.resourceAdmin()
                 .delResourceLinkBySubject(subject_id);
 
         //批插
@@ -64,7 +68,7 @@ public class AuthController extends BaseController {
             List<Long> resIds = Arrays.stream(authRes.split(",")).map(s -> Long.parseLong(s))
                     .collect(Collectors.toList());
 
-            GritClient.global().resourceAdmin()
+            gritClient.resourceAdmin()
                     .addResourceLinkBySubject(subject_id, subject_type, resIds);
         }
 
@@ -73,21 +77,31 @@ public class AuthController extends BaseController {
 
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
-        Subject subject = GritClient.global().subjectAdmin().getSubjectById(subject_id);
+        Subject subject = gritClient.subjectAdmin().getSubjectById(subject_id);
+        StringBuilder authRes = new StringBuilder();
+        gritClient.resourceAdmin().getResourceLinkListBySubject(subject_id)
+                .stream().forEach(r -> {
+                    authRes.append(r.resource_id).append(",");
+                });
+        if (authRes.length() > 0) {
+            authRes.setLength(authRes.length() - 1);
+        }
 
-        List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
+
+        List<ResourceSpace> spaceList = gritClient.resourceAdmin().getSpaceList();
         spaceList.sort(ResourceComparator.instance);
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
-        List<ResourceGroup> groupList = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
+        List<ResourceGroup> groupList = gritClient.resourceAdmin().getResourceGroupListBySpace(space_id);
         groupList = ResourceTreeUtils.build(groupList, space_id);
 
-        List<Resource> resourceList = GritClient.global().resourceAdmin().getResourceListBySpace(space_id);
+        List<Resource> resourceList = gritClient.resourceAdmin().getResourceListBySpace(space_id);
         resourceList = ResourceTreeUtils.build(resourceList, space_id);
 
         viewModel.put("subject_id", subject_id);
         viewModel.put("subject", subject);
+        viewModel.put("authRes", authRes);
 
         viewModel.put("space_id", space_id);
         viewModel.put("spaceList", spaceList);

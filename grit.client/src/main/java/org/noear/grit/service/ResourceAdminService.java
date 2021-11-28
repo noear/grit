@@ -1,6 +1,7 @@
 package org.noear.grit.service;
 
 import org.noear.grit.model.data.ResourceDo;
+import org.noear.grit.model.data.ResourceLinkedDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
@@ -110,4 +111,9 @@ public interface ResourceAdminService {
      * @param subjectId 主体Id
      */
     void delResourceLinkBySubject(long subjectId) throws SQLException;
+
+    /**
+     * 获取资源关联
+     * */
+    List<ResourceLinkedDo> getResourceLinkListBySubject(long subjectId) throws SQLException;
 }

@@ -65,6 +65,7 @@
 
     $(function(){
         $('#space_id').val(${space_id!});
+        valToForm('authRes','${authRes!}');
     });
 </script>
 <body>

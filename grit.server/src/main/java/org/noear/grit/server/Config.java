@@ -30,7 +30,7 @@ public class Config {
     @Bean("grit.db")
     public DbContext db(@Inject("${grit.db}") Properties props) {
         String url = props.getProperty("url");
-        if(Utils.isNotEmpty(url)){
+        if (Utils.isNotEmpty(url)) {
             props.setProperty("jdbcUrl", url);
         }
         props.remove("url");
@@ -39,7 +39,8 @@ public class Config {
     }
 
     @Bean
-    public void clientImpl(@Inject GritClientLocalImpl clientLocal) {
+    public GritClient clientImpl(@Inject GritClientLocalImpl clientLocal) {
         GritClient.setGlobal(clientLocal);
+        return clientLocal;
     }
 }

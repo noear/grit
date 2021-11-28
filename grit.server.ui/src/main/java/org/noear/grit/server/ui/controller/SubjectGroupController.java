@@ -4,6 +4,7 @@ import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
@@ -16,13 +17,16 @@ import java.util.List;
 @Mapping("/grit/subject/group")
 @Controller
 public class SubjectGroupController extends BaseController{
+    @Inject
+    GritClient gritClient;
+
     @Mapping
     public Object home(Integer state) throws SQLException {
         if(state == null){
             state = 1;
         }
 
-        List<SubjectGroup> list = GritClient.global().subjectAdmin().getGroupList();
+        List<SubjectGroup> list = gritClient.subjectAdmin().getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
 

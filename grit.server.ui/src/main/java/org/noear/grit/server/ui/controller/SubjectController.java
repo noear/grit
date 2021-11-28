@@ -6,6 +6,7 @@ import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.type.SubjectType;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
 
@@ -18,9 +19,12 @@ import java.sql.SQLException;
 @Mapping("/grit/subject")
 @Controller
 public class SubjectController extends BaseController {
+    @Inject
+    GritClient gritClient;
+    
     @Mapping("edit")
     public Object edit(long subject_id, long group_id, int type) throws SQLException {
-        Subject m1 = GritClient.global().subjectAdmin().getSubjectById(subject_id);
+        Subject m1 = gritClient.subjectAdmin().getSubjectById(subject_id);
 
         if (m1.subject_id == null) {
             m1.subject_type = type;
@@ -51,7 +55,7 @@ public class SubjectController extends BaseController {
         }
 
         if (subject_id > 0) {
-            GritClient.global().subjectAdmin()
+            gritClient.subjectAdmin()
                     .updSubjectById(subject_id, subject);
         } else {
             if(subject.subject_type == SubjectType.group.code){
@@ -59,10 +63,10 @@ public class SubjectController extends BaseController {
             }
 
             if(subject.subject_type == SubjectType.entity.code){
-                GritClient.global().subjectAdmin()
+                gritClient.subjectAdmin()
                         .addSubjectEntity(subject, group_id);
             }else {
-                GritClient.global().subjectAdmin()
+                gritClient.subjectAdmin()
                         .addSubject(subject);
             }
         }
@@ -72,7 +76,7 @@ public class SubjectController extends BaseController {
 
     @Mapping("edit/ajax/del")
     public Object edit_ajax_del(long subject_id) throws SQLException{
-        GritClient.global().subjectAdmin().delSubjectById(subject_id);
+        gritClient.subjectAdmin().delSubjectById(subject_id);
 
         return Result.succeed();
     }

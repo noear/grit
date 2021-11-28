@@ -8,6 +8,7 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
@@ -22,13 +23,16 @@ import java.util.stream.Collectors;
 @Mapping("/grit/resource/entity")
 @Controller
 public class ResourceEntityController extends BaseController {
+    @Inject
+    GritClient gritClient;
+    
     @Mapping
     public Object home(long space_id, Long group_id) throws SQLException {
-        List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
+        List<ResourceSpace> spaceList = gritClient.resourceAdmin().getSpaceList();
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
-        List<ResourceGroup> groupList = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
+        List<ResourceGroup> groupList = gritClient.resourceAdmin().getResourceGroupListBySpace(space_id);
         groupList = ResourceTreeUtils.build(groupList, space_id);
 
         if (group_id == null) {
@@ -47,7 +51,7 @@ public class ResourceEntityController extends BaseController {
 
     @Mapping("inner")
     public Object inner(long group_id) throws SQLException {
-        List<Resource> list = GritClient.global().resourceAdmin().getSubResourceListByPid(group_id);
+        List<Resource> list = gritClient.resourceAdmin().getSubResourceListByPid(group_id);
         List<Resource> list2 = list.stream().filter(r->r.resource_type == 0)
                 .sorted(ResourceComparator.instance)
                 .collect(Collectors.toList());

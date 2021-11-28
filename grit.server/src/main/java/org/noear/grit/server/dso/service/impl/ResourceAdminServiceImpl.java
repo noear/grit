@@ -1,6 +1,7 @@
 package org.noear.grit.server.dso.service.impl;
 
 import org.noear.grit.model.data.ResourceDo;
+import org.noear.grit.model.data.ResourceLinkedDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
@@ -232,7 +233,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         List<DataItem> items = new ArrayList<>();
         long gmt_create = System.currentTimeMillis();
 
-        for(Long resId : resourceIds){
+        for (Long resId : resourceIds) {
             DataItem item = new DataItem();
             item.set("resource_id", resId);
             item.set("subject_id", subjectId);
@@ -250,5 +251,12 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         db.table("grit_resource_linked")
                 .whereEq("subject_id", subjectId)
                 .delete();
+    }
+
+    @Override
+    public List<ResourceLinkedDo> getResourceLinkListBySubject(long subjectId) throws SQLException {
+        return db.table("grit_resource_linked")
+                .whereEq("subject_id", subjectId)
+                .selectList("*", ResourceLinkedDo.class);
     }
 }
