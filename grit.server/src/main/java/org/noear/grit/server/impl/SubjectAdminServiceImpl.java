@@ -43,7 +43,9 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         }
 
         return db.table("grit_subject")
-                .setEntity(subject).usingNull(false)
+                .setEntity(subject)
+                .usingNull(false)
+                .usingExpr(false)
                 .insert();
     }
 
@@ -54,7 +56,9 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         }
 
         long subjectEntityId = db.table("grit_subject")
-                .setEntity(subject).usingNull(false)
+                .setEntity(subject)
+                .usingNull(false)
+                .usingExpr(false)
                 .insert();
 
         if (groupSubjectId > 0) {
@@ -77,7 +81,9 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         }
 
         return db.table("grit_subject")
-                .setEntity(subject).usingNull(false)
+                .setEntity(subject)
+                .usingNull(false)
+                .usingExpr(false)
                 .whereEq("subject_id", subjectId)
                 .update() > 0;
     }

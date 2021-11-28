@@ -46,7 +46,9 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         resource.gmt_modified = resource.gmt_create;
 
         return db.table("grit_resource")
-                .setEntity(resource).usingNull(false)
+                .setEntity(resource)
+                .usingNull(false)
+                .usingExpr(false)
                 .insert();
     }
 
@@ -69,7 +71,9 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         resource.gmt_modified = System.currentTimeMillis();
 
         return db.table("grit_resource")
-                .setEntity(resource).usingNull(false)
+                .setEntity(resource)
+                .usingNull(false)
+                .usingExpr(false)
                 .whereEq("resource_id", resourceId)
                 .update() > 0;
     }
