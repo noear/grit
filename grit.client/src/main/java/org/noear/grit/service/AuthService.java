@@ -114,6 +114,9 @@ public interface AuthService {
 
     /**
      * 获取主体在某分组下的首个授与路径
+     *
+     * @param subjectId 主体Id
+     * @param resourceGroupId 资源组Id
      */
     ResourceEntity getUriFristByGroup(long subjectId, long resourceGroupId) throws SQLException;
 
@@ -121,11 +124,16 @@ public interface AuthService {
 
     /**
      * 获取主体的授与路径分组列表
+     *
+     * @param subjectId 主体Id
+     * @param resourceSpaceId 资源空间Id
      */
     List<ResourceGroup> getUriGroupListBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
      * 获取主体的授与路径分组列表
+     *
+     * @param subjectId 主体Id
      */
     default List<ResourceGroup> getUriGroupListBySpace(long subjectId) throws SQLException{
         return getUriGroupListBySpace(subjectId, GritClient.global().getCurrentSpaceId());
@@ -135,11 +143,16 @@ public interface AuthService {
 
     /**
      * 获取主体的授与权限列表
+     *
+     * @param subjectId 主体Id
+     * @param resourceSpaceId 资源空间Id
      */
     List<ResourceEntity> getPermissionList(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
      * 获取主体的授与权限列表
+     *
+     * @param subjectId 主体Id
      */
     default List<ResourceEntity> getPermissionList(long subjectId) throws SQLException {
         return getPermissionList(subjectId, GritClient.global().getCurrentSpaceId());
@@ -148,9 +161,10 @@ public interface AuthService {
 
     /**
      * 获取主体的角色列表
+     *
+     * @param subjectId 主体Id
      */
     List<SubjectGroup> getRoleList(long subjectId) throws SQLException;
-
 
 
 

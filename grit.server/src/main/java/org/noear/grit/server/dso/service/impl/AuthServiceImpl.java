@@ -1,4 +1,4 @@
-package org.noear.grit.server.impl;
+package org.noear.grit.server.dso.service.impl;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.*;
@@ -22,11 +22,24 @@ import java.util.stream.Collectors;
 @Mapping("/grit/api/AuthService")
 @Remoting
 public class AuthServiceImpl implements AuthService {
+    /**
+     * 主体登录
+     *
+     * @param loginName     登录名
+     * @param loginPassword 登录密码
+     */
     @Override
     public Subject login(String loginName, String loginPassword) throws SQLException {
         return GritClient.global().subject().getSubjectByLoginNameAndPassword(loginName, loginPassword);
     }
 
+    /**
+     * 检测主体是否有Uri
+     *
+     * @param subjectId       主体Id
+     * @param resourceSpaceId 资源空间Id
+     * @param uri             路径（例：/user/add）
+     */
     @Override
     public boolean hasUri(long subjectId, long resourceSpaceId, String uri) throws SQLException {
         if (subjectId < 1) {
@@ -42,6 +55,13 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().hasResourceLink(resource.resource_id, subjectId);
     }
 
+    /**
+     * 检测主体是否有权限
+     *
+     * @param subjectId       主体Id
+     * @param resourceSpaceId 资源空间Id
+     * @param permission      权限（例：user:add）
+     */
     @Override
     public boolean hasPermission(long subjectId, long resourceSpaceId, String permission) throws SQLException {
         if (subjectId < 1) {
@@ -57,14 +77,26 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().hasResourceLink(resource.resource_id, subjectId);
     }
 
+    /**
+     * 检测是否有角色
+     *
+     * @param subjectId
+     * @param role      角色（例：water-admin）
+     */
     @Override
-    public boolean hasRole(long subjectId, String roleSubjectCode) throws SQLException {
+    public boolean hasRole(long subjectId, String role) throws SQLException {
 
-        Subject subjectGroup = GritClient.global().subject().getSubjectByCode(roleSubjectCode);
+        Subject subjectGroup = GritClient.global().subject().getSubjectByCode(role);
 
         return GritClient.global().subjectLink().hasSubjectLink(subjectId, subjectGroup.subject_id);
     }
 
+    /**
+     * 获取主体的授与路径列表
+     *
+     * @param subjectId 主体Id
+     * @param resourceGroupId 资源组Id
+     */
     @Override
     public List<ResourceEntity> getUriListByGroup(long subjectId, long resourceGroupId) throws SQLException {
         //获取实体相关的所有主体Id
@@ -73,6 +105,12 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndGroup(subjectIds, resourceGroupId, true);
     }
 
+    /**
+     * 获取主体的授与路径列表
+     *
+     * @param subjectId 主体Id
+     * @param resourceSpaceId 资源空间Id
+     */
     @Override
     public List<ResourceEntity> getUriListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取实体相关的所有主体Id
@@ -81,6 +119,12 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndSpace(subjectIds, resourceSpaceId, true);
     }
 
+    /**
+     * 获取主体的首个授与路径
+     *
+     * @param subjectId 主体Id
+     * @param resourceSpaceId 资源空间Id
+     */
     @Override
     public ResourceEntity getUriFristBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取实体相关的所有主体Id
@@ -89,6 +133,12 @@ public class AuthServiceImpl implements AuthService {
         return GritClient.global().resourceLink().getResourceEntityFristBySubjectsAndSpace(subjectIds, resourceSpaceId, true);
     }
 
+    /**
+     * 获取主体在某分组下的首个授与路径
+     *
+     * @param subjectId 主体Id
+     * @param resourceGroupId 资源组Id
+     */
     @Override
     public ResourceEntity getUriFristByGroup(long subjectId, long resourceGroupId) throws SQLException {
         //获取实体相关的所有主体Id
