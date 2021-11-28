@@ -44,6 +44,8 @@
                 <br /><br />
                 <a href='/grit/subject/group' target="dock">主体组</a>
                 <a href='/grit/subject/entity' target="dock">主体</a>
+                <br /><br />
+                <a href='/grit/auth' target="dock">授权</a>
             </items>
         </menu>
     </left>
