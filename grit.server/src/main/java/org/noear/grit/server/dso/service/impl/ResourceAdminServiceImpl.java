@@ -146,7 +146,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     }
 
     /**
-     * 获取管理用的空间内所有资源
+     * 获取管理用的空间内所有资源分析
      *
      * @param resourceId 资源Id
      * */
@@ -159,6 +159,23 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         return db.table("grit_resource")
                 .whereEq("resource_sid", resourceId)
                 .andEq("resource_type", ResourceType.group.code)
+                .selectList("*", ResourceGroup.class);
+    }
+
+    /**
+     * 获取管理用的空间内所有资源实体
+     *
+     * @param resourceId 资源Id
+     * */
+    @Override
+    public List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException {
+        if (resourceId == 0) {
+            return new ArrayList<>();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_sid", resourceId)
+                .andEq("resource_type", ResourceType.entity.code)
                 .selectList("*", ResourceGroup.class);
     }
 

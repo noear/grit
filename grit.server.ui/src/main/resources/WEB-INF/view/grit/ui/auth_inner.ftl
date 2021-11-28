@@ -12,9 +12,16 @@
         datagrid b{color: #8D8D8D;font-weight: normal}
         datagrid tr.dis{text-decoration:line-through; color:#888;}
         datagrid tr.hid{color:blue;}
+
+        section header{line-height: 40px; height: 40px; font-weight: bold; margin-bottom: 5px;}
+        section boxlist{}
+        section boxlist label{margin: 0 0 5px;}
     </style>
 </head>
 <script>
+    let subject_id = ${subject_id!0};
+    let space_id   = ${space_id!0};
+
     function imp(file) {
         if(confirm("确定要导入吗？") == false){
             return;
@@ -74,14 +81,34 @@
     <right class="col-4">
         <select style="width: 200px;" id="space_id"  onchange="queryForm();">
             <#list spaceList as m>
-                <option value=${m.resource_id}>${m.resource_code}</option>
+                <option value=${m.resource_id}>${m.display_name!}</option>
             </#list>
         </select>
     </right>
 </toolbar>
-<div>
+<article>
+    <#list groupList as g>
+    <section>
+        <header>
+            <#if g.level gt 0>
+                |-
+            </#if>
+            ${g.display_name!}
+        </header>
+        <boxlist>
+            <#list resourceList as r>
+                <#if r.resource_pid == g.resource_id>
+                   <label><input type="checkbox" id="r${r.resource_id}" /><a>${r.display_name}</a></label>
+                    <#if r.display_name == '$'>
+                        <br/>
+                    </#if>
+                </#if>
+            </#list>
+        </boxlist>
+    </section>
+    </#list>
 
-</div>
+</article>
 
 </body>
 </html>

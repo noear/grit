@@ -1,11 +1,11 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.client.comparator.SubjectComparator;
+import org.noear.grit.client.utils.ResourceTreeUtils;
 import org.noear.grit.client.utils.SujectTreeUtils;
-import org.noear.grit.model.domain.ResourceSpace;
-import org.noear.grit.model.domain.SubjectEntity;
-import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.model.domain.*;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -49,11 +49,23 @@ public class AuthController extends BaseController {
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
         List<ResourceSpace> spaceList = GritClient.global().resourceAdmin().getSpaceList();
+        spaceList.sort(ResourceComparator.instance);
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
+        List<ResourceGroup> groupList = GritClient.global().resourceAdmin().getResourceGroupListBySpace(space_id);
+        groupList = ResourceTreeUtils.build(groupList, space_id);
+
+        List<Resource> resourceList = GritClient.global().resourceAdmin().getResourceListBySpace(space_id);
+        resourceList = ResourceTreeUtils.build(resourceList, space_id);
+
+        viewModel.put("subject_id", subject_id);
+
         viewModel.put("space_id", space_id);
         viewModel.put("spaceList", spaceList);
+        viewModel.put("groupList", groupList);
+        viewModel.put("resourceList", resourceList);
+
         return view("grit/ui/auth_inner");
     }
 }

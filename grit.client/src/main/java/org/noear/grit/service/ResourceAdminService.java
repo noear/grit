@@ -56,11 +56,18 @@ public interface ResourceAdminService {
 
 
     /**
-     * 获取管理用的空间内所有资源
+     * 获取管理用的空间内所有资源分组
      *
      * @param resourceId 资源Id
      * */
     List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException;
+
+    /**
+     * 获取管理用的空间内所有资源实体
+     *
+     * @param resourceId 资源Id
+     * */
+    List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException;
 
     /**
      * 获取管理用的下级资源表表

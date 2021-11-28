@@ -29,7 +29,7 @@
         <tree id="tree">
             <ul>
                 <#list list as m>
-                    <li onclick="node_onclick('${m.resource_id}',this)" id="e${m.resource_id}">${m.resource_code}</li>
+                    <li onclick="node_onclick('${m.resource_id}',this)" id="e${m.resource_id}">${m.display_name}</li>
                 </#list>
             </ul>
         </tree>
