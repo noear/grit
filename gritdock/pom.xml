@@ -37,21 +37,12 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.noear</groupId>
-                    <artifactId>weed3</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.noear</groupId>
                     <artifactId>weed3.cache.memcached</artifactId>
                 </exclusion>
 
                 <exclusion>
                     <groupId>org.noear</groupId>
                     <artifactId>weed3.cache.redis</artifactId>
-                </exclusion>
-
-                <exclusion>
-                    <groupId>org.noear</groupId>
-                    <artifactId>redisx</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
