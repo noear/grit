@@ -50,7 +50,12 @@
                     <li title="Id: ${m1.resource_id}"
                         class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}"
                         onclick="node_onclick('${m1.resource_id}',this)"
-                        id="e${m1.resource_id}">${m1.display_name}</li>
+                        id="e${m1.resource_id}">
+                        <#if m1.level gt 0>
+                            |-
+                        </#if>
+                        ${m1.display_name}
+                    </li>
                 </#list>
             </ul>
         </tree>
