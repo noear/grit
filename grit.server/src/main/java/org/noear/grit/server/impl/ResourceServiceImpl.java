@@ -1,8 +1,6 @@
 package org.noear.grit.server.impl;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.TextUtils;
-import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceSpace;
@@ -14,13 +12,11 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
-import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 资源服务实现

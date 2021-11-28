@@ -20,7 +20,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * @author noear 2021/11/27 created
+ * 主体管理服务实现
+ *
+ * @author noear
+ * @since 1.0
  */
 @Before(BeforeHandler.class)
 @Mapping("/grit/api/SubjectAdminService")
@@ -42,6 +45,9 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
             subject.subject_pid = -1L;
         }
 
+        subject.gmt_create = System.currentTimeMillis();
+        subject.gmt_modified = subject.gmt_create;
+
         return db.table("grit_subject")
                 .setEntity(subject)
                 .usingNull(false)
@@ -51,15 +57,7 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
 
     @Override
     public long addSubjectEntity(SubjectDo subject, long groupSubjectId) throws SQLException {
-        if(subject.subject_type == SubjectType.entity.code){
-            subject.subject_pid = -1L;
-        }
-
-        long subjectEntityId = db.table("grit_subject")
-                .setEntity(subject)
-                .usingNull(false)
-                .usingExpr(false)
-                .insert();
+        long subjectEntityId = addSubject(subject);
 
         if (groupSubjectId > 0) {
             GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
@@ -79,6 +77,8 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         if(subject.subject_type == SubjectType.entity.code){
             subject.subject_pid = -1L;
         }
+
+        subject.gmt_modified = System.currentTimeMillis();
 
         return db.table("grit_subject")
                 .setEntity(subject)

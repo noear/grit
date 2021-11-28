@@ -9,7 +9,6 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
 import org.noear.weed.DbContext;
-import org.noear.weed.annotation.Db;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;

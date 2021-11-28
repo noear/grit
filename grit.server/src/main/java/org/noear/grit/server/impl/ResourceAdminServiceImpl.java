@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 资源管理服务实现
+ *
  * @author noear
  * @since 1.0
  */
