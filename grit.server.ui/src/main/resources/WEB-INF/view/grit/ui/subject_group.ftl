@@ -117,7 +117,7 @@
             <td class="left">显示名</td>
             <td width="80px" class="left">是否可见</td>
             <td width="80px" class="left">是否禁用</td>
-            <td width="50px">操作</td>
+            <td width="140px">操作</td>
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
@@ -136,7 +136,10 @@
                 </td>
                 <td >${n1.data.is_visibled?string("True","")}</td>
                 <td >${n1.data.is_disabled?string("True","")}</td>
-                <td class="op"><a href="/grit/subject/edit?subject_id=${n1.data.subject_id}" class="t2">编辑</a></td>
+                <td class="op">
+                    <a href="/grit/subject/edit?subject_id=${n1.data.subject_id}" class="btn minor">编辑</a>
+                    <a href="/grit/subject/edit?group_id=${n1.data.subject_id}&type=1" class="btn minor">添加下级</a>
+                </td>
             </tr>
         </#list>
         </tbody>
