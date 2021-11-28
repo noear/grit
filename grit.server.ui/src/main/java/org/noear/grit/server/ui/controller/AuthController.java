@@ -36,8 +36,8 @@ public class AuthController extends BaseController{
         return view("grit/ui/auth");
     }
 
-    @Mapping("entity")
-    public Object entity(long group_id) throws SQLException {
+    @Mapping("subject.entity.get")
+    public Object entity_get(long group_id) throws SQLException {
         List<SubjectEntity> list = GritClient.global().subjectAdmin().getSubjectEntityListByGroup(group_id);
         list.sort(SubjectComparator.instance);
 

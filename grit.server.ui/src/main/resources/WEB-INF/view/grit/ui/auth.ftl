@@ -18,28 +18,39 @@
         });
 
         function entity_get(group_id){
-            let entityTree = $('tree.entity');
+            let entityTree = $('tree.entity ul');
 
             $.ajax({
                 type:"POST",
-                url:"/grit/resource/edit/ajax/save",
+                url:"/grit/auth/subject.entity.get",
                 data:{group_id:group_id},
                 success:function (rst) {
                     if(rst.code == 200) {
+                        entityTree.empty();
                         for(ent of rst.data){
-                            entityTree.append('<li id="'+ent.subject_id+'">'+ent.display_name+'</li>');
+                            entityTree.append('<li id="e'+ent.subject_id+'" onclick="node2_onclick('+ent.subject_id+',this)">'+ent.display_name+'</li>');
                         }
                     }
                 }
             });
         }
 
+        function node_show(subject_id){
+            $("#table").attr('src',"/grit/auth/inner?subject_id="+subject_id);
+        }
+
         function node_onclick(group_id,obj) {
-            $('li.sel').removeClass('sel');
+            $('#tree li.sel').removeClass('sel');
             $(obj).addClass("sel");
             entity_get(group_id);
-            //$("#table").attr('src',"/grit/subject/entity/inner?group_id="+group_id);
-        };
+            node_show(group_id);
+        }
+
+        function node2_onclick(subject_id,obj) {
+            $('#tree2 li.sel').removeClass('sel');
+            $(obj).addClass("sel");
+            node_show(subject_id);
+        }
     </script>
     <style>
         tree.group{background: #dadde1;}
@@ -63,7 +74,7 @@
         </tree>
     </left>
     <middle>
-        <tree class="entity">
+        <tree id="tree2" class="entity">
             <ul>
 
             </ul>
