@@ -21,15 +21,15 @@
 </head>
 <script>
     let subject_id = ${subject_id!0};
+    let subject_type = ${subject.subject_type!0}
     let space_id   = ${space_id!0};
 
     function save() {
         var vm = formToMap('form');
 
         vm.subject_id= subject_id;
+        vm.subject_type = subject_type;
         vm.space_id = space_id;
-
-        alert(JSON.stringify(vm));
 
         return;
 

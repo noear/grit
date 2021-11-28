@@ -32,14 +32,14 @@ public interface ResourceAdminService {
      * 删除资源
      *
      * @param resourceId 资源Id
-     * */
+     */
     boolean delResourceById(long resourceId) throws SQLException;
 
     /**
      * 获取资源
      *
      * @param resourceId 资源Id
-     * */
+     */
     Resource getResourceById(long resourceId) throws SQLException;
 
     /**
@@ -51,7 +51,7 @@ public interface ResourceAdminService {
      * 获取管理用的空间内所有资源
      *
      * @param resourceId 资源Id
-     * */
+     */
     List<Resource> getResourceListBySpace(long resourceId) throws SQLException;
 
 
@@ -59,21 +59,21 @@ public interface ResourceAdminService {
      * 获取管理用的空间内所有资源分组
      *
      * @param resourceId 资源Id
-     * */
+     */
     List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException;
 
     /**
      * 获取管理用的空间内所有资源实体
      *
      * @param resourceId 资源Id
-     * */
+     */
     List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException;
 
     /**
      * 获取管理用的下级资源表表
      *
      * @param resourceId 资源Id
-     * */
+     */
     List<Resource> getSubResourceListByPid(long resourceId) throws SQLException;
 
 
@@ -94,4 +94,20 @@ public interface ResourceAdminService {
      * @param linkIds 资源连接Ids
      */
     void delResourceLink(long... linkIds) throws SQLException;
+
+    /**
+     * 添加资源关联
+     *
+     * @param subjectId   主体Id
+     * @param subjectType 主体类型
+     * @param resourceIds 资源Ids
+     */
+    void addResourceLinkBySubject(long subjectId, int subjectType, List<Long> resourceIds) throws SQLException;
+
+    /**
+     * 删除资源关联
+     *
+     * @param subjectId 主体Id
+     */
+    void delResourceLinkBySubject(long subjectId) throws SQLException;
 }

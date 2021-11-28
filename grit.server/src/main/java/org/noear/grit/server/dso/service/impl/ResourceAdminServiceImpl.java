@@ -11,6 +11,7 @@ import org.noear.solon.annotation.Before;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
+import org.noear.weed.DataItem;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
@@ -85,7 +86,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * 删除资源
      *
      * @param resourceId 资源Id
-     * */
+     */
     @Override
     public boolean delResourceById(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -133,7 +134,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * 获取管理用的空间内所有资源
      *
      * @param resourceId 资源Id
-     * */
+     */
     @Override
     public List<Resource> getResourceListBySpace(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -149,7 +150,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * 获取管理用的空间内所有资源分析
      *
      * @param resourceId 资源Id
-     * */
+     */
     @Override
     public List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -166,7 +167,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * 获取管理用的空间内所有资源实体
      *
      * @param resourceId 资源Id
-     * */
+     */
     @Override
     public List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -183,7 +184,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * 获取管理用的下级资源表表
      *
      * @param resourceId 资源Id
-     * */
+     */
     @Override
     public List<Resource> getSubResourceListByPid(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -223,6 +224,31 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     public void delResourceLink(long... linkIds) throws SQLException {
         db.table("grit_resource_linked")
                 .whereIn("link_id", Arrays.asList(linkIds))
+                .delete();
+    }
+
+    @Override
+    public void addResourceLinkBySubject(long subjectId, int subjectType, List<Long> resourceIds) throws SQLException {
+        List<DataItem> items = new ArrayList<>();
+        long gmt_create = System.currentTimeMillis();
+
+        for(Long resId : resourceIds){
+            DataItem item = new DataItem();
+            item.set("resource_id", resId);
+            item.set("subject_id", subjectId);
+            item.set("subject_type", subjectType);
+            item.set("gmt_create", gmt_create);
+
+            items.add(item);
+        }
+
+        db.table("grit_resource_linked").insertList(items);
+    }
+
+    @Override
+    public void delResourceLinkBySubject(long subjectId) throws SQLException {
+        db.table("grit_resource_linked")
+                .whereEq("subject_id", subjectId)
                 .delete();
     }
 }

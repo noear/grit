@@ -7,12 +7,15 @@ import org.noear.grit.client.utils.ResourceTreeUtils;
 import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.*;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author noear
@@ -47,7 +50,24 @@ public class AuthController extends BaseController {
     }
 
     @Mapping("ajax/save")
-    public Object auth_save(){
+    public Object auth_save(long subject_id, int subject_type, String authRes) throws SQLException {
+        if (subject_id == 0) {
+            return Result.failure();
+        }
+
+        //先清
+        GritClient.global().resourceAdmin()
+                .delResourceLinkBySubject(subject_id);
+
+        //批插
+        if (Utils.isNotEmpty(authRes)) {
+            List<Long> resIds = Arrays.stream(authRes.split(",")).map(s -> Long.parseLong(s))
+                    .collect(Collectors.toList());
+
+            GritClient.global().resourceAdmin()
+                    .addResourceLinkBySubject(subject_id, subject_type, resIds);
+        }
+
         return Result.succeed();
     }
 
