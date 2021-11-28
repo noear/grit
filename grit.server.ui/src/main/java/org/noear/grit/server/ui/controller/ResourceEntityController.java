@@ -12,6 +12,7 @@ import org.noear.solon.annotation.Mapping;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author noear
@@ -59,9 +60,12 @@ public class ResourceEntityController extends BaseController {
     @Mapping("inner")
     public Object inner(long group_id) throws SQLException {
         List<Resource> list = GritClient.global().resourceAdmin().getSubResourceListByPid(group_id);
+        List<Resource> list2 = list.stream().filter(r->r.resource_type == 0)
+                .sorted(ResourceComparator.instance)
+                .collect(Collectors.toList());
 
         viewModel.put("group_id", group_id);
-        viewModel.put("list", list);
+        viewModel.put("list", list2);
 
         return view("grit/ui/resource_entity_inner");
     }
