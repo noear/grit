@@ -4,6 +4,7 @@ import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.type.ResourceType;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
@@ -56,6 +57,11 @@ public class ResourceController extends BaseController {
 
         if(resource.is_fullview == null){
             resource.is_fullview = false;
+        }
+
+        //必填
+        if(Utils.isEmpty(resource.display_name)){
+            return Result.failure("The display name cannot be empty");
         }
 
         if (resource_id > 0) {

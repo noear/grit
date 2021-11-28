@@ -7,6 +7,7 @@ import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Result;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -35,20 +36,16 @@ public class AuthController extends BaseController{
         return view("grit/ui/auth");
     }
 
-    @Mapping("inner")
-    public Object inner(long group_id, String key, Integer state) throws SQLException {
-        if (state == null) {
-            state = 1;
-        }
-
+    @Mapping("entity")
+    public Object entity(long group_id) throws SQLException {
         List<SubjectEntity> list = GritClient.global().subjectAdmin().getSubjectEntityListByGroup(group_id);
         list.sort(SubjectComparator.instance);
 
+        return Result.succeed(list);
+    }
 
-        viewModel.put("key", key);
-        viewModel.put("state", state);
-        viewModel.put("group_id", group_id);
-        viewModel.put("list", list);
+    @Mapping("inner")
+    public Object inner(long subject_id) throws SQLException {
 
         return view("grit/ui/auth_inner");
     }

@@ -45,6 +45,11 @@ public class SubjectController extends BaseController {
             subject.is_visibled = false;
         }
 
+        //必填
+        if(Utils.isEmpty(subject.display_name)){
+            return Result.failure("The display name cannot be empty");
+        }
+
         if (subject_id > 0) {
             GritClient.global().subjectAdmin()
                     .updSubjectById(subject_id, subject);
