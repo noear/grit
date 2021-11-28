@@ -31,8 +31,6 @@
         vm.subject_type = subject_type;
         vm.space_id = space_id;
 
-        return;
-
         $.ajax({
             type:"POST",
             url:"/grit/auth/ajax/save",
