@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
-@Mapping("/grit/api/ResourceLinkService")
+@Mapping("/grit/api/v1/ResourceLinkService")
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {
     @Inject("grit.db")

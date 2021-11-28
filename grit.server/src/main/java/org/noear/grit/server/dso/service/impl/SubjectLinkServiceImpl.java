@@ -22,7 +22,7 @@ import java.util.List;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
-@Mapping("/grit/api/SubjectLinkService")
+@Mapping("/grit/api/v1/SubjectLinkService")
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {
     @Inject("grit.db")

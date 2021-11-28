@@ -59,7 +59,7 @@ public class GritClientRpcImpl implements GritClient {
 
     private <T> T createService(String gritServer, String gritToken, Class<T> clz) {
         //不依赖Aop的写法，跨框架性更强。在别的框架里，也不需要启动Solon容器
-        return Nami.builder().url(gritServer + "/grit/api/" + clz.getSimpleName())
+        return Nami.builder().url(gritServer + "/grit/api/v1/" + clz.getSimpleName())
                 .encoder(SnackEncoder.instance)
                 .decoder(SnackDecoder.instance)
                 .channel(HttpChannel.instance)
