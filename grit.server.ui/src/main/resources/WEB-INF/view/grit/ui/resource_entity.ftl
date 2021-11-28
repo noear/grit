@@ -9,8 +9,8 @@
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
     <style>
-        tree li.dis{text-decoration:line-through; color:#888;}
-        tree li.hid{color:blue;}
+        .dis{text-decoration:line-through; color:#888;}
+        .hid{color:blue;}
     </style>
     <script>
         $(function () {

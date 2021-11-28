@@ -10,8 +10,8 @@
     <script src="${js}/layer.js"></script>
     <style>
         datagrid b{color: #8D8D8D;font-weight: normal}
-        datagrid tr.dis{text-decoration:line-through; color:#888;}
-        datagrid tr.hid{color:blue;}
+        .dis{text-decoration:line-through; color:#888;}
+        .hid{color:blue;}
 
         section header{line-height: 40px; height: 40px; font-weight: bold; margin-bottom: 5px;}
         section boxlist{}
@@ -89,7 +89,7 @@
 <article>
     <#list groupList as g>
     <section>
-        <header>
+        <header class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}">
             <#if g.level gt 0>
                 |-
             </#if>
