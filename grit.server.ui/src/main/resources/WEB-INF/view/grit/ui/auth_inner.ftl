@@ -23,54 +23,16 @@
     let subject_id = ${subject_id!0};
     let space_id   = ${space_id!0};
 
-    function imp(file) {
-        if(confirm("确定要导入吗？") == false){
-            return;
-        }
-
-        var fromData = new FormData();
-        fromData.append("file", file);
-        fromData.append("tag","${tag_name!}");
-
-        $.ajax({
-            type:"POST",
-            url:"ajax/import",
-            data:fromData,
-            processData: false,
-            contentType: false,
-            success:function (data) {
-                if(data.code==1) {
-                    top.layer.msg('操作成功');
-                    setTimeout(function(){
-                        location.reload();
-                    },800);
-                }else{
-                    top.layer.msg(data.msg);
-                }
-            }
-        });
-    }
-
-    function exp() {
-        var vm = formToMap(".sel_from");
-        if(!vm.sel_id){
-            alert("请选择..");
-            return;
-        }
-
-        window.open("ajax/export?tag=${tag_name!}&ids=" + vm.sel_id, "_blank");
-    }
-
     function selNode(cls, type){
         if(type){
             //1
-            $("."+cls).each(function (e){
-                $(e).attr('checked', true);
+            $("."+cls).each(function(){
+                $(this).prop('checked', true);
             });
         }else{
             //0
-            $("."+cls).each(function (e){
-                $(e).attr('checked', !$(e).attr('checked'));
+            $("."+cls).each(function(){
+                $(this).prop('checked', !$(this).prop('checked'));
             });
         }
     }
@@ -80,21 +42,13 @@
     };
 
     $(function(){
-        $("#imp_file").change(function () {
-            imp(this.files[0]);
-        })
-
         $('#space_id').val(${space_id!});
     });
 </script>
 <body>
 <toolbar>
     <left class="col-4">
-        <file>
-            <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor">导入</a></label>
-        </file>
 
-        <button type='button' class="minor mar10-l" onclick="exp('${tag_name!}')" >导出</button>
     </left>
     <right class="col-4">
         <select style="width: 200px;" id="space_id"  onchange="queryForm();">
