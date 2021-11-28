@@ -118,7 +118,7 @@
             <td class="left">路径</td>
             <td width="100px" class="left">备注</td>
             <td width="80px" class="left">是否可见</td>
-            <td width="50px">操作</td>
+            <td width="60px">操作</td>
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
@@ -138,7 +138,7 @@
                 <td class="left">${m1.link_uri!}</td>
                 <td class="left">${m1.remark!}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="btn minor">编辑</a></td>
             </tr>
         </#list>
         </tbody>

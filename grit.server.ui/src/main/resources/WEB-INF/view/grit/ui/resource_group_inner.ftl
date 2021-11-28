@@ -122,7 +122,7 @@
             <td width="100px" class="left">备注</td>
             <td width="80px" class="left">是否可见</td>
             <td width="80px" class="left">是否禁用</td>
-            <td width="50px">操作</td>
+            <td width="140px">操作</td>
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
@@ -131,7 +131,7 @@
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
                 <td>${m1.order_index}</td>
                 <td class="left">
-                    <#if m1.resource_type = 0>
+                    <#if m1.level gt 0>
                         |-
                     </#if>
                     ${m1.display_name!}
@@ -143,7 +143,10 @@
                 <td class="left">${m1.remark!}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op right">
+                    <a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="btn minor">编辑</a>
+                    <a href="/grit/resource/edit?group_id=${m1.resource_id}&type=1" class="btn minor">添加下级</a>
+                </td>
             </tr>
         </#list>
         </tbody>
