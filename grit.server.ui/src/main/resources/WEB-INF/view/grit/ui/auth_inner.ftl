@@ -60,6 +60,9 @@
         window.open("ajax/export?tag=${tag_name!}&ids=" + vm.sel_id, "_blank");
     }
 
+    function queryForm() {
+        location.href = "/grit/resource/entity?space_id="+$('#space_id').val();
+    };
 
     $(function(){
         $("#imp_file").change(function () {
