@@ -6,7 +6,8 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 
 /**
- * @author noear 2021/11/27 created
+ * @author noear
+ * @since 1.0
  */
 @Controller
 public class DockController extends BaseController {
