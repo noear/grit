@@ -9,15 +9,7 @@
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
     <script>
-        $(function () {
-            if ('${group_id!}') {
-                $('#e${group_id!}').addClass('sel');
-            } else {
-                $('tree li:first').addClass('sel');
-            }
-        });
-
-        function entity_get(group_id){
+        function entity_load(group_id){
             let entityTree = $('tree.entity ul');
 
             $.ajax({
@@ -42,7 +34,7 @@
         function node_onclick(group_id,obj) {
             $('#tree li.sel').removeClass('sel');
             $(obj).addClass("sel");
-            entity_get(group_id);
+            entity_load(group_id);
             node_show(group_id);
         }
 
@@ -51,6 +43,16 @@
             $(obj).addClass("sel");
             node_show(subject_id);
         }
+
+        $(function () {
+            let group_id = ${group_id!0};
+            if (group_id) {
+                $('#e'+group_id).addClass('sel');
+                entity_load(group_id);
+            } else {
+                $('tree li:first').addClass('sel');
+            }
+        });
     </script>
     <style>
         tree.group{background: #dadde1;}
