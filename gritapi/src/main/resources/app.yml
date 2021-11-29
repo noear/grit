@@ -1,7 +1,7 @@
-server.port: 7282
+server.port: 7281
 
 solon.app:
-  name: gritadmin
+  name: gritapi
   group: grit
   title: "跨系统通用管理平台"
 
