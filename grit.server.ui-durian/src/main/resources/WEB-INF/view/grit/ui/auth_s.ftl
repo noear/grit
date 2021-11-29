@@ -20,15 +20,7 @@
         }
 
         $(function () {
-            let group_id = ${group_id!0};
-            if (group_id) {
-                $('#e'+group_id).addClass('sel');
-                setTimeout(function() {
-                    node_show(group_id);
-                },100);
-            } else {
-                $('tree li:first').addClass('sel');
-            }
+            $('tree li:first').click();
         });
     </script>
     <style>
