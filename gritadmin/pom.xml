@@ -31,6 +31,12 @@
             <artifactId>water-solon-plugin</artifactId>
             <version>${solon.ver}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.extend.sessionstate.jwt</artifactId>
+            <version>${solon.ver}</version>
+        </dependency>
     </dependencies>
 
     <build>

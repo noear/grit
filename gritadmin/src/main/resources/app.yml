@@ -3,7 +3,7 @@ server.port: 7282
 solon.app:
   name: gritadmin
   group: grit
-  title: "跨系统通用管理平台"
+  title: "Grit 权限管理系统"
 
 
 solon.cloud.water:

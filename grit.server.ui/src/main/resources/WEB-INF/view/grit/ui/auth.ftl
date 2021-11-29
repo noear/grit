@@ -10,6 +10,10 @@
     <script src="${js}/layer.js"></script>
     <script>
         function entity_load(group_id){
+            if(!group_id){
+                return;
+            }
+
             let entityTree = $('tree.entity ul');
 
             $.ajax({
@@ -48,7 +52,10 @@
             let group_id = ${group_id!0};
             if (group_id) {
                 $('#e'+group_id).addClass('sel');
-                entity_load(group_id);
+                setTimeout(function() {
+                    node_show(group_id);
+                    entity_load(group_id);
+                },800);
             } else {
                 $('tree li:first').addClass('sel');
             }
@@ -77,15 +84,11 @@
     </left>
     <middle>
         <tree id="tree2" class="entity">
-            <ul>
-
-            </ul>
+            <ul></ul>
         </tree>
     </middle>
     <right class="frm">
-        <!-- src="/grit/auth/inner?subject_id="  -->
-        <iframe frameborder="0"
-                id="table"></iframe>
+        <iframe frameborder="0" id="table"></iframe>
     </right>
 </main>
 </body>
