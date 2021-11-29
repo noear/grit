@@ -21,7 +21,7 @@ import java.util.List;
 public class SubjectEntityController extends BaseController {
     @Inject
     SubjectAdminService subjectAdminService;
-    
+
     @Mapping
     public Object home(Long group_id) throws SQLException {
         List<SubjectGroup> list = subjectAdminService.getGroupList();
@@ -40,17 +40,15 @@ public class SubjectEntityController extends BaseController {
     }
 
     @Mapping("inner")
-    public Object inner(long group_id, String key, Integer state) throws SQLException {
-        if (state == null) {
-            state = 1;
+    public Object inner(long group_id) throws SQLException {
+        List<SubjectEntity> list = null;
+        if (group_id == 0) {
+            list = subjectAdminService.getSubjectEntityListByAll();
+        } else {
+            list = subjectAdminService.getSubjectEntityListByGroup(group_id);
         }
-
-        List<SubjectEntity> list = subjectAdminService.getSubjectEntityListByGroup(group_id);
         list.sort(SubjectComparator.instance);
 
-
-        viewModel.put("key", key);
-        viewModel.put("state", state);
         viewModel.put("group_id", group_id);
         viewModel.put("list", list);
 

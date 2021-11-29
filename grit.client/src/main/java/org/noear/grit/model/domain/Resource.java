@@ -48,15 +48,15 @@ public class Resource extends ResourceDo {
 
         switch (level) {
             case 1:
-                return "&emsp;";
+                return "&ensp;";
             case 2:
-                return "&emsp;&emsp;";
+                return "&ensp;&ensp;";
             case 3:
-                return "&emsp;&emsp;&emsp;";
+                return "&ensp;&ensp;&ensp;";
             case 4:
-                return "&emsp;&emsp;&emsp;&emsp;";
+                return "&ensp;&ensp;&ensp;&ensp;";
             case 5:
-                return "&emsp;&emsp;&emsp;&emsp;&emsp;";
+                return "&ensp;&ensp;&ensp;&ensp;&ensp;";
             default:
                 return "";
         }

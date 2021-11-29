@@ -143,7 +143,16 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
     public List<SubjectGroup> getGroupList() throws SQLException {
         return db.table("grit_subject")
                 .whereEq("subject_type", SubjectType.group.code)
+                .limit(200)
                 .selectList("*", SubjectGroup.class);
+    }
+
+    @Override
+    public List<SubjectEntity> getSubjectEntityListByAll() throws SQLException {
+        return db.table("grit_subject")
+                .whereEq("subject_type", SubjectType.entity.code)
+                .limit(200)
+                .selectList("*", SubjectEntity.class);
     }
 
     @Override

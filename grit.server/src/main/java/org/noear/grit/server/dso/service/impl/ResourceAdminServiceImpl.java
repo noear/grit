@@ -188,14 +188,13 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Override
     public List<Resource> getSubResourceListByPid(long resourceId) throws SQLException {
         if (resourceId == 0) {
-            return db.table("grit_resource")
-                    .limit(200)
-                    .selectList("*", Resource.class);
-        } else {
-            return db.table("grit_resource")
-                    .whereEq("resource_pid", resourceId)
-                    .selectList("*", Resource.class);
+            return new ArrayList<>();
         }
+
+        return db.table("grit_resource")
+                .whereEq("resource_pid", resourceId)
+                .selectList("*", Resource.class);
+
     }
 
     ///////////////////
