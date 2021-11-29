@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
         //用户登录
         Subject subject = GritClient.global().auth().login(userName, passWord);
 
-        if (subject.subject_id == 0)
+        if (subject.subject_id == null)
             //用户登录::失败
             //
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！");
