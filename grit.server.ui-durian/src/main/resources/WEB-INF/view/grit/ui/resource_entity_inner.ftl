@@ -65,7 +65,7 @@
                 <td >${m1.is_fullview?string("True","")}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="btn minor">编辑</a></td>
+                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

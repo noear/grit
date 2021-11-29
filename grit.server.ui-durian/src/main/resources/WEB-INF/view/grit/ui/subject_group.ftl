@@ -62,8 +62,8 @@
                 <td >${n1.is_visibled?string("True","")}</td>
                 <td >${n1.is_disabled?string("True","")}</td>
                 <td class="op">
-                    <a href="/grit/subject/edit?subject_id=${n1.subject_id}" class="btn minor">编辑</a>
-                    <a href="/grit/subject/edit?group_id=${n1.subject_id}&type=1" class="btn minor">添加下级</a>
+                    <a href="/grit/subject/edit?subject_id=${n1.subject_id}" class="t2">编辑</a>
+                    <a href="/grit/subject/edit?group_id=${n1.subject_id}&type=1" class="t2">添加下级</a>
                 </td>
             </tr>
         </#list>
