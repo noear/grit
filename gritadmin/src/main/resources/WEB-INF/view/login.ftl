@@ -4,7 +4,7 @@
     <title>${app} - 登录</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="${css}/main.css"/>
-    <script type="text/javascript" src="${js}/lib.js" ></script>
+    <script src="${js}/lib.js" ></script>
     <style type="text/css">
         section{width: 400px; padding: 50px 60px 50px 50px; left: calc(50vw - 200px); top: calc(50vh - 5vh - 150px); position: absolute; background: #ddd;}
         section table {width: 100%; }
