@@ -27,7 +27,7 @@ CREATE TABLE `grit_resource` (
   KEY `IX_grit_resource__resource_code` (`resource_code`) USING BTREE,
   KEY `IX_grit_resource__resource_pid` (`resource_pid`) USING BTREE,
   KEY `IX_grit_resource__resource_sid` (`resource_sid`) USING BTREE,
-  KEY `IX_grit_resource__link_uri` (`link_uri`(191)) USING BTREE
+  KEY `IX_grit_resource__link_uri` (`link_uri`(100)) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源表';
 
 
@@ -36,11 +36,11 @@ CREATE TABLE `grit_resource_linked` (
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
   `subject_id` bigint(20) NOT NULL COMMENT '主体ID',
   `subject_type` int(11) NOT NULL DEFAULT '0' COMMENT '主体类型',
-  `gmt_create` bigint(20) NULL COMMENT '创建时间',
+  `gmt_create` bigint(20) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`link_id`) USING BTREE,
   UNIQUE KEY `IX_grit_resource_linked__key` (`resource_id`,`subject_id`) USING BTREE,
   KEY `IX_grit_resource_linked__subject_id` (`subject_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源连接表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源与主体连接表';
 
 -- 主体表，分二个领域概念：主体组，主体（或叫：主体实体）
 CREATE TABLE `grit_subject` (
@@ -61,7 +61,8 @@ CREATE TABLE `grit_subject` (
   `gmt_modified` bigint(20) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`subject_id`) USING BTREE,
   UNIQUE KEY `IX_grit_subject__login_name` (`login_name`) USING BTREE,
-  KEY `IX_grit_subject__subject_pid` (`subject_pid`) USING BTREE
+  KEY `IX_grit_subject__subject_pid` (`subject_pid`) USING BTREE,
+  KEY `IX_grit_subject__subject_code` (`subject_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-主体表';
 
 
@@ -73,7 +74,7 @@ CREATE TABLE `grit_subject_linked` (
   PRIMARY KEY (`link_id`) USING BTREE,
   UNIQUE KEY `IX_grit_subject_linked__key` (`subject_id`,`group_subject_id`) USING BTREE,
   KEY `IX_grit_subject_linked__group_subject_id` (`group_subject_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='grit-主体连接表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='grit-主体与分组连接表';
 
 
 ```
