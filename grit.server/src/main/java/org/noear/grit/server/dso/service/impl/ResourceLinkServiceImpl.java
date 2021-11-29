@@ -81,7 +81,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .whereIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
-                .selectList("s.*", ResourceEntity.class);
+                .selectList("r.*", ResourceEntity.class);
     }
 
 
@@ -106,7 +106,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
-                .selectList("s.*", ResourceEntity.class);
+                .selectList("r.*", ResourceEntity.class);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
-                .selectList("s.*", ResourceEntity.class);
+                .selectList("r.*", ResourceEntity.class);
     }
 
     /**
@@ -154,7 +154,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
-                .selectList("s.*", ResourceEntity.class);
+                .selectList("r.*", ResourceEntity.class);
     }
 
     /**
@@ -178,7 +178,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
-                .selectList("s.*", ResourceEntity.class);
+                .selectList("r.*", ResourceEntity.class);
     }
 
 
@@ -267,7 +267,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andEq("r.is_disabled", 0)
                 .limit(1)
                 .caching(cache)
-                .selectItem("s.*", ResourceEntity.class);
+                .selectItem("r.*", ResourceEntity.class);
     }
 
     /**
@@ -291,6 +291,6 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andEq("r.is_disabled", 0)
                 .limit(1)
                 .caching(cache)
-                .selectItem("s.*", ResourceEntity.class);
+                .selectItem("r.*", ResourceEntity.class);
     }
 }
