@@ -20,7 +20,7 @@ public final class Session extends SessionBase {
 
     @Override
     public void loadSubject(Subject subject) throws Exception {
-        setUserId(subject.subject_id);
+        setSubjectId(subject.subject_id);
         setLoginName(subject.login_name);
         setDisplayName(subject.display_name);
     }
