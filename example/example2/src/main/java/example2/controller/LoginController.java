@@ -67,16 +67,16 @@ public class LoginController extends BaseController {
             return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
         }
 
-        Subject user = GritClient.global().auth().login(userName, passWord);
+        Subject subject = GritClient.global().auth().login(userName, passWord);
 
-        if (user.subject_id == 0)
+        if (subject.subject_id == null || subject.subject_id == 0) {
             return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
-        else {
+        } else {
 
-            Session.current().loadSubject(user);
+            Session.current().loadSubject(subject);
 
             //新方案 //noear,20181120,(uadmin)
-            Resource res = GritClient.global().auth().getUriFristBySpace(user.subject_id);
+            Resource res = GritClient.global().auth().getUriFristBySpace(subject.subject_id);
             String res_url = null;
 
             if (Utils.isEmpty(res.link_uri)) {
