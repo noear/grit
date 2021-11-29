@@ -26,7 +26,7 @@
 <toolbar>
         <left>
             <#if (space_id!0) gt 0>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${space_id!}&type=1">新建分组</a>
+                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
             </#if>
         </left>
         <right>
@@ -66,7 +66,7 @@
                 <td class="op right">
                     <a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/resource/edit?group_id=${m1.resource_id}&type=1" class="t2">新建下级</a>
+                    <a href="/grit/resource/edit?group_id=${m1.resource_id}&type=1" class="t2">新增下级</a>
                 </td>
             </tr>
         </#list>

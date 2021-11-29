@@ -25,7 +25,7 @@
 <body>
 <toolbar>
     <left class="col-4">
-        <a class="btn edit mar10-l" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新建主体</a>
+        <a class="btn edit mar10-l" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
     </left>
     <right class="col-4">
 

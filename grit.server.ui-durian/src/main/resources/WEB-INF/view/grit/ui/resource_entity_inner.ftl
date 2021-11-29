@@ -26,7 +26,7 @@
 <toolbar>
         <left>
             <#if (group_id!0) gt 0>
-                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${group_id!}&type=0">新建资源</a>
+                <a class="btn edit mar10-l" href="/grit/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
             </#if>
         </left>
         <right>
