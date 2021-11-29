@@ -1,6 +1,5 @@
 package gritdock.dso;
 
-
 import org.noear.grit.model.domain.Subject;
 import org.noear.solon.extend.grit.SessionBase;
 
@@ -20,6 +19,10 @@ public final class Session extends SessionBase {
 
     @Override
     public void loadSubject(Subject subject) throws Exception {
+        if (subject == null || subject.subject_id == null) {
+            return;
+        }
+
         setSubjectId(subject.subject_id);
         setLoginName(subject.login_name);
         setDisplayName(subject.display_name);
