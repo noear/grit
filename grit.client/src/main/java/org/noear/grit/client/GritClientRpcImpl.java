@@ -4,6 +4,7 @@ import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.service.*;
 import org.noear.nami.Nami;
+import org.noear.nami.NamiBuilder;
 import org.noear.nami.channel.http.okhttp.HttpChannel;
 import org.noear.nami.coder.snack3.SnackDecoder;
 import org.noear.nami.coder.snack3.SnackEncoder;
@@ -54,8 +55,20 @@ public class GritClientRpcImpl implements GritClient {
 
     private <T> T createService(String gritServer, String gritToken, Class<T> clz) {
         //不依赖Aop的写法，跨框架性更强。在别的框架里，也不需要启动Solon容器
-        return Nami.builder().url(gritServer + "/grit/api/v1/" + clz.getSimpleName())
-                .encoder(SnackEncoder.instance)
+        NamiBuilder namiBuilder = Nami.builder();
+
+        String path = "/grit/api/v1/" + clz.getSimpleName();
+        if (gritServer.startsWith("@")) {
+            namiBuilder.name(gritServer.substring(1));
+        } else {
+            if (gritServer.contains("://") == false) {
+                gritServer = "http://" + gritServer;
+            }
+
+            namiBuilder.url(gritServer + path);
+        }
+
+        return namiBuilder.encoder(SnackEncoder.instance)
                 .decoder(SnackDecoder.instance)
                 .channel(HttpChannel.instance)
                 .headerSet("Grit-Token", gritToken)
