@@ -21,7 +21,7 @@ import java.util.Properties;
  * @since 1.0
  */
 @Configuration
-public class Config {
+public class GritConfig {
     @Bean("grit.cache")
     public CacheService cache(@Inject("${grit.cache}") CacheServiceSupplier supplier) {
         return new CacheServiceWrap(supplier.get());
