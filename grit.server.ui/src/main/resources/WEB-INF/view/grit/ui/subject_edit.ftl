@@ -166,6 +166,11 @@
         <input type="hidden" id="subject_type" value="${m1.subject_type!0}">
         <input type="hidden" id="subject_pid" value="${m1.subject_pid!0}">
         <input type="hidden" id="group_id" value="${group_id!0}">
+
+        <#if m1.subject_type gt 0>
+        <input type="hidden" id="login_name" value="${m1.login_name!}"/>
+        </#if>
+
         <table>
             <#if m1.subject_type == 1>
             <tr>
@@ -186,7 +191,7 @@
 
                 <tr>
                     <th>登录密码</th>
-                    <td><input type="text" id="login_password" value="${m1.login_password!}"/></td>
+                    <td><input type="text" id="login_password" /></td>
                 </tr>
             </#if>
 

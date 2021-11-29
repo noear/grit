@@ -15,11 +15,11 @@ import org.noear.solon.core.handle.Handler;
 @Component
 public class BeforeHandler implements Handler {
     @Inject("${grit.token}")
-    String gritToken;
+    String gritToken = "";
 
     @Override
     public void handle(Context ctx) throws Throwable {
-        if (ctx.header("Grit-Token", "").equals(gritToken) == false) {
+        if (gritToken.equals(ctx.header("Grit-Token")) == false) {
             //
             //如果令牌不相同
             //

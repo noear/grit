@@ -1,6 +1,7 @@
 package org.noear.grit.server.dso.service.impl;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
@@ -8,6 +9,7 @@ import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.grit.model.type.SubjectType;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.SubjectAdminService;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Before;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -41,8 +43,18 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
      */
     @Override
     public long addSubject(SubjectDo subject) throws SQLException {
-        if(subject.subject_type == SubjectType.entity.code){
+        if (subject.subject_type == SubjectType.entity.code) {
             subject.subject_pid = -1L;
+        }
+
+        if (Utils.isEmpty(subject.login_name)) {
+            subject.login_name = Utils.guid();
+        }
+
+        if (Utils.isNotEmpty(subject.login_password)) {
+            subject.login_password = GritUtil.buildPassword(subject.login_name, subject.login_password);
+        } else {
+            subject.login_password = null; //即不改
         }
 
         subject.gmt_create = System.currentTimeMillis();
@@ -76,6 +88,16 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
     public boolean updSubjectById(long subjectId, SubjectDo subject) throws SQLException {
         if(subject.subject_type == SubjectType.entity.code){
             subject.subject_pid = -1L;
+        }
+
+        if (Utils.isEmpty(subject.login_name)) {
+            subject.login_name = Utils.guid();
+        }
+
+        if (Utils.isNotEmpty(subject.login_password)) {
+            subject.login_password = GritUtil.buildPassword(subject.login_name, subject.login_password);
+        } else {
+            subject.login_password = null; //即不改
         }
 
         subject.gmt_modified = System.currentTimeMillis();

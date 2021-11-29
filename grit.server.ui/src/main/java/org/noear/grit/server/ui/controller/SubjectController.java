@@ -58,10 +58,6 @@ public class SubjectController extends BaseController {
             gritClient.subjectAdmin()
                     .updSubjectById(subject_id, subject);
         } else {
-            if(subject.subject_type == SubjectType.group.code){
-                subject.login_name = Utils.guid();
-            }
-
             if(subject.subject_type == SubjectType.entity.code){
                 gritClient.subjectAdmin()
                         .addSubjectEntity(subject, group_id);
