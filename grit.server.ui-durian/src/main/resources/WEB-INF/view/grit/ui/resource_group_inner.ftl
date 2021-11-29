@@ -65,6 +65,7 @@
                 <td >${m1.is_disabled?string("True","")}</td>
                 <td class="op right">
                     <a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
+                    |
                     <a href="/grit/resource/edit?group_id=${m1.resource_id}&type=1" class="t2">添加下级</a>
                 </td>
             </tr>
