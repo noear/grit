@@ -29,7 +29,7 @@
 <body>
 <toolbar>
     <left class="col-4">
-        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">添加分组</a>
+        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">新建分组</a>
     </left>
     <right class="col-4">
 
@@ -64,7 +64,7 @@
                 <td class="op">
                     <a href="/grit/subject/edit?subject_id=${n1.subject_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/subject/edit?group_id=${n1.subject_id}&type=1" class="t2">添加下级</a>
+                    <a href="/grit/subject/edit?group_id=${n1.subject_id}&type=1" class="t2">新建下级</a>
                 </td>
             </tr>
         </#list>
