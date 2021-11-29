@@ -33,7 +33,7 @@ public class DockController extends BaseController {
     @Mapping("/dock/home") //视图 返回
     public ModelAndView dock_home() throws SQLException {
 
-        long userId = Session.current().getUserId();
+        long userId = Session.current().getSubjectId();
 
         //获取所有模块菜单
         MenuViewModel vm = menuService.getSpaceMenus(userId);

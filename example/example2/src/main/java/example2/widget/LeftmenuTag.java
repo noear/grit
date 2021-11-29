@@ -38,7 +38,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         StringBuilder buf = new StringBuilder();
 
-        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(Session.global().getUserId());
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(Session.global().getSubjectId());
         long groupId = 0;
         for (ResourceGroup group : groupList) {
             if (path.startsWith(group.link_uri)) { //::en_name 改为 uri_path
@@ -51,7 +51,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><i class='fa fa-bars'></i></div>");
         buf.append("<items>");
 
-        List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(Session.current().getUserId(), groupId);
+        List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(Session.current().getSubjectId(), groupId);
 
         for (Resource res : resList) {
             buildItem(buf, res, path);

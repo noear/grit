@@ -34,7 +34,7 @@ public abstract class BaseController {
 
 
         //当前用户信息(示例)
-        viewModel.put("userId", Session.current().getUserId());
+        viewModel.put("userId", Session.current().getSubjectId());
         viewModel.put("userDisplayName", Session.current().getDisplayName());
 
 

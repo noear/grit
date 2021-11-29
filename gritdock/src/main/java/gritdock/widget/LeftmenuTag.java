@@ -26,7 +26,7 @@ import java.util.Map;
 public class LeftmenuTag implements TemplateDirectiveModel {
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
-        if (Session.current().getUserId() == 0) {   //检查用户是已登录
+        if (Session.current().getSubjectId() == 0) {   //检查用户是已登录
             Context.current().redirect("/login");
             return;
         }
@@ -41,7 +41,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
     public void build(Environment env, TemplateDirectiveBody body) throws Exception {
 
         Context ctx = Context.current();
-        long userId = Session.current().getUserId();
+        long userId = Session.current().getSubjectId();
 
         String path = ctx.pathNew();
         ResourceSpace resourceSpace;

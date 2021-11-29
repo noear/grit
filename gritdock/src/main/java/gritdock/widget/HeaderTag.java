@@ -28,7 +28,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
-        if (Session.current().getUserId() == 0) {   //检查用户是已登录
+        if (Session.current().getSubjectId() == 0) {   //检查用户是已登录
             Context.current().redirect("/login");
             return;
         }
@@ -56,7 +56,7 @@ public class HeaderTag implements TemplateDirectiveModel {
                 path = GritUtil.cleanSpaceCodeAtPath(path);
 
                 resourceSpace = GritClient.global().resource().getSpaceByCode(spaceCode);
-                list = GritClient.global().auth().getUriGroupListBySpace(Session.current().getUserId(), resourceSpace.resource_id);
+                list = GritClient.global().auth().getUriGroupListBySpace(Session.current().getSubjectId(), resourceSpace.resource_id);
             }
         }
 
@@ -81,7 +81,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         buf.append("<nav>");
 
         if (resourceSpace != null) {
-            long userId = Session.current().getUserId();
+            long userId = Session.current().getSubjectId();
             for (ResourceGroup resourceGroup : list) {
                 try {
                     Resource res = GritClient.global().auth().getUriFristByGroup(userId, resourceGroup.resource_id);

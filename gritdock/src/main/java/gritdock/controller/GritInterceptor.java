@@ -37,7 +37,7 @@ public class GritInterceptor implements Handler {
             return;
         }
 
-        if (Session.current().getUserId() == 0) {
+        if (Session.current().getSubjectId() == 0) {
             ctx.setHandled(true);
             ctx.redirect("/login");
         }

@@ -34,7 +34,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     private void build(Environment env) throws Exception {
         Context ctx = Context.current();
-        long userId = Session.current().getUserId();
+        long userId = Session.current().getSubjectId();
 
         String path = ctx.pathNew();
 

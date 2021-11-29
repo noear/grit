@@ -43,7 +43,7 @@ public class LoginController extends BaseController {
     //$共享SESSOIN$::自动跳转
     @Mapping("/login/auto")
     public void login_auto() throws Exception {
-        long userId = Session.current().getUserId();
+        long userId = Session.current().getSubjectId();
         if (userId > 0) {
             String res_url = GritClient.global().auth().getUriFristBySpace(userId).link_uri;
             if (Utils.isEmpty(res_url) == false) {

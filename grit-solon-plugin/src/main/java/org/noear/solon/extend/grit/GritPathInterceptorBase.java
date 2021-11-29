@@ -9,7 +9,7 @@ public abstract class GritPathInterceptorBase implements Handler {
      * 用户ID
      */
     protected long getUserId() {
-        return SessionBase.global().getUserId();
+        return SessionBase.global().getSubjectId();
     }
 
     /**

@@ -42,7 +42,7 @@ public abstract class SessionBase extends SessionAbstractBase {
     /**
      * 获取用户Id
      */
-    public final long getUserId() {
+    public final long getSubjectId() {
         long temp = globalSubjectId();
 
         if (temp > 0 && (temp != localSubjectId())) {

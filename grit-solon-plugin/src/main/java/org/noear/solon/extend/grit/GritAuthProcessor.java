@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class GritAuthProcessor extends AuthProcessorBase {
     protected long getUserId() {
-        return SessionBase.global().getUserId();
+        return SessionBase.global().getSubjectId();
     }
 
     /**
