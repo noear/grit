@@ -43,9 +43,9 @@ public class HeaderTag implements TemplateDirectiveModel {
             return;
         }
 
-        List<ResourceGroup> moduleList = GritClient.global().auth().getUriGroupListBySpace(userId);
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(userId);
 
-        if (moduleList.size() == 0) {
+        if (groupList.size() == 0) {
             ctx.redirect("/login");
             return;
         }
@@ -58,19 +58,17 @@ public class HeaderTag implements TemplateDirectiveModel {
         buf.append(Solon.cfg().appTitle());
         buf.append("</label>\n");//new
 
-
         buf.append("<nav>");
 
-        for (ResourceGroup module : moduleList) {
-            ResourceEntity res = GritClient.global().auth().getUriFristByGroup(userId, module.resource_id);
+        for (ResourceGroup group : groupList) {
+            ResourceEntity res = GritClient.global().auth().getUriFristByGroup(userId, group.resource_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
-                buildModuleItem(buf, module, res, path);
+                buildGroupItem(buf, group, res, path);
             }
         }
 
         buf.append("</nav>\n");
-
         buf.append("<aside>");
 
         String userDisplayName = Session.current().getDisplayName();
@@ -87,16 +85,16 @@ public class HeaderTag implements TemplateDirectiveModel {
         env.getOut().write(buf.toString());
     }
 
-    private void buildModuleItem(StringBuilder buf, ResourceGroup module, Resource res, String path) {
+    private void buildGroupItem(StringBuilder buf, ResourceGroup resourceGroup, Resource res, String path) {
         String newUrl = GritUtil.buildDockUri(res);
 
-        if (path.indexOf(module.link_uri) == 0) {
+        if (path.indexOf(resourceGroup.link_uri) == 0) {
             buf.append("<a class='sel' href='" + newUrl + "'>");
-            buf.append(module.display_name);
+            buf.append(resourceGroup.display_name);
             buf.append("</a>");
         } else {
             buf.append("<a href='" + newUrl + "'>");
-            buf.append(module.display_name);
+            buf.append(resourceGroup.display_name);
             buf.append("</a>");
         }
     }
