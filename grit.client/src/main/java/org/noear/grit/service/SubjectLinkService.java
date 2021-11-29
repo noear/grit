@@ -56,4 +56,12 @@ public interface SubjectLinkService {
      * @return 主体列表
      */
     List<SubjectGroup> getSubjectGroupListByEntity(long subjectId) throws SQLException;
+
+    /**
+     * 获取主体实体关联的主体分组列表
+     *
+     * @param subjectId 主体Id
+     * @return 主体列表
+     */
+    List<Long> getSubjectGroupIdListByEntity(long subjectId) throws SQLException;
 }

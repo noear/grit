@@ -100,9 +100,24 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
      */
     @Override
     public List<SubjectGroup> getSubjectGroupListByEntity(long subjectId) throws SQLException {
+        return db.table("grit_subject_linked l")
+                .innerJoin("grit_subject s").onEq("l.subject_id", "s.group_subject_id")
+                .andEq("l.subject_id", subjectId)
+                .caching(cache)
+                .selectList("s.*", SubjectGroup.class);
+    }
+
+    /**
+     * 获取主体实体关联的主体分组列表
+     *
+     * @param subjectId 主体Id
+     * @return 主体列表
+     */
+    @Override
+    public List<Long> getSubjectGroupIdListByEntity(long subjectId) throws SQLException {
         return db.table("grit_subject_linked")
                 .whereEq("subject_id", subjectId)
                 .caching(cache)
-                .selectList("*", SubjectGroup.class);
+                .selectArray("group_subject_id");
     }
 }

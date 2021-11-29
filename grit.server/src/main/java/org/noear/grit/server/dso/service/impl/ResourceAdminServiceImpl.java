@@ -19,7 +19,6 @@ import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toCollection;
@@ -272,7 +271,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Override
     public List<ResourceLinkedDo> getResourceLinkListBySubjectAll(long subjectId) throws SQLException {
         //获取实体相关的所有主体Id
-        Set<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
 
         return db.table("grit_resource_linked")
@@ -289,13 +288,10 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     /**
      * 获取实验验证时的所有主体Id
      */
-    private Set<Long> getSubjectIdsByEntityOnAuth(long subjectEntityId) throws SQLException {
+    private List<Long> getSubjectIdsByEntityOnAuth(long subjectEntityId) throws SQLException {
         //获取所在组的主体id
-        Set<Long> subjectIds = GritClient.global().subjectLink()
-                .getSubjectGroupListByEntity(subjectEntityId)
-                .stream()
-                .map(s -> s.subject_id)
-                .collect(Collectors.toSet());
+        List<Long> subjectIds = GritClient.global().subjectAdmin()
+                .getSubjectGroupIdListByEntity(subjectEntityId);
 
         //加上自己的主体id
         subjectIds.add(subjectEntityId);

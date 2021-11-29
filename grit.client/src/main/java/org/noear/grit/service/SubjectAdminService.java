@@ -23,10 +23,10 @@ public interface SubjectAdminService {
     /**
      * 添加主体，并关联分组
      *
-     * @param subjectEntity  主体实体
-     * @param groupSubjectId 分组的主体Id
+     * @param subject  主体实体
+     * @param subjectGroupId 分组的主体Id
      */
-    long addSubjectEntity(SubjectDo subject, long groupSubjectId) throws SQLException;
+    long addSubjectEntity(SubjectDo subject, long subjectGroupId) throws SQLException;
 
     /**
      * 更新主体
@@ -58,7 +58,17 @@ public interface SubjectAdminService {
     List<SubjectGroup> getGroupList() throws SQLException;
 
     /**
-     * 获取管理用的资源空间列表
+     * 获取管理用的资源实体列表
+     *
+     * @param subjectGroupId 主体组Id
      */
-    List<SubjectEntity> getSubjectEntityListByGroup(long groupSubjectId) throws SQLException;
+    List<SubjectEntity> getSubjectEntityListByGroup(long subjectGroupId) throws SQLException;
+
+    /**
+     * 获取主体实体关联的主体分组列表
+     *
+     * @param subjectId 主体Id
+     * @return 主体列表
+     */
+    List<Long> getSubjectGroupIdListByEntity(long subjectId) throws SQLException;
 }

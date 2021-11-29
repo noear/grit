@@ -68,11 +68,11 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
     }
 
     @Override
-    public long addSubjectEntity(SubjectDo subject, long groupSubjectId) throws SQLException {
+    public long addSubjectEntity(SubjectDo subject, long subjectGroupId) throws SQLException {
         long subjectEntityId = addSubject(subject);
 
-        if (groupSubjectId > 0) {
-            GritClient.global().subjectLink().addSubjectLink(subjectEntityId, groupSubjectId);
+        if (subjectGroupId > 0) {
+            GritClient.global().subjectLink().addSubjectLink(subjectEntityId, subjectGroupId);
         }
 
         return subjectEntityId;
@@ -153,10 +153,23 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
     }
 
     @Override
-    public List<SubjectEntity> getSubjectEntityListByGroup(long groupSubjectId) throws SQLException {
+    public List<SubjectEntity> getSubjectEntityListByGroup(long subjectGroupId) throws SQLException {
         return db.table("grit_subject_linked l")
                 .innerJoin("grit_subject s")
-                .on("l.subject_id=s.subject_id").andEq("l.group_subject_id", groupSubjectId)
+                .on("l.subject_id=s.subject_id").andEq("l.group_subject_id", subjectGroupId)
                 .selectList("*", SubjectEntity.class);
+    }
+
+    /**
+     * 获取主体实体关联的主体分组列表
+     *
+     * @param subjectId 主体Id
+     * @return 主体列表
+     */
+    @Override
+    public List<Long> getSubjectGroupIdListByEntity(long subjectId) throws SQLException {
+        return db.table("grit_subject_linked")
+                .whereEq("subject_id", subjectId)
+                .selectArray("group_subject_id");
     }
 }
