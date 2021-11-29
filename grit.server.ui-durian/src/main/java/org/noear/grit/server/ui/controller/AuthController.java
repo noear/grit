@@ -51,7 +51,13 @@ public class AuthController extends BaseController {
 
     @Mapping("subject.entity.get")
     public Object entity_get(long group_id) throws SQLException {
-        List<SubjectEntity> list = subjectAdminService.getSubjectEntityListByGroup(group_id);
+        List<SubjectEntity> list = null;
+        if (group_id == 0) {
+            list = subjectAdminService.getSubjectEntityListByAll();
+        } else {
+            list = subjectAdminService.getSubjectEntityListByGroup(group_id);
+        }
+
         list.sort(SubjectComparator.instance);
 
         return Result.succeed(list);
@@ -81,6 +87,10 @@ public class AuthController extends BaseController {
 
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
+        if(subject_id == 0){
+            return null;
+        }
+
         Subject subject = subjectAdminService.getSubjectById(subject_id);
 
         //获取授权资源Ids
