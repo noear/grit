@@ -18,8 +18,8 @@ public abstract class SessionAbstractBase {
     // 全局属性
     //
 
-    protected long globalUserId() {
-        return Long.parseLong(globalGet("userId", "0"));
+    protected long globalSubjectId() {
+        return globalGetAsLong("userId", 0L);
     }
 
     /**
@@ -77,8 +77,8 @@ public abstract class SessionAbstractBase {
     /**
      * 本地应用用户Id
      */
-    protected long localUserId() {
-        return localGetAsLong("userId", 0L);
+    protected long localSubjectId() {
+        return localGetAsLong("subjectId", 0L);
     }
 
     /**

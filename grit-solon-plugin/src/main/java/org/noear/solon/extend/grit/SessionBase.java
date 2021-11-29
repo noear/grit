@@ -14,7 +14,7 @@ public abstract class SessionBase extends SessionAbstractBase {
 
     /**
      * 会话全局实例（可能为null）
-     * */
+     */
     public static SessionBase global() {
         return _global;
     }
@@ -28,14 +28,14 @@ public abstract class SessionBase extends SessionAbstractBase {
 
     /**
      * 加载用户数据模型
-     * */
+     */
     public void loadSubject(String loginName, String loginPassword) throws Exception {
         loadSubject(GritClient.global().auth().login(loginName, loginPassword));
     }
 
     /**
      * 加载用户数据模型
-     * */
+     */
     public abstract void loadSubject(Subject subject) throws Exception;
 
 
@@ -43,9 +43,9 @@ public abstract class SessionBase extends SessionAbstractBase {
      * 获取用户Id
      */
     public final long getUserId() {
-        long temp = globalUserId();
+        long temp = globalSubjectId();
 
-        if (temp > 0 && (temp != localUserId())) {
+        if (temp > 0 && (temp != localSubjectId())) {
             try {
                 Subject user = GritClient.global().subject().getSubjectById(temp);
                 loadSubject(user);
@@ -61,9 +61,9 @@ public abstract class SessionBase extends SessionAbstractBase {
     /**
      * 设置用户Id
      */
-    public final void setUserId(long userId) {
-        globalSet("userId", String.valueOf(userId));
-        localSet("userId", String.valueOf(userId));
+    public final void setSubjectId(long subjectId) {
+        globalSet("subjectId", subjectId);
+        localSet("subjectId", subjectId);
     }
 
     /**
