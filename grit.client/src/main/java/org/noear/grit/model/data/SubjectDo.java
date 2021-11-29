@@ -1,6 +1,7 @@
 package org.noear.grit.model.data;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @author noear
  * @since 1.0
  */
+@ToString
 @Getter
 public class SubjectDo implements Serializable {
     /** 主体ID */

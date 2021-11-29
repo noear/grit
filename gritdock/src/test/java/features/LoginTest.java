@@ -22,9 +22,9 @@ public class LoginTest {
     @Test
     public void login() throws Exception {
 
-        Subject user = GritClient.global().auth().login("noear", "bcf1234"); //1D050B5785B44868E6C41EE9ED990354A7FA5A55
+        Subject user = GritClient.global().auth().login("test", "1234");
         System.out.println(user);
-        assert user.subject_id == 2;
+        assert user.subject_id > 0;
 
 
         GritClient.global().setCurrentSpaceByCode("wateradmin");

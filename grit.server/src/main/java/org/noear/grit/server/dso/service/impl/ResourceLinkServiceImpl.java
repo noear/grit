@@ -15,6 +15,7 @@ import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -174,6 +175,10 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceGroup> getResourceGroupListBySubjects(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+        if(resourceSpaceId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
+        }
+
         List<Long> groupIds = GritClient.global().resource().getSubResourceListByPid(resourceSpaceId)
                 .stream()
                 .map(r->r.resource_id)
