@@ -30,11 +30,7 @@
             <ul>
                 <#list list as n1>
                     <li onclick="node_onclick('${n1.subject_id}',this)" id="e${n1.subject_id}">
-                        <#if n1.level == 1>
-                            |-
-                        <#elseif n1.level == 2>
-                            |-|-
-                        </#if>
+                        ${n1.levelSpan()}
                         ${n1.display_name}
                     </li>
                 </#list>

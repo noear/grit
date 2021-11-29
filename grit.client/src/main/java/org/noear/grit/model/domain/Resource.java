@@ -40,4 +40,25 @@ public class Resource extends ResourceDo {
     public String getAttr(String name) {
         return getAttrsProp().getProperty(name);
     }
+
+    public String levelSpan() {
+        if (level == null) {
+            return "";
+        }
+
+        switch (level) {
+            case 1:
+                return "|-";
+            case 2:
+                return "|-|-";
+            case 3:
+                return "|-|-|-";
+            case 4:
+                return "|-|-|-|-";
+            case 5:
+                return "|-|-|-|-|-";
+            default:
+                return "";
+        }
+    }
 }

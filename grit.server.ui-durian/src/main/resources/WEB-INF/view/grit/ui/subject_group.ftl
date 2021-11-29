@@ -53,11 +53,7 @@
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${n1.subject_id}" /><a></a></label></checkbox></td>
                 <td >${n1.order_index}</td>
                 <td class="left">
-                    <#if n1.level == 1>
-                        |-
-                    <#elseif n1.level == 2>
-                        |-|-
-                    </#if>
+                    ${n1.levelSpan()}
                     ${n1.display_name!}
                     <#if n1.subject_code?length gt 0>
                         (${n1.subject_code!})

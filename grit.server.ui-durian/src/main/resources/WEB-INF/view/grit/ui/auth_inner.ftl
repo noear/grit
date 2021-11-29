@@ -95,11 +95,7 @@
             <section>
                 <header class="${g.is_visibled?string("","hid")} ${g.is_disabled?string("dis","")}">
                     <strong>
-                        <#if g.level == 1>
-                            |-
-                        <#elseif g.level == 2>
-                            |-|-
-                        </#if>
+                        ${g.levelSpan()}
                         ${g.display_name!}
                     </strong>
                     ( <a onclick="selNode('g${g.resource_id}',1)">全选</a> | <a onclick="selNode('g${g.resource_id}',0)">反选</a> )
