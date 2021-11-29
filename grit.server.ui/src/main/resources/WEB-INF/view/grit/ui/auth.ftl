@@ -55,7 +55,7 @@
                 setTimeout(function() {
                     node_show(group_id);
                     entity_load(group_id);
-                },800);
+                },100);
             } else {
                 $('tree li:first').addClass('sel');
             }
