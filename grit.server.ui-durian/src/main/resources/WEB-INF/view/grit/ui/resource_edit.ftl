@@ -175,7 +175,9 @@
         <table>
             <tr>
                 <th>代号<#if m1.resource_type==2>*</#if></th>
-                <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/></td>
+                <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/>
+                    <n-l>如果填写，请确保是全局唯一的</n-l>
+                </td>
             </tr>
             <tr>
                 <th>显示名*</th>
@@ -195,7 +197,7 @@
             <tr>
                 <th>图标资源</th>
                 <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/>
-                <n-l>图片地址或者图标字体</n-l>
+                    <n-l>图片地址或者图标字体</n-l>
                 </td>
             </tr>
 
@@ -205,21 +207,21 @@
             </tr>
 
             <#if m1.resource_type==0>
-            <tr>
-                <th>链接目标</th>
-                <td><input type="text" id="link_target" value="${m1.link_target!}"/></td>
-            </tr>
-            <tr>
-                <th>链接标签</th>
-                <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
-            </tr>
+                <tr>
+                    <th>链接目标</th>
+                    <td><input type="text" id="link_target" value="${m1.link_target!}"/></td>
+                </tr>
+                <tr>
+                    <th>链接标签</th>
+                    <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
+                </tr>
 
-            <tr>
-                <th>是否全屏</th>
-                <td>
-                    <switcher><label><input type="checkbox" id="is_fullview" value="1" ${m1.is_fullview?string("checked","")} /><a></a></label></switcher>
-                </td>
-            </tr>
+                <tr>
+                    <th>是否全屏</th>
+                    <td>
+                        <switcher><label><input type="checkbox" id="is_fullview" value="1" ${m1.is_fullview?string("checked","")} /><a></a></label></switcher>
+                    </td>
+                </tr>
             </#if>
             <tr>
                 <th>是否可见</th>
