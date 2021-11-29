@@ -33,32 +33,6 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
     @Inject("grit.cache")
     private ICacheService cache;
 
-    /**
-     * 添加主体连接
-     *
-     * @param subjectId      主体Id
-     * @param subjectGroupId 分组的主体Id
-     */
-    @Override
-    public long addSubjectLink(long subjectId, long subjectGroupId) throws SQLException {
-        return db.table("grit_subject_linked")
-                .set("subject_id", subjectId)
-                .set("group_subject_id", subjectGroupId)
-                .set("gmt_create", System.currentTimeMillis())
-                .insert();
-    }
-
-    /**
-     * 删除主体连接
-     *
-     * @param linkIds 主体Ids
-     */
-    @Override
-    public void delSubjectLink(long... linkIds) throws SQLException {
-        db.table("grit_subject_linked")
-                .whereIn("link_id", Arrays.asList(linkIds))
-                .delete();
-    }
 
     /**
      * 检测是否存在主体连接（一般用于角色检测）

@@ -43,6 +43,19 @@ public class SubjectServiceImpl implements SubjectService {
 
         return db.table("grit_subject")
                 .whereEq("login_name", loginName)
+                .limit(1)
+                .selectExists();
+    }
+
+    @Override
+    public boolean hasSubjectByCode(String subjectCode) throws SQLException {
+        if (TextUtils.isEmpty(subjectCode)) {
+            return false;
+        }
+
+        return db.table("grit_subject")
+                .whereEq("subject_code", subjectCode)
+                .caching(cache)
                 .selectExists();
     }
 

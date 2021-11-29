@@ -71,4 +71,22 @@ public interface SubjectAdminService {
      * @return 主体列表
      */
     List<Long> getSubjectGroupIdListByEntity(long subjectId) throws SQLException;
+
+
+    //////////////////////
+
+    /**
+     * 添加主体连接
+     *
+     * @param subjectId      主体Id
+     * @param subjectGroupId 分组的主体Id
+     */
+    long addSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
+
+    /**
+     * 删除主体连接
+     *
+     * @param linkIds 主体Ids
+     */
+    void delSubjectLink(long... linkIds) throws SQLException;
 }

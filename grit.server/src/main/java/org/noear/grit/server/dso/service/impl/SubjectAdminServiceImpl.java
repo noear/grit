@@ -1,6 +1,5 @@
 package org.noear.grit.server.dso.service.impl;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
@@ -19,6 +18,7 @@ import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,7 +72,7 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         long subjectEntityId = addSubject(subject);
 
         if (subjectGroupId > 0) {
-            GritClient.global().subjectLink().addSubjectLink(subjectEntityId, subjectGroupId);
+            addSubjectLink(subjectEntityId, subjectGroupId);
         }
 
         return subjectEntityId;
@@ -171,5 +171,34 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         return db.table("grit_subject_linked")
                 .whereEq("subject_id", subjectId)
                 .selectArray("group_subject_id");
+    }
+
+    /////////////////////////////
+
+    /**
+     * 添加主体连接
+     *
+     * @param subjectId      主体Id
+     * @param subjectGroupId 分组的主体Id
+     */
+    @Override
+    public long addSubjectLink(long subjectId, long subjectGroupId) throws SQLException {
+        return db.table("grit_subject_linked")
+                .set("subject_id", subjectId)
+                .set("group_subject_id", subjectGroupId)
+                .set("gmt_create", System.currentTimeMillis())
+                .insert();
+    }
+
+    /**
+     * 删除主体连接
+     *
+     * @param linkIds 主体Ids
+     */
+    @Override
+    public void delSubjectLink(long... linkIds) throws SQLException {
+        db.table("grit_subject_linked")
+                .whereIn("link_id", Arrays.asList(linkIds))
+                .delete();
     }
 }
