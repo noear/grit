@@ -30,18 +30,17 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
     }
 
-    public void build(Environment env) throws Exception {
-
+    private void build(Environment env) throws Exception {
         Context ctx = Context.current();
         String path = ctx.pathNew();
-
+        long subjectId = Session.global().getSubjectId();
 
         StringBuilder buf = new StringBuilder();
 
-        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(Session.global().getSubjectId());
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(subjectId);
         long groupId = 0;
         for (ResourceGroup group : groupList) {
-            if (path.startsWith(group.link_uri)) { //::en_name 改为 uri_path
+            if (path.startsWith(group.link_uri)) {
                 groupId = group.resource_id;
                 break;
             }
@@ -51,18 +50,15 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><i class='fa fa-bars'></i></div>");
         buf.append("<items>");
 
-        List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(Session.current().getSubjectId(), groupId);
-
+        List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(subjectId, groupId);
         for (Resource res : resList) {
             buildItem(buf, res, path);
         }
 
         buf.append("</items>");
-
         buf.append("</menu>");
 
         env.getOut().write(buf.toString());
-
     }
 
 

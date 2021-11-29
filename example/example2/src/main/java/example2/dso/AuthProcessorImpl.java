@@ -7,7 +7,7 @@ import org.noear.solon.extend.grit.GritAuthProcessor;
  */
 public class AuthProcessorImpl extends GritAuthProcessor {
     @Override
-    protected long getUserId() {
+    protected long getSubjectId() {
         return Session.current().getSubjectId();
     }
 }

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class GritAuthProcessor extends AuthProcessorBase {
-    protected long getUserId() {
+    protected long getSubjectId() {
         return SessionBase.global().getSubjectId();
     }
 
@@ -44,18 +44,18 @@ public class GritAuthProcessor extends AuthProcessorBase {
 
         boolean isOk = CloudClient.list().inListOfClientAndServerIp(ip);
 
-        long userId = getUserId();
+        long subjectId = getSubjectId();
 
-        if (userId > 0) {
+        if (subjectId > 0) {
             String userDisplayName = getUserDisplayName();
             Context ctx = Context.current();
 
             if (ctx != null) {
                 //old
-                ctx.attrSet("user_puid", String.valueOf(userId));
+                ctx.attrSet("user_puid", String.valueOf(subjectId));
                 ctx.attrSet("user_name", userDisplayName);
                 //new
-                ctx.attrSet("user_id", String.valueOf(userId));
+                ctx.attrSet("user_id", String.valueOf(subjectId));
                 ctx.attrSet("user_display_name", userDisplayName);
             }
         }
@@ -70,7 +70,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
             return true;
         }
 
-        return getUserId() > 0;
+        return getSubjectId() > 0;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
             if (GritClient.global().resource().hasResourceUri(path)) {
                 return true;
             } else {
-                return GritClient.global().auth().hasUri(getUserId(), path);
+                return GritClient.global().auth().hasUri(getSubjectId(), path);
             }
         } catch (SQLException e) {
             throw new GritException(e);
@@ -106,7 +106,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         if (permissionList == null) {
             try {
                 permissionList = GritClient.global().auth()
-                        .getPermissionList(getUserId())
+                        .getPermissionList(getSubjectId())
                         .stream()
                         .filter(s -> Utils.isNotEmpty(s.resource_code))
                         .map(s -> s.resource_code)
@@ -139,7 +139,7 @@ public class GritAuthProcessor extends AuthProcessorBase {
         if (roleList == null) {
             try {
                 roleList = GritClient.global().auth()
-                        .getRoleList(getUserId())
+                        .getRoleList(getSubjectId())
                         .stream()
                         .filter(s -> Utils.isNotEmpty(s.subject_code))
                         .map(s -> s.subject_code)

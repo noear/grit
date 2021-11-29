@@ -77,7 +77,6 @@ public class LoginController extends BaseController {
         } else {
 
             Session.current().loadSubject(subject);
-
             Resource res = GritClient.global().auth().getUriFristBySpace(subject.subject_id);
 
             if (Utils.isEmpty(res.link_uri)) {

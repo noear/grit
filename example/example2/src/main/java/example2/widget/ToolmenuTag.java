@@ -24,8 +24,6 @@ import java.util.Map;
  */
 @Component("view:toolmenu")
 public class ToolmenuTag implements TemplateDirectiveModel {
-    private String pack;
-
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         try {
@@ -35,36 +33,32 @@ public class ToolmenuTag implements TemplateDirectiveModel {
         }
     }
 
-    public void build(Environment env, Map map) throws Exception {
+    private void build(Environment env, Map map) throws Exception {
         NvMap mapExt = new NvMap(map);
 
-        pack = mapExt.get("pack");
+        String groupCode = mapExt.get("pack");
 
         Context request = Context.current();
-        //当前视图path
-        String cPath = request.pathNew();
-        StringBuffer sb = new StringBuffer();
+        String path = request.pathNew();
+        StringBuffer buf = new StringBuffer();
 
-        Resource gPack = GritClient.global().resource().getResourceByCode(pack);
+        Resource resourceGroup = GritClient.global().resource().getResourceByCode(groupCode);
 
-        if (gPack.resource_id > 0) {
-            sb.append("<toolmenu>");
-            sb.append("<tabbar>");
+        if (resourceGroup.resource_id > 0) {
+            buf.append("<toolmenu>");
+            buf.append("<tabbar>");
 
-            forPack(request, gPack.resource_id, sb, cPath);
+            List<ResourceEntity> list = GritClient.global().auth()
+                    .getUriListByGroup(Session.current().getSubjectId(), resourceGroup.resource_id);
 
-            sb.append("</tabbar>");
-            sb.append("</toolmenu>");
+            for (Resource r : list) {
+                buildItem(request, buf, r.display_name, r.link_uri, path);
+            }
 
-            env.getOut().write(sb.toString());
-        }
-    }
+            buf.append("</tabbar>");
+            buf.append("</toolmenu>");
 
-    private void forPack(Context request, long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<ResourceEntity> list = GritClient.global().auth().getUriListByGroup(Session.current().getSubjectId(), packID);
-
-        for (Resource r : list) {
-            buildItem(request, sb, r.display_name, r.link_uri, cPath);
+            env.getOut().write(buf.toString());
         }
     }
 

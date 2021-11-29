@@ -66,7 +66,6 @@ public class DockController extends BaseController {
     @Mapping("/**/$*") //视图 返回
     public ModelAndView dock1(Context ctx) {
         String path = ctx.pathNew();
-
         path = GritUtil.cleanSpaceCodeAtPath(path);
 
         try {
@@ -91,16 +90,16 @@ public class DockController extends BaseController {
      */
     @Mapping("/**/@*") //视图 返回
     public ModelAndView dock2(Context ctx) throws Exception {
-        String uri = ctx.path();
+        String path = ctx.pathNew();
         String query = ctx.queryString();
 
-        String fun_name = uri.split("/@")[1];
-        String fun_url = uri.split("/@")[0];
+        String fun_name = path.split("/@")[1];
+        String fun_url = path.split("/@")[0];
 
         fun_url = GritUtil.cleanSpaceCodeAtPath(fun_url);
 
         String newUrl = fun_url;
-        String p = GritUtil.parseSpaceCodeByPath(uri);
+        String p = GritUtil.parseSpaceCodeByPath(path);
         String r = ctx.param("__r");
 
         //如果有r参数传入，则用r.note获取域 (r = res_id)

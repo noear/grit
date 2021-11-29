@@ -34,16 +34,16 @@ public class HeaderTag implements TemplateDirectiveModel {
 
     private void build(Environment env) throws Exception {
         Context ctx = Context.current();
-        long userId = Session.current().getSubjectId();
-
+        long subjectId = Session.current().getSubjectId();
         String path = ctx.pathNew();
 
-        if (userId == 0) {   //检查用户是已登录
+        if (subjectId == 0) {
+            //如果用户未登录
             ctx.redirect("/login");
             return;
         }
 
-        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(userId);
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(subjectId);
 
         if (groupList.size() == 0) {
             ctx.redirect("/login");
@@ -61,7 +61,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         buf.append("<nav>");
 
         for (ResourceGroup group : groupList) {
-            ResourceEntity res = GritClient.global().auth().getUriFristByGroup(userId, group.resource_id);
+            ResourceEntity res = GritClient.global().auth().getUriFristByGroup(subjectId, group.resource_id);
 
             if (Utils.isEmpty(res.link_uri) == false) {
                 buildGroupItem(buf, group, res, path);
@@ -73,11 +73,13 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         String userDisplayName = Session.current().getDisplayName();
         if (Utils.isNotEmpty(userDisplayName)) {
+            buf.append("<a>");
             buf.append("<i class='fa fa-user'></i> ");
             buf.append(userDisplayName);
+            buf.append("</a>");
         }
 
-        buf.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
+        buf.append("<a class='split' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
         buf.append("</aside>");
 
         buf.append("</header>\n");
