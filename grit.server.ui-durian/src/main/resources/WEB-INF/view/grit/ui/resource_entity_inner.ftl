@@ -42,8 +42,9 @@
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
-            <td width="80px" class="left">是否可见</td>
-            <td width="80px" class="left">是否禁用</td>
+            <td width="40px" class="left">是否<br/>全屏</td>
+            <td width="40px" class="left">是否<br/>可见</td>
+            <td width="40px" class="left">是否<br/>禁用</td>
             <td width="60px">操作</td>
         </tr>
         </thead>
@@ -53,8 +54,10 @@
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
                 <td class="left">
-                    <#if m1.level gt 0>
+                    <#if n1.level == 1>
                         |-
+                    <#elseif n1.level == 2>
+                        |-|-
                     </#if>
                     ${m1.display_name!}
                     <#if m1.resource_code?length gt 0>
@@ -63,6 +66,7 @@
                 </td>
                 <td class="left">${m1.link_uri!}</td>
                 <td class="left">${m1.link_target!}</td>
+                <td >${m1.is_fullview?string("True","")}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
                 <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="btn minor">编辑</a></td>

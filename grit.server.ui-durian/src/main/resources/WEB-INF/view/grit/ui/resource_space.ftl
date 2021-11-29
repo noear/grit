@@ -50,8 +50,10 @@
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
                 <td class="left">
-                    <#if m1.resource_type = 0>
+                    <#if m1.level == 1>
                         |-
+                    <#elseif m1.level == 2>
+                        |-|-
                     </#if>
                     ${m1.display_name!}
                     <#if m1.resource_code?length gt 0>

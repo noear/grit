@@ -95,8 +95,10 @@
             <section>
                 <header class="${g.is_visibled?string("","hid")} ${g.is_disabled?string("dis","")}">
                     <strong>
-                        <#if g.level gt 0>
+                        <#if g.level == 1>
                             |-
+                        <#elseif g.level == 2>
+                            |-|-
                         </#if>
                         ${g.display_name!}
                     </strong>
