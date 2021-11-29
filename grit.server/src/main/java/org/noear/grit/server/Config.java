@@ -13,7 +13,6 @@ import org.noear.solon.cache.CacheServiceSupplier;
 import org.noear.solon.data.cache.CacheService;
 import org.noear.weed.DbContext;
 
-import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
