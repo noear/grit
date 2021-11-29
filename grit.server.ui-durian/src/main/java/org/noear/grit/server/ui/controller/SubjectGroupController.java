@@ -1,24 +1,24 @@
 package org.noear.grit.server.ui.controller;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.server.service.SubjectAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author noear 2021/11/27 created
+ * @author noear
+ * @since 1.0
  */
 @Mapping("/grit/subject/group")
 @Controller
 public class SubjectGroupController extends BaseController{
     @Inject
-    GritClient gritClient;
+    SubjectAdminService subjectAdminService;
 
     @Mapping
     public Object home(Integer state) throws SQLException {
@@ -26,7 +26,7 @@ public class SubjectGroupController extends BaseController{
             state = 1;
         }
 
-        List<SubjectGroup> list = gritClient.subjectAdmin().getGroupList();
+        List<SubjectGroup> list = subjectAdminService.getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
 

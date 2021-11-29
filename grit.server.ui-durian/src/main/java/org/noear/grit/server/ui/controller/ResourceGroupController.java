@@ -1,11 +1,11 @@
 package org.noear.grit.server.ui.controller;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.client.utils.ResourceTreeUtils;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
+import org.noear.grit.server.service.ResourceAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -21,12 +21,12 @@ import java.util.List;
 @Controller
 public class ResourceGroupController extends BaseController{
     @Inject
-    GritClient gritClient;
+    ResourceAdminService resourceAdminService;
     
     @Mapping
     public Object home(long space_id) throws SQLException {
 
-        List<ResourceSpace> list = gritClient.resourceAdmin().getSpaceList();
+        List<ResourceSpace> list = resourceAdminService.getSpaceList();
         list.sort(ResourceComparator.instance);
 
         space_id = ResourceSpaceCookie.build(space_id, list);
@@ -39,7 +39,7 @@ public class ResourceGroupController extends BaseController{
 
     @Mapping("inner")
     public Object inner(long space_id) throws SQLException {
-        List<ResourceGroup> list = gritClient.resourceAdmin().getResourceGroupListBySpace(space_id);
+        List<ResourceGroup> list = resourceAdminService.getResourceGroupListBySpace(space_id);
         list = ResourceTreeUtils.build(list,space_id);
 
         ResourceSpaceCookie.set(space_id);

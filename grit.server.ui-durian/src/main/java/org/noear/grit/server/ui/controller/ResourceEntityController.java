@@ -1,18 +1,17 @@
 package org.noear.grit.server.ui.controller;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.client.utils.ResourceTreeUtils;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
+import org.noear.grit.server.service.ResourceAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,15 +23,15 @@ import java.util.stream.Collectors;
 @Controller
 public class ResourceEntityController extends BaseController {
     @Inject
-    GritClient gritClient;
+    ResourceAdminService resourceAdminService;
     
     @Mapping
     public Object home(long space_id, Long group_id) throws SQLException {
-        List<ResourceSpace> spaceList = gritClient.resourceAdmin().getSpaceList();
+        List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
-        List<ResourceGroup> groupList = gritClient.resourceAdmin().getResourceGroupListBySpace(space_id);
+        List<ResourceGroup> groupList = resourceAdminService.getResourceGroupListBySpace(space_id);
         groupList = ResourceTreeUtils.build(groupList, space_id);
 
         if (group_id == null) {
@@ -51,7 +50,7 @@ public class ResourceEntityController extends BaseController {
 
     @Mapping("inner")
     public Object inner(long group_id) throws SQLException {
-        List<Resource> list = gritClient.resourceAdmin().getSubResourceListByPid(group_id);
+        List<Resource> list = resourceAdminService.getSubResourceListByPid(group_id);
         List<Resource> list2 = list.stream().filter(r->r.resource_type == 0)
                 .sorted(ResourceComparator.instance)
                 .collect(Collectors.toList());

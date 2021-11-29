@@ -1,9 +1,9 @@
 package org.noear.grit.server.ui.controller;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.type.SubjectType;
+import org.noear.grit.server.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -20,11 +20,11 @@ import java.sql.SQLException;
 @Controller
 public class SubjectController extends BaseController {
     @Inject
-    GritClient gritClient;
+    SubjectAdminService subjectAdminService;
     
     @Mapping("edit")
     public Object edit(long subject_id, long group_id, int type) throws SQLException {
-        Subject m1 = gritClient.subjectAdmin().getSubjectById(subject_id);
+        Subject m1 = subjectAdminService.getSubjectById(subject_id);
 
         if (m1.subject_id == null) {
             m1.subject_type = type;
@@ -55,14 +55,14 @@ public class SubjectController extends BaseController {
         }
 
         if (subject_id > 0) {
-            gritClient.subjectAdmin()
+            subjectAdminService
                     .updSubjectById(subject_id, subject);
         } else {
             if(subject.subject_type == SubjectType.entity.code){
-                gritClient.subjectAdmin()
+                subjectAdminService
                         .addSubjectEntity(subject, group_id);
             }else {
-                gritClient.subjectAdmin()
+                subjectAdminService
                         .addSubject(subject);
             }
         }
@@ -72,7 +72,7 @@ public class SubjectController extends BaseController {
 
     @Mapping("edit/ajax/del")
     public Object edit_ajax_del(long subject_id) throws SQLException{
-        gritClient.subjectAdmin().delSubjectById(subject_id);
+        subjectAdminService.delSubjectById(subject_id);
 
         return Result.succeed();
     }

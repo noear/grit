@@ -10,7 +10,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * @author noear 2021/11/27 created
+ * 资源管理服务
+ *
+ * @author noear
+ * @since 1.0
  */
 public interface ResourceAdminService {
 

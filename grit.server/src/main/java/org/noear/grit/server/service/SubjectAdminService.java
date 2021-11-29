@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * 主体管理服务
+ *
  * @author noear
  * @since 1.0
  */
