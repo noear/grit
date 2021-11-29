@@ -6,6 +6,7 @@ import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -69,7 +70,7 @@ public interface ResourceLinkService {
      * @param resourceGroupId 资源组Id
      * @return 资源列表
      */
-    List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException;
+    List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(Collection<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException;
 
 
     /**
@@ -79,7 +80,7 @@ public interface ResourceLinkService {
      * @param resourceSpaceId 资源空间Id
      * @return 资源列表
      */
-    List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
+    List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
 
 
     /**
@@ -88,7 +89,7 @@ public interface ResourceLinkService {
      * @param subjectIds 主体Ids
      * @return 资源列表
      */
-    List<ResourceGroup> getResourceGroupListBySubjects(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
+    List<ResourceGroup> getResourceGroupListBySubjects(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
 
     /**
      * 获取主体的授权资源空间列表
@@ -96,7 +97,7 @@ public interface ResourceLinkService {
      * @param subjectIds 主体Ids
      * @return 资源列表
      */
-    List<ResourceSpace> getResourceSpaceListBySubjects(List<Long> subjectIds, Boolean isVisibled) throws SQLException;
+    List<ResourceSpace> getResourceSpaceListBySubjects(Collection<Long> subjectIds, Boolean isVisibled) throws SQLException;
 
 
     /**
@@ -105,7 +106,7 @@ public interface ResourceLinkService {
      * @param subjectIds      主体Ids
      * @param resourceSpaceId 资源空间Id
      */
-    ResourceEntity getResourceEntityFristBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
+    ResourceEntity getResourceEntityFristBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
 
 
 
@@ -115,6 +116,6 @@ public interface ResourceLinkService {
      * @param subjectIds      主体Ids
      * @param resourceGroupId 资源空间Id
      */
-    ResourceEntity getResourceEntityFristBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException;
+    ResourceEntity getResourceEntityFristBySubjectsAndGroup(Collection<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException;
 
 }

@@ -79,8 +79,9 @@ public class AuthController extends BaseController {
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
         Subject subject = gritClient.subjectAdmin().getSubjectById(subject_id);
-        StringBuilder authRes = new StringBuilder();
 
+        //获取授权资源Ids
+        StringBuilder authRes = new StringBuilder();
         if(subject.subject_type == SubjectType.group.code) {
             gritClient.resourceAdmin().getResourceLinkListBySubjectSlf(subject_id)
                     .stream().forEach(r -> {
@@ -92,19 +93,23 @@ public class AuthController extends BaseController {
                         authRes.append(r.resource_id).append(",");
                     });
         }
+
         if (authRes.length() > 0) {
             authRes.setLength(authRes.length() - 1);
         }
 
 
+        //获取资源空间列表
         List<ResourceSpace> spaceList = gritClient.resourceAdmin().getSpaceList();
         spaceList.sort(ResourceComparator.instance);
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
+        //获取当前空间的资源组列表
         List<ResourceGroup> groupList = gritClient.resourceAdmin().getResourceGroupListBySpace(space_id);
         groupList = ResourceTreeUtils.build(groupList, space_id);
 
+        //获取当前空间的资源列表（供资源组获取子节点）
         List<Resource> resourceList = gritClient.resourceAdmin().getResourceListBySpace(space_id);
         resourceList = ResourceTreeUtils.build(resourceList, space_id);
 

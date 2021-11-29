@@ -1,5 +1,6 @@
 package org.noear.grit.server.dso.service.impl;
 
+import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.grit.server.dso.BeforeHandler;
@@ -14,6 +15,8 @@ import org.noear.weed.cache.ICacheService;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 主体连接服务实现
@@ -26,9 +29,9 @@ import java.util.List;
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {
     @Inject("grit.db")
-    private  DbContext db;
+    private DbContext db;
     @Inject("grit.cache")
-    private  ICacheService cache;
+    private ICacheService cache;
 
     /**
      * 添加主体连接

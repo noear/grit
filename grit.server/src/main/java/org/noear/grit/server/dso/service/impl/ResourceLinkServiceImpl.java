@@ -15,9 +15,7 @@ import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -141,7 +139,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      * @return 资源列表
      */
     @Override
-    public List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
+    public List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(Collection<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
         if(resourceGroupId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
@@ -165,7 +163,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      * @return 资源列表
      */
     @Override
-    public List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+    public List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
         if(resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
@@ -190,15 +188,15 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      * @return 资源列表
      */
     @Override
-    public List<ResourceGroup> getResourceGroupListBySubjects(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+    public List<ResourceGroup> getResourceGroupListBySubjects(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
         if(resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
 
-        List<Long> groupIds = GritClient.global().resource().getSubResourceListByPid(resourceSpaceId)
+        Set<Long> groupIds = GritClient.global().resource().getSubResourceListByPid(resourceSpaceId)
                 .stream()
                 .map(r->r.resource_id)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         List<Long> groupIds2 = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
@@ -226,7 +224,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      * @return 资源列表
      */
     @Override
-    public List<ResourceSpace> getResourceSpaceListBySubjects(List<Long> subjectIds, Boolean isVisibled) throws SQLException {
+    public List<ResourceSpace> getResourceSpaceListBySubjects(Collection<Long> subjectIds, Boolean isVisibled) throws SQLException {
         List<Long> spaceIds = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
@@ -253,7 +251,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      * @param resourceSpaceId 资源空间Id
      */
     @Override
-    public ResourceEntity getResourceEntityFristBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+    public ResourceEntity getResourceEntityFristBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
         if(resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
@@ -277,7 +275,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      * @param resourceGroupId 资源空间Id
      */
     @Override
-    public ResourceEntity getResourceEntityFristBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
+    public ResourceEntity getResourceEntityFristBySubjectsAndGroup(Collection<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
         if(resourceGroupId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
