@@ -45,7 +45,7 @@
         <tree id="tree2" class="entity">
             <ul>
                 <#list enityList as n1>
-                    <li id="e${n1.subject_id}" onclick="node2_onclick('${n1.subject_id}',this)">${n1.display_name}</li>'
+                    <li id="e${n1.subject_id}" onclick="node2_onclick('${n1.subject_id}',this)">${n1.display_name}</li>
                 </#list>
             </ul>
         </tree>

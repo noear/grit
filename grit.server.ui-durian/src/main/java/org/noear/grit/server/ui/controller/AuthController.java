@@ -32,6 +32,17 @@ public class AuthController extends BaseController {
     @Inject
     SubjectAdminService subjectAdminService;
 
+    @Mapping("s")
+    public Object auth_s() throws SQLException {
+        List<SubjectEntity> enityList = subjectAdminService.getSubjectEntityListByAll();
+        enityList.sort(SubjectComparator.instance);
+
+        viewModel.put("group_id", 0L);
+        viewModel.put("enityList", enityList);
+
+        return view("grit/ui/auth_s");
+    }
+
     @Mapping
     public Object home(Long group_id) throws SQLException {
         List<SubjectGroup> list = subjectAdminService.getGroupList();
@@ -85,17 +96,8 @@ public class AuthController extends BaseController {
         return Result.succeed();
     }
 
-    @Mapping("s")
-    public Object auth_s(long subject_id, long space_id) throws SQLException {
-        return showInner(subject_id, space_id,"grit/ui/auth_s");
-    }
-
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
-        return showInner(subject_id, space_id, "grit/ui/auth_inner");
-    }
-
-    private Object showInner(long subject_id, long space_id, String viewName) throws SQLException {
         if(subject_id == 0){
             return null;
         }
@@ -144,6 +146,7 @@ public class AuthController extends BaseController {
         viewModel.put("groupList", groupList);
         viewModel.put("resourceList", resourceList);
 
-        return view(viewName);
+        return view("grit/ui/auth_inner");
     }
+
 }
