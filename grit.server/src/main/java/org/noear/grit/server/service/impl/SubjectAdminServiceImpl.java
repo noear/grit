@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso.service.impl;
+package org.noear.grit.server.service.impl;
 
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.data.SubjectDo;
@@ -6,13 +6,9 @@ import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.grit.model.type.SubjectType;
-import org.noear.grit.server.dso.BeforeHandler;
-import org.noear.grit.service.SubjectAdminService;
+import org.noear.grit.server.service.SubjectAdminService;
 import org.noear.solon.Utils;
-import org.noear.solon.annotation.Before;
-import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.Mapping;
-import org.noear.solon.annotation.Remoting;
+import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
@@ -27,9 +23,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Before(BeforeHandler.class)
-@Mapping("/grit/api/v1/SubjectAdminService")
-@Remoting
+@Component
 public class SubjectAdminServiceImpl implements SubjectAdminService {
     @Inject("grit.db")
     private DbContext db;

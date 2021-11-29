@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso.service.impl;
+package org.noear.grit.server.controller;
 
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.utils.TextUtils;

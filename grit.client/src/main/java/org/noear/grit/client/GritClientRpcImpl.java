@@ -19,11 +19,9 @@ import java.sql.SQLException;
 public class GritClientRpcImpl implements GritClient {
     private ResourceService resourceService;
     private ResourceLinkService resourceLinkService;
-    private ResourceAdminService resourceAdminService;
 
     private SubjectService subjectService;
     private SubjectLinkService subjectLinkService;
-    private SubjectAdminService subjectAdminService;
 
     private AuthService authService;
 
@@ -38,12 +36,9 @@ public class GritClientRpcImpl implements GritClient {
         if (TextUtils.isEmpty(gritServer) == false || TextUtils.isEmpty(gritToken) == false) {
             resourceService = createService(gritServer, gritToken, ResourceService.class);
             resourceLinkService = createService(gritServer, gritToken, ResourceLinkService.class);
-            resourceAdminService = createService(gritServer, gritToken, ResourceAdminService.class);
 
             subjectService = createService(gritServer, gritToken, SubjectService.class);
             subjectLinkService = createService(gritServer, gritToken, SubjectLinkService.class);
-            subjectAdminService = createService(gritServer, gritToken, SubjectAdminService.class);
-
 
             authService = createService(gritServer, gritToken, AuthService.class);
         } else {
@@ -121,15 +116,6 @@ public class GritClientRpcImpl implements GritClient {
     }
 
 
-    /**
-     * 资源管理接口
-     */
-    @Override
-    public ResourceAdminService resourceAdmin() {
-        return resourceAdminService;
-    }
-
-
     /////////////////////////////////////////////
 
     /**
@@ -148,13 +134,6 @@ public class GritClientRpcImpl implements GritClient {
         return subjectLinkService;
     }
 
-    /**
-     * 主体管理接口
-     */
-    @Override
-    public SubjectAdminService subjectAdmin() {
-        return subjectAdminService;
-    }
 
     /////////////////////////////////////////////
 

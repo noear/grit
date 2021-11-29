@@ -59,11 +59,6 @@ public interface GritClient {
     ResourceLinkService resourceLink();
 
 
-    /**
-     * 资源管理接口
-     */
-    ResourceAdminService resourceAdmin();
-
 
     /////////////////////////////////////////////
 
@@ -77,10 +72,6 @@ public interface GritClient {
      */
     SubjectLinkService subjectLink();
 
-    /**
-     * 主体管理接口
-     */
-    SubjectAdminService subjectAdmin();
 
     /////////////////////////////////////////////
 

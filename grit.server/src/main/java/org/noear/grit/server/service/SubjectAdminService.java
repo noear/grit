@@ -1,4 +1,4 @@
-package org.noear.grit.service;
+package org.noear.grit.server.service;
 
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;

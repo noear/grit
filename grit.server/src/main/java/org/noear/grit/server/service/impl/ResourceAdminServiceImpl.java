@@ -1,18 +1,14 @@
-package org.noear.grit.server.dso.service.impl;
+package org.noear.grit.server.service.impl;
 
-import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.data.ResourceLinkedDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
-import org.noear.grit.server.dso.BeforeHandler;
-import org.noear.grit.service.ResourceAdminService;
-import org.noear.solon.annotation.Before;
-import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.Mapping;
-import org.noear.solon.annotation.Remoting;
+import org.noear.grit.server.service.ResourceAdminService;
+import org.noear.grit.server.service.SubjectAdminService;
+import org.noear.solon.annotation.*;
 import org.noear.weed.DataItem;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
@@ -29,14 +25,15 @@ import static java.util.stream.Collectors.toCollection;
  * @author noear
  * @since 1.0
  */
-@Before(BeforeHandler.class)
-@Mapping("/grit/api/v1/ResourceAdminService")
-@Remoting
+@Component
 public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Inject("grit.db")
     private DbContext db;
     @Inject("grit.cache")
     private ICacheService cache;
+
+    @Inject
+    SubjectAdminService subjectAdminService;
 
     /**
      * 添加资源
@@ -290,8 +287,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      */
     private List<Long> getSubjectIdsByEntityOnAuth(long subjectEntityId) throws SQLException {
         //获取所在组的主体id
-        List<Long> subjectIds = GritClient.global().subjectAdmin()
-                .getSubjectGroupIdListByEntity(subjectEntityId);
+        List<Long> subjectIds = subjectAdminService.getSubjectGroupIdListByEntity(subjectEntityId);
 
         //加上自己的主体id
         subjectIds.add(subjectEntityId);

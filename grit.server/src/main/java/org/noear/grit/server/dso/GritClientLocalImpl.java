@@ -18,15 +18,11 @@ public class GritClientLocalImpl implements GritClient {
     private ResourceService resourceService;
     @Inject
     private ResourceLinkService resourceLinkService;
-    @Inject
-    private ResourceAdminService resourceAdminService;
 
     @Inject
     private SubjectService subjectService;
     @Inject
     private SubjectLinkService subjectLinkService;
-    @Inject
-    private SubjectAdminService subjectAdminService;
 
     @Inject
     private AuthService authService;
@@ -88,15 +84,6 @@ public class GritClientLocalImpl implements GritClient {
     }
 
 
-    /**
-     * 资源管理接口
-     * */
-    @Override
-    public ResourceAdminService resourceAdmin() {
-        return resourceAdminService;
-    }
-
-
     /////////////////////////////////////////////
 
     /**
@@ -113,14 +100,6 @@ public class GritClientLocalImpl implements GritClient {
     @Override
     public SubjectLinkService subjectLink() {
         return subjectLinkService;
-    }
-
-    /**
-     * 主体管理接口
-     * */
-    @Override
-    public SubjectAdminService subjectAdmin() {
-        return subjectAdminService;
     }
 
 
