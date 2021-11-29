@@ -71,6 +71,23 @@ public interface AuthService {
 
 
     /**
+     * 获取主体的授与资源列表（启可见与不可见）
+     *
+     * @param subjectId 主体Id
+     * @param resourceGroupId 资源组Id
+     */
+    List<ResourceEntity> getResListByGroup(long subjectId, long resourceGroupId) throws SQLException;
+
+    /**
+     * 获取主体的授与资源列表（启可见与不可见）
+     *
+     * @param subjectId 主体Id
+     * @param resourceGroupCode 资源组Code
+     */
+    List<ResourceEntity> getResListByGroup(long subjectId, String resourceGroupCode) throws SQLException;
+
+
+    /**
      * 获取主体的授与路径列表
      *
      * @param subjectId 主体Id

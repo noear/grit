@@ -13,6 +13,7 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -126,6 +127,25 @@ public class AuthServiceImpl implements AuthService {
         Subject subjectGroup = GritClient.global().subject().getSubjectByCode(role);
 
         return GritClient.global().subjectLink().hasSubjectLink(subjectId, subjectGroup.subject_id);
+    }
+
+    @Override
+    public List<ResourceEntity> getResListByGroup(long subjectId, long resourceGroupId) throws SQLException {
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
+
+        return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndGroup(subjectIds, resourceGroupId, null);
+    }
+
+    @Override
+    public List<ResourceEntity> getResListByGroup(long subjectId, String resourceGroupCode) throws SQLException {
+        Resource group = GritClient.global().resource().getResourceByCode(resourceGroupCode);
+
+        if (group.resource_id == null) {
+            return new ArrayList<>();
+        }
+
+        return getResListByGroup(subjectId, group.resource_id);
     }
 
     /**
