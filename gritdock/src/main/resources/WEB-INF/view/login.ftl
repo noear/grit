@@ -58,7 +58,7 @@
           <td colspan="2"> <input type="password" name="passWord" placeholder="密码"/></td>
         </tr>
         <tr><th>验证码：</th>
-          <td><input type="text" name="validationCode"/></td>
+          <td><input type="text" name="captcha"/></td>
           <td style="width: 60px; padding-left: 10px;"><img src="/login/validation/img" onclick="reloadimg(this)"/></td>
         </tr>
 

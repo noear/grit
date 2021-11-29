@@ -14,6 +14,7 @@ import org.noear.grit.model.domain.Resource;
 import gritdock.dso.Session;
 import gritdock.util.ImageUtils;
 import gritdock.util.RandomUtils;
+import org.noear.solon.core.handle.Result;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -44,58 +45,53 @@ public class LoginController extends BaseController {
     //ajax.path like "{view}/ajax/{cmd}"
 
     @Mapping("/login/ajax/check")
-    public ViewModel login_ajax_check(Context ctx, String userName, String passWord, String validationCode) throws Exception {
+    public Result login_ajax_check(Context ctx, String userName, String passWord, String captcha) throws Exception {
 
         //验证码检查
-        if (!validationCode.toLowerCase().equals(Session.current().getValidation())) {
-            return viewModel.set("code", 0).set("msg", "提示：验证码错误！");
+        if (!captcha.toLowerCase().equals(Session.current().getValidation())) {
+            return Result.failure("提示：验证码错误！");
         }
 
         if (Utils.isEmpty(userName) || Utils.isEmpty(passWord)) {
-            return viewModel.set("code", 0).set("msg", "提示：请输入账号和密码！");
+            return Result.failure("提示：请输入账号和密码！");
         }
 
         //用户登录
         Subject subject = GritClient.global().auth().login(userName, passWord);
 
         if (subject.subject_id == null || subject.subject_id == 0) {
-            //用户登录::失败
-            //
-            return viewModel.set("code", 0).set("msg", "提示：账号或密码不对！");
+            return Result.failure("提示：账号或密码不对！");
         } else {
             //用户登录::成功
             //
             Session.current().loadSubject(subject);
 
             //最后一次使用的连接系统
-            String branchCode = ctx.cookie("_lLnQIO4W");
-            ResourceSpace branch = null;
+            String spaceCode = ctx.cookie("_lLnQIO4W");
+            ResourceSpace space = null;
 
             Resource res = null;
 
 
             //1.确定分支组
-            if (Utils.isEmpty(branchCode) == false) {
-                branch = GritClient.global().resource().getSpaceByCode(branchCode);
+            if (Utils.isEmpty(spaceCode) == false) {
+                space = GritClient.global().resource().getSpaceByCode(spaceCode);
             }
 
-            if (branch == null || branch.resource_id == null) {
-                branch = GritClient.global().auth().getSpaceFrist(subject.subject_id);
+            if (space == null || space.resource_id == null) {
+                space = GritClient.global().auth().getSpaceFrist(subject.subject_id);
             }
 
             //2.如果没有，找自己默认的权限
-            res = GritClient.global().auth().getUriFristBySpace(subject.subject_id, branch.resource_id);
+            res = GritClient.global().auth().getUriFristBySpace(subject.subject_id, space.resource_id);
 
             //3.再没有，提示错误
             if (Utils.isEmpty(res.link_uri)) {
-                return viewModel.set("code", 0).set("msg", "提示：请联系管理员开通权限");
+                return Result.failure("提示：请联系管理员开通权限！");
             }
 
-            String newUrl = GritUtil.buildDockSpaceUri(branch, res);
-
-            return viewModel.set("code", 1)
-                    .set("msg", "ok")
-                    .set("url", newUrl);
+            String resUrl = GritUtil.buildDockSpaceUri(space, res);
+            return Result.succeed(resUrl);
 
         }
     }

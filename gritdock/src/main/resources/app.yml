@@ -9,7 +9,13 @@ solon.app:
 solon.cloud.water:
   server: "waterapi:9371"
   config:
-    load: "gritclient.yml,gritdock.yml"
+    load: "grit.yml,gritdock.yml"
+
+solon.logging.logger:
+  "org.eclipse.jetty.*":
+    level: "WARN"
+  "com.zaxxer.hikari.*":
+    level: "WARN"
 
 gritdock:
   env: "演示环境"

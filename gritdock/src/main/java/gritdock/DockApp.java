@@ -9,7 +9,8 @@ import org.noear.solon.Solon;
 public class DockApp {
     public static void main(String[] args) {
         Solon.start(DockApp.class, args, app -> {
-            app.cfg().loadEnv("grit.");
+            app.cfg().loadEnv("grit");
+            app.onError(e -> e.printStackTrace());
         });
     }
 }
