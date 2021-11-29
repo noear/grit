@@ -35,10 +35,30 @@ public abstract class SessionAbstractBase {
     }
 
     /**
+     * 获取全局会话变量，并转为Long
+     */
+    protected long globalGetAsLong(String key, long def) {
+        String tmp = globalGet(key, String.valueOf(def));
+        return Long.parseLong(tmp);
+    }
+
+    /**
+     * 获取全局会话变量，并转为Int
+     */
+    protected int globalGetAsInt(String key, int def) {
+        String tmp = globalGet(key, String.valueOf(def));
+        return Integer.parseInt(tmp);
+    }
+
+    /**
      * 设置全局会话变量
      */
-    protected void globalSet(String key, String val) {
-        context().sessionSet(key, val);
+    protected void globalSet(String key, Object val) {
+        if(val == null){
+            val = "";
+        }
+
+        context().sessionSet(key, val.toString());
     }
 
     /**
@@ -58,7 +78,7 @@ public abstract class SessionAbstractBase {
      * 本地应用用户Id
      */
     protected long localUserId() {
-        return Long.parseLong(localGet("userId", "0"));
+        return localGetAsLong("userId", 0L);
     }
 
     /**
@@ -68,12 +88,32 @@ public abstract class SessionAbstractBase {
         return globalGet(Solon.cfg().appName() + "_" + key, def);
     }
 
+    /**
+     * 获取本地应用会话变量，并转为Long
+     */
+    public long localGetAsLong(String key, long def){
+        String tmp = localGet(key, String.valueOf(def));
+        return Long.parseLong(tmp);
+    }
+
+    /**
+     * 获取本地应用会话变量，并转为Int
+     */
+    public int localGetAsInt(String key, int def){
+        String tmp = localGet(key, String.valueOf(def));
+        return Integer.parseInt(tmp);
+    }
+
 
     /**
      * 设置本地应用会话变量
      */
-    public void localSet(String key, String val) {
-        globalSet(Solon.cfg().appName() + "_" + key, val);
+    public void localSet(String key, Object val) {
+        if (val == null) {
+            val = "";
+        }
+
+        globalSet(Solon.cfg().appName() + "_" + key, val.toString());
     }
 
     /**
