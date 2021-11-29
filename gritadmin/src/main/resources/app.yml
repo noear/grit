@@ -9,7 +9,7 @@ solon.app:
 solon.cloud.water:
   server: "waterapi:9371"
   config:
-    load: "grit.yml"
+    load: "grit.yml,gritadmin.yml"
 
 solon.logging.logger:
   "org.eclipse.jetty.*":
@@ -18,6 +18,6 @@ solon.logging.logger:
     level: "WARN"
 
 
-grit.admin:
+gritadmin:
   user: admin
   password: SykSYLWN9WTpzCHq

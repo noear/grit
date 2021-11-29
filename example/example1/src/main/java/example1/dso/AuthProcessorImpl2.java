@@ -28,7 +28,7 @@ public class AuthProcessorImpl2 extends AuthProcessorBase {
     @Override
     public boolean verifyPath(String path, String method) {
         try {
-            if (GritClient.global().resource().hasResourceUri(path)) {
+            if (GritClient.global().resource().hasResourceByUri(path)) {
                 return GritClient.global().auth().hasUri(puid(), path);
             } else {
                 return true;

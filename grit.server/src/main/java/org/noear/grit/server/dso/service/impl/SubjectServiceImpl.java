@@ -36,7 +36,7 @@ public class SubjectServiceImpl implements SubjectService {
      * @param loginName 登录名
      */
     @Override
-    public boolean hesSubjectByLoginName(String loginName) throws SQLException {
+    public boolean hasSubjectByLoginName(String loginName) throws SQLException {
         if (TextUtils.isEmpty(loginName)) {
             return false;
         }

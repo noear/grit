@@ -94,7 +94,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return 是否存在
      */
     @Override
-    public boolean hasResourceCode(long resourceSpaceId, String resourceCode) throws SQLException {
+    public boolean hasResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException {
         if (TextUtils.isEmpty(resourceCode)) {
             return false;
         }
@@ -102,6 +102,7 @@ public class ResourceServiceImpl implements ResourceService {
         return db.table("grit_resource")
                 .whereEq("resource_code", resourceCode)
                 .andIf(resourceSpaceId > 0,  "resource_sid=?", resourceSpaceId)
+                .limit(1)
                 .caching(cache)
                 .selectExists();
     }
@@ -114,7 +115,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return 是否存在
      */
     @Override
-    public boolean hasResourceUri(long resourceSpaceId, String resourceUri) throws SQLException {
+    public boolean hasResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException {
         if (TextUtils.isEmpty(resourceUri)) {
             return false;
         }

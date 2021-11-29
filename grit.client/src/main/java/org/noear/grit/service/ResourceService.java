@@ -1,7 +1,6 @@
 package org.noear.grit.service;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceSpace;
@@ -55,10 +54,10 @@ public interface ResourceService {
      * @param resourceCode 资源代号
      * @return 是否存在
      */
-    boolean hasResourceCode(long resourceSpaceId, String resourceCode) throws SQLException;
+    boolean hasResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException;
 
-    default boolean hasResourceCode(String resourceCode) throws SQLException {
-        return hasResourceCode(GritClient.global().getCurrentSpaceId(), resourceCode);
+    default boolean hasResourceByCode(String resourceCode) throws SQLException {
+        return hasResourceByCode(GritClient.global().getCurrentSpaceId(), resourceCode);
     }
 
     /**
@@ -67,10 +66,10 @@ public interface ResourceService {
      * @param resourceUri 资源路径
      * @return 是否存在
      */
-    boolean hasResourceUri(long resourceSpaceId, String resourceUri) throws SQLException;
+    boolean hasResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException;
 
-    default boolean hasResourceUri(String resourceUri) throws SQLException {
-        return hasResourceUri(GritClient.global().getCurrentSpaceId(), resourceUri);
+    default boolean hasResourceByUri(String resourceUri) throws SQLException {
+        return hasResourceByUri(GritClient.global().getCurrentSpaceId(), resourceUri);
     }
 
     /**

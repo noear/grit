@@ -38,7 +38,7 @@ public abstract class GritPathInterceptorBase implements Handler {
         }
 
         if (path.indexOf("/ajax/") < 0 && path.startsWith("/login") == false) {
-            if (GritClient.global().resource().hasResourceUri(path)) {
+            if (GritClient.global().resource().hasResourceByUri(path)) {
 
                 if (userId == 0) {
                     ctx.redirect("/login");

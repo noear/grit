@@ -17,7 +17,15 @@ public interface SubjectService {
      *
      * @param loginName 登录名
      */
-    boolean hesSubjectByLoginName(String loginName) throws SQLException;
+    boolean hasSubjectByLoginName(String loginName) throws SQLException;
+
+
+    /**
+     * 检测主体是否存在
+     *
+     * @param subjectCode 代号
+     */
+    boolean hasSubjectByCode(String subjectCode) throws SQLException;
 
     /**
      * 获取主体
