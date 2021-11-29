@@ -37,13 +37,13 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
      * 添加主体连接
      *
      * @param subjectId      主体Id
-     * @param groupSubjectId 分组的主体Id
+     * @param subjectGroupId 分组的主体Id
      */
     @Override
-    public long addSubjectLink(long subjectId, long groupSubjectId) throws SQLException {
+    public long addSubjectLink(long subjectId, long subjectGroupId) throws SQLException {
         return db.table("grit_subject_linked")
                 .set("subject_id", subjectId)
-                .set("group_subject_id", groupSubjectId)
+                .set("group_subject_id", subjectGroupId)
                 .set("gmt_create", System.currentTimeMillis())
                 .insert();
     }
@@ -64,14 +64,14 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
      * 检测是否存在主体连接（一般用于角色检测）
      *
      * @param subjectId      主体Id
-     * @param groupSubjectId 分组的主体Id
+     * @param subjectGroupId 分组的主体Id
      * @return 是否存在
      */
     @Override
-    public boolean hasSubjectLink(long subjectId, long groupSubjectId) throws SQLException {
+    public boolean hasSubjectLink(long subjectId, long subjectGroupId) throws SQLException {
         return db.table("grit_subject_linked")
                 .whereEq("subject_id", subjectId)
-                .andEq("group_subject_id", groupSubjectId)
+                .andEq("group_subject_id", subjectGroupId)
                 .caching(cache)
                 .selectExists();
     }
@@ -80,13 +80,13 @@ public class SubjectLinkServiceImpl implements SubjectLinkService {
     /**
      * 获取主体分组关联的主体实体列表
      *
-     * @param groupSubjectId 分组的主体Id
+     * @param subjectGroupId 分组的主体Id
      * @return 主体列表
      */
     @Override
-    public List<SubjectEntity> getSubjectEntityListByGroup(long groupSubjectId) throws SQLException {
+    public List<SubjectEntity> getSubjectEntityListByGroup(long subjectGroupId) throws SQLException {
         return db.table("grit_subject_linked")
-                .whereEq("group_subject_id", groupSubjectId)
+                .whereEq("group_subject_id", subjectGroupId)
                 .caching(cache)
                 .selectList("*", SubjectEntity.class);
 

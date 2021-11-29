@@ -90,7 +90,10 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
 
-        return GritClient.global().resourceLink().hasResourceLink(resource.resource_id, subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
+
+        return GritClient.global().resourceLink().hasResourceLinkBySubjects(resource.resource_id, subjectIds);
     }
 
     /**
@@ -112,7 +115,10 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
 
-        return GritClient.global().resourceLink().hasResourceLink(resource.resource_id, subjectId);
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
+
+        return GritClient.global().resourceLink().hasResourceLinkBySubjects(resource.resource_id, subjectIds);
     }
 
     /**

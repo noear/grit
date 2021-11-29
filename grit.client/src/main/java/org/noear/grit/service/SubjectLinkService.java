@@ -19,9 +19,9 @@ public interface SubjectLinkService {
      * 添加主体连接
      *
      * @param subjectId      主体Id
-     * @param groupSubjectId 分组的主体Id
+     * @param subjectGroupId 分组的主体Id
      */
-    long addSubjectLink(long subjectId, long groupSubjectId) throws SQLException;
+    long addSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
 
     /**
      * 删除主体连接
@@ -34,19 +34,20 @@ public interface SubjectLinkService {
      * 检测是否存在主体连接（一般用于角色检测）
      *
      * @param subjectId      主体Id
-     * @param groupSubjectId 分组的主体Id
+     * @param subjectGroupId 分组的主体Id
      * @return 是否存在
      */
-    boolean hasSubjectLink(long subjectId, long groupSubjectId) throws SQLException;
+    boolean hasSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
+
 
 
     /**
      * 获取主体分组关联的主体实体列表
      *
-     * @param groupSubjectId 分组的主体Id
+     * @param subjectGroupId 分组的主体Id
      * @return 主体列表
      */
-    List<SubjectEntity> getSubjectEntityListByGroup(long groupSubjectId) throws SQLException;
+    List<SubjectEntity> getSubjectEntityListByGroup(long subjectGroupId) throws SQLException;
 
 
     /**

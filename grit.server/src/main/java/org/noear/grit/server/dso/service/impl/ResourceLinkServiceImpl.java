@@ -49,6 +49,15 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .selectExists();
     }
 
+    @Override
+    public boolean hasResourceLinkBySubjects(long resourceId, Collection<Long> subjectIds) throws SQLException {
+        return db.table("grit_resource_linked")
+                .whereEq("resource_id", resourceId)
+                .andIn("subject_id", subjectIds)
+                .caching(cache)
+                .selectExists();
+    }
+
     /**
      * 获取资源授权过的所有主体
      *

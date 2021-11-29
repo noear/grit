@@ -26,6 +26,15 @@ public interface ResourceLinkService {
     boolean hasResourceLink(long resourceId, long subjectId) throws SQLException;
 
     /**
+     * 检测是否存在连接
+     *
+     * @param resourceId 资源Id
+     * @param subjectIds 主体Ids
+     */
+
+    boolean hasResourceLinkBySubjects(long resourceId, Collection<Long> subjectIds) throws SQLException;
+
+    /**
      * 获取资源授权过的所有主体
      *
      * @param resourceId 资源Id
@@ -107,7 +116,6 @@ public interface ResourceLinkService {
      * @param resourceSpaceId 资源空间Id
      */
     ResourceEntity getResourceEntityFristBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException;
-
 
 
     /**
