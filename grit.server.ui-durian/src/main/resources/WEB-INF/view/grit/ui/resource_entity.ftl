@@ -46,6 +46,7 @@
                         </#list>
                     </select>
                 </div>
+                <li id="e0" onclick="node_onclick('0',this)">所有</li>
                 <#list groupList as m1>
                     <li title="Id: ${m1.resource_id}"
                         class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}"
