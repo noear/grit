@@ -21,15 +21,15 @@ import java.util.List;
 public class MenuService {
 
     @Cache
-    public MenuViewModel getSpaceMenus(long userId) throws SQLException {
+    public MenuViewModel getSpaceMenus(long subjectId) throws SQLException {
         MenuViewModel viewModel = new MenuViewModel();
 
         StringBuilder buf = new StringBuilder();
 
-        List<ResourceSpace> resourceSpaceList = GritClient.global().resource().getSpaceList();
+        List<ResourceSpace> resourceSpaceList = GritClient.global().auth().getSpaceList(subjectId);
 
         for (ResourceSpace resourceSpace : resourceSpaceList) {
-            List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(userId, resourceSpace.resource_id);
+            List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(subjectId, resourceSpace.resource_id);
             int groupSize = 0;
 
             StringBuilder groupBuf = new StringBuilder();
@@ -37,7 +37,7 @@ public class MenuService {
             groupBuf.append("<header>").append(resourceSpace.display_name).append("</header>");
             groupBuf.append("<ul>");
             for (ResourceGroup m : groupList) {
-                Resource res = GritClient.global().auth().getUriFristBySpace(userId, m.resource_id);
+                Resource res = GritClient.global().auth().getUriFristByGroup(subjectId, m.resource_id);
                 if (Utils.isNotEmpty(res.link_uri)) {
                     groupBuf.append("<li>")
                             .append("<a href='").append(GritUtil.buildDockSpaceUri(resourceSpace, res)).append("' target='_top'>")
