@@ -15,6 +15,7 @@
 
         section header{line-height: 40px; height: 40px; margin-bottom: 5px;}
         section header a{cursor: default; color: #666;}
+        section header a:hover{text-decoration:underline;}
         section boxlist{}
         section boxlist label{margin: 0 0 5px;}
     </style>
