@@ -20,22 +20,25 @@
     main > p{margin: 10px;line-height: 30px;}
   </style>
   <script type="text/javascript">
-    function checkClick(){
+    function checkClick() {
       $.ajax({
-        url:"/login/ajax/check",
-        data:$("section form").serialize(),
-        success:function(data){
-          if(data.code==1)
-            location.href=data.url;
-          else
-            alert(data.msg);
+        url: "/login/ajax/check",
+        data: $("section form").serialize(),
+        success: function (rst) {
+          if (rst.code == 200) {
+            location.href = rst.data;
+          } else {
+            alert(rst.description);
+          }
         }
       });
       return false;
     }
+
     function checkKey() {
-      if (window.event.keyCode == 13)
+      if (window.event.keyCode == 13) {
         checkClick();
+      }
     }
 
   </script>

@@ -25,8 +25,9 @@
                 success: function (rst) {
                     if (rst.code == 200)
                         location.href = rst.data;
-                    else
-                        alert(data.msg);
+                    else{
+                        alert(rst.description);
+                    }
                 }
             });
             return false;
