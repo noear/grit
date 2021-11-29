@@ -85,8 +85,17 @@ public class AuthController extends BaseController {
         return Result.succeed();
     }
 
+    @Mapping("s")
+    public Object auth_s(long subject_id, long space_id) throws SQLException {
+        return showInner(subject_id, space_id,"grit/ui/auth_s");
+    }
+
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
+        return showInner(subject_id, space_id, "grit/ui/auth_inner");
+    }
+
+    private Object showInner(long subject_id, long space_id, String viewName) throws SQLException {
         if(subject_id == 0){
             return null;
         }
@@ -135,6 +144,6 @@ public class AuthController extends BaseController {
         viewModel.put("groupList", groupList);
         viewModel.put("resourceList", resourceList);
 
-        return view("grit/ui/auth_inner");
+        return view(viewName);
     }
 }

@@ -39,8 +39,17 @@ public class SubjectEntityController extends BaseController {
         return view("grit/ui/subject_entity");
     }
 
+    @Mapping("s")
+    public Object entity_s(long group_id) throws SQLException {
+        return showInner(group_id, "grit/ui/subject_entity_s");
+    }
+
     @Mapping("inner")
     public Object inner(long group_id) throws SQLException {
+        return showInner(group_id, "grit/ui/subject_entity_inner");
+    }
+
+    private Object showInner(long group_id, String viewName) throws SQLException {
         List<SubjectEntity> list = null;
         if (group_id == 0) {
             list = subjectAdminService.getSubjectEntityListByAll();
@@ -52,6 +61,6 @@ public class SubjectEntityController extends BaseController {
         viewModel.put("group_id", group_id);
         viewModel.put("list", list);
 
-        return view("grit/ui/subject_entity_inner");
+        return view(viewName);
     }
 }
