@@ -7,17 +7,17 @@
 
 | 开发框架 | 说明 | 
 | -------- | -------- | 
-| grit.client     | grit 接口申明及数据实体定义。支持Remote调用与Local调用     | 
-| grit-solon-solon     | grit.client 与 solon.auth 集成    | 
-| grit.server     | grit.client 接口实现（可做为插件集成到别的服务）     | 
-| grit.server.ui     | grit.server + 管理界面实现（可做为插件集成到别的管理后台）     | 
+| grit.client         | grit 接口申明及数据实体定义。支持Remote调用与Local调用     | 
+| grit-solon-solon    | grit.client 与 solon.auth 集成    | 
+| grit.server         | grit.client 接口实现（可做为插件集成到别的服务）     | 
+| grit.server.ui      | grit.server + 管理界面实现（可做为插件集成到别的管理后台）     | 
 
 
 | 服务输出 | 说明 | 
 | -------- | -------- | 
-| gritapi     | grit.client 接口服务（集成grit.server）     | 
-| gritadmin     | gritapi + 管理界面（grit.server.ui）    | 
-| gritdock     | grit.client + 多系统菜单导航     | 
+| gritapi     | grit.client 接口服务（集成 grit.server）     | 
+| gritadmin   | gritapi + 管理界面（集成 grit.server.ui）    | 
+| gritdock    | grit.client + 多系统菜单导航     | 
 
 
 单体项目，可通过 grit.server.ui 集成，直接获取客户端接口与管理能力
