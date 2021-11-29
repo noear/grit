@@ -1,11 +1,13 @@
+server.port: 8081
 
 solon.app:
   name: "wateradmin"
   group: "water"
   title: "DEMO"
 
+#  可以换成任何 solon cloud 的其它配置服务组件
 solon.cloud.water:
-  server: "waterapi.water"
+  server: "waterapi:9371"
   config:
-    load: "grit::grit.yml"
+    load: "grit:gritclient.yml"
 

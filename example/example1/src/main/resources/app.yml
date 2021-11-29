@@ -1,3 +1,4 @@
+server.port: 8082
 
 solon.app:
   name: "gritexcmple1"
@@ -5,7 +6,7 @@ solon.app:
   title: "DEMO"
 
 solon.cloud.water:
-  server: "waterapi.water"
+  server: "waterapi:9371"
   config:
-    load: "grit:grit.yml,grit:gritdock.yml"
+    load: "grit:gritclient.yml"
 
