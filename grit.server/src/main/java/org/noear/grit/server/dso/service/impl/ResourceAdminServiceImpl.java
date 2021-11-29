@@ -1,4 +1,4 @@
-package org.noear.grit.server.service.impl;
+package org.noear.grit.server.dso.service.impl;
 
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.data.ResourceLinkedDo;
@@ -6,8 +6,8 @@ import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
-import org.noear.grit.server.service.ResourceAdminService;
-import org.noear.grit.server.service.SubjectAdminService;
+import org.noear.grit.server.dso.service.ResourceAdminService;
+import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.annotation.*;
 import org.noear.weed.DataItem;
 import org.noear.weed.DbContext;

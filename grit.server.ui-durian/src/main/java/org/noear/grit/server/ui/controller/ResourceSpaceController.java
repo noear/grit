@@ -2,7 +2,7 @@ package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.ResourceSpace;
-import org.noear.grit.server.service.ResourceAdminService;
+import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;

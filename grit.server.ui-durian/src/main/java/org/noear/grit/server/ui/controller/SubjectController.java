@@ -3,7 +3,7 @@ package org.noear.grit.server.ui.controller;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.type.SubjectType;
-import org.noear.grit.server.service.SubjectAdminService;
+import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;

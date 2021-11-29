@@ -4,7 +4,7 @@ import org.noear.grit.client.comparator.SubjectComparator;
 import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
-import org.noear.grit.server.service.SubjectAdminService;
+import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
