@@ -22,7 +22,7 @@
         <okhttp.ver>3.14.9</okhttp.ver>
         <snakeyaml.ver>1.29</snakeyaml.ver>
 
-        <grit.version>1.0</grit.version>
+        <grit.ver>1.0.0</grit.ver>
     </properties>
 
     <modules>
@@ -38,25 +38,25 @@
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.client</artifactId>
-               <version>${grit.version}</version>
+               <version>${grit.ver}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.server</artifactId>
-               <version>${grit.version}</version>
+               <version>${grit.ver}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.server.ui-durian</artifactId>
-               <version>${grit.version}</version>
+               <version>${grit.ver}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit-solon-plugin</artifactId>
-               <version>${grit.version}</version>
+               <version>${grit.ver}</version>
            </dependency>
 
            <dependency>
