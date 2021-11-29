@@ -47,9 +47,8 @@ public abstract class SessionBase extends SessionAbstractBase {
 
         if (temp > 0 && (temp != localSubjectId())) {
             try {
-                Subject user = GritClient.global().subject().getSubjectById(temp);
-                loadSubject(user);
-
+                Subject subject = GritClient.global().subject().getSubjectById(temp);
+                loadSubject(subject);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
