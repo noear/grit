@@ -81,7 +81,7 @@ public class GritAuthProcessor2 extends AuthProcessorBase {
         }
 
         try {
-            if (GritClient.global().resource().hasResourceUri(path)) {
+            if (GritClient.global().resource().hasResourceUri(path) == false) {
                 return true;
             } else {
                 return GritClient.global().auth().hasUri(getSubjectId(), path);

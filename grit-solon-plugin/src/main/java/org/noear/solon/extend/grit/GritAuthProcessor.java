@@ -79,7 +79,7 @@ public class GritAuthProcessor implements AuthProcessor {
         }
 
         try {
-            if (GritClient.global().resource().hasResourceUri(path)) {
+            if (GritClient.global().resource().hasResourceUri(path) == false) {
                 return true;
             } else {
                 return GritClient.global().auth().hasUri(getSubjectId(), path);
