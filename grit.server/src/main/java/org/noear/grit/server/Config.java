@@ -40,7 +40,11 @@ public class Config {
 
     @Bean
     public LdapClient ldapClient(@Inject("${grit.ldap}") Properties props) {
-        return new LdapClient(props);
+        if (props.size() > 0) {
+            return new LdapClient(props);
+        } else {
+            return null;
+        }
     }
 
     @Bean
