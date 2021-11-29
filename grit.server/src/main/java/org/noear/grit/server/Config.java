@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.server.dso.CacheServiceWrap;
 import org.noear.grit.server.dso.GritClientLocalImpl;
+import org.noear.okldap.LdapClient;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
@@ -38,7 +39,12 @@ public class Config {
     }
 
     @Bean
-    public GritClient clientImpl(@Inject GritClientLocalImpl clientLocal) {
+    public LdapClient ldapClient(@Inject("${grit.ldap}") Properties props) {
+        return new LdapClient(props);
+    }
+
+    @Bean
+    public GritClient gritClient(@Inject GritClientLocalImpl clientLocal) {
         GritClient.setGlobal(clientLocal);
         return clientLocal;
     }

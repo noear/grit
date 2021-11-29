@@ -19,7 +19,7 @@ public interface AuthService {
      * @param loginName     登录名
      * @param loginPassword 登录密码
      */
-    Subject login(String loginName, String loginPassword) throws SQLException;
+    Subject login(String loginName, String loginPassword) throws Exception;
 
 
 

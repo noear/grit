@@ -4,14 +4,16 @@ import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.*;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.AuthService;
+import org.noear.okldap.LdapClient;
+import org.noear.okldap.LdapSession;
+import org.noear.okldap.entity.LdapPerson;
 import org.noear.solon.annotation.Before;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Remoting;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 签权服务实现
@@ -23,6 +25,10 @@ import java.util.stream.Collectors;
 @Mapping("/grit/api/v1/AuthService")
 @Remoting
 public class AuthServiceImpl implements AuthService {
+
+    @Inject
+    LdapClient ldapClient;
+
     /**
      * 主体登录
      *
@@ -30,8 +36,38 @@ public class AuthServiceImpl implements AuthService {
      * @param loginPassword 登录密码
      */
     @Override
-    public Subject login(String loginName, String loginPassword) throws SQLException {
-        return GritClient.global().subject().getSubjectByLoginNameAndPassword(loginName, loginPassword);
+    public Subject login(String loginName, String loginPassword) throws Exception {
+        if (loginPassword == null || loginPassword.length() < 4) {
+            //密码太短不让登录
+            return new Subject();
+        }
+
+        if (ldapClient != null) {
+            //尝试用ldap登录
+            LdapPerson person = null;
+            try (LdapSession session = ldapClient.open()) {
+                person = session.findPersonOne(loginName, loginPassword);
+            }
+
+            if (person != null) {
+                //ldap登录成功后，直接查出用户信息
+                Subject subject = GritClient.global().subject().getSubjectByLoginName(loginName);
+
+                if (subject.subject_id == null || subject.subject_id == 0) {
+                    //如果bcf没有这个账号，则虚拟一个
+                    subject.subject_id = Long.MAX_VALUE;
+                    subject.login_name = loginName;
+                    subject.display_name = person.getDisplayName();
+                }
+
+                return subject;
+            } else {
+                return new Subject();
+            }
+        } else {
+            //尝试用原生账号登录
+            return GritClient.global().subject().getSubjectByLoginNameAndPassword(loginName, loginPassword);
+        }
     }
 
     /**

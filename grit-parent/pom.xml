@@ -18,6 +18,7 @@
         <weed3.ver>3.4.9</weed3.ver>
         <snack3.ver>3.2.0</snack3.ver>
         <redisx.ver>1.3.1</redisx.ver>
+        <okldap.ver>1.1</okldap.ver>
 
         <okhttp.ver>3.14.9</okhttp.ver>
         <snakeyaml.ver>1.29</snakeyaml.ver>
@@ -68,7 +69,7 @@
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>okldap</artifactId>
-               <version>1.1</version>
+               <version>${okldap.ver}</version>
            </dependency>
 
            <dependency>
