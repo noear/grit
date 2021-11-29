@@ -42,7 +42,7 @@
 <body onkeydown="checkKey()">
 
 <main>
-    <p>${title}</p>
+    <p>${title!}</p>
 
     <section>
         <form method="post">

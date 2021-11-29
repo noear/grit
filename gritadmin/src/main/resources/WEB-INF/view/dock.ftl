@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>GRIT - 权限管理</title>
+    <title>${title!}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8 "/>
