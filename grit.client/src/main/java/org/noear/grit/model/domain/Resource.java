@@ -48,15 +48,15 @@ public class Resource extends ResourceDo {
 
         switch (level) {
             case 1:
-                return "|-";
+                return "&emsp;";
             case 2:
-                return "|-|-";
+                return "&emsp;&emsp;";
             case 3:
-                return "|-|-|-";
+                return "&emsp;&emsp;&emsp;";
             case 4:
-                return "|-|-|-|-";
+                return "&emsp;&emsp;&emsp;&emsp;";
             case 5:
-                return "|-|-|-|-|-";
+                return "&emsp;&emsp;&emsp;&emsp;&emsp;";
             default:
                 return "";
         }
