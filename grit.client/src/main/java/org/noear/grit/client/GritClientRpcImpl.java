@@ -8,6 +8,8 @@ import org.noear.nami.NamiBuilder;
 import org.noear.nami.channel.http.okhttp.HttpChannel;
 import org.noear.nami.coder.snack3.SnackDecoder;
 import org.noear.nami.coder.snack3.SnackEncoder;
+import org.noear.solon.core.Bridge;
+import org.noear.solon.core.LoadBalance;
 
 import java.sql.SQLException;
 
@@ -59,7 +61,13 @@ public class GritClientRpcImpl implements GritClient {
 
         String path = "/grit/api/v1/" + clz.getSimpleName();
         if (gritServer.startsWith("@")) {
-            namiBuilder.name(gritServer.substring(1));
+            String name = gritServer.substring(1);
+            namiBuilder.name(name).path(path);
+
+            if(Bridge.upstreamFactory() != null){
+                LoadBalance loadBalance = Bridge.upstreamFactory().create("grit", name);
+                namiBuilder.upstream(loadBalance::getServer);
+            }
         } else {
             if (gritServer.contains("://") == false) {
                 gritServer = "http://" + gritServer;
