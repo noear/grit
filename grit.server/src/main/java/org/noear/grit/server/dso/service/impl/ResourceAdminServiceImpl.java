@@ -1,5 +1,6 @@
 package org.noear.grit.server.dso.service.impl;
 
+import org.noear.grit.client.GritClient;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.data.ResourceLinkedDo;
 import org.noear.grit.model.domain.Resource;
@@ -17,9 +18,11 @@ import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * 资源管理服务实现
@@ -253,10 +256,50 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .delete();
     }
 
+    /**
+     * 获取资源关联（仅自己的）
+     * */
     @Override
-    public List<ResourceLinkedDo> getResourceLinkListBySubject(long subjectId) throws SQLException {
+    public List<ResourceLinkedDo> getResourceLinkListBySubjectSlf(long subjectId) throws SQLException {
         return db.table("grit_resource_linked")
                 .whereEq("subject_id", subjectId)
                 .selectList("*", ResourceLinkedDo.class);
+    }
+
+    /**
+     * 获取资源关联（自己的 + 继承的）
+     * */
+    @Override
+    public List<ResourceLinkedDo> getResourceLinkListBySubjectAll(long subjectId) throws SQLException {
+        //获取实体相关的所有主体Id
+        List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
+
+
+        return db.table("grit_resource_linked")
+                .whereIn("subject_id", subjectIds)
+                .selectList("*", ResourceLinkedDo.class)
+                .stream()
+                .collect(collectingAndThen(
+                        //去重
+                        toCollection(() -> new TreeSet<>(Comparator.comparing(r -> r.resource_id)))
+                        , ArrayList::new)
+                );
+    }
+
+    /**
+     * 获取实验验证时的所有主体Id
+     * */
+    private List<Long> getSubjectIdsByEntityOnAuth(long subjectEntityId) throws SQLException{
+        //获取所在组的主体id
+        List<Long> subjectIds = GritClient.global().subjectLink()
+                .getSubjectGroupListByEntity(subjectEntityId)
+                .stream()
+                .map(s -> s.subject_id)
+                .collect(Collectors.toList());
+
+        //加上自己的主体id
+        subjectIds.add(subjectEntityId);
+
+        return subjectIds;
     }
 }

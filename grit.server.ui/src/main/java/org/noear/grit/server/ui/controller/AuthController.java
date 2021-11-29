@@ -6,6 +6,7 @@ import org.noear.grit.client.comparator.SubjectComparator;
 import org.noear.grit.client.utils.ResourceTreeUtils;
 import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.*;
+import org.noear.grit.model.type.SubjectType;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
@@ -79,10 +80,18 @@ public class AuthController extends BaseController {
     public Object inner(long subject_id, long space_id) throws SQLException {
         Subject subject = gritClient.subjectAdmin().getSubjectById(subject_id);
         StringBuilder authRes = new StringBuilder();
-        gritClient.resourceAdmin().getResourceLinkListBySubject(subject_id)
-                .stream().forEach(r -> {
-                    authRes.append(r.resource_id).append(",");
-                });
+
+        if(subject.subject_type == SubjectType.group.code) {
+            gritClient.resourceAdmin().getResourceLinkListBySubjectSlf(subject_id)
+                    .stream().forEach(r -> {
+                        authRes.append(r.resource_id).append(",");
+                    });
+        }else{
+            gritClient.resourceAdmin().getResourceLinkListBySubjectAll(subject_id)
+                    .stream().forEach(r -> {
+                        authRes.append(r.resource_id).append(",");
+                    });
+        }
         if (authRes.length() > 0) {
             authRes.setLength(authRes.length() - 1);
         }
