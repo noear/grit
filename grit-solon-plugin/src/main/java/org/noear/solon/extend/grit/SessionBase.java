@@ -61,8 +61,8 @@ public abstract class SessionBase extends SessionAbstractBase {
      * 设置用户Id
      */
     public final void setSubjectId(long subjectId) {
-        globalSet("subjectId", subjectId);
-        localSet("subjectId", subjectId);
+        globalSet(SUBJECT_ID, subjectId);
+        localSet(SUBJECT_ID, subjectId);
     }
 
     /**

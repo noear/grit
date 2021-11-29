@@ -8,6 +8,8 @@ import org.noear.solon.core.handle.Context;
  * @since 1.0
  */
 public abstract class SessionAbstractBase {
+    protected static final String SUBJECT_ID = "subjectId";
+
     protected Context context() {
         return Context.current();
     }
@@ -19,7 +21,7 @@ public abstract class SessionAbstractBase {
     //
 
     protected long globalSubjectId() {
-        return globalGetAsLong("userId", 0L);
+        return globalGetAsLong(SUBJECT_ID, 0L);
     }
 
     /**
@@ -78,7 +80,7 @@ public abstract class SessionAbstractBase {
      * 本地应用用户Id
      */
     protected long localSubjectId() {
-        return localGetAsLong("subjectId", 0L);
+        return localGetAsLong(SUBJECT_ID, 0L);
     }
 
     /**
