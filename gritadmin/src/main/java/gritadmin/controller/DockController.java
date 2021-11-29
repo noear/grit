@@ -11,12 +11,7 @@ import org.noear.solon.core.handle.ModelAndView;
  */
 @Controller
 public class DockController extends BaseController {
-    @Mapping("/")
-    public void home(Context ctx) {
-        ctx.redirect("/dock");
-    }
-
-    @Mapping("/dock")
+    @Mapping("/grit/")
     public ModelAndView dock() {
         return view("dock");
     }

@@ -21,24 +21,20 @@ import java.io.IOException;
  */
 @Controller
 public class LoginController extends BaseController {
+    @Mapping("/")
+    public void home() throws Exception{
+        Context.current().redirect("/login");
+    }
 
     @Mapping("/login") //视图 返回
     public ModelAndView login() {
-        //Config.regWater(request);
-
         return view("login");
-    }
-
-    @Mapping("/")
-    public void index() throws Exception{
-        Context.current().redirect("/login");
     }
     //-----------------
 
     //ajax.path like "{view}/ajax/{cmd}"
-
-    @Mapping("/login/ajax/check")  // Map<,> 返回[json]  (ViewModel 是 Map<String,Object> 的子类)
-    public Object login_ajax_check(String userName, String passWord, String validationCode, Context ctx) throws Exception {
+    @Mapping("/login/ajax/check")
+    public Result login_ajax_check(String userName, String passWord, String validationCode, Context ctx) throws Exception {
 
         //验证码检查
         if (!validationCode.toLowerCase().equals(getValidation())) {
@@ -60,7 +56,7 @@ public class LoginController extends BaseController {
         else {
             ctx.sessionSet("user", user0);
 
-            return Result.succeed("/bcf/");
+            return Result.succeed("/grit/");
         }
     }
 
@@ -87,11 +83,11 @@ public class LoginController extends BaseController {
         ImageIO.write(bufferedImage, "jpeg", ctx.outputStream());
     }
 
-    public final String getValidation() {
+    protected final String getValidation() {
         return (String) Context.current().session("Validation_String");
     }
 
-    public final void setValidation(String validation) {
+    protected final void setValidation(String validation) {
         Context.current().sessionSet("Validation_String", validation.toLowerCase());
     }
 }

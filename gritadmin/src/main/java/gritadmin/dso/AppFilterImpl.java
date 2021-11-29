@@ -27,21 +27,18 @@ public class AppFilterImpl implements Filter {
         String path = ctx.path();
 
         //特殊的路径通过
-        if (path.startsWith("/login") ||
-                path.startsWith("/run/") ||
-                path.startsWith("/msg/") ||
-                path.equals(HealthHandler.HANDLER_PATH)) {
+        if (path.startsWith("/grit")) {
+            //有会话账号能过
+            if (Utils.isNotEmpty(ctx.session("user", ""))) {
+                return true;
+            }
+
+            //否则，到登录页去
+            ctx.setHandled(true);
+            ctx.redirect("/login");
+            return false;
+        } else {
             return true;
         }
-
-        //有会话账号能过
-        if (Utils.isNotEmpty(ctx.session("user", ""))) {
-            return true;
-        }
-
-        //否则，到登录页去
-        ctx.setHandled(true);
-        ctx.redirect("/login");
-        return false;
     }
 }
