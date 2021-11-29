@@ -10,7 +10,7 @@
     <script src="${js}/layer.js"></script>
     <style>
         .dis{text-decoration:line-through; color:#888;}
-        .hid{color:green;}
+        .hid{color:#666;}
     </style>
     <script>
         $(function () {

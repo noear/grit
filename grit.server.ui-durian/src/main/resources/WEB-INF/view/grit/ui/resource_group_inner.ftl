@@ -11,7 +11,7 @@
     <style>
         datagrid b{color: #8D8D8D;font-weight: normal}
         .dis{text-decoration:line-through; color:#888;}
-        .hid{color:green;}
+        .hid{color:#666;}
     </style>
 </head>
 <script>

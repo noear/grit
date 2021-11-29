@@ -66,7 +66,7 @@
         tree.group ul li.sel{background:#eaedf1;}
 
         .dis{text-decoration:line-through; color:#888;}
-        .hid{color:green;}
+        .hid{color:#666;}
     </style>
 </head>
 <body>
