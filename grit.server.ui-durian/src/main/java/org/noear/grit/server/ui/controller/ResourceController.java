@@ -71,6 +71,15 @@ public class ResourceController extends BaseController {
             return Result.failure("The display name cannot be empty");
         }
 
+        //处理下格式
+        if (Utils.isNotEmpty(resource.display_name)) {
+            resource.display_name = resource.display_name.trim();
+        }
+
+        if (Utils.isNotEmpty(resource.resource_code)) {
+            resource.resource_code = resource.resource_code.trim();
+        }
+
         if (resource_id > 0) {
             resourceAdminService.updResourceById(resource_id, resource);
         } else {

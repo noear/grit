@@ -41,27 +41,44 @@ public class SubjectController extends BaseController {
 
     @Mapping("edit/ajax/save")
     public Object edit_ajax_save(long subject_id, long group_id,SubjectDo subject) throws SQLException {
-        if(subject.is_disabled == null){
+        if (subject.is_disabled == null) {
             subject.is_disabled = false;
         }
 
-        if(subject.is_visibled == null){
+        if (subject.is_visibled == null) {
             subject.is_visibled = false;
         }
 
         //必填
-        if(Utils.isEmpty(subject.display_name)){
+        if (Utils.isEmpty(subject.display_name)) {
             return Result.failure("The display name cannot be empty");
+        }
+
+        //处理下格式
+        if (Utils.isNotEmpty(subject.display_name)) {
+            subject.display_name = subject.display_name.trim();
+        }
+
+        if (Utils.isNotEmpty(subject.subject_code)) {
+            subject.subject_code = subject.subject_code.trim();
+        }
+
+        if (Utils.isNotEmpty(subject.login_name)) {
+            subject.login_name = subject.login_name.trim();
+        }
+
+        if (Utils.isNotEmpty(subject.login_password)) {
+            subject.login_password = subject.login_password.trim();
         }
 
         if (subject_id > 0) {
             subjectAdminService
                     .updSubjectById(subject_id, subject);
         } else {
-            if(subject.subject_type == SubjectType.entity.code){
+            if (subject.subject_type == SubjectType.entity.code) {
                 subjectAdminService
                         .addSubjectEntity(subject, group_id);
-            }else {
+            } else {
                 subjectAdminService
                         .addSubject(subject);
             }
