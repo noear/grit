@@ -6,7 +6,7 @@
 
     <groupId>org.noear</groupId>
     <artifactId>grit</artifactId>
-    <version>project</version>
+    <version>dev</version>
     <packaging>pom</packaging>
 
     <name>root</name>
