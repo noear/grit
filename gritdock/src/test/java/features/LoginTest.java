@@ -39,9 +39,4 @@ public class LoginTest {
         System.out.println(resourceList);
         assert resourceList.size() > 0;
     }
-
-    @Test
-    public void test2() throws Exception{
-
-    }
 }

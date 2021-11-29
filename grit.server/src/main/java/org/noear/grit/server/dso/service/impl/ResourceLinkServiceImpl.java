@@ -77,7 +77,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
     public List<ResourceEntity> getResourceEntityListBySubject(long subjectId, Boolean isVisibled) throws SQLException {
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id").andEq("l.subject_id", subjectId)
+                .on("l.resource_id=r.resource_id").andEq("l.subject_id", subjectId)
                 .whereIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
                 .caching(cache)
@@ -94,9 +94,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectAndGroup(long subjectId, long resourceGroupId, Boolean isVisibled) throws SQLException {
+        if(resourceGroupId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
+        }
+
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andEq("l.subject_id", subjectId)
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
@@ -114,9 +118,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectAndSpace(long subjectId, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+        if(resourceSpaceId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
+        }
+
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andEq("l.subject_id", subjectId)
                 .andEq("r.resource_sid", resourceSpaceId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
@@ -134,9 +142,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
+        if(resourceGroupId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
+        }
+
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
@@ -154,9 +166,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+        if(resourceSpaceId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
+        }
+
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_sid", resourceSpaceId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
@@ -186,7 +202,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
 
         List<Long> groupIds2 = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andIn("r.resource_pid", groupIds)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
@@ -213,7 +229,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
     public List<ResourceSpace> getResourceSpaceListBySubjects(List<Long> subjectIds, Boolean isVisibled) throws SQLException {
         List<Long> spaceIds = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
@@ -238,9 +254,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public ResourceEntity getResourceEntityFristBySubjectsAndSpace(List<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
+        if(resourceSpaceId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
+        }
+
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_sid", resourceSpaceId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
@@ -258,9 +278,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public ResourceEntity getResourceEntityFristBySubjectsAndGroup(List<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
+        if(resourceGroupId == 0) {
+            throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
+        }
+
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
-                .on("l.subject_id=r.resource_id")
+                .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
