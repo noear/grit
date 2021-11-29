@@ -22,6 +22,10 @@
             $("#table").attr('src',"/grit/subject/entity/inner?group_id="+group_id);
         };
     </script>
+    <style>
+        .dis{text-decoration:line-through; color:#888;}
+        .hid{color:green;}
+    </style>
 </head>
 <body>
 <main>
@@ -31,7 +35,7 @@
                 <li title="Id: 0" id="e0" onclick="node_onclick('0',this)">全部</li>
                 <#list list as n1>
                     <li title="Id: ${n1.subject_id}"
-                        class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}">
+                        class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}"
                         onclick="node_onclick('${n1.subject_id}',this)" id="e${n1.subject_id}">
                         ${n1.levelSpan()}
                         ${n1.display_name}
