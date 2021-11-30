@@ -167,7 +167,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
         return db.table("grit_resource")
                 .whereIn("resource_id", ids)
                 .caching(cache)
-                .selectList("r.*", ResourceEntity.class);
+                .selectList("*", ResourceEntity.class);
     }
 
     /**
