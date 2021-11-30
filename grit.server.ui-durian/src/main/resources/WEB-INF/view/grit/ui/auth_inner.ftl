@@ -13,7 +13,7 @@
         .dis{text-decoration:line-through; color:#aaa;}
         .hid{color:#888;}
 
-        section header{line-height: 40px; height: 40px; margin-bottom: 5px;}
+        section header{line-height: 40px; height: 40px; margin: 5px 0;}
         section header a{cursor: default; color: #666;}
         section header a:hover{text-decoration:underline;}
         section boxlist{}
@@ -90,7 +90,7 @@
     </div>
 
 </toolbar>
-<article>
+<article class="mar10-l mar10-r">
     <form>
         <#list groupList as g>
             <section>
