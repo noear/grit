@@ -153,16 +153,16 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
 
-        List<Long> ids = db.table("grit_resource r")
-                .innerJoin("grit_resource_linked l")
+        List<Long> ids = db.table("grit_resource_linked l")
+                .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
-                .groupBy("r.resource_id")
+                .groupBy("l.resource_id")
                 .caching(cache)
-                .selectArray("r.resource_id");
+                .selectArray("l.resource_id");
 
         return db.table("grit_resource")
                 .whereIn("resource_id", ids)
