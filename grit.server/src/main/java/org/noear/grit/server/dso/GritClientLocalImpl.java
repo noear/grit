@@ -41,9 +41,14 @@ public class GritClientLocalImpl implements GritClient {
         }
 
         try {
-            ResourceSpace space = resource().getSpaceByCode(resourceSpaceCode);
-            currentSpaceId = space.resource_id;
             currentSpaceCode = resourceSpaceCode;
+            ResourceSpace space = resource().getSpaceByCode(resourceSpaceCode);
+
+            if (space.resource_id != null) {
+                currentSpaceId = space.resource_id;
+            } else {
+                System.out.println("[Grit] Invalid resource space code: " + resourceSpaceCode);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
