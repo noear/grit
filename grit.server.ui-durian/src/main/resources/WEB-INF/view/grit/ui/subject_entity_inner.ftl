@@ -37,7 +37,6 @@
         <tr>
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
             <td width="50px">排序</td>
-            <td width="200px" class="left">登录名</td>
             <td class="left">显示名</td>
             <td width="50px">是否<br/>可见</td>
             <td width="50px">是否<br/>禁用</td>
@@ -49,8 +48,12 @@
             <tr class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}">
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
-                <td class="left">${m1.login_name!}</td>
-                <td class="left">${m1.display_name!}</td>
+                <td class="left">
+                    ${m1.display_name!}
+                    <#if m1.login_name?length gt 0>
+                        (${m1.login_name!})
+                    </#if>
+                </td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
                 <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
