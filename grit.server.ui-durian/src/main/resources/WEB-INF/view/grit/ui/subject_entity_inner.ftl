@@ -24,19 +24,32 @@
 </script>
 <body>
 <toolbar>
-    <left class="col-4">
-        <a class="btn edit" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
-    </left>
-    <right class="col-4">
+    <flex>
+        <left class="col-3">
+            <button class="minor">复制</button>
+            <button class="minor">粘贴</button>
+        </left>
+        <mid class="col-6 center">
+            <#if group_id == 0>
+                <form class="mar10-r">
+                    <input type="text" name="key" class="w200" value="${key!}" />
+                    <button>查询</button>
+                </form>
+            </#if>
+            <a class="btn edit" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
+        </mid>
+        <right class="col-3">
 
-    </right>
+        </right>
+    </flex>
+
 </toolbar>
 
 <datagrid class="list">
     <table>
         <thead>
         <tr>
-            <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
+            <td width="40px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
             <td width="50px">排序</td>
             <td class="left">显示名</td>
             <td width="50px">是否<br/>可见</td>

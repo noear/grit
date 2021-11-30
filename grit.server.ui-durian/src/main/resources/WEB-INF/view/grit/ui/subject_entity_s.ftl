@@ -25,11 +25,11 @@
 <body>
 <toolbar>
     <div class="center">
-        <form>
+        <form class="mar10-r">
         <input type="text" name="key" class="w200" value="${key!}" />
         <button>查询</button>
         </form>
-        <a class="btn edit mar10-l" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
+        <a class="btn edit" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
     </div>
 </toolbar>
 <datagrid class="list">
