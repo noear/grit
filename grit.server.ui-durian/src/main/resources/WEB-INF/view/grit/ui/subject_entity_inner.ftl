@@ -33,6 +33,10 @@
             alert("没有已复制的主体");
         }
 
+        if(confirm("确定要粘贴到该组吗？") == false){
+            return;
+        }
+
         $.ajax({
             type:"POST",
             url:"/grit/subject/edit/ajax/paste",
@@ -59,6 +63,10 @@
         if (!vm.sel_id) {
             alert("没有已选择的主体");
             return
+        }
+
+        if(confirm("确定要从该组移除吗？") == false){
+            return;
         }
 
         $.ajax({
