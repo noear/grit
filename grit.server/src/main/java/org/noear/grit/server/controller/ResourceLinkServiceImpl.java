@@ -149,17 +149,23 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectsAndGroup(Collection<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
-        if(resourceGroupId == 0) {
+        if (resourceGroupId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
 
-        return db.table("grit_resource_linked l")
+        List<Long> ids = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
+                .groupBy("l.resource_id")
+                .caching(cache)
+                .selectArray("l.resource_id");
+
+        return db.table("grit_resource")
+                .whereIn("resource_id", ids)
                 .caching(cache)
                 .selectList("r.*", ResourceEntity.class);
     }
@@ -296,7 +302,6 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
-                .groupBy("r.resource_id")
                 .limit(1)
                 .caching(cache)
                 .selectItem("r.*", ResourceEntity.class);
