@@ -5,6 +5,7 @@ import org.noear.grit.client.utils.SujectTreeUtils;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.grit.server.dso.service.SubjectAdminService;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -52,12 +53,17 @@ public class SubjectEntityController extends BaseController {
     private Object showInner(long group_id, String key, String viewName) throws SQLException {
         List<SubjectEntity> list = null;
         if (group_id == 0) {
-            list = subjectAdminService.getSubjectEntityListByAll();
+            if (Utils.isEmpty(key)) {
+                list = subjectAdminService.getSubjectEntityListByAll();
+            } else {
+                list = subjectAdminService.getSubjectEntityListByFind(key);
+            }
         } else {
             list = subjectAdminService.getSubjectEntityListByGroup(group_id);
         }
         list.sort(SubjectComparator.instance);
 
+        viewModel.put("key", key);
         viewModel.put("group_id", group_id);
         viewModel.put("list", list);
 

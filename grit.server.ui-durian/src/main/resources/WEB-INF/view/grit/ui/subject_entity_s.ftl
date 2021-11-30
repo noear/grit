@@ -26,7 +26,7 @@
 <toolbar>
     <div class="center">
         <form>
-        <input type="text" id="key" class="w200">
+        <input type="text" name="key" class="w200" value="${key!}" />
         <button>查询</button>
         </form>
         <a class="btn edit mar10-l" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
