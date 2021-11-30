@@ -45,7 +45,7 @@
         </thead>
         <tbody id="tbody" class="sel_from">
         <#list list as m1>
-            <tr class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}">
+            <tr class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}">
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
                 <td class="left">
