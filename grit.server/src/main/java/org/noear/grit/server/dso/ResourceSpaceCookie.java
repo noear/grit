@@ -17,9 +17,7 @@ public class ResourceSpaceCookie {
 
     public static <T extends ResourceDo> long build(long spaceId, List<T> tags) {
         if (spaceId == 0L) {
-
             spaceId = get();
-
         }
 
         if (spaceId > 0) {

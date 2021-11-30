@@ -1,5 +1,6 @@
 package org.noear.grit.server.ui.controller;
 
+import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.client.comparator.SubjectComparator;
 import org.noear.grit.client.utils.ResourceTreeUtils;
@@ -32,16 +33,6 @@ public class AuthController extends BaseController {
     @Inject
     SubjectAdminService subjectAdminService;
 
-    @Mapping("s")
-    public Object auth_s() throws SQLException {
-        List<SubjectEntity> enityList = subjectAdminService.getSubjectEntityListByAll();
-        enityList.sort(SubjectComparator.instance);
-
-        viewModel.put("group_id", 0L);
-        viewModel.put("enityList", enityList);
-
-        return view("grit/ui/auth_s");
-    }
 
     @Mapping
     public Object home(Long group_id) throws SQLException {
@@ -60,18 +51,29 @@ public class AuthController extends BaseController {
         return view("grit/ui/auth");
     }
 
+    @Mapping("s")
+    public Object auth_s() throws SQLException {
+        List<SubjectEntity> enityList = subjectAdminService.getSubjectEntityListByAll();
+        enityList.sort(SubjectComparator.instance);
+
+        viewModel.put("group_id", 0L);
+        viewModel.put("enityList", enityList);
+
+        return view("grit/ui/auth_s");
+    }
+
     @Mapping("subject.entity.get")
     public Object entity_get(long group_id) throws SQLException {
-        List<SubjectEntity> list = null;
+        List<SubjectEntity> enityList = null;
         if (group_id == 0) {
-            list = subjectAdminService.getSubjectEntityListByAll();
+            enityList = subjectAdminService.getSubjectEntityListByAll();
         } else {
-            list = subjectAdminService.getSubjectEntityListByGroup(group_id);
+            enityList = subjectAdminService.getSubjectEntityListByGroup(group_id);
         }
 
-        list.sort(SubjectComparator.instance);
+        enityList.sort(SubjectComparator.instance);
 
-        return Result.succeed(list);
+        return Result.succeed(enityList);
     }
 
     @Mapping("ajax/save")
@@ -126,6 +128,11 @@ public class AuthController extends BaseController {
         //获取资源空间列表
         List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
         spaceList.sort(ResourceComparator.instance);
+        if(space_id == 0 && GritClient.global().getCurrentSpaceId() > 0){
+            //尝试用当前系统的空间id
+            space_id = GritClient.global().getCurrentSpaceId();
+        }
+
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
