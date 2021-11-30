@@ -8,6 +8,9 @@ import org.noear.solon.Solon;
  */
 public class ApiApp {
     public static void main(String[] args) {
-        Solon.start(ApiApp.class, args);
+        Solon.start(ApiApp.class, args, app -> {
+            app.cfg().loadEnv("grit");
+            app.onError(e -> e.printStackTrace());
+        });
     }
 }
