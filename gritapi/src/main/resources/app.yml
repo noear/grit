@@ -10,8 +10,6 @@ solon.cloud.water:
     load: "grit.yml"
 
 solon.logging.logger:
-  "org.eclipse.jetty.*":
-    level: "WARN"
   "com.zaxxer.hikari.*":
     level: "WARN"
 
