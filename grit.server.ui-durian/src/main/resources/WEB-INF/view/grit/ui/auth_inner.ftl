@@ -101,7 +101,7 @@
                     </strong>
                     ( <a onclick="selNode('g${g.resource_id}',1)">全选</a> | <a onclick="selNode('g${g.resource_id}',0)">反选</a> )
                 </header>
-                <boxlist>
+                <checkbox>
                     <#list resourceList as r>
                         <#if r.resource_pid == g.resource_id>
                             <label><input class="g${g.resource_id}" type="checkbox" name="authRes" value="${r.resource_id}" /><a>${r.display_name}</a></label>
@@ -110,7 +110,7 @@
                             </#if>
                         </#if>
                     </#list>
-                </boxlist>
+                </checkbox>
             </section>
         </#list>
     </form>
