@@ -24,6 +24,8 @@
         }
 
         window.parent.copied = vm.sel_id;
+
+        top.layer.msg('操作成功');
     }
 
     function paste() {
