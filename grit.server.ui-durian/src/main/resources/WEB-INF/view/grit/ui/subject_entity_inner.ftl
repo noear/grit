@@ -26,7 +26,6 @@
 <toolbar>
     <left class="col-4">
         <a class="btn edit" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
-        <button class="minor mar10-l" type="button">添加主体</button>
     </left>
     <right class="col-4">
 
