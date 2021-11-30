@@ -8,6 +8,10 @@
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
+    <style>
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
+    </style>
     <script>
         $(function () {
             if ('${group_id!}') {
@@ -22,10 +26,6 @@
             $("#table").attr('src',"/grit/subject/entity/inner?group_id="+group_id);
         };
     </script>
-    <style>
-        .dis{text-decoration:line-through; color:#888;}
-        .hid{color:#666;}
-    </style>
 </head>
 <body>
 <main>

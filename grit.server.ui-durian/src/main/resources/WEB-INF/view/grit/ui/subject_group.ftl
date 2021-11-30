@@ -10,8 +10,8 @@
     <script src="${js}/layer.js"></script>
     <style>
         datagrid b{color: #8D8D8D;font-weight: normal}
-        .dis{text-decoration:line-through; color:#888;}
-        .hid{color:#666;}
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
     </style>
 </head>
 <script>
@@ -49,7 +49,8 @@
         </thead>
         <tbody id="tbody" class="sel_from">
         <#list list as n1>
-            <tr title="Id: ${n1.subject_id}"  class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}">
+            <tr title="Id: ${n1.subject_id}"
+                class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}">
                 <td><checkbox><label><input type="checkbox" name="sel_id" value="${n1.subject_id}" /><a></a></label></checkbox></td>
                 <td >${n1.order_index}</td>
                 <td class="left">

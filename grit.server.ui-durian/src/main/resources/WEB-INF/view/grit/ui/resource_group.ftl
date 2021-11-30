@@ -8,6 +8,10 @@
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
+    <style>
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
+    </style>
     <script>
         $(function () {
             if ('${space_id!}') {
@@ -28,8 +32,10 @@
     <middle>
         <tree id="tree">
             <ul>
-                <#list list as m>
-                    <li onclick="node_onclick('${m.resource_id}',this)" id="e${m.resource_id}">${m.display_name}</li>
+                <#list list as n1>
+                    <li id="e${n1.resource_id}"
+                        class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}"
+                        onclick="node_onclick('${n1.resource_id}',this)" >${n1.display_name}</li>
                 </#list>
             </ul>
         </tree>

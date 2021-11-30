@@ -10,8 +10,8 @@
     <script src="${js}/layer.js"></script>
     <style>
         datagrid b{color: #8D8D8D;font-weight: normal}
-        .dis{text-decoration:line-through; color:#888;}
-        .hid{color:blue;}
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
 
         section header{line-height: 40px; height: 40px; margin-bottom: 5px;}
         section header a{cursor: default; color: #666;}

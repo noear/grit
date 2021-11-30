@@ -8,6 +8,13 @@
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
+    <style>
+        tree.group{background: #dadde1;}
+        tree.group ul li.sel{background:#eaedf1;}
+
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
+    </style>
     <script>
         function node_show(subject_id){
             $("#table").attr('src',"/grit/auth/inner?subject_id="+subject_id);
@@ -23,13 +30,6 @@
             $('tree li:first').click();
         });
     </script>
-    <style>
-        tree.group{background: #dadde1;}
-        tree.group ul li.sel{background:#eaedf1;}
-
-        .dis{text-decoration:line-through; color:#888;}
-        .hid{color:#666;}
-    </style>
 </head>
 <body>
 <main>
@@ -37,7 +37,9 @@
         <tree id="tree2" class="entity">
             <ul>
                 <#list enityList as n1>
-                    <li id="e${n1.subject_id}" onclick="node2_onclick('${n1.subject_id}',this)">${n1.display_name}</li>
+                    <li id="e${n1.subject_id}"
+                        class="${n1.is_visibled?string("","hid")} ${n1.is_disabled?string("dis","")}"
+                        onclick="node2_onclick('${n1.subject_id}',this)">${n1.display_name}</li>
                 </#list>
             </ul>
         </tree>

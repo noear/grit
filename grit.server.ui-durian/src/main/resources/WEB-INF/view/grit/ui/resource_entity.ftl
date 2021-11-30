@@ -9,8 +9,8 @@
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
     <style>
-        .dis{text-decoration:line-through; color:#888;}
-        .hid{color:#666;}
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
     </style>
     <script>
         $(function () {

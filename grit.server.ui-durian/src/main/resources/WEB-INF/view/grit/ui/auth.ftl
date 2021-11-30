@@ -8,6 +8,13 @@
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
     <script src="${js}/layer.js"></script>
+    <style>
+        tree.group{background: #dadde1;}
+        tree.group ul li.sel{background:#eaedf1;}
+
+        .dis{text-decoration:line-through; color:#aaa;}
+        .hid{color:#888;}
+    </style>
     <script>
         function entity_load(group_id){
             if(!group_id){
@@ -61,13 +68,6 @@
             }
         });
     </script>
-    <style>
-        tree.group{background: #dadde1;}
-        tree.group ul li.sel{background:#eaedf1;}
-
-        .dis{text-decoration:line-through; color:#888;}
-        .hid{color:#666;}
-    </style>
 </head>
 <body>
 <main>
