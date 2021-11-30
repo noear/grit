@@ -42,9 +42,9 @@
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
             <td width="90px" class="left">路径目标</td>
-            <td width="40px" class="left">是否<br/>全屏</td>
-            <td width="40px" class="left">是否<br/>可见</td>
-            <td width="40px" class="left">是否<br/>禁用</td>
+            <td width="60px">是否<br/>全屏</td>
+            <td width="60px">是否<br/>可见</td>
+            <td width="60px">是否<br/>禁用</td>
             <td width="60px">操作</td>
         </tr>
         </thead>

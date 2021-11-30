@@ -41,9 +41,9 @@
             <td width="50px">排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
-            <td width="80px" class="left">是否可见</td>
-            <td width="80px" class="left">是否禁用</td>
-            <td width="140px">操作</td>
+            <td width="60px">是否<br/>可见</td>
+            <td width="60px">是否<br/>禁用</td>
+            <td width="130px">操作</td>
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
@@ -62,7 +62,7 @@
                 <td class="left">${m1.link_uri!}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
-                <td class="op right">
+                <td class="op">
                     <a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
                     |
                     <a href="/grit/resource/edit?group_id=${m1.resource_id}&type=1" class="t2">新增下级</a>

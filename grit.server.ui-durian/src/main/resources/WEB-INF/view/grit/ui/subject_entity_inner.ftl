@@ -39,8 +39,8 @@
             <td width="50px">排序</td>
             <td width="200px" class="left">登录名</td>
             <td class="left">显示名</td>
-            <td width="80px" class="left">是否可见</td>
-            <td width="80px" class="left">是否禁用</td>
+            <td width="60px">是否<br/>可见</td>
+            <td width="60px">是否<br/>禁用</td>
             <td width="60px">操作</td>
         </tr>
         </thead>
