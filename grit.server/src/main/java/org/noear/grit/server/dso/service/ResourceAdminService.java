@@ -112,17 +112,22 @@ public interface ResourceAdminService {
      * 删除资源关联
      *
      * @param subjectId 主体Id
+     * @param resourceSpaceId   资源空间Id
      */
-    void delResourceLinkBySubject(long subjectId) throws SQLException;
+    void delResourceLinkBySubjectBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
      * 获取资源关联（仅自己的）
-     * */
+     *
+     * @param subjectId 主体Id
+     */
     List<ResourceLinkedDo> getResourceLinkListBySubjectSlf(long subjectId) throws SQLException;
 
 
     /**
      * 获取资源关联（自己的 + 继承的）
-     * */
+     *
+     * @param subjectId 主体Id
+     */
     List<ResourceLinkedDo> getResourceLinkListBySubjectAll(long subjectId) throws SQLException;
 }

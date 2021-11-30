@@ -247,11 +247,17 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     }
 
     @Override
-    public void delResourceLinkBySubject(long subjectId) throws SQLException {
-        db.table("grit_resource_linked")
-                .whereEq("subject_id", subjectId)
+    public void delResourceLinkBySubjectBySpace(long subjectId, long resourceSpaceId) throws SQLException {
+//        db.sql("DELETE l FROM grit_resource_linked l,grit_resource r WHERE l.subject_id=? AND r.subject_sid=?", subjectId, resourceSpaceId)
+//                .execute();
+
+        db.table("l").from("grit_resource_linked l,grit_resource r")
+                .whereEq("l.subject_id", subjectId)
+                .and("l.resource_id=r.resource_id")
+                .andEq("r.resource_sid", resourceSpaceId)
                 .delete();
     }
+
 
     /**
      * 获取资源关联（仅自己的）

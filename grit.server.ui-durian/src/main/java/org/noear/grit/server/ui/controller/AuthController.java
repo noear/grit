@@ -76,31 +76,10 @@ public class AuthController extends BaseController {
         return Result.succeed(enityList);
     }
 
-    @Mapping("ajax/save")
-    public Object auth_save(long subject_id, int subject_type, String authRes) throws SQLException {
-        if (subject_id == 0) {
-            return Result.failure();
-        }
-
-        //先清
-        resourceAdminService
-                .delResourceLinkBySubject(subject_id);
-
-        //批插
-        if (Utils.isNotEmpty(authRes)) {
-            List<Long> resIds = Arrays.stream(authRes.split(",")).map(s -> Long.parseLong(s))
-                    .collect(Collectors.toList());
-
-            resourceAdminService
-                    .addResourceLinkBySubject(subject_id, subject_type, resIds);
-        }
-
-        return Result.succeed();
-    }
 
     @Mapping("inner")
     public Object inner(long subject_id, long space_id) throws SQLException {
-        if(subject_id == 0){
+        if (subject_id == 0) {
             return null;
         }
 
@@ -128,7 +107,7 @@ public class AuthController extends BaseController {
         //获取资源空间列表
         List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
         spaceList.sort(ResourceComparator.instance);
-        if(space_id == 0 && GritClient.global().getCurrentSpaceId() > 0){
+        if (space_id == 0 && GritClient.global().getCurrentSpaceId() > 0) {
             //尝试用当前系统的空间id
             space_id = GritClient.global().getCurrentSpaceId();
         }
@@ -156,4 +135,26 @@ public class AuthController extends BaseController {
         return view("grit/ui/auth_inner");
     }
 
+
+    @Mapping("ajax/save")
+    public Object auth_save(long subject_id, int subject_type, long space_id, String authRes) throws SQLException {
+        if (subject_id == 0) {
+            return Result.failure();
+        }
+
+        //先清
+        resourceAdminService
+                .delResourceLinkBySubjectBySpace(subject_id, space_id);
+
+        //批插
+        if (Utils.isNotEmpty(authRes)) {
+            List<Long> resIds = Arrays.stream(authRes.split(",")).map(s -> Long.parseLong(s))
+                    .collect(Collectors.toList());
+
+            resourceAdminService
+                    .addResourceLinkBySubject(subject_id, subject_type, resIds);
+        }
+
+        return Result.succeed();
+    }
 }
