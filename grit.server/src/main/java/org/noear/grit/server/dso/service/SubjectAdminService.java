@@ -25,7 +25,7 @@ public interface SubjectAdminService {
     /**
      * 添加主体，并关联分组
      *
-     * @param subject  主体实体
+     * @param subject        主体实体
      * @param subjectGroupId 分组的主体Id
      */
     long addSubjectEntity(SubjectDo subject, long subjectGroupId) throws SQLException;
@@ -98,7 +98,16 @@ public interface SubjectAdminService {
     /**
      * 删除主体连接
      *
-     * @param linkIds 主体Ids
+     * @param subjectId      主体Id
+     * @param subjectGroupId 分组的主体Id
      */
-    void delSubjectLink(long... linkIds) throws SQLException;
+    boolean delSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
+
+    /**
+     * 检查是否存在主体连接
+     *
+     * @param subjectId      主体Id
+     * @param subjectGroupId 分组的主体Id
+     */
+    boolean hasSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
 }

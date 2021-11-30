@@ -15,6 +15,44 @@
     </style>
 </head>
 <script>
+    let group_id = ${group_id!0};
+    function copy() {
+        var vm = formToMap('#tbody');
+        if (!vm.sel_id) {
+            alert("没有已选择的主体");
+            return
+        }
+
+        window.parent.copied = vm.sel_id;
+    }
+
+    function paste() {
+        if (!window.parent.copied) {
+            alert("没有已复制的主体");
+        }
+
+        let vm = {};
+        vm.subject_ids = window.parent.copied;
+        vm.group_id = group_id;
+
+        $.ajax({
+            type:"POST",
+            url:"/grit/subject/edit/ajax/paste",
+            data:vm,
+            success:function (data) {
+                if(data.code==200) {
+                    top.layer.msg('操作成功');
+
+                    setTimeout(function(){
+                        location.reload();
+                    },800);
+                }else{
+                    top.layer.msg(data.msg);
+                }
+            }
+        });
+    }
+
     $(function(){
         $('#sel_all').change(function(){
             var ckd= $(this).prop('checked');
@@ -26,8 +64,10 @@
 <toolbar>
     <flex>
         <left class="col-3">
-            <button class="minor">复制</button>
-            <button class="minor">粘贴</button>
+            <a class="btn minor" onclick="copy()">复制</a>
+            <#if group_id == 0>
+            <a class="btn minor" onclick="paste()">粘贴</a>
+            </#if>
         </left>
         <mid class="col-6 center">
             <#if group_id == 0>

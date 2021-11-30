@@ -9,8 +9,11 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Result;
+import org.noear.solon.validation.annotation.NotEmpty;
+import org.noear.solon.validation.annotation.NotZero;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 /**
  * @author noear
@@ -81,6 +84,26 @@ public class SubjectController extends BaseController {
             } else {
                 subjectAdminService
                         .addSubject(subject);
+            }
+        }
+
+        return Result.succeed();
+    }
+
+    @NotEmpty("subject_ids")
+    @Mapping("edit/ajax/paste")
+    public Object edit_ajax_paste(long group_id,String subject_ids) throws SQLException {
+        if (group_id == 0) {
+            return Result.failure();
+        }
+
+        String[] idStrAry = subject_ids.split(",");
+        for (String idStr : idStrAry) {
+            if (Utils.isNotEmpty(idStr)) {
+                long subjectId = Long.parseLong(idStr);
+                if (subjectAdminService.hasSubjectLink(subjectId, group_id) == false) {
+                    subjectAdminService.addSubjectLink(subjectId, group_id);
+                }
             }
         }
 

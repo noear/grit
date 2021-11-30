@@ -436,7 +436,7 @@ radio input + a::before,checkbox input + a::before{content: "\a0";display: inlin
 radio input + a::before{border-radius: 50%;}
 radio input:checked + a::before{background-color: #0066cc; border-color:#0066cc; background-clip: content-box;padding: .2em;}
 
-checkbox input:checked + a::before{content: "✔";color: #0066cc; border-color:#0066cc; background-clip: content-box;}
+checkbox input:checked + a::before{content: "✓";color: #0066cc; border-color:#0066cc; background-clip: content-box;}
 
 boxlist{display: block;}
 boxlist label{cursor: default;  position: relative;}

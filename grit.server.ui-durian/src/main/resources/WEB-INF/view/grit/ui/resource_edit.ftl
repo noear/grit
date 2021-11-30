@@ -43,7 +43,8 @@
                 data:vm,
                 success:function (data) {
                     if(data.code==200) {
-                        top.layer.msg('操作成功')
+                        top.layer.msg('操作成功');
+
                         setTimeout(function(){
                             if(resource_type == 2){
                                 location.href="/grit/resource/space";
