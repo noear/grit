@@ -3,8 +3,10 @@ package org.noear.grit.server.controller;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.Subject;
+import org.noear.grit.model.type.SubjectType;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.SubjectService;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Before;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -162,6 +164,29 @@ public class SubjectServiceImpl implements SubjectService {
             //用户不存在；或密码不对；
             return 1;
         }
+    }
+
+    @Override
+    public long regSubject(String loginName, String loginPassword, String displayName) throws SQLException {
+        Subject subject = new Subject();
+        subject.subject_pid = -1L;
+        subject.login_name = loginName;
+        subject.login_password = loginPassword;
+
+        if (Utils.isNotEmpty(subject.login_password)) {
+            subject.login_password = GritUtil.buildPassword(subject.login_name, subject.login_password);
+        } else {
+            subject.login_password = ""; //即不改
+        }
+
+        subject.gmt_create = System.currentTimeMillis();
+        subject.gmt_modified = subject.gmt_create;
+
+        return db.table("grit_subject")
+                .setEntity(subject)
+                .usingNull(false)
+                .usingExpr(false)
+                .insert();
     }
 
     /**

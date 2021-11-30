@@ -23,6 +23,6 @@ public class ErrorEventListener implements EventListener<Throwable> {
             TagsMDC.tag1(ctx.path());
         }
 
-        log.error("bcfdock {}", err);
+        log.error("gritdock {}", err);
     }
 }

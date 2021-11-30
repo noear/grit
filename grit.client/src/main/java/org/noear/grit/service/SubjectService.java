@@ -70,6 +70,15 @@ public interface SubjectService {
     int modSubjectPassword(String loginName, String loginPassword, String newLoginPassword) throws SQLException;
 
     /**
+     * 注册主体
+     *
+     * @param loginName        用户登录名
+     * @param loginPassword    登录密码
+     * @param displayName 显示名
+     * */
+    long regSubject(String loginName, String loginPassword, String displayName) throws SQLException;
+
+    /**
      * 设置主体密码
      *
      * @param loginName        用户登录名

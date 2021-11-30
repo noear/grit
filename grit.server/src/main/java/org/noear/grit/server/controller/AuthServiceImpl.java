@@ -55,8 +55,8 @@ public class AuthServiceImpl implements AuthService {
                 Subject subject = GritClient.global().subject().getSubjectByLoginName(loginName);
 
                 if (subject.subject_id == null || subject.subject_id == 0) {
-                    //如果bcf没有这个账号，则虚拟一个
-                    subject.subject_id = Long.MAX_VALUE;
+                    //如果b没有这个账号，则创建一个
+                    subject.subject_id = GritClient.global().subject().regSubject(loginName,loginPassword,person.getDisplayName());
                     subject.login_name = loginName;
                     subject.display_name = person.getDisplayName();
                 }
