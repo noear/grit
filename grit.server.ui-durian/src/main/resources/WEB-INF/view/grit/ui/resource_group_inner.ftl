@@ -41,7 +41,6 @@
             <td width="50px">排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
-            <td width="100px" class="left">备注</td>
             <td width="80px" class="left">是否可见</td>
             <td width="80px" class="left">是否禁用</td>
             <td width="140px">操作</td>
@@ -61,7 +60,6 @@
                     </#if>
                 </td>
                 <td class="left">${m1.link_uri!}</td>
-                <td class="left">${m1.remark!}</td>
                 <td >${m1.is_visibled?string("True","")}</td>
                 <td >${m1.is_disabled?string("True","")}</td>
                 <td class="op right">
