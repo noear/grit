@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
             return Result.failure("提示：请输入账号和密码！");
         }
 
-        String user0 = Solon.cfg().get("gritadmin.user", "");
+        String user0 = Solon.cfg().get("gritadmin.user", "admin");
         String password0 = Solon.cfg().get("gritadmin.password", "");
 
         boolean isLogin = (user0.equals(userName) && password0.equals(passWord));
