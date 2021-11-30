@@ -25,7 +25,7 @@
 <body>
 <toolbar>
         <left class="col-4">
-            <a class="btn edit mar10-l" href="/grit/resource/edit?type=2">新增空间</a>
+            <a class="btn edit" href="/grit/resource/edit?type=2">新增空间</a>
         </left>
         <right class="col-4">
 

@@ -29,7 +29,7 @@
 <body>
 <toolbar>
     <left class="col-4">
-        <a class="btn edit mar10-l" href="/grit/subject/edit?type=1">新增分组</a>
+        <a class="btn edit" href="/grit/subject/edit?type=1">新增分组</a>
     </left>
     <right class="col-4">
 
