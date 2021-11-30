@@ -15,6 +15,7 @@ import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -204,19 +205,6 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
                 .insert();
     }
 
-    /**
-     * 删除主体连接
-     *
-     * @param subjectId      主体Id
-     * @param subjectGroupId 分组的主体Id
-     */
-    @Override
-    public boolean delSubjectLink(long subjectId, long subjectGroupId) throws SQLException {
-        return db.table("grit_subject_linked")
-                .whereEq("subject_id", subjectId)
-                .andEq("group_subject_id", subjectGroupId)
-                .delete() > 0;
-    }
 
     /**
      * 检查是否存在主体连接
@@ -230,5 +218,19 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
                 .whereEq("subject_id", subjectId)
                 .andEq("group_subject_id", subjectGroupId)
                 .selectExists();
+    }
+
+    /**
+     * 删除主体连接
+     *
+     * @param subjectIds     主体Ids
+     * @param subjectGroupId 分组的主体Id
+     */
+    @Override
+    public boolean delSubjectLinkBySubjects(Collection<Long> subjectIds, long subjectGroupId) throws SQLException {
+        return db.table("grit_subject_linked")
+                .whereIn("subject_id", subjectIds)
+                .andEq("group_subject_id", subjectGroupId)
+                .delete() > 0;
     }
 }

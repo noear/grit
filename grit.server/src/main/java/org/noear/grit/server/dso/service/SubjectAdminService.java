@@ -6,6 +6,7 @@ import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -96,18 +97,19 @@ public interface SubjectAdminService {
     long addSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
 
     /**
-     * 删除主体连接
-     *
-     * @param subjectId      主体Id
-     * @param subjectGroupId 分组的主体Id
-     */
-    boolean delSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
-
-    /**
      * 检查是否存在主体连接
      *
      * @param subjectId      主体Id
      * @param subjectGroupId 分组的主体Id
      */
     boolean hasSubjectLink(long subjectId, long subjectGroupId) throws SQLException;
+
+
+    /**
+     * 删除主体连接
+     *
+     * @param subjectIds     主体Ids
+     * @param subjectGroupId 分组的主体Id
+     */
+    boolean delSubjectLinkBySubjects(Collection<Long> subjectIds, long subjectGroupId) throws SQLException;
 }

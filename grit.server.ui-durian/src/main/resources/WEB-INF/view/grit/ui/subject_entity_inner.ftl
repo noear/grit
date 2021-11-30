@@ -17,7 +17,7 @@
 <script>
     let group_id = ${group_id!0};
     function copy() {
-        var vm = formToMap('#tbody');
+        let vm = formToMap('#tbody');
         if (!vm.sel_id) {
             alert("没有已选择的主体");
             return
@@ -33,14 +33,41 @@
             alert("没有已复制的主体");
         }
 
-        let vm = {};
-        vm.subject_ids = window.parent.copied;
-        vm.group_id = group_id;
-
         $.ajax({
             type:"POST",
             url:"/grit/subject/edit/ajax/paste",
-            data:vm,
+            data: {
+                subject_ids: window.parent.copied,
+                group_id:group_id
+            },
+            success:function (data) {
+                if(data.code==200) {
+                    top.layer.msg('操作成功');
+
+                    setTimeout(function(){
+                        location.reload();
+                    },800);
+                }else{
+                    top.layer.msg(data.msg);
+                }
+            }
+        });
+    }
+
+    function remove(){
+        let vm = formToMap('#tbody');
+        if (!vm.sel_id) {
+            alert("没有已选择的主体");
+            return
+        }
+
+        $.ajax({
+            type:"POST",
+            url:"/grit/subject/edit/ajax/remove",
+            data:{
+                subject_ids:vm.sel_id,
+                group_id:group_id
+            },
             success:function (data) {
                 if(data.code==200) {
                     top.layer.msg('操作成功');
@@ -68,7 +95,8 @@
         <left class="col-3">
             <a class="btn minor" onclick="copy()">复制</a>
             <#if group_id gt 0>
-            <a class="btn minor" onclick="paste()">粘贴</a>
+                <a class="btn minor" onclick="paste()">粘贴</a>
+                <a class="btn minor" onclick="remove()">移除</a>
             </#if>
         </left>
         <mid class="col-6 center">

@@ -14,6 +14,8 @@ import org.noear.solon.validation.annotation.NotZero;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author noear
@@ -105,6 +107,29 @@ public class SubjectController extends BaseController {
                     subjectAdminService.addSubjectLink(subjectId, group_id);
                 }
             }
+        }
+
+        return Result.succeed();
+    }
+
+    @NotEmpty("subject_ids")
+    @Mapping("edit/ajax/remove")
+    public Object edit_ajax_remove(long group_id,String subject_ids) throws SQLException {
+        if (group_id == 0) {
+            return Result.failure();
+        }
+
+        Set<Long> subjectIds = new HashSet<>();
+        String[] idStrAry = subject_ids.split(",");
+        for (String idStr : idStrAry) {
+            if (Utils.isNotEmpty(idStr)) {
+                long subjectId = Long.parseLong(idStr);
+                subjectIds.add(subjectId);
+            }
+        }
+
+        if (subjectIds.size() > 0) {
+            subjectAdminService.delSubjectLinkBySubjects(subjectIds, group_id);
         }
 
         return Result.succeed();
