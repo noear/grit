@@ -1,4 +1,7 @@
-server.port: 7282
+server:
+  port: 7282
+  session:
+    timeout: 7200
 
 solon.extend: "gritadmin_ext"
 
