@@ -9,7 +9,7 @@ solon.app:
 solon.cloud.water:
   server: "waterapi:9371"
   config:
-    load: "grit.yml,gritadmin.yml"
+    load: "grit.yml"
 
 solon.logging.logger:
   "org.eclipse.jetty.*":
