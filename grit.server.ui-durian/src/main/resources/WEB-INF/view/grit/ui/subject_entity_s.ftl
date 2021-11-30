@@ -35,7 +35,6 @@
     <table>
         <thead>
         <tr>
-            <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
             <td width="50px">排序</td>
             <td class="left">显示名</td>
             <td width="50px">是否<br/>可见</td>
@@ -46,7 +45,6 @@
         <tbody id="tbody" class="sel_from">
         <#list list as m1>
             <tr class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}">
-                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.subject_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
                 <td class="left">
                     ${m1.display_name!}
