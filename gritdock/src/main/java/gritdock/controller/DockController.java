@@ -114,10 +114,10 @@ public class DockController extends BaseController {
 
             //如果还没有域尝试从根包获取
             if (newUrl.indexOf("://") < 0) {
-                Resource pack = GritClient.global().resource().getResourceByUri(p);
+                Resource resourceByCode = GritClient.global().resource().getResourceByCode(p);
 
-                if (Utils.isEmpty(pack.link_uri) == false) {
-                    newUrl = pack.link_uri + fun_url;
+                if (Utils.isEmpty(resourceByCode.link_uri) == false) {
+                    newUrl = resourceByCode.link_uri + fun_url;
                     //记录cookie
                 }
             }
