@@ -1,6 +1,7 @@
 package org.noear.grit.server.controller;
 
 import org.noear.grit.client.GritClient;
+import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.*;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.AuthService;
@@ -165,7 +166,13 @@ public class AuthServiceImpl implements AuthService {
         //获取实体相关的所有主体Id
         List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
-        return GritClient.global().resourceLink().getResourceEntityListBySubjectsAndGroup(subjectIds, resourceGroupId, true);
+        List<ResourceEntity> list = GritClient.global().resourceLink()
+                .getResourceEntityListBySubjectsAndGroup(subjectIds, resourceGroupId, true);
+
+        //排序
+        list.sort(ResourceComparator.instance);
+
+        return list;
     }
 
     /**
