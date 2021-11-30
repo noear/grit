@@ -65,7 +65,7 @@
     <flex>
         <left class="col-3">
             <a class="btn minor" onclick="copy()">复制</a>
-            <#if group_id == 0>
+            <#if group_id gt 0>
             <a class="btn minor" onclick="paste()">粘贴</a>
             </#if>
         </left>
