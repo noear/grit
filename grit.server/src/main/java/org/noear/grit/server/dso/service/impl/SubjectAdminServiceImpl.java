@@ -156,6 +156,17 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
     }
 
     @Override
+    public List<SubjectEntity> getSubjectEntityListByFind(String key) throws SQLException {
+        String likeKey = "%" + key + "%";
+
+        return db.table("grit_subject")
+                .whereEq("subject_type", SubjectType.entity.code)
+                .and("(login_name LIKE ? OR display_name LIKE ?)", likeKey, likeKey)
+                .limit(200)
+                .selectList("*", SubjectEntity.class);
+    }
+
+    @Override
     public List<SubjectEntity> getSubjectEntityListByGroup(long subjectGroupId) throws SQLException {
         return db.table("grit_subject_linked l")
                 .innerJoin("grit_subject s")

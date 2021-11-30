@@ -66,6 +66,11 @@ public interface SubjectAdminService {
 
     /**
      * 获取管理用的资源实体列表
+     */
+    List<SubjectEntity> getSubjectEntityListByFind(String key) throws SQLException;
+
+    /**
+     * 获取管理用的资源实体列表
      *
      * @param subjectGroupId 主体组Id
      */
