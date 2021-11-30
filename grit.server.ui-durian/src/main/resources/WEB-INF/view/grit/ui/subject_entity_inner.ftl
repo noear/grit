@@ -54,8 +54,8 @@
                         (${m1.login_name!})
                     </#if>
                 </td>
-                <td >${m1.is_visibled?string("True","")}</td>
-                <td >${m1.is_disabled?string("True","")}</td>
+                <td >${m1.is_visibled?string("Yes","")}</td>
+                <td >${m1.is_disabled?string("Yes","")}</td>
                 <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
             </tr>
         </#list>

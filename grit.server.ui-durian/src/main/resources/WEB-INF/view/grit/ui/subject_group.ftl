@@ -60,8 +60,8 @@
                         (${n1.subject_code!})
                     </#if>
                 </td>
-                <td >${n1.is_visibled?string("True","")}</td>
-                <td >${n1.is_disabled?string("True","")}</td>
+                <td >${n1.is_visibled?string("Yes","")}</td>
+                <td >${n1.is_disabled?string("Yes","")}</td>
                 <td class="op">
                     <a href="/grit/subject/edit?subject_id=${n1.subject_id}" class="t2">编辑</a>
                     |

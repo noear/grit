@@ -57,7 +57,7 @@
                     </#if>
                 </td>
                 <td class="left">${m1.link_uri!}</td>
-                <td >${m1.is_visibled?string("True","")}</td>
+                <td >${m1.is_visibled?string("Yes","")}</td>
                 <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
