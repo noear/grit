@@ -1,5 +1,7 @@
 server.port: 7282
 
+solon.extend: "gritadmin_ext"
+
 solon.app:
   name: gritadmin
   group: grit
