@@ -39,7 +39,7 @@
             <td width="50px">排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
-            <td width="60px">是否<br/>可见</td>
+            <td width="50px">是否<br/>可见</td>
             <td width="60px">操作</td>
         </tr>
         </thead>

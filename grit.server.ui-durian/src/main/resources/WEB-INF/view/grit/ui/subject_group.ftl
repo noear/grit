@@ -42,8 +42,8 @@
             <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
             <td width="50px">排序</td>
             <td class="left">显示名</td>
-            <td width="60px">是否<br/>可见</td>
-            <td width="60px">是否<br/>禁用</td>
+            <td width="50px">是否<br/>可见</td>
+            <td width="50px">是否<br/>禁用</td>
             <td width="130px">操作</td>
         </tr>
         </thead>
