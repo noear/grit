@@ -296,6 +296,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
                 .andEq("r.is_disabled", 0)
+                .groupBy("r.resource_id")
                 .limit(1)
                 .caching(cache)
                 .selectItem("r.*", ResourceEntity.class);
