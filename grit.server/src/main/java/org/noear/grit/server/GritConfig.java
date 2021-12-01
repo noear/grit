@@ -15,6 +15,7 @@ import org.noear.solon.data.cache.CacheService;
 import org.noear.solon.data.cache.LocalCacheService;
 import org.noear.weed.DbContext;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
@@ -35,13 +36,17 @@ public class GritConfig {
 
     @Bean("grit.db")
     public DbContext db(@Inject("${grit.db}") Properties props) {
-        String url = props.getProperty("url");
-        if (Utils.isNotEmpty(url)) {
-            props.setProperty("jdbcUrl", url);
-        }
-        props.remove("url");
+        if (props.size() > 0) {
+            String url = props.getProperty("url");
+            if (Utils.isNotEmpty(url)) {
+                props.setProperty("jdbcUrl", url);
+            }
+            props.remove("url");
 
-        return new DbContext(new HikariDataSource(new HikariConfig(props)));
+            return new DbContext(new HikariDataSource(new HikariConfig(props)));
+        } else {
+            return null;
+        }
     }
 
     @Bean
@@ -54,8 +59,12 @@ public class GritConfig {
     }
 
     @Bean
-    public GritClient gritClient(@Inject GritClientLocalImpl clientLocal) {
-        GritClient.setGlobal(clientLocal);
-        return clientLocal;
+    public GritClient gritClient(@Inject("grit.db") DataSource ds, @Inject GritClientLocalImpl clientLocal) {
+        if (ds != null) {
+            GritClient.setGlobal(clientLocal);
+            return clientLocal;
+        } else {
+            return null;
+        }
     }
 }
