@@ -1,6 +1,6 @@
 
 #
-# for server
+# for server（建议将此配置放到配置中心）
 #
 grit.cache:
   driverType: "redis"
@@ -23,7 +23,7 @@ grit.ldap:
   groupFilter: "cn=%s"
 
 #
-# for client
+# for client（建议将此配置放到配置中心）
 #
 grit.server: "http://gritadmin:8080"
 grit.token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
