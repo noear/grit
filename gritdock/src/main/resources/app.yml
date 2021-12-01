@@ -1,4 +1,4 @@
-server.port: 7283
+server.port: 7282
 
 solon.extend: "gritdock_ext"
 

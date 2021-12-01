@@ -1,5 +1,5 @@
 server:
-  port: 7282
+  port: 7281
   session:
     timeout: 7200
 

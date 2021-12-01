@@ -22,7 +22,6 @@
         <module>grit-parent</module>
 
         <module>gritadmin</module>
-        <module>gritapi</module>
         <module>gritdock</module>
 
         <module>example/example1</module>
