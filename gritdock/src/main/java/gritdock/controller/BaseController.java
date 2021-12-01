@@ -25,9 +25,9 @@ public abstract class BaseController {
         viewModel.put("app", Config.title());
         viewModel.put("env", Config.evn());
 
-        viewModel.put("css", "/css");
-        viewModel.put("js", "/js");
-        viewModel.put("img", "/img");
+        viewModel.put("css", "/_static/css");
+        viewModel.put("js", "/_static/js");
+        viewModel.put("img", "/_static/img");
 
 
         viewModel.put("timenow", Datetime.Now().toString("(yyyy-MM-dd HH:mm Z)"));

@@ -107,7 +107,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             buf.append(temp);
             buf.append("</t>");
         }
-        buf.append("<a onclick='_dock_home_open();'><img src='/img/app_w.png'/></a>");
+        buf.append("<a onclick='_dock_home_open();'><img src='/_static/img/app_w.png'/></a>");
 
         buf.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
         buf.append("</aside>");

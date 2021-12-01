@@ -69,7 +69,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
 
         buf.append("<menu>");
-        buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/img/menu_w.png'/></div>");
+        buf.append("<div onclick=\"$('main').toggleClass('smlmenu');if(window.onMenuHide){window.onMenuHide();}\"><img src='/_static/img/menu_w.png'/></div>");
         buf.append("<items>");
 
         List<ResourceEntity> resList = GritClient.global().auth().getUriListByGroup(userId, resourceGroupId);
