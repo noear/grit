@@ -9,10 +9,10 @@
 
 ## 二、部署服务说明
 
-| 服务 | 说明 |  镜像 |
-| -------- | -------- |  -------- | 
-| gritadmin   | Grit 权限管理，并提供 gritapi rpc 服务    |  noearorg/gritadmin | 
-| gritdock    | 多系统菜单导航平台（可做为演示账号与权限效果）     |  noearorg/gritdock | 
+| 服务 | 说明                      |  镜像 |
+| -------- |-------------------------|  -------- | 
+| gritadmin   | Grit 权限管理，并提供远程接口服务     |  noearorg/gritadmin | 
+| gritdock    | 多系统菜单导航平台（可做为演示账号与权限效果） |  noearorg/gritdock | 
 
 ## 三、初始化数据库
 
