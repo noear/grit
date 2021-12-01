@@ -43,7 +43,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             return;
         }
 
-        List<ResourceGroup> list = GritClient.global().auth().getUriGroupListBySpace(userId);
+        List<ResourceGroup> list = GritClient.global().auth().getUriGroupList(userId);
 
         if (list.size() == 0) {
             ctx.redirect("/login");

@@ -38,7 +38,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
 
         StringBuilder sb = new StringBuilder();
 
-        List<ResourceGroup> plist = GritClient.global().auth().getUriGroupListBySpace(userId);
+        List<ResourceGroup> plist = GritClient.global().auth().getUriGroupList(userId);
         long packID = 0;
         for (ResourceGroup p : plist) {
             if (cPath.indexOf(p.link_uri) == 0) {
