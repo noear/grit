@@ -94,6 +94,7 @@ public class SubjectServiceImpl implements SubjectService {
         String loginPasswordHash = GritUtil.buildPassword(loginName, loginPassword);
 
         return db.table("grit_subject")
+                .log(true)
                 .whereEq("login_name", loginName)
                 .andEq("login_password", loginPasswordHash)
                 .andEq("is_disabled", 0)
