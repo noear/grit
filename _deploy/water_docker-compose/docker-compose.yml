@@ -14,7 +14,7 @@ services:
       - gritadmin.password=SykSYLWN9WTpzCHq       # Grit 管理密码
       - TZ=Asia/Shanghai
     ports:
-      - 7282:8080
+      - 7281:7281
   gritdock:
     image: noearorg/gritdock:latest
     container_name: gritdock
@@ -22,4 +22,4 @@ services:
       - solon.cloud.water.server=waterapi:9371    # Water 服务地址
       - TZ=Asia/Shanghai
     ports:
-      - 7283:8080
+      - 7282:8080

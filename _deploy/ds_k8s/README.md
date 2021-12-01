@@ -21,8 +21,8 @@
 ## 四、开始部署服务
 
 * 添加 water/gritadmin 服务（镜像：noearorg/gritadmin:latest）
-  * 镜像端口：8080
-  * 对外端口：7282
+  * 镜像端口：7281
+  * 对外端口：7281
   * 建议2个副本起步
   * 要配置外网访问地址，建议加域名
   
@@ -46,6 +46,6 @@
 
   ```properties
   #添加环境变量：
-  grit.server=gritadmin:7282 
+  grit.server=gritadmin:7281 
   grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j
   ```
