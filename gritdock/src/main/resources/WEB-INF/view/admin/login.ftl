@@ -59,13 +59,13 @@
         <form method="post">
             <table>
                 <tr><th width="60px;">账号：</th>
-                    <td colspan="2"><input type="text" name="userName" placeholder="用户名"/></td>
+                    <td colspan="2"><input type="text" name="admin_userName" placeholder="用户名"/></td>
                 </tr>
                 <tr><th>密码：</th>
-                    <td colspan="2"> <input type="password" name="passWord" placeholder="密码"/></td>
+                    <td colspan="2"> <input type="password" name="admin_passWord" placeholder="密码"/></td>
                 </tr>
                 <tr><th>验证码：</th>
-                    <td><input type="text" name="validationCode"/></td>
+                    <td><input type="text" name="captcha" autocomplete="off"/></td>
                     <td style="width: 60px; padding-left: 10px;"><img src="/grit/login/validation/img" onclick="reloadimg(this)"/></td>
                 </tr>
 

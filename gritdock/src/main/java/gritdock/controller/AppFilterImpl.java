@@ -58,7 +58,11 @@ public class AppFilterImpl implements Filter {
         //for grit admin
         if (path.startsWith("/grit/")) {
             //有会话账号能过
-            if (Utils.isNotEmpty(ctx.session("grit_admin", ""))) {
+            String user0 = Solon.cfg().get("gritadmin.user", "admin");
+            String password0 = Solon.cfg().get("gritadmin.password", "");
+            String admin_token = Utils.md5(user0 + "#" + password0);
+
+            if (admin_token.equals(ctx.session("grit_admin_token", ""))) {
                 return true;
             }
 

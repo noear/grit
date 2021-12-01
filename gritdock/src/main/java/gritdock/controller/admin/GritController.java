@@ -60,27 +60,28 @@ public class GritController {
 
     //ajax.path like "{view}/ajax/{cmd}"
     @Mapping("/login/ajax/check")
-    public Result login_ajax_check(String userName, String passWord, String validationCode, Context ctx) throws Exception {
+    public Result login_ajax_check(String admin_userName, String admin_passWord, String captcha, Context ctx) throws Exception {
 
         //验证码检查
-        if (!validationCode.toLowerCase().equals(getValidation())) {
+        if (!captcha.toLowerCase().equals(getValidation())) {
             return Result.failure("提示：验证码错误！");
         }
 
-        if (Utils.isEmpty(userName) || Utils.isEmpty(passWord)) {
+        if (Utils.isEmpty(admin_userName) || Utils.isEmpty(admin_passWord)) {
             return Result.failure("提示：请输入账号和密码！");
         }
 
         String user0 = Solon.cfg().get("gritadmin.user", "admin");
         String password0 = Solon.cfg().get("gritadmin.password", "");
 
-        boolean isLogin = (user0.equals(userName) && password0.equals(passWord));
+        boolean isLogin = (user0.equals(admin_userName) && password0.equals(admin_passWord));
 
 
         if (isLogin == false)
             return Result.failure("提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
         else {
-            ctx.sessionSet("grit_user", user0);
+            String admin_token = Utils.md5(user0 + "#" + password0);
+            ctx.sessionSet("grit_admin_token", admin_token);
 
             return Result.succeed("/grit/");
         }
