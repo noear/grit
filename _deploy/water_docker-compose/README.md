@@ -1,4 +1,4 @@
-# Grit docker-compose 模式部署说明
+# Grit docker-compose 模式部署说明 (for water)
 
 ## 请在完整的看完文档后，再开始动手!!!
 
@@ -11,7 +11,7 @@
 | 服务 | 说明 |  镜像 |
 | -------- | -------- |  -------- | 
 | gritadmin   | Grit 权限管理，并提供 gritapi rpc 服务    |  noearorg/gritadmin | 
-| gritdock    | 多系统菜单导航平台     |  noearorg/gritdock | 
+| gritdock    | 多系统菜单导航平台（可做为演示账号与权限效果）     |  noearorg/gritdock | 
 
 
 ## 三、开始部署服务

@@ -1,4 +1,4 @@
-# Grit k8s 模式部署说明
+# Grit k8s 模式部署说明 (for water)
 
 ## 请在完整的看完文档后，再开始动手!!!
 
@@ -20,6 +20,7 @@
 * 添加 water/gritadmin 服务（镜像：noearorg/gritadmin:latest）
   * 镜像端口：8080
   * 建议2个副本起步
+  * 要配置外网访问地址，建议加域名
 
 * 添加 water/gritdock 服务（镜像：noearorg/gritdock:latest）
   * 镜像端口：8080
