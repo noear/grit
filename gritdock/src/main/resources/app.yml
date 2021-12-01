@@ -1,4 +1,4 @@
-server.port: 7282
+server.port: 7281
 
 solon.extend: "gritdock_ext"
 
@@ -9,21 +9,23 @@ solon.app:
 
 
 # 使用配置服务（可以换成任何 solon cloud 的其它配置服务组件）
-#solon.cloud.water:
-#  server: "waterapi:9371"
-#  config:
-#    load: "grit.yml,gritclient.yml,gritdock.yml"
+solon.cloud.water:
+  server: "waterapi:9371"
+  config:
+    load: "grit.yml,gritclient.yml"
 
-# 使用直接配置，用 Rpc + Token 方式访问（会优先被使用）
-grit:
-  server: "http://water.noear.org"
-  token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 solon.logging.logger:
   "org.eclipse.jetty.*":
     level: "WARN"
   "com.zaxxer.hikari.*":
     level: "WARN"
+
+
+gritadmin:
+  user: admin
+  password: SykSYLWN9WTpzCHq
+  title: Grit
 
 gritdock:
   env: "演示环境"

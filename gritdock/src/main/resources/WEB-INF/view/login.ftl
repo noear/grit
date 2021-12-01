@@ -17,7 +17,7 @@
     section table input{height: 30px!important; width: 100%;}
     section table button{color: #000; height: 30px; width: 120px;}
 
-    main > p{margin: 10px;line-height: 30px;}
+    flex p{margin: 10px;line-height: 30px;}
   </style>
   <script type="text/javascript">
     function checkClick() {
@@ -46,7 +46,18 @@
 <body onkeydown="checkKey()">
 
 <main>
-  <p>${title}</p>
+
+  <flex>
+    <left class="col-6">
+      <p>${title}</p>
+    </left>
+    <right class="col-6">
+      <p>
+        <a href="https://gitee.com/noear/grit" target="_blank">权限管理</a>
+      </p>
+    </right>
+  </flex>
+  <br />
 
   <section>
     <form method="post">

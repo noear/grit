@@ -2,6 +2,9 @@ package gritdock;
 
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
+import org.noear.solon.cloud.CloudClient;
+import org.noear.solon.cloud.model.Instance;
+import org.noear.solon.core.event.EventBus;
 
 import java.util.Properties;
 
@@ -16,30 +19,37 @@ public class DockApp {
             app.onError(e -> e.printStackTrace());
 
             //仅在初始化时有效
-            dbSwitchTry();
+            gritDbSwitchTry();
         });
+
+        //尝试注册 gritapi 服务
+        gritApiRegTry();
     }
 
     /**
-     * 数据配置切换
+     * 尝试数据配置切换
      */
-    private static void dbSwitchTry() {
+    private static void gritDbSwitchTry() {
         Properties props = Solon.cfg().getProp("grit.db");
         if (props.size() > 0) {
             //如果有 grit.db 的配置，则移除 water 配置中心
             //
             System.getProperties().remove("solon.cloud.water.server");
             Solon.cfg().remove("solon.cloud.water.server");
-            return;
         }
+    }
 
-        String server = Solon.cfg().get("grit.server");
-        if(Utils.isNotEmpty(server)){
-            //如果有 grit.server 的配置，则移除 water 配置中心；且采用 rpc 方式连接服务
-            //
-            System.getProperties().remove("solon.cloud.water.server");
-            Solon.cfg().remove("solon.cloud.water.server");
-            return;
+    /**
+     * 尝试注册 gritapi 服务
+     */
+    private static void gritApiRegTry() {
+        try {
+            if (CloudClient.discovery() != null) {
+                Instance instance = new Instance("gritapi", Instance.local().address()).protocol("http");
+                CloudClient.discovery().register("grit", instance);
+            }
+        } catch (Exception e) {
+            EventBus.push(e);
         }
     }
 }
