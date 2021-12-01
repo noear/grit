@@ -16,7 +16,7 @@ solon.cloud.water:
 
 # 使用直接配置，用 Rpc + Token 方式访问（会优先被使用）
 #grit:
-#  server: "http://water.noear.org"
+#  server: "http://gritapi:7281"
 #  token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 solon.logging.logger:
