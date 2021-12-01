@@ -1,5 +1,7 @@
 server.port: 7281
 
+solon.extend: "gritapi_ext"
+
 solon.app:
   name: gritapi
   group: grit
