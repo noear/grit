@@ -33,6 +33,7 @@
   grit.db.server=mysql.grit.io:3306
   grit.db.password=123456
   grit.db.username=demo
+  grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌
   gritadmin.password=SykSYLWN9WTpzCHq   
   ```
 

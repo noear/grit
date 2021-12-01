@@ -14,7 +14,8 @@ services:
       - grit.db.server=mysql.grit.io:3306
       - grit.db.password=123456
       - grit.db.username=demo
-      - gritadmin.password=SykSYLWN9WTpzCHq       # Grit 管理密码
+      - grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌
+      - gritadmin.password=SykSYLWN9WTpzCHq           # Grit 管理密码
       - TZ=Asia/Shanghai
     ports:
       - 7282:8080
@@ -24,7 +25,7 @@ services:
     environment:
       - solon.start.ping=gritadmin:7282               #确保 gritadmin 服务准备就绪
       - grit.server=gritadmin:7282                    #rpc方式连grit服务
-      - grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌
+      - grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌，与 gritadmin 对应
       - TZ=Asia/Shanghai
     depends_on:
       - gritadmin
