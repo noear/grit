@@ -11,6 +11,15 @@ import org.noear.grit.service.*;
  * */
 public interface GritClient {
     /**
+     * 约定Rpc路径
+     * */
+    static final String RPC_PATH =  "/grit/api/";
+    /**
+     * 约定Rpc路径和当前版本
+     * */
+    static final String RPC_PATH_VER = "/grit/api/v1/";
+
+    /**
      * 获取全局对象
      */
     static GritClient global() {
@@ -21,12 +30,6 @@ public interface GritClient {
         return GritUtil.client;
     }
 
-    /**
-     * 获取Rpc路径
-     * */
-    static String getRpcPath(){
-        return "/grit/api/v1/";
-    }
 
     /////////////////////////////////////////////
 

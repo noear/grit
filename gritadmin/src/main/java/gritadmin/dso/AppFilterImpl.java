@@ -28,7 +28,7 @@ public class AppFilterImpl implements Filter {
         String path = ctx.path();
 
         //允许接口跳过
-        if (path.startsWith(GritClient.getRpcPath())) {
+        if (path.startsWith(GritClient.RPC_PATH)) {
             return true;
         }
 
