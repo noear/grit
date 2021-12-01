@@ -153,6 +153,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
 
+        //通过 groupBy 去重处理
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
@@ -208,6 +209,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .map(r->r.resource_id)
                 .collect(Collectors.toSet());
 
+        //通过 groupBy 去重处理
         List<Long> groupIds2 = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
@@ -290,13 +292,14 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
 
+        //只取第1个
         return db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
                 .andIn("l.subject_id", subjectIds)
                 .andEq("r.resource_pid", resourceGroupId)
-                .andIf(isVisibled != null, "r.is_visibled=?", isVisibled)
-                .andEq("r.is_disabled", 0)
+                .andIf(isVisibled != null, "r.is_visibled=?", isVisibled) //控制显示条件
+                .andEq("r.is_disabled", 0) //控制禁用条件
                 .limit(1)
                 .caching(cache)
                 .selectItem("r.*", ResourceEntity.class);
