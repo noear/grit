@@ -23,6 +23,11 @@ import java.util.Properties;
  */
 @Configuration
 public class GritConfig {
+    static final String TML_MARK_SERVER = "${server}";
+    static final String TML_MARK_SCHEMA = "${schema}";
+    static final String TML_JDBC_URL = "jdbc:mysql://${server}/${schema}?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true";
+
+
     @Bean("grit.cache")
     public CacheService cache(@Inject("${grit.cache}") Properties props) {
         if (props.size() > 0) {
@@ -36,11 +41,20 @@ public class GritConfig {
     @Bean("grit.db")
     public DbContext db(@Inject("${grit.db}") Properties props) {
         if (props.size() > 0) {
+            String server = props.getProperty("server");
             String url = props.getProperty("url");
+
+            if (Utils.isNotEmpty(server)) {
+                props.remove("server");
+                url = TML_JDBC_URL
+                        .replace(TML_MARK_SERVER, server)
+                        .replace(TML_MARK_SCHEMA, "grit");
+            }
+
             if (Utils.isNotEmpty(url)) {
+                props.remove("url");
                 props.setProperty("jdbcUrl", url);
             }
-            props.remove("url");
 
             return new DbContext(new HikariDataSource(new HikariConfig(props)));
         } else {
