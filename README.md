@@ -13,7 +13,7 @@
 | grit.server.ui      | grit.server + 管理界面实现（可做为插件集成到别的管理后台）     | 
 
 
-| 服务输出 | 说明 | 
+| 镜像输出 | 说明 | 
 | -------- | -------- | 
 | gritapi     | grit.client 接口服务（集成 grit.server）     | 
 | gritadmin   | gritapi + 管理界面（集成 grit.server.ui）    | 
