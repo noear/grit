@@ -1,10 +1,11 @@
-# Grit docker-compose 模式部署说明
+# Grit k8s 模式部署说明
 
 ## 请在完整的看完文档后，再开始动手!!!
 
 ## 一、环境要求说明（请准备好）
 
 * water：做为环境支持（内部已存在 Grit 相关配置）
+
 
 ## 二、部署服务说明
 
@@ -16,12 +17,12 @@
 
 ## 三、开始部署服务
 
-新建个目录：grit，把 docker-compose.yml 放进去。然后修改内部的 water 连接配置 
+* 添加 water/gritadmin 服务（镜像：noearorg/gritadmin:latest）。主接口
+  * 镜像端口：8080
+  * 建议2个副本起步
 
-**进入 grit 目录后，开始运行**
-
-```shell
-docker-compose up
-```
-
-
+* 添加 water/gritdock 服务（镜像：noearorg/gritdock:latest）。管理控制台
+  * 镜像端口：8080
+  * 建议1个副本即可
+  * 要配置外网访问地址，建议加域名
+  
