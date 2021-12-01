@@ -80,7 +80,7 @@ public class GritController {
         if (isLogin == false)
             return Result.failure("提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
         else {
-            ctx.sessionSet("user", user0);
+            ctx.sessionSet("grit_user", user0);
 
             return Result.succeed("/grit/");
         }

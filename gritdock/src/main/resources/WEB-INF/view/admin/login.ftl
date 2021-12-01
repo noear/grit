@@ -66,7 +66,7 @@
                 </tr>
                 <tr><th>验证码：</th>
                     <td><input type="text" name="validationCode"/></td>
-                    <td style="width: 60px; padding-left: 10px;"><img src="/login/validation/img" onclick="reloadimg(this)"/></td>
+                    <td style="width: 60px; padding-left: 10px;"><img src="/grit/login/validation/img" onclick="reloadimg(this)"/></td>
                 </tr>
 
                 <tr>

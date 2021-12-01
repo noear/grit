@@ -58,7 +58,7 @@ public class AppFilterImpl implements Filter {
         //for grit admin
         if (path.startsWith("/grit/")) {
             //有会话账号能过
-            if (Utils.isNotEmpty(ctx.session("user", ""))) {
+            if (Utils.isNotEmpty(ctx.session("grit_admin", ""))) {
                 return true;
             }
 
