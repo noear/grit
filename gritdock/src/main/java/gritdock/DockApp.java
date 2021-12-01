@@ -28,6 +28,7 @@ public class DockApp {
         if (props.size() > 0) {
             //如果有 grit.db 的配置，则移除 water 配置中心
             //
+            System.getProperties().remove("solon.cloud.water.server");
             Solon.cfg().remove("solon.cloud.water.server");
             return;
         }
@@ -36,6 +37,7 @@ public class DockApp {
         if(Utils.isNotEmpty(server)){
             //如果有 grit.server 的配置，则移除 water 配置中心；且采用 rpc 方式连接服务
             //
+            System.getProperties().remove("solon.cloud.water.server");
             Solon.cfg().remove("solon.cloud.water.server");
             return;
         }

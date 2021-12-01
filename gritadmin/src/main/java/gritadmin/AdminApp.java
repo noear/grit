@@ -33,6 +33,7 @@ public class AdminApp {
         if (props.size() > 0) {
             //如果有 grit.db 的配置，则移除 water 配置中心
             //
+            System.getProperties().remove("solon.cloud.water.server");
             Solon.cfg().remove("solon.cloud.water.server");
         }
     }

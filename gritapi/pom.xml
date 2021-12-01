@@ -61,7 +61,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>gritadmin.AdminApp</mainClass>
+                            <mainClass>gritapi.ApiApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
