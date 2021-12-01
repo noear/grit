@@ -33,7 +33,7 @@ public class AppFilterImpl implements Filter {
         }
 
         //特殊的路径通过
-        if (path.startsWith("/grit")) {
+        if (path.startsWith("/grit/")) {
             //有会话账号能过
             if (Utils.isNotEmpty(ctx.session("user", ""))) {
                 return true;
