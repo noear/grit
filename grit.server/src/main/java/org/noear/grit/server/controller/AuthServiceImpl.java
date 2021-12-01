@@ -218,7 +218,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     /**
-     * 获取主体的授与路径分组列表
+     * 获取主体的授与路径分组列表（已排序）
      *
      * @param subjectId 主体Id
      * @param resourceSpaceId 资源空间Id

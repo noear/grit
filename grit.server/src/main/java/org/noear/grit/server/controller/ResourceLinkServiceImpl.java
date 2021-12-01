@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {
     @Inject("grit.db")
-    private  DbContext db;
+    private DbContext db;
     @Inject("grit.cache")
-    private  ICacheService cache;
+    private ICacheService cache;
 
 
     /**
@@ -101,7 +101,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectAndGroup(long subjectId, long resourceGroupId, Boolean isVisibled) throws SQLException {
-        if(resourceGroupId == 0) {
+        if (resourceGroupId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
 
@@ -125,7 +125,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectAndSpace(long subjectId, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        if(resourceSpaceId == 0) {
+        if (resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
 
@@ -175,7 +175,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceEntity> getResourceEntityListBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        if(resourceSpaceId == 0) {
+        if (resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
 
@@ -191,7 +191,6 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
     }
 
 
-
     /**
      * 获取主体的授权资源分组列表
      *
@@ -200,13 +199,13 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceGroup> getResourceGroupListBySubjects(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        if(resourceSpaceId == 0) {
+        if (resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
 
         Set<Long> groupIds = GritClient.global().resource().getSubResourceListByPid(resourceSpaceId)
                 .stream()
-                .map(r->r.resource_id)
+                .map(r -> r.resource_id)
                 .collect(Collectors.toSet());
 
         //通过 groupBy 去重处理
@@ -264,7 +263,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public ResourceEntity getResourceEntityFristBySubjectsAndSpace(Collection<Long> subjectIds, long resourceSpaceId, Boolean isVisibled) throws SQLException {
-        if(resourceSpaceId == 0) {
+        if (resourceSpaceId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceSpaceId=" + resourceSpaceId);
         }
 
@@ -281,14 +280,14 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
     }
 
     /**
-     * 获取主体在某一个资源分组下的第一个授权资源
+     * 获取主体在某一个资源分组下的第一个授权资源(已排序)
      *
      * @param subjectIds      主体Ids
      * @param resourceGroupId 资源空间Id
      */
     @Override
     public ResourceEntity getResourceEntityFristBySubjectsAndGroup(Collection<Long> subjectIds, long resourceGroupId, Boolean isVisibled) throws SQLException {
-        if(resourceGroupId == 0) {
+        if (resourceGroupId == 0) {
             throw new IllegalArgumentException("Invalid parameter: resourceGroupId=" + resourceGroupId);
         }
 
@@ -300,6 +299,8 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
                 .andEq("r.resource_pid", resourceGroupId)
                 .andIf(isVisibled != null, "r.is_visibled=?", isVisibled) //控制显示条件
                 .andEq("r.is_disabled", 0) //控制禁用条件
+                .orderByAsc("r.order_index") //先按排序位顺排
+                .andByAsc("r.resource_id") //再按id顺排
                 .limit(1)
                 .caching(cache)
                 .selectItem("r.*", ResourceEntity.class);
