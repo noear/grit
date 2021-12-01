@@ -17,14 +17,17 @@ import java.sql.SQLException;
  * @since 1.0
  */
 public class GritAuthProcessor implements AuthProcessor {
+    /**
+     * 获取主体Id
+     * */
     protected long getSubjectId() {
         return SessionBase.global().getSubjectId();
     }
 
     /**
-     * 用户显示名
+     * 获取主体显示名
      */
-    protected String getUserDisplayName() {
+    protected String getSubjectDisplayName() {
         return SessionBase.global().getDisplayName();
     }
 
@@ -38,16 +41,16 @@ public class GritAuthProcessor implements AuthProcessor {
         long subjectId = getSubjectId();
 
         if (subjectId > 0) {
-            String userDisplayName = getUserDisplayName();
+            String subjectDisplayName = getSubjectDisplayName();
             Context ctx = Context.current();
 
             if (ctx != null) {
                 //old
                 ctx.attrSet("user_puid", String.valueOf(subjectId));
-                ctx.attrSet("user_name", userDisplayName);
+                ctx.attrSet("user_name", subjectDisplayName);
                 //new
                 ctx.attrSet("user_id", String.valueOf(subjectId));
-                ctx.attrSet("user_display_name", userDisplayName);
+                ctx.attrSet("user_display_name", subjectDisplayName);
             }
         }
 
