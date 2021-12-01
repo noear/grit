@@ -1,4 +1,4 @@
-# Grit docker-compose 模式部署说明
+# Grit docker-compose 模式部署说明  (for ds)
 
 ## 请在完整的看完文档后，再开始动手!!!
 

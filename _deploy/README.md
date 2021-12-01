@@ -7,12 +7,12 @@
 * water_docker-compose ：基于 water 的 docker-compose 部署模式
 * water_k8s ：基于 water 的 k8s 部署模式
 
-### 二、自建数据源环境部署
+### 二、基于数据源部署
 
 请自建数据库：grit，并通过 grit.sql 初始化数据结构
 
-* ds_docker-compose ：基于自建数据源的 docker-compose 部署模式
-* ds_k8s ：基于自建数据源的 k8s 部署模式
+* ds_docker-compose ：基于数据源部署的 docker-compose 部署模式
+* ds_k8s ：基于数据源部署的 k8s 部署模式
 
 
 ## 附：LDAP登录支持：
