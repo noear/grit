@@ -21,6 +21,13 @@ public interface GritClient {
         return GritUtil.client;
     }
 
+    /**
+     * 获取Rpc路径
+     * */
+    static String getRpcPath(){
+        return "/grit/api/v1/";
+    }
+
     /////////////////////////////////////////////
 
     /**

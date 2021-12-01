@@ -1,6 +1,7 @@
 package gritadmin.dso;
 
 
+import org.noear.grit.client.GritClient;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
@@ -25,6 +26,11 @@ public class AppFilterImpl implements Filter {
 
     private boolean authCheck(Context ctx) {
         String path = ctx.path();
+
+        //允许接口跳过
+        if (path.startsWith(GritClient.getRpcPath())) {
+            return true;
+        }
 
         //特殊的路径通过
         if (path.startsWith("/grit")) {

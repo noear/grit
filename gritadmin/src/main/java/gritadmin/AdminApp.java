@@ -2,6 +2,8 @@ package gritadmin;
 
 import org.noear.solon.Solon;
 import org.noear.solon.annotation.Import;
+import org.noear.solon.cloud.CloudClient;
+import org.noear.solon.cloud.model.Instance;
 
 import java.util.Properties;
 
@@ -17,10 +19,13 @@ public class AdminApp {
             //仅在初始化时有效
             dbSwitchTry();
         });
+
+        //尝试注册 gritapi 服务
+        regTry();
     }
 
     /**
-     * 数据配置切换
+     * 尝试数据配置切换
      */
     private static void dbSwitchTry() {
         Properties props = Solon.cfg().getProp("grit.db");
@@ -28,6 +33,20 @@ public class AdminApp {
             //如果有 grit.db 的配置，则移除 water 配置中心
             //
             Solon.cfg().remove("solon.cloud.water.server");
+        }
+    }
+
+    /**
+     * 尝试注册 gritapi 服务
+     * */
+    private static void regTry() {
+        try {
+            if (CloudClient.discovery() != null) {
+                Instance instance = new Instance("gritapi", Instance.local().address()).protocol("http");
+                CloudClient.discovery().register("grit", instance);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

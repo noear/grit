@@ -59,7 +59,7 @@ public class GritClientRpcImpl implements GritClient {
         //不依赖Aop的写法，跨框架性更强。在别的框架里，也不需要启动Solon容器
         NamiBuilder namiBuilder = Nami.builder();
 
-        String path = "/grit/api/v1/" + clz.getSimpleName();
+        String path = GritClient.getRpcPath() + clz.getSimpleName();
         if (gritServer.startsWith("@")) {
             String name = gritServer.substring(1);
             namiBuilder.name(name).path(path);
