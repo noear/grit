@@ -37,13 +37,6 @@ public class GritAuthProcessor2 extends AuthProcessorBase {
             return true;
         }
 
-        //非白名单模式，则忽略
-        if (Solon.cfg().isWhiteMode() == false) {
-            return true;
-        }
-
-        boolean isOk = CloudClient.list().inListOfClientAndServerIp(ip);
-
         long subjectId = getSubjectId();
 
         if (subjectId > 0) {
@@ -60,7 +53,12 @@ public class GritAuthProcessor2 extends AuthProcessorBase {
             }
         }
 
-        return isOk;
+        //非白名单模式，则忽略
+        if (Solon.cfg().isWhiteMode() == false) {
+            return true;
+        }
+
+        return CloudClient.list().inListOfClientAndServerIp(ip);
     }
 
     @Override

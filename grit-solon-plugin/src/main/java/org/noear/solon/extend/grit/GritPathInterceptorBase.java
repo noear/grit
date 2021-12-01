@@ -1,5 +1,6 @@
 package org.noear.solon.extend.grit;
 
+import org.noear.solon.Solon;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.handle.Handler;
@@ -23,6 +24,11 @@ public abstract class GritPathInterceptorBase implements Handler {
      * 验证代理::true:通过,false未通过（可以重写）
      */
     protected void verifyHandle(Context ctx) throws Exception {
+        //安装模式，则忽略
+        if (Solon.cfg().isSetupMode()) {
+            return;
+        }
+
         String path = ctx.path().toLowerCase();
         long userId = getUserId();
 
