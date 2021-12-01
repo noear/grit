@@ -15,7 +15,6 @@ import org.noear.solon.data.cache.CacheService;
 import org.noear.solon.data.cache.LocalCacheService;
 import org.noear.weed.DbContext;
 
-import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
@@ -59,8 +58,8 @@ public class GritConfig {
     }
 
     @Bean
-    public GritClient gritClient(@Inject("grit.db") DataSource ds, @Inject GritClientLocalImpl clientLocal) {
-        if (ds != null) {
+    public GritClient gritClient(@Inject("${grit.db}") Properties props, @Inject GritClientLocalImpl clientLocal) {
+        if (props.size() > 0) {
             GritClient.setGlobal(clientLocal);
             return clientLocal;
         } else {
