@@ -14,6 +14,7 @@ grit.db:
   password: "123456"
   username: "demo"
 
+# ldap 配置，如果不需要可以去掉
 grit.ldap:
   url: "ldap://127.0.0.1:389"
   baseDn: "DC=company,DC=com"
