@@ -30,10 +30,10 @@ public interface ResourceService {
      *
      * @param resourceCode 资源代号
      */
-    Resource getResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException;
+    Resource getResourceByCodeAndSpace(long resourceSpaceId, String resourceCode) throws SQLException;
 
     default Resource getResourceByCode(String resourceCode) throws SQLException {
-        return getResourceByCode(GritClient.global().getCurrentSpaceId(), resourceCode);
+        return getResourceByCodeAndSpace(GritClient.global().getCurrentSpaceId(), resourceCode);
     }
 
 
@@ -42,10 +42,10 @@ public interface ResourceService {
      *
      * @param resourceUri 资源路径
      */
-    Resource getResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException;
+    Resource getResourceByUriAndSpace(long resourceSpaceId, String resourceUri) throws SQLException;
 
     default Resource getResourceByUri(String resourceUri) throws SQLException {
-        return getResourceByUri(GritClient.global().getCurrentSpaceId(), resourceUri);
+        return getResourceByUriAndSpace(GritClient.global().getCurrentSpaceId(), resourceUri);
     }
 
     /**
@@ -54,10 +54,10 @@ public interface ResourceService {
      * @param resourceCode 资源代号
      * @return 是否存在
      */
-    boolean hasResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException;
+    boolean hasResourceByCodeAndSpace(long resourceSpaceId, String resourceCode) throws SQLException;
 
     default boolean hasResourceByCode(String resourceCode) throws SQLException {
-        return hasResourceByCode(GritClient.global().getCurrentSpaceId(), resourceCode);
+        return hasResourceByCodeAndSpace(GritClient.global().getCurrentSpaceId(), resourceCode);
     }
 
     /**
@@ -66,10 +66,10 @@ public interface ResourceService {
      * @param resourceUri 资源路径
      * @return 是否存在
      */
-    boolean hasResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException;
+    boolean hasResourceByUriAndSpace(long resourceSpaceId, String resourceUri) throws SQLException;
 
     default boolean hasResourceByUri(String resourceUri) throws SQLException {
-        return hasResourceByUri(GritClient.global().getCurrentSpaceId(), resourceUri);
+        return hasResourceByUriAndSpace(GritClient.global().getCurrentSpaceId(), resourceUri);
     }
 
     /**

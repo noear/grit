@@ -53,7 +53,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @param resourceCode 资源代号
      */
     @Override
-    public Resource getResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException {
+    public Resource getResourceByCodeAndSpace(long resourceSpaceId, String resourceCode) throws SQLException {
         if (TextUtils.isEmpty(resourceCode)) {
             return new Resource();
         }
@@ -72,7 +72,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @param resourceUri 资源路径
      */
     @Override
-    public Resource getResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException {
+    public Resource getResourceByUriAndSpace(long resourceSpaceId, String resourceUri) throws SQLException {
         if (TextUtils.isEmpty(resourceUri)) {
             return new Resource();
         }
@@ -94,7 +94,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return 是否存在
      */
     @Override
-    public boolean hasResourceByCode(long resourceSpaceId, String resourceCode) throws SQLException {
+    public boolean hasResourceByCodeAndSpace(long resourceSpaceId, String resourceCode) throws SQLException {
         if (TextUtils.isEmpty(resourceCode)) {
             return false;
         }
@@ -115,7 +115,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return 是否存在
      */
     @Override
-    public boolean hasResourceByUri(long resourceSpaceId, String resourceUri) throws SQLException {
+    public boolean hasResourceByUriAndSpace(long resourceSpaceId, String resourceUri) throws SQLException {
         if (TextUtils.isEmpty(resourceUri)) {
             return false;
         }
@@ -194,5 +194,4 @@ public class ResourceServiceImpl implements ResourceService {
                 .caching(cache)
                 .selectList("*", ResourceSpace.class);
     }
-
 }

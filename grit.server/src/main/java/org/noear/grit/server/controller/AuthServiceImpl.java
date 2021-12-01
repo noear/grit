@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
 
-        Resource resource = GritClient.global().resource().getResourceByUri(resourceSpaceId, uri);
+        Resource resource = GritClient.global().resource().getResourceByUriAndSpace(resourceSpaceId, uri);
 
         if (resource.resource_id == null) {
             return false;
@@ -110,7 +110,7 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
 
-        Resource resource = GritClient.global().resource().getResourceByCode(resourceSpaceId, permission);
+        Resource resource = GritClient.global().resource().getResourceByCodeAndSpace(resourceSpaceId, permission);
 
         if (resource.resource_id == null) {
             return false;
