@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
-@Mapping("/grit/resource/entity")
+@Mapping("/grit/ui/resource/entity")
 @Controller
 public class ResourceEntityController extends BaseController {
     @Inject

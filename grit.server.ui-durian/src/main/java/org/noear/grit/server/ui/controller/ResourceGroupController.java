@@ -17,7 +17,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Mapping("/grit/resource/group")
+@Mapping("/grit/ui/resource/group")
 @Controller
 public class ResourceGroupController extends BaseController{
     @Inject

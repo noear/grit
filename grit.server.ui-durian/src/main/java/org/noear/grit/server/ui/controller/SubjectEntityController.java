@@ -17,7 +17,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Mapping("/grit/subject/entity")
+@Mapping("/grit/ui/subject/entity")
 @Controller
 public class SubjectEntityController extends BaseController {
     @Inject

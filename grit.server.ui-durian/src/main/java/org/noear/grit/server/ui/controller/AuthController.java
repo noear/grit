@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
-@Mapping("/grit/auth")
+@Mapping("/grit/ui/auth")
 @Controller
 public class AuthController extends BaseController {
     @Inject

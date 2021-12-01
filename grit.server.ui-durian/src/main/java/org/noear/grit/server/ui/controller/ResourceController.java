@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.0
  */
-@Mapping("/grit/resource")
+@Mapping("/grit/ui/resource")
 @Controller
 public class ResourceController extends BaseController {
     @Inject

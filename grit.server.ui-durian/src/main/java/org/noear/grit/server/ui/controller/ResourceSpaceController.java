@@ -14,7 +14,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Mapping("/grit/resource/space")
+@Mapping("/grit/ui/resource/space")
 @Controller
 public class ResourceSpaceController extends BaseController{
     @Inject
