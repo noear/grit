@@ -22,6 +22,7 @@
 
 * 添加 water/gritadmin 服务（镜像：noearorg/gritadmin:latest）
   * 镜像端口：8080
+  * 对外端口：7282
   * 建议2个副本起步
   * 要配置外网访问地址，建议加域名
   
@@ -37,7 +38,13 @@
 
 * 添加 water/gritdock 服务（镜像：noearorg/gritdock:latest）
   * 镜像端口：8080
+  * 对外端口：8080 或其它
   * 建议1个副本即可
   * 要配置外网访问地址，建议加域名
 
-  
+
+  ```properties
+  #添加环境变量：
+  grit.server=gritadmin:7282 
+  grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j
+  ```
