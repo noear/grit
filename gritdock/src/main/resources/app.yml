@@ -14,7 +14,7 @@ solon.cloud.water:
   config:
     load: "grit.yml,gritclient.yml,gritdock.yml"
 
-# 使用直接配置，用 Rpc + Token 方式访问
+# 使用直接配置，用 Rpc + Token 方式访问（会优先被使用）
 #grit:
 #  server: "http://water.noear.org"
 #  token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
