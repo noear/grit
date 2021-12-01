@@ -34,7 +34,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/grit/auth/ajax/save",
+            url:"/grit/ui/auth/ajax/save",
             data:vm,
             success:function (data) {
                 if(data.code==200) {
@@ -61,7 +61,7 @@
     }
 
     function queryForm() {
-        location.href = "/grit/auth/inner?subject_id=${subject_id!0}&space_id="+$('#space_id').val();
+        location.href = "/grit/ui/auth/inner?subject_id=${subject_id!0}&space_id="+$('#space_id').val();
     };
 
     $(function(){

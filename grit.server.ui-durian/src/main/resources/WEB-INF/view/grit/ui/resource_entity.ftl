@@ -24,13 +24,13 @@
         });
 
         function queryForm() {
-            location.href = "/grit/resource/entity?space_id="+$('#space_id').val();
+            location.href = "/grit/ui/resource/entity?space_id="+$('#space_id').val();
         };
 
         function node_onclick(group_id,obj) {
             $('li.sel').removeClass('sel');
             $(obj).addClass("sel");
-            $("#table").attr('src',"/grit/resource/entity/inner?group_id="+group_id);
+            $("#table").attr('src',"/grit/ui/resource/entity/inner?group_id="+group_id);
         };
     </script>
 </head>
@@ -59,7 +59,7 @@
         </tree>
     </middle>
     <right class="frm">
-        <iframe src="/grit/resource/entity/inner?group_id=${group_id!}" frameborder="0" id="table"></iframe>
+        <iframe src="/grit/ui/resource/entity/inner?group_id=${group_id!}" frameborder="0" id="table"></iframe>
     </right>
 </main>
 </body>

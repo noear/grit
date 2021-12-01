@@ -39,7 +39,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/grit/subject/edit/ajax/paste",
+            url:"/grit/ui/subject/edit/ajax/paste",
             data: {
                 subject_ids: window.parent.copied,
                 group_id:group_id
@@ -71,7 +71,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/grit/subject/edit/ajax/remove",
+            url:"/grit/ui/subject/edit/ajax/remove",
             data:{
                 subject_ids:vm.sel_id,
                 group_id:group_id
@@ -114,7 +114,7 @@
                     <button>查询</button>
                 </form>
             </#if>
-            <a class="btn edit" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
+            <a class="btn edit" href="/grit/ui/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
         </mid>
         <right class="col-3">
 
@@ -148,7 +148,7 @@
                 </td>
                 <td >${m1.is_visibled?string("Yes","")}</td>
                 <td >${m1.is_disabled?string("Yes","")}</td>
-                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/ui/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

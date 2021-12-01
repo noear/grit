@@ -23,7 +23,7 @@
         function node_onclick(group_id,obj) {
             $('li.sel').removeClass('sel');
             $(obj).addClass("sel");
-            $("#table").attr('src',"/grit/subject/entity/inner?group_id="+group_id);
+            $("#table").attr('src',"/grit/ui/subject/entity/inner?group_id="+group_id);
         };
     </script>
 </head>
@@ -45,7 +45,7 @@
         </tree>
     </middle>
     <right class="frm">
-        <iframe src="/grit/subject/entity/inner?group_id=${group_id!}" frameborder="0" id="table"></iframe>
+        <iframe src="/grit/ui/subject/entity/inner?group_id=${group_id!}" frameborder="0" id="table"></iframe>
     </right>
 </main>
 </body>

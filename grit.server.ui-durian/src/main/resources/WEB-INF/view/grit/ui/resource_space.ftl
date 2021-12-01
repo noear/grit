@@ -25,7 +25,7 @@
 <body>
 <toolbar>
         <left class="col-4">
-            <a class="btn edit" href="/grit/resource/edit?type=2">新增空间</a>
+            <a class="btn edit" href="/grit/ui/resource/edit?type=2">新增空间</a>
         </left>
         <right class="col-4">
 
@@ -56,7 +56,7 @@
                 </td>
                 <td class="left">${m1.link_uri!}</td>
                 <td >${m1.is_visibled?string("Yes","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

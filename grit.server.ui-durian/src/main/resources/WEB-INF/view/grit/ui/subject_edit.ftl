@@ -39,16 +39,16 @@
 
             $.ajax({
                 type:"POST",
-                url:"/grit/subject/edit/ajax/save",
+                url:"/grit/ui/subject/edit/ajax/save",
                 data:vm,
                 success:function (data) {
                     if(data.code==200) {
                         top.layer.msg('操作成功')
                         setTimeout(function(){
                             if(subject_type == 1){
-                                location.href="/grit/subject/group";
+                                location.href="/grit/ui/subject/group";
                             }else{
-                                location.href="/grit/subject/entity/inner?group_id=${group_id!}";
+                                location.href="/grit/ui/subject/entity/inner?group_id=${group_id!}";
                             }
                         },800);
                     }else{
@@ -69,16 +69,16 @@
 
             $.ajax({
                 type:"POST",
-                url:"/grit/subject/edit/ajax/del",
+                url:"/grit/ui/subject/edit/ajax/del",
                 data:{"subject_id":subject_id},
                 success:function (data) {
                     if(data.code==200) {
                         top.layer.msg('操作成功')
                         setTimeout(function(){
                             if(subject_type == 1){
-                                location.href="/grit/subject/group";
+                                location.href="/grit/ui/subject/group";
                             }else{
-                                location.href="/grit/subject/entity/inner?group_id=${group_id!}";
+                                location.href="/grit/ui/subject/entity/inner?group_id=${group_id!}";
                             }
                         },800);
                     }else{

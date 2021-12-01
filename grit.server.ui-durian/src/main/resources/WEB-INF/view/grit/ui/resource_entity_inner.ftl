@@ -26,7 +26,7 @@
 <toolbar>
         <left>
             <#if (group_id!0) gt 0>
-                <a class="btn edit" href="/grit/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
+                <a class="btn edit" href="/grit/ui/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
             </#if>
         </left>
         <right>
@@ -64,7 +64,7 @@
                 <td >${m1.is_fullview?string("Yes","")}</td>
                 <td >${m1.is_visibled?string("Yes","")}</td>
                 <td >${m1.is_disabled?string("Yes","")}</td>
-                <td class="op"><a href="/grit/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

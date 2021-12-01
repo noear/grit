@@ -39,7 +39,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/grit/resource/edit/ajax/save",
+                url:"/grit/ui/resource/edit/ajax/save",
                 data:vm,
                 success:function (data) {
                     if(data.code==200) {
@@ -47,11 +47,11 @@
 
                         setTimeout(function(){
                             if(resource_type == 2){
-                                location.href="/grit/resource/space";
+                                location.href="/grit/ui/resource/space";
                             }else if(resource_type == 1){
-                                location.href="/grit/resource/group/inner?space_id=${m1.resource_sid!}";
+                                location.href="/grit/ui/resource/group/inner?space_id=${m1.resource_sid!}";
                             }else{
-                                location.href="/grit/resource/entity/inner?group_id=${m1.resource_pid!}";
+                                location.href="/grit/ui/resource/entity/inner?group_id=${m1.resource_pid!}";
                             }
                         },800);
                     }else{
@@ -72,18 +72,18 @@
 
             $.ajax({
                 type:"POST",
-                url:"/grit/resource/edit/ajax/del",
+                url:"/grit/ui/resource/edit/ajax/del",
                 data:{"resource_id":resource_id},
                 success:function (data) {
                     if(data.code==200) {
                         top.layer.msg('操作成功')
                         setTimeout(function(){
                             if(resource_type == 2){
-                                location.href="/grit/resource/space";
+                                location.href="/grit/ui/resource/space";
                             }else if(resource_type == 1){
-                                location.href="/grit/resource/group/inner?space_id=${m1.resource_sid!}";
+                                location.href="/grit/ui/resource/group/inner?space_id=${m1.resource_sid!}";
                             }else{
-                                location.href="/grit/resource/entity/inner?group_id=${m1.resource_pid!}";
+                                location.href="/grit/ui/resource/entity/inner?group_id=${m1.resource_pid!}";
                             }
                         },800);
                     }else{

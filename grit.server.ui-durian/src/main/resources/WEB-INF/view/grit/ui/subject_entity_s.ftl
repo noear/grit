@@ -29,7 +29,7 @@
         <input type="text" name="key" class="w200" value="${key!}" />
         <button>查询</button>
         </form>
-        <a class="btn edit" href="/grit/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
+        <a class="btn edit" href="/grit/ui/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
     </div>
 </toolbar>
 <datagrid class="list">
@@ -55,7 +55,7 @@
                 </td>
                 <td >${m1.is_visibled?string("Yes","")}</td>
                 <td >${m1.is_disabled?string("Yes","")}</td>
-                <td class="op"><a href="/grit/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
+                <td class="op"><a href="/grit/ui/subject/edit?subject_id=${m1.subject_id}&group_id=${group_id!0}" class="t2">编辑</a></td>
             </tr>
         </#list>
         </tbody>

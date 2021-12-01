@@ -29,7 +29,7 @@
 <body>
 <toolbar>
     <left class="col-4">
-        <a class="btn edit" href="/grit/subject/edit?type=1">新增分组</a>
+        <a class="btn edit" href="/grit/ui/subject/edit?type=1">新增分组</a>
     </left>
     <right class="col-4">
 
@@ -61,9 +61,9 @@
                 <td >${n1.is_visibled?string("Yes","")}</td>
                 <td >${n1.is_disabled?string("Yes","")}</td>
                 <td class="op">
-                    <a href="/grit/subject/edit?subject_id=${n1.subject_id}" class="t2">编辑</a>
+                    <a href="/grit/ui/subject/edit?subject_id=${n1.subject_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/subject/edit?group_id=${n1.subject_id}&type=1" class="t2">新增下级</a>
+                    <a href="/grit/ui/subject/edit?group_id=${n1.subject_id}&type=1" class="t2">新增下级</a>
                 </td>
             </tr>
         </#list>

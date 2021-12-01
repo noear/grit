@@ -25,7 +25,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/grit/auth/subject.entity.get",
+                url:"/grit/ui/auth/subject.entity.get",
                 data:{group_id:group_id},
                 success:function (rst) {
                     if(rst.code == 200) {
@@ -39,7 +39,7 @@
         }
 
         function node_show(subject_id){
-            $("#table").attr('src',"/grit/auth/inner?subject_id="+subject_id);
+            $("#table").attr('src',"/grit/ui/auth/inner?subject_id="+subject_id);
         }
 
         function node_onclick(group_id,obj) {
