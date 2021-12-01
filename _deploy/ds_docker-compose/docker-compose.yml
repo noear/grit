@@ -23,7 +23,7 @@ services:
     container_name: gritdock
     environment:
       - solon.start.ping=gritadmin:7282               #确保 gritadmin 服务准备就绪
-      - grit.server=gritapi:7281                      #rpc方式连grit服务
+      - grit.server=gritadmin:7282                    #rpc方式连grit服务
       - grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌
       - TZ=Asia/Shanghai
     depends_on:
