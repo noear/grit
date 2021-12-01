@@ -41,14 +41,20 @@ public class GritConfig {
     @Bean("grit.db")
     public DbContext db(@Inject("${grit.db}") Properties props) {
         if (props.size() > 0) {
+
             String server = props.getProperty("server");
             String url = props.getProperty("url");
 
             if (Utils.isNotEmpty(server)) {
+                String schema = props.getProperty("schema");
+                if (Utils.isEmpty(schema)) {
+                    schema = "grit";
+                }
+
                 props.remove("server");
                 url = TML_JDBC_URL
                         .replace(TML_MARK_SERVER, server)
-                        .replace(TML_MARK_SCHEMA, "grit");
+                        .replace(TML_MARK_SCHEMA, schema);
             }
 
             if (Utils.isNotEmpty(url)) {
