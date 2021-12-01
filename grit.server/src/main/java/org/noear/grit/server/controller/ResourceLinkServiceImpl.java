@@ -236,6 +236,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
      */
     @Override
     public List<ResourceSpace> getResourceSpaceListBySubjects(Collection<Long> subjectIds, Boolean isVisibled) throws SQLException {
+        //通过 groupBy 去重处理
         List<Long> spaceIds = db.table("grit_resource_linked l")
                 .innerJoin("grit_resource r")
                 .on("l.resource_id=r.resource_id")
@@ -248,7 +249,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
 
         return db.table("grit_resource")
                 .whereIn("resource_id", spaceIds)
-                .andEq("is_visibled", 1)
+                .andIf(isVisibled != null, "is_visibled=?", isVisibled)
                 .andEq("is_disabled", 0)
                 .caching(cache)
                 .selectList("*", ResourceSpace.class);

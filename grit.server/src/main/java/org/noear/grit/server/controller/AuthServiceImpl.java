@@ -264,7 +264,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     /**
-     * 获取主体的资源空间列表
+     * 获取主体的资源空间列表（已排序）
      *
      * @param subjectId 主体Id
      */
@@ -273,8 +273,10 @@ public class AuthServiceImpl implements AuthService {
         //获取实体相关的所有主体Id
         List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 
-        return GritClient.global().resourceLink().getResourceSpaceListBySubjects(subjectIds, true);
+        List<ResourceSpace> list = GritClient.global().resourceLink().getResourceSpaceListBySubjects(subjectIds, true);
+        list.sort(ResourceComparator.instance);
 
+        return list;
     }
 
 

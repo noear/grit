@@ -52,7 +52,7 @@ public class MenuService {
             groupBuf.append("</section>");
 
             if (groupSize > 0) {
-                if ("#".equals(resourceSpace.link_tags)) { //强制独占处理
+                if ("#".equals(resourceSpace.link_tags)) { //强制独占一行处理
                     buf.append("<div>");
                     buf.append(groupBuf);
                     buf.append("</div>");
