@@ -10,6 +10,12 @@ import java.util.Map;
  * @author noear 2021/12/1 created
  */
 public class InitUtils {
+    static final String grit_check_table = "grit_resource";
+
+    public static boolean allowGritInit(DbContext db) throws SQLException {
+        return hasTable(db, grit_check_table) == false;
+    }
+
     /**
      * 检查一张表是否存在
      */
