@@ -1,7 +1,6 @@
 package gritapi;
 
 import org.noear.solon.Solon;
-import org.noear.solon.SolonApp;
 
 import java.util.Properties;
 

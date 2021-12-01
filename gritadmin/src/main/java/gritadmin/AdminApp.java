@@ -1,14 +1,14 @@
 package gritadmin;
 
 import org.noear.solon.Solon;
-import org.noear.solon.annotation.Import;
 import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.cloud.model.Instance;
 
 import java.util.Properties;
 
 /**
- * @author noear 2021/6/24 created
+ * @author noear
+ * @since 1.0
  */
 public class AdminApp {
     public static void main(String[] args) {
