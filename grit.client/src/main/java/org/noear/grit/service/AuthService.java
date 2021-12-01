@@ -30,7 +30,7 @@ public interface AuthService {
      * @param resourceSpaceId 资源空间Id
      * @param uri             路径（例：/user/add）
      */
-    boolean hasUri(long subjectId, long resourceSpaceId, String uri) throws SQLException;
+    boolean hasUriBySpace(long subjectId, long resourceSpaceId, String uri) throws SQLException;
 
     /**
      * 检测主体是否有Uri
@@ -39,7 +39,7 @@ public interface AuthService {
      * @param uri             路径（例：/user/add）
      */
     default boolean hasUri(long subjectId, String uri) throws SQLException{
-        return hasUri(subjectId, GritClient.global().getCurrentSpaceId(), uri);
+        return hasUriBySpace(subjectId, GritClient.global().getCurrentSpaceId(), uri);
     }
 
     /**
@@ -49,7 +49,7 @@ public interface AuthService {
      * @param resourceSpaceId 资源空间Id
      * @param permission      权限（例：user:add）
      */
-    boolean hasPermission(long subjectId, long resourceSpaceId, String permission) throws SQLException;
+    boolean hasPermissionBySpace(long subjectId, long resourceSpaceId, String permission) throws SQLException;
 
     /**
      * 检测主体是否有权限
@@ -58,7 +58,7 @@ public interface AuthService {
      * @param permission      权限（例：user:add）
      */
     default boolean hasPermission(long subjectId, String permission) throws SQLException{
-        return hasPermission(subjectId, GritClient.global().getCurrentSpaceId(), permission);
+        return hasPermissionBySpace(subjectId, GritClient.global().getCurrentSpaceId(), permission);
     }
 
     /**
@@ -84,7 +84,7 @@ public interface AuthService {
      * @param subjectId 主体Id
      * @param resourceGroupCode 资源组Code
      */
-    List<ResourceEntity> getResListByGroup(long subjectId, String resourceGroupCode) throws SQLException;
+    List<ResourceEntity> getResListByGroupCode(long subjectId, String resourceGroupCode) throws SQLException;
 
 
     /**
@@ -108,7 +108,7 @@ public interface AuthService {
      *
      * @param subjectId 主体Id
      */
-    default List<ResourceEntity> getUriListBySpace(long subjectId) throws SQLException{
+    default List<ResourceEntity> getUriList(long subjectId) throws SQLException{
         return getUriListBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
@@ -125,7 +125,7 @@ public interface AuthService {
      *
      * @param subjectId
      */
-    default ResourceEntity getUriFristBySpace(long subjectId) throws SQLException{
+    default ResourceEntity getUriFrist(long subjectId) throws SQLException{
         return getUriFristBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
@@ -152,7 +152,7 @@ public interface AuthService {
      *
      * @param subjectId 主体Id
      */
-    default List<ResourceGroup> getUriGroupListBySpace(long subjectId) throws SQLException{
+    default List<ResourceGroup> getUriGroupList(long subjectId) throws SQLException{
         return getUriGroupListBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
@@ -164,7 +164,7 @@ public interface AuthService {
      * @param subjectId 主体Id
      * @param resourceSpaceId 资源空间Id
      */
-    List<ResourceEntity> getPermissionList(long subjectId, long resourceSpaceId) throws SQLException;
+    List<ResourceEntity> getPermissionListBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
      * 获取主体的授与权限列表
@@ -172,7 +172,7 @@ public interface AuthService {
      * @param subjectId 主体Id
      */
     default List<ResourceEntity> getPermissionList(long subjectId) throws SQLException {
-        return getPermissionList(subjectId, GritClient.global().getCurrentSpaceId());
+        return getPermissionListBySpace(subjectId, GritClient.global().getCurrentSpaceId());
     }
 
 

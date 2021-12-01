@@ -80,7 +80,7 @@ public class AuthServiceImpl implements AuthService {
      * @param uri             路径（例：/user/add）
      */
     @Override
-    public boolean hasUri(long subjectId, long resourceSpaceId, String uri) throws SQLException {
+    public boolean hasUriBySpace(long subjectId, long resourceSpaceId, String uri) throws SQLException {
         if (subjectId < 1) {
             return false;
         }
@@ -105,7 +105,7 @@ public class AuthServiceImpl implements AuthService {
      * @param permission      权限（例：user:add）
      */
     @Override
-    public boolean hasPermission(long subjectId, long resourceSpaceId, String permission) throws SQLException {
+    public boolean hasPermissionBySpace(long subjectId, long resourceSpaceId, String permission) throws SQLException {
         if (subjectId < 1) {
             return false;
         }
@@ -145,7 +145,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<ResourceEntity> getResListByGroup(long subjectId, String resourceGroupCode) throws SQLException {
+    public List<ResourceEntity> getResListByGroupCode(long subjectId, String resourceGroupCode) throws SQLException {
         Resource group = GritClient.global().resource().getResourceByCode(resourceGroupCode);
 
         if (group.resource_id == null) {
@@ -242,7 +242,7 @@ public class AuthServiceImpl implements AuthService {
      * @param resourceSpaceId 资源空间Id
      */
     @Override
-    public List<ResourceEntity> getPermissionList(long subjectId, long resourceSpaceId) throws SQLException {
+    public List<ResourceEntity> getPermissionListBySpace(long subjectId, long resourceSpaceId) throws SQLException {
         //获取实体相关的所有主体Id
         List<Long> subjectIds = getSubjectIdsByEntityOnAuth(subjectId);
 

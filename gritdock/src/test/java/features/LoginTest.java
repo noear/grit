@@ -29,7 +29,7 @@ public class LoginTest {
 
         GritClient.global().setCurrentSpaceByCode("wateradmin");
 
-        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupListBySpace(user.subject_id);
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupList(user.subject_id);
         System.out.println(groupList);
         assert groupList.size() > 0;
 
