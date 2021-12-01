@@ -2,12 +2,12 @@
 
 ## 两种部署模式：
 
-#### 基于 water 环境部署
+### 一、基于 water 环境部署
 
 * water_docker-compose ：基于 water 的 docker-compose 部署模式
 * water_k8s ：基于 water 的 k8s 部署模式
 
-#### 自建数据源环境部署
+### 二、自建数据源环境部署
 
 请自建数据库：grit，并通过 grit.sql 初始化数据结构
 
@@ -15,9 +15,9 @@
 * ds_k8s ：基于自建数据源的 k8s 部署模式
 
 
-### 账号与权限管理：
+## 附：LDAP登录支持：
 
-* 想要使用LDAP登录？
+* 基于 water 环境
 
 ```yaml
 # 配置项 grit/grit.yml ，添加 ldap 连接配置：
@@ -30,12 +30,7 @@ grit.ldap:
   groupFilter: "cn=%s"
 ```
 
+* 自建数据源
 
-#### 告警接收客户端：（嘿嘿）
-
-* iOS：https://testflight.apple.com/join/ZUhQctwS
-* Android：https://www.noear.org/app/heihei.apk
-
-
-
+将上面的配置做为 gritadmin 的环境变量添加即可
 
