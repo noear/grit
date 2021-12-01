@@ -1,5 +1,7 @@
 server.port: 7283
 
+solon.extend: "gritdock_ext"
+
 solon.app:
   name: "gritdock"
   group: "grit"
