@@ -1,5 +1,6 @@
 package gritdock.controller.admin;
 
+import gritdock.Config;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
@@ -54,7 +55,7 @@ public class GritController {
 
     @Mapping("/login") //视图 返回
     public ModelAndView login(Context ctx) {
-        ctx.sessionClear();
+        ctx.sessionSet(Config.GRIT_ADMIN_TOKEN,"");
 
         return view("admin/login");
     }
@@ -83,7 +84,7 @@ public class GritController {
             return Result.failure("提示：账号或密码不对！"); //set 直接返回；有利于设置后直接返回，不用另起一行
         else {
             String admin_token = Utils.md5(user0 + "#" + password0);
-            ctx.sessionSet("grit_admin_token", admin_token);
+            ctx.sessionSet(Config.GRIT_ADMIN_TOKEN, admin_token);
 
             return Result.succeed("/grit/");
         }

@@ -7,6 +7,7 @@ import org.noear.solon.Solon;
  * @since 1.0
  * */
 public class Config {
+    public static String GRIT_ADMIN_TOKEN = "grit_admin_token";
 
     /**
      * 平台环境
