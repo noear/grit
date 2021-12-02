@@ -100,7 +100,7 @@ public class LoginController{
         //尝试登录
         Subject subject = GritClient.global().auth().login(userName, userPassword);
 
-        if (subject.subject_id == null || subject.subject_id == 0) {
+        if (Subject.isEmpty(subject)) {
             return Result.failure("提示：账号或密码不对！");
         } else {
             //加载用户主体信息到会话状态
