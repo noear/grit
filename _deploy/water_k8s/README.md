@@ -9,22 +9,17 @@
 
 ## 二、部署服务说明
 
-| 服务 | 说明                  |  镜像 |
-| -------- |---------------------|  -------- | 
-| gritadmin   | Grit 权限管理，并提供远程接口服务 |  noearorg/gritadmin | 
-| gritdock    | 多系统菜单导航平台           |  noearorg/gritdock | 
+| 服务 | 说明 |  镜像 |
+| -------- | --------  |  -------- | 
+| gritdock    | Grit 权限管理及服务 |  noearorg/gritdock | 
 
 
 ## 三、开始部署服务
 
-* 添加 water/gritadmin 服务（镜像：noearorg/gritadmin:latest）
+* 添加 water/gritdock 服务（镜像：noearorg/gritdock:latest）
   * 镜像端口：7281
   * 对外端口：7281
   * 建议2个副本起步
   * 要配置外网访问地址，建议加域名
 
-* 添加 water/gritdock 服务（镜像：noearorg/gritdock:latest）
-  * 镜像端口：8080
-  * 建议1个副本即可
-  * 要配置外网访问地址，建议加域名
   

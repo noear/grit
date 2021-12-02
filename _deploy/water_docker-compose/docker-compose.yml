@@ -1,25 +1,16 @@
 version: '3'
 
 # 部署指南：
-# 1.把配置里的 solon.cloud.water.server 换成真实的 waterapi 地址。然后启动
-# 2.打开 http://localhost:7282 ；gritadmin 权限管理
-# 3.打开 http://localhost:7283 ；gritdock  跨系统资源导航（使用water内的账号登录）
+# 1.把配置里的 grit.db.* 换成真实的 grit db 配置。并启动
+# 2.打开 http://localhost:7281/grit/
 
 services:
-  gritadmin:
-    image: noearorg/gritadmin:latest
-    container_name: gritadmin
+  gritadgritdockmin:
+    image: noearorg/gritdock:latest
+    container_name: gritdock
     environment:
       - solon.cloud.water.server=waterapi:9371    # Water 服务地址
       - gritadmin.password=SykSYLWN9WTpzCHq       # Grit 管理密码
       - TZ=Asia/Shanghai
     ports:
       - 7281:7281
-  gritdock:
-    image: noearorg/gritdock:latest
-    container_name: gritdock
-    environment:
-      - solon.cloud.water.server=waterapi:9371    # Water 服务地址
-      - TZ=Asia/Shanghai
-    ports:
-      - 7282:8080

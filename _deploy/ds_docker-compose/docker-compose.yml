@@ -2,13 +2,12 @@ version: '3'
 
 # 部署指南：
 # 1.把配置里的 grit.db.* 换成真实的 grit db 配置。并启动
-# 2.打开 http://localhost:7282 ；gritadmin 权限管理
-# 3.打开 http://localhost:7283 ；gritdock  跨系统资源导航（等 gritadmin 建好账号后，才能进去）
+# 2.打开 http://localhost:7281/grit/
 
 services:
-  gritadmin:
-    image: noearorg/gritadmin:latest
-    container_name: gritadmin
+  gritdock:
+    image: noearorg/gritdock:latest
+    container_name: gritdock
     environment:
       - grit.db.schema=grit
       - grit.db.server=mysql.grit.io:3306
@@ -19,15 +18,3 @@ services:
       - TZ=Asia/Shanghai
     ports:
       - 7281:7281
-  gritdock:
-    image: noearorg/gritdock:latest
-    container_name: gritdock
-    environment:
-      - solon.start.ping=gritadmin:7281               #确保 gritadmin 服务准备就绪
-      - grit.server=gritadmin:7281                    #rpc方式连grit服务
-      - grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌，与 gritadmin 对应
-      - TZ=Asia/Shanghai
-    depends_on:
-      - gritadmin
-    ports:
-      - 7282:8080
