@@ -1,9 +1,16 @@
-# Grit
+[![Maven Central](https://img.shields.io/maven-central/v/org.noear/water.client.svg)](https://search.maven.org/search?q=g:org.noear%20AND%20water)
+
+` QQ交流群：22200020 `
+
+
+# Grit（聚沙成堆...）
 
 权限管理系统，或者资源授权管理中心，或者权限控制中台
 
 
-### 工件输出：
+## 开始
+
+### 了解框架与构件
 
 | 开发框架                  | 说明 | 
 |-----------------------| -------- | 
@@ -13,9 +20,9 @@
 | grit.server.ui-durian | grit.server + 管理界面实现（可做为插件集成到别的管理后台）     | 
 
 
-| 镜像输出 | 说明     | 
-| -------- |--------| 
-| gritdock    | grit服务 | 
+| 镜像输出               | 说明     | 
+|--------------------|--------| 
+| noearorg/gritdock | grit服务 | 
 
 
 单体项目，可通过 grit.server.ui-durian 集成，直接获取客户端接口与管理能力
