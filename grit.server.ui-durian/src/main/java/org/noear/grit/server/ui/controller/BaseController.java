@@ -21,12 +21,12 @@ public class BaseController {
      * */
     public ModelAndView view(String viewName) {
         //设置必要参数
-        viewModel.put("app", Solon.cfg().appTitle());
+        viewModel.put("app", "Grit");
 
-        viewModel.put("css", "/css");
-        viewModel.put("js", "/js");
-        viewModel.put("img", "/img");
-        viewModel.put("title", Solon.cfg().appTitle());
+        viewModel.put("css", "/_static/css");
+        viewModel.put("js", "/_static/js");
+        viewModel.put("img", "/_static/img");
+        viewModel.put("title", "Grit");
 
 
         return viewModel.view(viewName + ".ftl");
