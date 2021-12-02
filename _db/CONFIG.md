@@ -1,7 +1,7 @@
 
-#
-# for server（建议将此配置放到配置中心）
-#
+#### for server（建议将此配置放到配置中心, key=grit/grit.yml）
+
+```yaml
 grit.db:
   schema: "grit"
   server: "mysql.water.io:3306"
@@ -21,12 +21,16 @@ grit.ldap:
   userFilter: "cn=%s"
   groupFilter: "cn=%s"
 
-#
-# for client（建议将此配置放到配置中心）
-#
+```
+
+#### for client（建议将此配置放到配置中心, key=grit/gritclient.yml）
+
+```yaml
 grit.server: "http://gritapi:7281"
 grit.token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 server.session:
   state.domain: "grit.noear.org"
   timeout: "7200"
+```
+
