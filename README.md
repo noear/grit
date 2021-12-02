@@ -29,7 +29,11 @@
 
 ### 控制台演示站
 
-地址： [http://grit.noear.org/grit/](http://grit.noear.org/grit/)  （账号：admin ；密码：admin ）
+地址： [http://grit.noear.org/grit/](http://grit.noear.org/grit/)  （账号：admin ；密码：UjKeQwBK1oCUOCvl ）
+
+**在里面配置权限之后，可以在此处看效果：**
+
+地址：[http://grit.noear.org/](http://grit.noear.org/)  （已有演示主体，账号：admin ；密码：admin ）
 
 ### 视频教程
 
