@@ -1,8 +1,8 @@
 package org.noear.grit.model.domain;
 
-import org.noear.grit.client.utils.PropUtils;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.ResourceDo;
+import org.noear.solon.Utils;
 
 import java.util.Properties;
 
@@ -37,7 +37,7 @@ public class Resource extends ResourceDo {
             if (TextUtils.isEmpty(attrs)) {
                 attrsProp = new Properties();
             } else {
-                attrsProp = PropUtils.build(attrs);
+                attrsProp = Utils.buildProperties(attrs);
             }
         }
 
