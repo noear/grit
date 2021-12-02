@@ -1,4 +1,4 @@
-package org.noear.solon.extend.grit.integration;
+package org.noear.grit.solon.integration;
 
 import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;

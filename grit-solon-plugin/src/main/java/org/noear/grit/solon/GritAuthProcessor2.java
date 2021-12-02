@@ -1,14 +1,16 @@
-package org.noear.solon.extend.grit;
+package org.noear.grit.solon;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritException;
 import org.noear.solon.Solon;
-import org.noear.solon.auth.AuthProcessor;
-import org.noear.solon.auth.annotation.Logical;
+import org.noear.solon.Utils;
+import org.noear.solon.auth.AuthProcessorBase;
 import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.core.handle.Context;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 授权处理实现
@@ -16,7 +18,7 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.0
  */
-public class GritAuthProcessor implements AuthProcessor {
+public class GritAuthProcessor2 extends AuthProcessorBase {
     /**
      * 获取主体Id
      * */
@@ -91,55 +93,68 @@ public class GritAuthProcessor implements AuthProcessor {
     }
 
     @Override
-    public boolean verifyPermissions(String[] permissions, Logical logical) {
-        long subjectId = getSubjectId();
+    protected List<String> getPermissions() {
+        List<String> permissionList = null;
+        Context ctx = Context.current();
 
-        try {
-            if (logical == Logical.AND) {
-                boolean isOk = true;
+        String sessionKey = GritClient.global().getCurrentSpaceCode() + ":" + "user_permissionList";
 
-                for (String p : permissions) {
-                    isOk = isOk && GritClient.global().auth().hasPermission(subjectId, p);
-                }
-
-                return isOk;
-            } else {
-                for (String p : permissions) {
-                    if (GritClient.global().auth().hasPermission(subjectId, p)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        //尝试从会话状态获取
+        if (ctx != null) {
+            permissionList = ctx.session(sessionKey, null);
         }
+
+        if (permissionList == null) {
+            try {
+                permissionList = GritClient.global().auth()
+                        .getPermissionList(getSubjectId())
+                        .stream()
+                        .filter(s -> Utils.isNotEmpty(s.resource_code))
+                        .map(s -> s.resource_code)
+                        .collect(Collectors.toList());
+
+                //尝试设置到会话状态
+                if (ctx != null) {
+                    ctx.sessionSet(sessionKey, permissionList);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return permissionList;
     }
 
     @Override
-    public boolean verifyRoles(String[] roles, Logical logical) {
-        long subjectId = getSubjectId();
+    protected List<String> getRoles() {
+        List<String> roleList = null;
+        Context ctx = Context.current();
 
-        try {
-            if (logical == Logical.AND) {
-                boolean isOk = true;
+        String sessionKey = GritClient.global().getCurrentSpaceCode() + ":" + "user_roleList";
 
-                for (String r : roles) {
-                    isOk = isOk && GritClient.global().auth().hasRole(subjectId, r);
-                }
-
-                return isOk;
-            } else {
-                for (String r : roles) {
-                    if (GritClient.global().auth().hasRole(subjectId, r)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        //尝试从会话状态获取
+        if (ctx != null) {
+            roleList = ctx.session(sessionKey, null);
         }
-    }
 
+        if (roleList == null) {
+            try {
+                roleList = GritClient.global().auth()
+                        .getRoleList(getSubjectId())
+                        .stream()
+                        .filter(s -> Utils.isNotEmpty(s.subject_code))
+                        .map(s -> s.subject_code)
+                        .collect(Collectors.toList());
+
+                //尝试设置到会话状态
+                if (ctx != null) {
+                    ctx.sessionSet(sessionKey, roleList);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return roleList;
+    }
 }

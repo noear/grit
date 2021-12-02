@@ -1,7 +1,7 @@
 package example2.dso;
 
 import org.noear.grit.model.domain.Subject;
-import org.noear.solon.extend.grit.SessionBase;
+import org.noear.grit.solon.SessionBase;
 
 /**
  * 跨应用会话管理

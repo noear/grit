@@ -1,4 +1,4 @@
-package org.noear.solon.extend.grit;
+package org.noear.grit.solon;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.Subject;

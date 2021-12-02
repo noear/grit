@@ -1,4 +1,4 @@
-package org.noear.solon.extend.grit;
+package org.noear.grit.solon;
 
 import org.noear.solon.Solon;
 import org.noear.solon.core.handle.Context;
