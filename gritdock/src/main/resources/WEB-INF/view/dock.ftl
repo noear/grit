@@ -12,10 +12,11 @@
     <script src="${js}/layer.js"></script>
     <style>
         header aside > *{cursor: pointer;}
-        header aside a{display:inline-block; height:100%; padding:0 10px; border-left:1px solid #444; }
+        header aside a {display:inline-block; height:100%; padding:0 15px; }
         header aside a img{vertical-align: middle; width: 14px;}
-        header aside t{padding: 0 10px; color: #999!important;}
-        header aside .logout{color: #fff; }
+        header aside .split{border-left:1px solid #444;}
+        header aside .user{color: #999!important;}
+
         menu > div img{width: 20px;height: 20px; vertical-align: middle;}
     </style>
     <style>

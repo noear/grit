@@ -102,14 +102,14 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         String temp = Session.current().getDisplayName();
         if (temp != null) {
-            buf.append("<t onclick='modifyMm(); return false;'>");
+            buf.append("<a class='user' onclick='modifyMm(); return false;'>");
             buf.append("<i class='fa fa-user'></i> ");
             buf.append(temp);
-            buf.append("</t>");
+            buf.append("</a>");
         }
-        buf.append("<a onclick='_dock_home_open();'><img src='/_static/img/app_w.png'/></a>");
+        buf.append("<a class='split' onclick='_dock_home_open();'><img src='/_static/img/app_w.png'/></a>");
 
-        buf.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
+        buf.append("<a class='split' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
         buf.append("</aside>");
 
         buf.append("</header>");
