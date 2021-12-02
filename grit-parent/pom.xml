@@ -98,6 +98,10 @@
        </dependencies>
    </dependencyManagement>
 
+    <name>${project.artifactId}</name>
+    <description>Java project for grit</description>
+    <url>https://github.com/noear/grit</url>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -113,6 +117,7 @@
             <organizationUrl>http://www.noear.org</organizationUrl>
         </developer>
     </developers>
+
     <scm>
         <connection>scm:git:git@github.com:noear/grit.git</connection>
         <developerConnection>scm:git:git@github.com:noear/grit.git</developerConnection>
