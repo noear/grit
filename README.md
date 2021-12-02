@@ -1,4 +1,4 @@
-[![Maven Central](https://img.shields.io/maven-central/v/org.noear/water.client.svg)](https://search.maven.org/search?q=g:org.noear%20AND%20water)
+[![Maven Central](https://img.shields.io/maven-central/v/org.noear/grit.client.svg)](https://search.maven.org/search?q=g:org.noear%20AND%20grit)
 
 ` QQ交流群：22200020 `
 
@@ -27,21 +27,116 @@
 
 单体项目，可通过 grit.server.ui-durian 集成，直接获取客户端接口与管理能力
 
+### 控制台演示站
 
-### 存储设计:
+地址： [http://grit.noear.org](http://grit.noear.org)  （账号：admin ；密码：admin ）
 
-* 资源表。树形，分三个领域概念：
-  * 资源空间
-  * 资源组
-  * 资源（或叫：资源实体）
-    * 可见（菜单）
-    * 不可见（权限）
-* 资源连接表
-  * 资源->主体
-* 主体表。树形，分二个领域概念：
-  * 主体组
-    * 可见（分组）
-    * 不可见（角色）
-  * 主体（或叫：主体实体）
-* 主体连接表
-  * 主体->主体组
+### 视频教程
+
+暂无
+
+### (一) 使用
+
+#### 配置
+* pom.xml / mevan 配置
+```xml
+<!-- 客户端版本 -->
+<dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>grit.client</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+<!-- solon cloud 集成版本 （也可用于 Spring Boot 项目） -->
+<dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>grit-solon-plugin</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+* app.yml / 配置说明
+```yml
+solon.app:
+  name: "demoadmin"
+  group: "demo"
+
+solon.cloud.water:
+  server: "waterapi:9371"           #WATER服务地址
+  config:
+    load: "grit:gritclient.yml"     #加载gritclient的配置
+```
+
+#### 代码
+
+```java
+//定义认证处理器
+public class AuthProcessorImpl extends GritAuthProcessor {
+    
+}
+
+//配置验证规则
+@Configuration
+public class DemoConfig{
+    @Bean
+    public void initAuth() {
+        //适配认证框架
+        AuthUtil.adapter()
+                .loginUrl("/login")
+                .addRule(r -> r.include("**").verifyIp().failure((c, t) -> c.output(c.realIp() + ", not whitelist"))) //增加ip白名单验证规则
+                .addRule(r -> r.exclude("/login**").exclude(HealthHandler.HANDLER_PATH).exclude("/_**").verifyPath()) //增加uri验证规则
+                .processor(new AuthProcessorImpl()) //绑定验证处理器
+                .failure((ctx, rst) -> {
+                    ctx.outputAsJson(new ONode().set("code", 403).set("msg", "你，没有权限哟!").toJson());
+                });
+    }
+}
+
+//登录示例
+@Controller
+public class LoginController{
+    @Mapping("/login")
+    public Result login(String userName, String userPassword){
+        //尝试登录
+        Subject subject = GritClient.global().auth().login(userName, userPassword);
+
+        if (subject.subject_id == null || subject.subject_id == 0) {
+            return Result.failure("提示：账号或密码不对！");
+        } else {
+            //加载用户主体信息到会话状态
+            Session.current().loadSubject(subject);
+            
+            //找到用户有权限的一个可见uri
+            Resource res = GritClient.global().auth().getUriFrist(subject.subject_id);
+
+            if (Utils.isEmpty(res.link_uri)) {
+                //如果没找到
+                return Result.failure("提示：请联系管理员开通权限！");
+            } else {
+                //如果找到，让前端到跳到目标地址
+                String resUrl = GritUtil.buildDockUri(res);
+                return Result.succeed(resUrl);
+            }
+        }
+    }
+}
+
+//权限注解示例
+@Controller
+public class DemoController{
+    @AuthPermissions("demo:admin")
+    public void demo_ajax_del(String key){
+        //删除操作，有 demo:admin 权限的人才能操作
+    }
+}
+
+//构建动态菜单的示例
+@Controller
+public class DemoController{
+    @AuthPermissions("demo:admin")
+    public void demo_ajax_del(String key){
+        //删除操作，有 demo:admin 权限的人才能操作
+    }
+}
+
+```

@@ -14,6 +14,17 @@ import java.util.Properties;
  */
 public class Subject extends SubjectDo {
 
+    /**
+     * 是否为空
+     * */
+    public static boolean isEmpty(Subject subject) {
+        if (subject == null || subject.subject_id == null || subject.subject_id == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     transient Properties attrsProp;
 
     /**

@@ -14,6 +14,16 @@ import java.util.Properties;
  */
 public class Resource extends ResourceDo {
 
+    /**
+     * 是否为空
+     * */
+    public static boolean isEmpty(Resource resource) {
+        if (resource == null || resource.resource_id == null || resource.resource_id == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /////////////////////////////////////
 
