@@ -41,6 +41,9 @@
       }
     }
 
+    function reloadimg(img) {
+      $(img).attr("src","/login/validation/img?date"+Date());
+    }
   </script>
 </head>
 <body onkeydown="checkKey()">
@@ -87,8 +90,3 @@
 
 </body>
 </html>
-<script type="text/javascript">
-  function reloadimg(img) {
-    $(img).attr("src","/login/validation/img?date"+Date());
-  }
-</script>
