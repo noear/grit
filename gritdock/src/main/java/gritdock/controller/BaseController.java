@@ -7,6 +7,12 @@ import gritdock.Config;
 import gritdock.dso.Session;
 import gritdock.util.Datetime;
 
+/**
+ * Grit dock 控制器基类
+ *
+ * @author noear
+ * @since 1.0
+ */
 @Singleton(false)
 public abstract class BaseController {
 

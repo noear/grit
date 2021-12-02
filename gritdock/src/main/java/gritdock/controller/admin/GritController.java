@@ -48,12 +48,14 @@ public class GritController {
     }
 
     @Mapping("/")
-    public ModelAndView dock() {
+    public ModelAndView home() {
         return view("admin/dock");
     }
 
     @Mapping("/login") //视图 返回
-    public ModelAndView login() {
+    public ModelAndView login(Context ctx) {
+        ctx.sessionClear();
+
         return view("admin/login");
     }
     //-----------------

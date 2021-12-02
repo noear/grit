@@ -24,21 +24,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by noear on 14-9-10.
+ * Grit dock 登录控制器
+ *
+ * @author noear
+ * @since 1.0
  */
 @Controller
 public class LoginController extends BaseController {
+
+    @Mapping("/")
+    public void home(Context ctx) throws Exception {
+        ctx.redirect("/login");
+    }
 
     @Mapping("/login") //视图 返回
     public ModelAndView login(Context ctx) {
         ctx.sessionClear();
 
         return view("login");
-    }
-
-    @Mapping("/")
-    public void index(Context ctx) throws Exception {
-        ctx.redirect("/login");
     }
     //-----------------
 
