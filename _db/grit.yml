@@ -2,16 +2,17 @@
 #
 # for server（建议将此配置放到配置中心）
 #
-grit.cache:
-  driverType: "local"
-
 grit.db:
   schema: "grit"
   server: "mysql.water.io:3306"
   password: "123456"
   username: "demo"
 
-# ldap 配置，如果不需要可以去掉
+# cache 配置(可选)
+grit.cache:
+  driverType: "local"
+
+# ldap 配置(可选)
 grit.ldap:
   url: "ldap://127.0.0.1:389"
   baseDn: "DC=company,DC=com"
