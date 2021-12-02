@@ -121,13 +121,22 @@ public class LoginController{
     }
 }
 
-//权限注解示例
+//权限控制示例
 @Controller
 public class DemoController{
+    //注解模式
     @AuthPermissions("demo:admin")
     public void demo_ajax_del(String key){
         //删除操作，有 demo:admin 权限的人才能操作
     }
+
+    //代码模式
+    public void demo_ajax_del2(String key){
+        //删除操作，有 demo:admin 权限的人才能操作
+        if(GritClient.global().auth().hasPermission(subject_id, "demo:admin")){
+            return;
+        }
+    } 
 }
 
 //构建动态菜单的示例
