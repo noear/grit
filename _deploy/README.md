@@ -2,7 +2,7 @@
 
 ## 两种部署模式：
 
-### 一、基于 water 环境部署
+### 一、基于配置服务部署（以 water 为例）
 
 * water_docker-compose ：基于 water 的 docker-compose 部署模式
 * water_k8s ：基于 water 的 k8s 部署模式
