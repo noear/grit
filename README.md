@@ -54,7 +54,7 @@
 
 ### 部署说明
 
-具体参考：[_deploy](deploy)
+具体参考：[_deploy](_deploy)
 
 ### (一) 使用
 
