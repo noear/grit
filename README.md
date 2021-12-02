@@ -131,11 +131,17 @@ public class DemoController{
 }
 
 //构建动态菜单的示例
-@Controller
-public class DemoController{
-    @AuthPermissions("demo:admin")
-    public void demo_ajax_del(String key){
-        //删除操作，有 demo:admin 权限的人才能操作
+@Component("view:header")
+public class HeaderTag implements TemplateDirectiveModel{
+    public void execute(){
+        //获取用户有权限的可见uri分组
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupList(subjectId);
+
+        //获取分组的uri资源列表（内部是虚拟树）
+        List<ResourceEntity> list = GritClient.global().auth().getUriListByGroup(subjectId, group.resource_id);
+        
+        //获取分组的第一个uri资源
+        ResourceEntity frist = GritClient.global().auth().getUriFristByGroup(subjectId, group.resource_id);
     }
 }
 
