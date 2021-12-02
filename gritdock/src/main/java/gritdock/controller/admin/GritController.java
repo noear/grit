@@ -34,7 +34,7 @@ public class GritController {
      * @param viewName 视图名字(内部uri)
      * */
     public ModelAndView view(String viewName) {
-        String title = Solon.cfg().get("gritadmin.title","Grit");
+        String title = Solon.cfg().get("gritadmin.title", "Grit");
         //设置必要参数
         viewModel.put("app", title);
 
@@ -62,10 +62,10 @@ public class GritController {
 
     //ajax.path like "{view}/ajax/{cmd}"
     @Mapping("/login/ajax/check")
-    public Result login_ajax_check(String admin_userName, String admin_passWord, String captcha, Context ctx) throws Exception {
+    public Result login_ajax_check(Context ctx, String admin_userName, String admin_passWord, String captcha) throws Exception {
 
         //验证码检查
-        if (!captcha.toLowerCase().equals(getValidation())) {
+        if (!captcha.toLowerCase().equals(getValidation(ctx))) {
             return Result.failure("提示：验证码错误！");
         }
 
@@ -93,11 +93,11 @@ public class GritController {
     /*
      * 获取验证码图片
      */
-    @Mapping(value = "/login/validation/img",method = MethodType.GET, produces = "image/jpeg")
+    @Mapping(value = "/login/validation/img", method = MethodType.GET, produces = "image/jpeg")
     public void getValidationImg(Context ctx) throws IOException {
         // 生成验证码存入session
         String code = RandomUtils.code(4);
-        setValidation(code);
+        setValidation(ctx, code);
 
         // 获取图片
         BufferedImage bufferedImage = ImageUtils.getValidationImage(code);
@@ -112,11 +112,11 @@ public class GritController {
         ImageIO.write(bufferedImage, "jpeg", ctx.outputStream());
     }
 
-    protected final String getValidation() {
-        return (String) Context.current().session("Validation_String");
+    protected final String getValidation(Context ctx) {
+        return (String) ctx.session("grit_validation_string");
     }
 
-    protected final void setValidation(String validation) {
-        Context.current().sessionSet("Validation_String", validation.toLowerCase());
+    protected final void setValidation(Context ctx, String validation) {
+        ctx.sessionSet("grit_validation_string", validation.toLowerCase());
     }
 }
