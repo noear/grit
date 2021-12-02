@@ -3,14 +3,11 @@
 # for server（建议将此配置放到配置中心）
 #
 grit.cache:
-  driverType: "redis"
-  server: "redis.water.io:6379"
-  password: "L8vcQgep"
-  db: "9"
+  driverType: "local"
 
 grit.db:
   schema: "grit"
-  url: "jdbc:mysql://mysql.water.io:3306/grit?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true"
+  server: "mysql.water.io:3306"
   password: "123456"
   username: "demo"
 
