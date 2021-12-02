@@ -51,7 +51,8 @@
     <version>1.0.0</version>
 </dependency>
 
-<!-- solon cloud 集成版本 （也可用于 Spring Boot 项目） -->
+<!-- solon cloud 集成版本（也可用于 Spring boot 项目） -->
+<!-- 用的时候再加个配置服务的插件，例：water-solon-plugin -->
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
