@@ -56,7 +56,7 @@
     </left>
     <right class="col-6">
       <p>
-        <a href="/grit/" target="_blank">权限管理</a>
+        <a href="https://gite.com/noear/grit" target="_blank">gitee</a> | <a href="https://github.com/noear/grit">github</a>
       </p>
     </right>
   </flex>
