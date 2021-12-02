@@ -17,6 +17,11 @@
     <dependencies>
         <dependency>
             <groupId>org.noear</groupId>
+            <artifactId>grit.client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
             <artifactId>solon.auth</artifactId>
             <version>${solon.ver}</version>
         </dependency>
@@ -25,11 +30,6 @@
             <groupId>org.noear</groupId>
             <artifactId>solon.cloud</artifactId>
             <version>${solon.ver}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>grit.client</artifactId>
         </dependency>
     </dependencies>
 
