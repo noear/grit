@@ -38,7 +38,7 @@
                                 },1500);
 
                             } else {
-                                layer.msg(data.msg)
+                                layer.msg(data.description)
                             }
                         }
                     });

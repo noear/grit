@@ -20,11 +20,12 @@
             $.ajax({
                 url:"/dock/jump/",
                 data:{pack:pack},
-                success:function(data){
-                    if(data.code==1)
-                        top.location.href=data.url;
-                    else
-                        alert(data.msg);
+                success:function(rst) {
+                    if (rst.code == 200) {
+                        top.location.href = data.data;
+                    } else {
+                        alert(rst.description);
+                    }
                 }
             });
             return false;

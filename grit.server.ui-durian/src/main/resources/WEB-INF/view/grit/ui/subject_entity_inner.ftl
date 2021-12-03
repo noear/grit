@@ -51,7 +51,7 @@
                         location.reload();
                     },800);
                 }else{
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             }
         });
@@ -83,7 +83,7 @@
                         location.reload();
                     },800);
                 }else{
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             }
         });

@@ -53,7 +53,7 @@ public class AuthController extends BaseController {
     }
 
     @Mapping("s")
-    public Object auth_s() throws SQLException {
+    public ModelAndView auth_s() throws SQLException {
         List<SubjectEntity> enityList = subjectAdminService.getSubjectEntityListByAll();
         enityList.sort(SubjectComparator.instance);
 
@@ -64,7 +64,7 @@ public class AuthController extends BaseController {
     }
 
     @Mapping("subject.entity.get")
-    public Object entity_get(long group_id) throws SQLException {
+    public Result entity_get(long group_id) throws SQLException {
         List<SubjectEntity> enityList = null;
         if (group_id == 0) {
             enityList = subjectAdminService.getSubjectEntityListByAll();
@@ -79,7 +79,7 @@ public class AuthController extends BaseController {
 
 
     @Mapping("inner")
-    public Object inner(long subject_id, long space_id) throws SQLException {
+    public ModelAndView inner(long subject_id, long space_id) throws SQLException {
         if (subject_id == 0) {
             return null;
         }

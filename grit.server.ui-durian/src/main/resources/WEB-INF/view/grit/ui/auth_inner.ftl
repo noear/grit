@@ -39,7 +39,7 @@
                 if(data.code==200) {
                     layer.msg('操作成功');
                 }else{
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             }
         });

@@ -54,7 +54,7 @@
                             }
                         },800);
                     }else{
-                        layer.msg(data.msg);
+                        layer.msg(data.description);
                     }
                 }
             });
@@ -86,7 +86,7 @@
                             }
                         },800);
                     }else{
-                        layer.msg(data.msg);
+                        layer.msg(data.description);
                     }
                 }
             });
