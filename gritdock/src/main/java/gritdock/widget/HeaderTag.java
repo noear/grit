@@ -5,6 +5,8 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.client.comparator.ResourceComparator;
+import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.event.EventBus;
@@ -26,6 +28,8 @@ import java.util.Map;
 @Component("ftl:header")
 public class HeaderTag implements TemplateDirectiveModel {
 
+    static final String TOPBAR = "gritdock_topbar";
+
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         if (Session.current().getSubjectId() == 0) {   //检查用户是已登录
@@ -44,6 +48,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         Context context = Context.current();
 
         String path = context.pathNew();
+        long subjectId = Session.current().getSubjectId();
         ResourceSpace resourceSpace = null;
 
         List<ResourceGroup> list = null;
@@ -56,10 +61,9 @@ public class HeaderTag implements TemplateDirectiveModel {
                 path = GritUtil.cleanSpaceCodeAtPath(path);
 
                 resourceSpace = GritClient.global().resource().getSpaceByCode(spaceCode);
-                list = GritClient.global().auth().getUriGroupListBySpace(Session.current().getSubjectId(), resourceSpace.resource_id);
+                list = GritClient.global().auth().getUriGroupListBySpace(subjectId, resourceSpace.resource_id);
             }
         }
-
 
         StringBuilder buf = new StringBuilder();
         buf.append("<header>");
@@ -107,6 +111,25 @@ public class HeaderTag implements TemplateDirectiveModel {
             buf.append(temp);
             buf.append("</a>");
         }
+
+        //topbar
+        Resource topbar = GritClient.global().resource().getResourceByCodeAndSpace(0L,TOPBAR);
+        if(Resource.isEmpty(topbar) == false) {
+            List<ResourceEntity> topitemList = GritClient.global().auth().getResListByGroup(subjectId, topbar.resource_id);
+            if (topitemList.size() > 1) {
+                topitemList.sort(ResourceComparator.instance);
+            }
+
+            for (ResourceEntity item : topitemList) {
+                buf.append("<a class='split' href='");
+                buf.append(item.link_uri);
+                buf.append("'><i class='");
+                buf.append(item.icon_uri);
+                buf.append("'></i></a>");
+            }
+        }
+
+
         buf.append("<a class='split' onclick='_dock_home_open();'><img src='/_static/img/app_w.png'/></a>");
 
         buf.append("<a class='split' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
