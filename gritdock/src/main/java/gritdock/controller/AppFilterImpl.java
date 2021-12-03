@@ -37,8 +37,6 @@ public class AppFilterImpl implements Filter {
 
         if (path.startsWith("/grit/login") ||
                 path.startsWith("/login") ||
-                path.startsWith("/run/") ||
-                path.startsWith("/msg/") ||
                 path.startsWith("/_")) {
             return true;
         }
