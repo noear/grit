@@ -106,7 +106,7 @@ public class HeaderTag implements TemplateDirectiveModel {
 
         String temp = Session.current().getDisplayName();
         if (temp != null) {
-            buf.append("<a class='user' onclick='modifyMm(); return false;'>");
+            buf.append("<a class='topitem' onclick='modifyMm(); return false;'>");
             buf.append("<i class='fa fa-user'></i> ");
             buf.append(temp);
             buf.append("</a>");
@@ -121,7 +121,7 @@ public class HeaderTag implements TemplateDirectiveModel {
             }
 
             for (ResourceEntity item : topitemList) {
-                buf.append("<a class='split' href='");
+                buf.append("<a class='split topitem' href='");
                 buf.append(item.link_uri);
                 buf.append("'><i class='");
                 buf.append(item.icon_uri);

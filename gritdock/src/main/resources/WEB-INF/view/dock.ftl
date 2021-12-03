@@ -15,7 +15,7 @@
         header aside a {display:inline-block; height:100%; padding:0 15px; }
         header aside a img{vertical-align: middle; width: 14px;}
         header aside .split{border-left:1px solid #444;}
-        header aside .user{color: #999!important;}
+        header aside .topitem{color: #999!important;}
 
         menu > div img{width: 20px;height: 20px; vertical-align: middle;}
     </style>
