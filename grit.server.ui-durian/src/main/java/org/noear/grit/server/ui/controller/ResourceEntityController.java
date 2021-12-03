@@ -29,6 +29,7 @@ public class ResourceEntityController extends BaseController {
     @Mapping
     public ModelAndView home(long space_id, Long group_id) throws SQLException {
         List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
+        spaceList.sort(ResourceComparator.instance);
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
 
