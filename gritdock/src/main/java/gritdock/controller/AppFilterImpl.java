@@ -8,9 +8,11 @@ import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.cloud.CloudClient;
+import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
+import org.noear.solon.core.handle.Result;
 
 /**
  * 应用过滤器，增加访问控制
@@ -23,7 +25,12 @@ public class AppFilterImpl implements Filter {
     @Override
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
         if (authCheck(ctx)) {
-            chain.doFilter(ctx);
+            try {
+                chain.doFilter(ctx);
+            } catch (Throwable e) {
+                EventBus.push(e);
+                ctx.render(Result.failure(e.getLocalizedMessage()));
+            }
         }
     }
 
