@@ -9,6 +9,7 @@ import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ResourceGroupController extends BaseController{
     ResourceAdminService resourceAdminService;
     
     @Mapping
-    public Object home(long space_id) throws SQLException {
+    public ModelAndView home(long space_id) throws SQLException {
 
         List<ResourceSpace> list = resourceAdminService.getSpaceList();
         list.sort(ResourceComparator.instance);
@@ -38,7 +39,7 @@ public class ResourceGroupController extends BaseController{
     }
 
     @Mapping("inner")
-    public Object inner(long space_id) throws SQLException {
+    public ModelAndView inner(long space_id) throws SQLException {
         List<ResourceGroup> list = resourceAdminService.getResourceGroupListBySpace(space_id);
         list = ResourceTreeUtils.build(list,space_id);
 

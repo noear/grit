@@ -8,6 +8,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class ResourceController extends BaseController {
     ResourceAdminService resourceAdminService;
 
     @Mapping("edit")
-    public Object edit(long resource_id, long group_id, int type) throws SQLException {
+    public ModelAndView edit(long resource_id, long group_id, int type) throws SQLException {
         Resource m1 = resourceAdminService.getResourceById(resource_id);
 
         if (m1.resource_id == null) {

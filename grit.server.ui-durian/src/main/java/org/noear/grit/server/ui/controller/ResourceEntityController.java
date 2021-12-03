@@ -10,6 +10,7 @@ import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ResourceEntityController extends BaseController {
     ResourceAdminService resourceAdminService;
     
     @Mapping
-    public Object home(long space_id, Long group_id) throws SQLException {
+    public ModelAndView home(long space_id, Long group_id) throws SQLException {
         List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
         space_id = ResourceSpaceCookie.build(space_id, spaceList);
         ResourceSpaceCookie.set(space_id);
@@ -49,7 +50,7 @@ public class ResourceEntityController extends BaseController {
     }
 
     @Mapping("inner")
-    public Object inner(long group_id) throws SQLException {
+    public ModelAndView inner(long group_id) throws SQLException {
         List<Resource> list = resourceAdminService.getSubResourceListByPid(group_id);
         List<Resource> list2 = list.stream().filter(r->r.resource_type == 0)
                 .sorted(ResourceComparator.instance)

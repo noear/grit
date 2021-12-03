@@ -14,6 +14,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class AuthController extends BaseController {
 
 
     @Mapping
-    public Object home(Long group_id) throws SQLException {
+    public ModelAndView home(Long group_id) throws SQLException {
         List<SubjectGroup> list = subjectAdminService.getGroupList();
         list = SujectTreeUtils.build(list, 0);
 

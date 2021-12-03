@@ -8,6 +8,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 import org.noear.solon.validation.annotation.NotEmpty;
 import org.noear.solon.validation.annotation.NotZero;
@@ -28,7 +29,7 @@ public class SubjectController extends BaseController {
     SubjectAdminService subjectAdminService;
     
     @Mapping("edit")
-    public Object edit(long subject_id, long group_id, int type) throws SQLException {
+    public ModelAndView edit(long subject_id, long group_id, int type) throws SQLException {
         Subject m1 = subjectAdminService.getSubjectById(subject_id);
 
         if (m1.subject_id == null) {

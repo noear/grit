@@ -6,6 +6,7 @@ import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,7 +22,7 @@ public class SubjectGroupController extends BaseController{
     SubjectAdminService subjectAdminService;
 
     @Mapping
-    public Object home(Integer state) throws SQLException {
+    public ModelAndView home(Integer state) throws SQLException {
         if(state == null){
             state = 1;
         }

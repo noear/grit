@@ -9,6 +9,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +25,7 @@ public class SubjectEntityController extends BaseController {
     SubjectAdminService subjectAdminService;
 
     @Mapping
-    public Object home(Long group_id) throws SQLException {
+    public ModelAndView home(Long group_id) throws SQLException {
         List<SubjectGroup> list = subjectAdminService.getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
@@ -41,16 +42,16 @@ public class SubjectEntityController extends BaseController {
     }
 
     @Mapping("s")
-    public Object entity_s(String key) throws SQLException {
+    public ModelAndView entity_s(String key) throws SQLException {
         return showInner(0, key, "grit/ui/subject_entity_s");
     }
 
     @Mapping("inner")
-    public Object inner(long group_id, String key) throws SQLException {
+    public ModelAndView inner(long group_id, String key) throws SQLException {
         return showInner(group_id, key, "grit/ui/subject_entity_inner");
     }
 
-    private Object showInner(long group_id, String key, String viewName) throws SQLException {
+    private ModelAndView showInner(long group_id, String key, String viewName) throws SQLException {
         List<SubjectEntity> list = null;
 
         if (group_id == 0) {
