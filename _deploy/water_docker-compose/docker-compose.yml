@@ -5,7 +5,7 @@ version: '3'
 # 2.打开 http://localhost:7281/grit/
 
 services:
-  gritadgritdockmin:
+  gritdock:
     image: noearorg/gritdock:latest
     container_name: gritdock
     environment:
