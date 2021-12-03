@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8 "/>
     <link rel="stylesheet" href="${css}/main.css"/>
-    <script src="/_session/domain.js"></script>
     <script src="${js}/jtadmin.js"></script>
     <script src="${js}/layer.js"></script>
     <script src="//mirror.noear.org/lib/ace/ace.js" ></script>
@@ -31,7 +30,7 @@
             var vm = formToMap('form');
 
             if (!vm.display_name) {
-                top.layer.msg("显示名不能为空！");
+                layer.msg("显示名不能为空！");
                 return;
             }
 
@@ -43,7 +42,7 @@
                 data:vm,
                 success:function (data) {
                     if(data.code==200) {
-                        top.layer.msg('操作成功');
+                        layer.msg('操作成功');
 
                         setTimeout(function(){
                             if(resource_type == 2){
@@ -55,7 +54,7 @@
                             }
                         },800);
                     }else{
-                        top.layer.msg(data.msg);
+                        layer.msg(data.msg);
                     }
                 }
             });
@@ -76,7 +75,7 @@
                 data:{"resource_id":resource_id},
                 success:function (data) {
                     if(data.code==200) {
-                        top.layer.msg('操作成功')
+                        layer.msg('操作成功')
                         setTimeout(function(){
                             if(resource_type == 2){
                                 location.href="/grit/ui/resource/space";
@@ -87,7 +86,7 @@
                             }
                         },800);
                     }else{
-                        top.layer.msg(data.msg);
+                        layer.msg(data.msg);
                     }
                 }
             });

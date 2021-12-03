@@ -5,7 +5,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8 "/>
     <link rel="stylesheet" href="${css}/main.css"/>
-    <script src="/_session/domain.js"></script>
     <script src="${js}/jtadmin.js"></script>
     <script src="${js}/layer.js"></script>
     <style>
@@ -38,9 +37,9 @@
             data:vm,
             success:function (data) {
                 if(data.code==200) {
-                    top.layer.msg('操作成功');
+                    layer.msg('操作成功');
                 }else{
-                    top.layer.msg(data.msg);
+                    layer.msg(data.msg);
                 }
             }
         });
