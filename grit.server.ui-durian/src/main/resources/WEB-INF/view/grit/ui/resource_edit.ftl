@@ -40,8 +40,8 @@
                 type:"POST",
                 url:"/grit/ui/resource/edit/ajax/save",
                 data:vm,
-                success:function (data) {
-                    if(data.code==200) {
+                success:function (rst) {
+                    if(rst.code==200) {
                         layer.msg('操作成功');
 
                         setTimeout(function(){
@@ -54,7 +54,7 @@
                             }
                         },800);
                     }else{
-                        layer.msg(data.description);
+                        layer.msg(rst.description);
                     }
                 }
             });
@@ -73,8 +73,8 @@
                 type:"POST",
                 url:"/grit/ui/resource/edit/ajax/del",
                 data:{"resource_id":resource_id},
-                success:function (data) {
-                    if(data.code==200) {
+                success:function (rst) {
+                    if(rst.code==200) {
                         layer.msg('操作成功')
                         setTimeout(function(){
                             if(resource_type == 2){
@@ -86,7 +86,7 @@
                             }
                         },800);
                     }else{
-                        layer.msg(data.description);
+                        layer.msg(rst.description);
                     }
                 }
             });

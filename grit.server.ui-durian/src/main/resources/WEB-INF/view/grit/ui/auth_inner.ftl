@@ -35,11 +35,11 @@
             type:"POST",
             url:"/grit/ui/auth/ajax/save",
             data:vm,
-            success:function (data) {
-                if(data.code==200) {
+            success:function (rst) {
+                if(rst.code==200) {
                     layer.msg('操作成功');
                 }else{
-                    layer.msg(data.description);
+                    layer.msg(rst.description);
                 }
             }
         });

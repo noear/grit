@@ -28,8 +28,8 @@
                         type:"POST",
                         url:"/user/confirmModify",
                         data:{"newPass":newPass,"oldPass":oldPass},
-                        success: function(data){
-                            if(data.code == 1){
+                        success: function(rst){
+                            if(rst.code == 1){
                                 layer.msg('修改成功,去重新登陆吧');
                                 setTimeout(function(){
                                     var index = top.layer.getFrameIndex(window.name);
@@ -38,7 +38,7 @@
                                 },1500);
 
                             } else {
-                                layer.msg(data.description)
+                                layer.msg(rst.description)
                             }
                         }
                     });

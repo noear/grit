@@ -176,7 +176,7 @@ function homeBind(path){
         type:"POST",
         data:{'act':1, 'path':path},
         success:function(data){
-            if(data.code==1){
+            if(data.code==1 || data.code==200){
                 window.open("/");
             }else{
                 alert('操作失败');
@@ -376,7 +376,7 @@ function ajaxGet(cfg){
                 return;
             }
 
-            if(data.code === 1 ){
+            if(data.code==1 || data.code==200){
                 if(window.layer){
                     layer.msg('操作成功');
                 }
@@ -433,7 +433,7 @@ function ajaxPost(cfg){
                 return;
             }
 
-            if(data.code==1){
+            if(data.code==1 || data.code==200){
                 if(window.layer){
                     layer.msg('操作成功');
                 }
@@ -628,7 +628,7 @@ $(function(){
                 layer.msg("开始上传文件");
             },
             onUploadSuccess: function (id, data) {
-                if(data.code>0){
+                if(data.code==1 || data.code==200){
                     layer.msg("上传成功");
 
                     if(jt_success){

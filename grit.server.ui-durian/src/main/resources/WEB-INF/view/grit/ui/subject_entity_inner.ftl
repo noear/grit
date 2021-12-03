@@ -43,15 +43,15 @@
                 subject_ids: window.parent.copied,
                 group_id:group_id
             },
-            success:function (data) {
-                if(data.code==200) {
+            success:function (rst) {
+                if(rst.code==200) {
                     layer.msg('操作成功');
 
                     setTimeout(function(){
                         location.reload();
                     },800);
                 }else{
-                    layer.msg(data.description);
+                    layer.msg(rst.description);
                 }
             }
         });
@@ -75,15 +75,15 @@
                 subject_ids:vm.sel_id,
                 group_id:group_id
             },
-            success:function (data) {
-                if(data.code==200) {
+            success:function (rst) {
+                if(rst.code==200) {
                     layer.msg('操作成功');
 
                     setTimeout(function(){
                         location.reload();
                     },800);
                 }else{
-                    layer.msg(data.description);
+                    layer.msg(rst.description);
                 }
             }
         });
