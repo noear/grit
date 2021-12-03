@@ -137,7 +137,7 @@ public class AuthController extends BaseController {
 
 
     @Mapping("ajax/save")
-    public Object auth_save(long subject_id, int subject_type, long space_id, String authRes) throws SQLException {
+    public Result auth_save(long subject_id, int subject_type, long space_id, String authRes) throws SQLException {
         if (subject_id == 0) {
             return Result.failure();
         }

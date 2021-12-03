@@ -45,7 +45,7 @@ public class SubjectController extends BaseController {
     }
 
     @Mapping("edit/ajax/save")
-    public Object edit_ajax_save(long subject_id, long group_id,SubjectDo subject) throws SQLException {
+    public Result edit_ajax_save(long subject_id, long group_id,SubjectDo subject) throws SQLException {
         if (subject.is_disabled == null) {
             subject.is_disabled = false;
         }
@@ -94,7 +94,7 @@ public class SubjectController extends BaseController {
 
     @NotEmpty("subject_ids")
     @Mapping("edit/ajax/paste")
-    public Object edit_ajax_paste(long group_id,String subject_ids) throws SQLException {
+    public Result edit_ajax_paste(long group_id,String subject_ids) throws SQLException {
         if (group_id == 0) {
             return Result.failure();
         }
@@ -114,7 +114,7 @@ public class SubjectController extends BaseController {
 
     @NotEmpty("subject_ids")
     @Mapping("edit/ajax/remove")
-    public Object edit_ajax_remove(long group_id,String subject_ids) throws SQLException {
+    public Result edit_ajax_remove(long group_id,String subject_ids) throws SQLException {
         if (group_id == 0) {
             return Result.failure();
         }
@@ -136,7 +136,7 @@ public class SubjectController extends BaseController {
     }
 
     @Mapping("edit/ajax/del")
-    public Object edit_ajax_del(long subject_id) throws SQLException{
+    public Result edit_ajax_del(long subject_id) throws SQLException{
         subjectAdminService.delSubjectById(subject_id);
 
         return Result.succeed();

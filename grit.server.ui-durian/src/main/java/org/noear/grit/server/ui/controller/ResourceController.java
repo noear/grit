@@ -49,7 +49,7 @@ public class ResourceController extends BaseController {
     }
 
     @Mapping("edit/ajax/save")
-    public Object edit_ajax_save(long resource_id, ResourceDo resource) throws SQLException {
+    public Result edit_ajax_save(long resource_id, ResourceDo resource) throws SQLException {
         if (resource.is_disabled == null) {
             resource.is_disabled = false;
         }
@@ -90,7 +90,7 @@ public class ResourceController extends BaseController {
     }
 
     @Mapping("edit/ajax/del")
-    public Object edit_ajax_del(long resource_id) throws SQLException {
+    public Result edit_ajax_del(long resource_id) throws SQLException {
         resourceAdminService.delResourceById(resource_id);
 
         return Result.succeed();
