@@ -29,6 +29,7 @@
     </nav>
     <aside>
         <a><i class='fa fa-user'></i> 权限管理员</a>
+        <a class='split' href='/'><i class='fa fa-fw paper-plane-o'></i>退出</a>
         <a class='split' href='/grit/login'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>
     </aside>
 </header>
