@@ -6,7 +6,7 @@
 
     <groupId>org.noear</groupId>
     <artifactId>grit-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -23,7 +23,7 @@
         <okhttp.ver>3.14.9</okhttp.ver>
         <snakeyaml.ver>1.29</snakeyaml.ver>
 
-        <grit.ver>1.0.1</grit.ver>
+        <grit.ver>1.0.2</grit.ver>
     </properties>
 
     <modules>

@@ -65,7 +65,7 @@
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit.client</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 
 <!-- solon cloud 集成版本（也可用于 Spring boot 项目） -->
@@ -73,7 +73,7 @@
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
