@@ -25,9 +25,9 @@ solon.logging.logger:
 gritadmin:
   user: admin
   password: SykSYLWN9WTpzCHq
-  title: "Grit-控制台"
+  title: "Grit - 控制台"
 
 gritdock:
   env: "演示环境"
-  title: "演示环境-跨系统管理中台"
+  title: "演示环境 - 跨系统管理中台"
 
