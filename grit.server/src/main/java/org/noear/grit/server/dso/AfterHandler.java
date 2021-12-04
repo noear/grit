@@ -28,7 +28,8 @@ public class AfterHandler implements Handler {
 
         buf.append("\n");
 
-        MDC.put("tag0", ctx.path());
+        MDC.put("tag0", "gritapi");
+        MDC.put("tag1", ctx.path());
 
         if (ctx.errors == null) {
             buf.append("< Body: ").append(ONode.stringify(ctx.result));

@@ -20,7 +20,17 @@ public class ErrorEventListener implements EventListener<Throwable> {
         Context ctx = Context.current();
 
         if (ctx != null) {
-            TagsMDC.tag1(ctx.path());
+            String path = ctx.path();
+
+            if (path.startsWith("/grit/api/")) {
+                TagsMDC.tag0("gritapi");
+            } else if (path.startsWith("/grit/")) {
+                TagsMDC.tag0("gritadmin");
+            } else {
+                TagsMDC.tag0("gritdock");
+            }
+
+            TagsMDC.tag1(path);
         }
 
         log.error("{}", err);

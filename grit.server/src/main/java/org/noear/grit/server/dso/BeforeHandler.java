@@ -5,6 +5,7 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Handler;
+import org.slf4j.MDC;
 
 /**
  * 前置处理
@@ -23,6 +24,7 @@ public class BeforeHandler implements Handler {
             //
             //如果令牌不相同
             //
+            MDC.put("tag0", "gritapi");
             throw new IllegalArgumentException("Invalid header: Grit-Token");
         }
 
