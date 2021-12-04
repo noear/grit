@@ -10,7 +10,7 @@
 
 | 服务 | 说明 |  镜像 |
 | -------- | --------  |  -------- | 
-| gritdock    | Grit 权限管理及服务 |  noearorg/gritdock | 
+| gritdock    | Grit 权限管理、接口服务及菜单导航服务 |  noearorg/gritdock | 
 
 ## 三、初始化数据库
 
