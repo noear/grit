@@ -39,17 +39,8 @@ public class LoginController extends BaseController {
     }
 
     @Mapping("/login") //视图 返回
-    public ModelAndView login(Context ctx) {
-        //获取 admin token
-        String adminToken = ctx.session(Config.GRIT_ADMIN_TOKEN, "");
-
-        //清除 session
-        ctx.sessionClear();
-
-        //将 admin token 存回去
-        if (Utils.isNotEmpty(adminToken)) {
-            ctx.sessionSet(Config.GRIT_ADMIN_TOKEN, adminToken);
-        }
+    public ModelAndView login() {
+        Session.current().clear();
 
         return view("login");
     }

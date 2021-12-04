@@ -2,6 +2,8 @@ package org.noear.grit.solon;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.Subject;
+import org.noear.solon.Utils;
+import org.noear.solon.core.handle.Context;
 
 /**
  * 跨应用会话状态
@@ -10,6 +12,7 @@ import org.noear.grit.model.domain.Subject;
  * @since 1.0
  * */
 public abstract class SessionBase extends SessionAbstractBase {
+    public static final String GRIT_ADMIN_TOKEN = "grit_admin_token";
     private static SessionBase _global;
 
     /**
@@ -22,6 +25,26 @@ public abstract class SessionBase extends SessionAbstractBase {
     public SessionBase() {
         if (_global == null) {
             _global = this;
+        }
+    }
+
+    /**
+     * 清除会话（但管理管理令牌）
+     * */
+    public void clear() {
+        Context ctx = context();
+
+        if (ctx != null) {
+            //获取 admin token
+            String adminToken = ctx.session(GRIT_ADMIN_TOKEN, "");
+
+            //清除 session
+            ctx.sessionClear();
+
+            //将 admin token 存回去
+            if (Utils.isNotEmpty(adminToken)) {
+                ctx.sessionSet(GRIT_ADMIN_TOKEN, adminToken);
+            }
         }
     }
 

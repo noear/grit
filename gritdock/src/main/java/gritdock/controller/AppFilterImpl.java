@@ -1,7 +1,5 @@
 package gritdock.controller;
 
-
-import gritdock.Config;
 import gritdock.dso.Session;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.Solon;
@@ -68,7 +66,7 @@ public class AppFilterImpl implements Filter {
             String password0 = Solon.cfg().get("gritadmin.password", "");
             String admin_token = Utils.md5(user0 + "#" + password0);
 
-            if (admin_token.equals(ctx.session(Config.GRIT_ADMIN_TOKEN, ""))) {
+            if (admin_token.equals(ctx.session(Session.GRIT_ADMIN_TOKEN, ""))) {
                 return true;
             }
 
