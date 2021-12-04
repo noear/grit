@@ -48,17 +48,19 @@
 
 地址：[http://grit.noear.org/](http://grit.noear.org/)  （已有演示主体，账号：admin ；密码：admin ）
 
-### 视频教程
-
-暂无
 
 ### 部署说明
 
 具体参考：[_deploy](_deploy)
 
-### (一) 使用
 
-#### 配置
+### 管理应用
+
+看视频，但暂无。上面的演示控制台，可以先上去看看
+
+### 开发应用
+
+#### 1）配置
 * pom.xml / mevan 配置
 ```xml
 <!-- 客户端版本 -->
@@ -69,7 +71,7 @@
 </dependency>
 
 <!-- solon cloud 集成版本（也可用于 Spring boot 项目） -->
-<!-- 用的时候再加个配置服务的插件，例：water-solon-plugin -->
+<!-- 用的时候再加个配置服务的插件，例如：water-solon-plugin -->
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
@@ -89,15 +91,15 @@ solon.cloud.water:
     load: "grit:gritclient.yml"     #加载gritclient的配置
 ```
 
-#### 代码
+#### 2）代码
 
 ```java
-//定义认证处理器
+//1，定义认证处理器
 public class AuthProcessorImpl extends GritAuthProcessor {
     
 }
 
-//配置验证规则
+//2，配置验证规则
 @Configuration
 public class DemoConfig{
     @Bean
@@ -114,7 +116,7 @@ public class DemoConfig{
     }
 }
 
-//登录示例
+//3，登录示例
 @Controller
 public class LoginController{
     @Mapping("/login")
@@ -143,7 +145,7 @@ public class LoginController{
     }
 }
 
-//权限控制示例
+//4，权限控制示例
 @Controller
 public class DemoController{
     //注解模式
@@ -161,7 +163,7 @@ public class DemoController{
     } 
 }
 
-//构建动态菜单的示例
+//5，构建动态菜单的示例
 @Component("view:header")
 public class HeaderTag implements TemplateDirectiveModel{
     public void execute(){
