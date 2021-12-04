@@ -35,3 +35,8 @@
   grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j   #rpc连接令牌
   gritadmin.password=SykSYLWN9WTpzCHq   
   ```
+
+## 其它
+
+* 打开 http://localhost:7281/grit/ ，可进入权限管理控制台
+* 打开 http://localhost:7281/ ，可查看主体的权限效果
