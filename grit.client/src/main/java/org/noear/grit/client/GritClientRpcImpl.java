@@ -3,8 +3,10 @@ package org.noear.grit.client;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.service.*;
+import org.noear.nami.Filter;
 import org.noear.nami.Nami;
 import org.noear.nami.NamiBuilder;
+import org.noear.nami.NamiManager;
 import org.noear.nami.channel.http.okhttp.HttpChannel;
 import org.noear.nami.coder.snack3.SnackDecoder;
 import org.noear.nami.coder.snack3.SnackEncoder;
@@ -74,6 +76,10 @@ public class GritClientRpcImpl implements GritClient {
             }
 
             namiBuilder.url(gritServer + path);
+        }
+
+        for (Filter mi : NamiManager.getFilters()) {
+            namiBuilder.filterAdd(mi);
         }
 
         return namiBuilder.encoder(SnackEncoder.instance)
