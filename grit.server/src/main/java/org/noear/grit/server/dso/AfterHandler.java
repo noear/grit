@@ -19,7 +19,8 @@ public class AfterHandler implements Handler {
     public void handle(Context ctx) throws Throwable {
         Long time_start = ctx.attr("time_start");
         StringBuilder buf = new StringBuilder();
-        buf.append("> Params: ").append(ONode.stringify(ctx.paramsMap())).append("\n");
+        buf.append("> Header: ").append(ONode.stringify(ctx.headerMap())).append("\n");
+        buf.append("> Param: ").append(ONode.stringify(ctx.paramsMap())).append("\n");
         buf.append("> Body: ").append(ctx.body()).append("\n");
         if (time_start != null) {
             buf.append("T Elapsed time: ")
