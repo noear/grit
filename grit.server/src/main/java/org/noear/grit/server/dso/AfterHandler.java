@@ -20,6 +20,7 @@ public class AfterHandler implements Handler {
         Long time_start = ctx.attr("time_start");
         StringBuilder buf = new StringBuilder();
         buf.append("> Params: ").append(ONode.stringify(ctx.paramsMap())).append("\n");
+        buf.append("> Body: ").append(ctx.body()).append("\n");
         if (time_start != null) {
             buf.append("T Elapsed time: ")
                     .append(System.currentTimeMillis() - time_start).append("ms")
