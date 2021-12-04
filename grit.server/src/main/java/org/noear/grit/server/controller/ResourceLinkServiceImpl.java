@@ -5,12 +5,10 @@ import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
+import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.ResourceLinkService;
-import org.noear.solon.annotation.Before;
-import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.Mapping;
-import org.noear.solon.annotation.Remoting;
+import org.noear.solon.annotation.*;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
@@ -25,6 +23,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
+@After(AfterHandler.class)
 @Mapping("/grit/api/v1/ResourceLinkService")
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {

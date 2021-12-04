@@ -3,15 +3,13 @@ package org.noear.grit.server.controller;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.*;
+import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.AuthService;
 import org.noear.okldap.LdapClient;
 import org.noear.okldap.LdapSession;
 import org.noear.okldap.entity.LdapPerson;
-import org.noear.solon.annotation.Before;
-import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.Mapping;
-import org.noear.solon.annotation.Remoting;
+import org.noear.solon.annotation.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ import java.util.List;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
+@After(AfterHandler.class)
 @Mapping("/grit/api/v1/AuthService")
 @Remoting
 public class AuthServiceImpl implements AuthService {

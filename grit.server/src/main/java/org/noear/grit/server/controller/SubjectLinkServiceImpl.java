@@ -2,12 +2,10 @@ package org.noear.grit.server.controller;
 
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
+import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.SubjectLinkService;
-import org.noear.solon.annotation.Before;
-import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.Mapping;
-import org.noear.solon.annotation.Remoting;
+import org.noear.solon.annotation.*;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
@@ -21,6 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @Before(BeforeHandler.class)
+@After(AfterHandler.class)
 @Mapping("/grit/api/v1/SubjectLinkService")
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {

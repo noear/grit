@@ -25,5 +25,7 @@ public class BeforeHandler implements Handler {
             //
             throw new IllegalArgumentException("Invalid header: Grit-Token");
         }
+
+        ctx.attrSet("time_start", System.currentTimeMillis());
     }
 }
