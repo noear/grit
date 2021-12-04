@@ -26,13 +26,15 @@
 在 water 域下，不需要设置 solon.cloud.water.server 环境变量。但可以设置时区之间的环境变量  
 
 
+## 其它
+
 一般在 water 环境下，需要部署 gritdock 时，应该已经部署了 sponge 中台。所以需要它做统一管理。
 
 建议操作顺序：
 
 * 进入 http://x.x.x/grit/ ，先 wateradmin 和 spongeadmin 的资源空间地址
 * 进入 water 配置管理/属性配置 grit/gritclient.yml 的 server.session.state.domain 值为 多系统公共的根域名
-* 打开 http://x.x.x ，进入跨系统统一管理后台
+* 打开 http://x.x.x ，进入跨系统通用管理平台（也可理解为：多系统功能导航）
 
 
 同时要求 gritdock, wateradmin, spongeadmin 在同一个根域或二级域下，例：

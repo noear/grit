@@ -2,7 +2,8 @@ version: '3'
 
 # 部署指南：
 # 1.把配置里的 solon.cloud.water.server 换成真实的 waterapi 服务地址。并启动
-# 2.打开 http://localhost:7281/grit/
+# 2.打开 http://localhost:7281/grit/ 权限管理控制台
+# 3.打开 http://localhost:7281/ 跨系统通用管理平台（也可理解为：多系统功能导航）
 
 services:
   gritdock:
