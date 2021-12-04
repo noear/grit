@@ -6,6 +6,8 @@ import org.noear.solon.core.event.EventListener;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.logging.utils.TagsMDC;
 
+import java.util.ServiceConfigurationError;
+
 /**
  * 异常事件监听（系统未处理的异常）
  *
@@ -31,6 +33,10 @@ public class ErrorEventListener implements EventListener<Throwable> {
             }
 
             TagsMDC.tag1(path);
+        } else {
+            if (err instanceof ServiceConfigurationError) {
+                return;
+            }
         }
 
         log.error("{}", err);
