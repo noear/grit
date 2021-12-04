@@ -35,7 +35,7 @@ public class GritController {
      * @param viewName 视图名字(内部uri)
      * */
     public ModelAndView view(String viewName) {
-        String title = Solon.cfg().get("gritadmin.title", "Grit 控制台");
+        String title = Solon.cfg().get("gritadmin.title", "Grit-控制台");
         //设置必要参数
         viewModel.put("app", "Grit");
 
