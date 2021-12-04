@@ -1,6 +1,7 @@
 package gritdock.dso;
 
 import lombok.extern.slf4j.Slf4j;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.event.EventListener;
 import org.noear.solon.core.handle.Context;
@@ -20,6 +21,7 @@ public class ErrorEventListener implements EventListener<Throwable> {
     @Override
     public void onEvent(Throwable err) {
         Context ctx = Context.current();
+        err = Utils.throwableUnwrap(err);
 
         if (ctx != null) {
             String path = ctx.path();
