@@ -32,13 +32,13 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         }
 
         try {
-            build(env, body);
+            build(env);
         } catch (Exception e) {
             EventBus.push(e);
         }
     }
 
-    public void build(Environment env, TemplateDirectiveBody body) throws Exception {
+    public void build(Environment env) throws Exception {
 
         Context ctx = Context.current();
         long userId = Session.current().getSubjectId();
