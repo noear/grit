@@ -1,6 +1,6 @@
 package gritdock.controller;
 
-import gritdock.Config;
+import lombok.extern.slf4j.Slf4j;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
 import org.noear.solon.Utils;
@@ -16,6 +16,7 @@ import gritdock.dso.Session;
 import gritdock.util.ImageUtils;
 import gritdock.util.RandomUtils;
 import org.noear.solon.core.handle.Result;
+import org.slf4j.MDC;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,7 @@ import java.util.Map;
  * @author noear
  * @since 1.0
  */
+@Slf4j
 @Controller
 public class LoginController extends BaseController {
 
@@ -51,13 +53,23 @@ public class LoginController extends BaseController {
     @Mapping("/login/ajax/check")
     public Result login_ajax_check(Context ctx, String userName, String passWord, String captcha) throws Exception {
 
-        //验证码检查
-        if (!captcha.toLowerCase().equals(Session.current().getValidation())) {
-            return Result.failure("提示：验证码错误！");
+        //空内容检查
+        if (Utils.isEmpty(captcha)) {
+            return Result.failure("提示：请输入验证码！");
         }
 
         if (Utils.isEmpty(userName) || Utils.isEmpty(passWord)) {
             return Result.failure("提示：请输入账号和密码！");
+        }
+
+        //验证码检查
+        MDC.put("tag1", ctx.path());
+        MDC.put("tag2", userName);
+
+        String captchaOfSessoin = Session.current().getValidation();
+        if (captcha.equalsIgnoreCase(captchaOfSessoin) == false) {
+            log.info("userName={}, captcha={}, captchaOfSessoin={}", userName, captcha, captchaOfSessoin);
+            return Result.failure("提示：验证码错误！");
         }
 
         //用户登录
@@ -66,8 +78,9 @@ public class LoginController extends BaseController {
         if (Subject.isEmpty(subject)) {
             return Result.failure("提示：账号或密码不对！");
         } else {
+            log.info("userName={}, 登录成功...", userName);
+
             //用户登录::成功
-            //
             Session.current().loadSubject(subject);
 
             //最后一次使用的连接系统

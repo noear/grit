@@ -33,7 +33,7 @@ public final class Session extends SessionBase {
      * 获取验证码
      * */
     public final String getValidation() {
-        return localGet("Validation_String", null);
+        return localGet("Validation_String", "");
     }
 
     /**
