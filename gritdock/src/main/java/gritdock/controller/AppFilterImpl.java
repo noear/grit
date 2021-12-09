@@ -42,12 +42,13 @@ public class AppFilterImpl implements Filter {
 
         if (path.startsWith("/grit/login") ||
                 path.startsWith("/login") ||
-                path.startsWith("/_")) {
+                path.startsWith("/_") ||
+                path.endsWith(".ico")) {
             return true;
         }
 
         //for white model
-        if(Solon.cfg().isWhiteMode()) {
+        if (Solon.cfg().isWhiteMode()) {
             String ip = ctx.realIp();
 
             if (Solon.cfg().isFilesMode() == false) {
