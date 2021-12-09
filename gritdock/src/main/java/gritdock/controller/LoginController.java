@@ -78,7 +78,7 @@ public class LoginController extends BaseController {
         if (Subject.isEmpty(subject)) {
             return Result.failure("提示：账号或密码不对！");
         } else {
-            log.info("userName={}, 登录成功...", userName);
+            log.info("userName={}, ip={}, 登录成功...", userName, ctx.realIp());
 
             //用户登录::成功
             Session.current().loadSubject(subject);
