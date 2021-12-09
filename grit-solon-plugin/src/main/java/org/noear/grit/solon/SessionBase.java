@@ -48,6 +48,16 @@ public abstract class SessionBase extends SessionAbstractBase {
         }
     }
 
+    /**
+     * 推送会话状态（起到附助作用）
+     * */
+    public void publish() {
+        Context ctx = context();
+        if (ctx != null) {
+            ctx.sessionState().sessionPublish();
+        }
+    }
+
 
     /**
      * 加载用户数据模型
