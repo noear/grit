@@ -121,6 +121,7 @@ public class LoginController extends BaseController {
         // 生成验证码存入session
         String code = RandomUtils.code(4);
         Session.current().setValidation(code);
+        ctx.sessionState().sessionPublish();
 
         // 获取图片
         BufferedImage bufferedImage = ImageUtils.getValidationImage(code);
