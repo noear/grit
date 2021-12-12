@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
 
     @Mapping("/")
     public void home(Context ctx) throws Exception {
-        ctx.redirect("/login");
+        ctx.forward("/login");
     }
 
     @Mapping("/login") //视图 返回
