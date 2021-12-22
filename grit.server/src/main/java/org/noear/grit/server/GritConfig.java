@@ -10,7 +10,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.cache.CacheServiceSupplier;
+import org.noear.solon.data.cache.CacheServiceSupplier;
 import org.noear.solon.data.cache.CacheService;
 import org.noear.solon.data.cache.LocalCacheService;
 import org.noear.weed.DbContext;
