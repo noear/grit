@@ -12,6 +12,6 @@ public class LoginController {
     @Mapping("login")
     public void login(Context ctx, String username, String password) {
         //登录处理；如果成功...
-        ctx.sessionSet("puid",1);
+        ctx.sessionSet("user_id",1);
     }
 }
