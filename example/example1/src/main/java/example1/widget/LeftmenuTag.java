@@ -34,7 +34,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         Context ctx = Context.current();
         //当前视图path //此处改过，noear，20180831
         String cPath = ctx.path();
-        long userId = ctx.session("user_id", 0L);
+        long userId = ctx.sessionAsLong("user_id");
 
         StringBuilder sb = new StringBuilder();
 

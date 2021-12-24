@@ -42,7 +42,7 @@ public class ToolmenuTag implements TemplateDirectiveModel {
         Context ctx = Context.current();
         //当前视图path
         String cPath = ctx.path();
-        long userId = ctx.session("user_id", 0L);
+        long userId = ctx.sessionAsLong("user_id");
 
         StringBuffer sb = new StringBuffer();
 

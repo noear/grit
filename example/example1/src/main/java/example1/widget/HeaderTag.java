@@ -34,7 +34,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         //当前视图path //此处改过，noear，20180831
         Context ctx = Context.current();
         String cPath = ctx.path();
-        long userId = ctx.session("user_id", 0L);
+        long userId = ctx.sessionAsLong("user_id");
         String userDisplayName = ctx.session("user_display_name", "");
 
 
