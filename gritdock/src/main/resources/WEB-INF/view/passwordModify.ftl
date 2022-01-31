@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${css}/main.css"/>
     <script src="/_session/domain.js"></script>
     <script type="text/javascript" src="${js}/lib.js" ></script>
-    <script src="${js}/layer.js"></script>
+    <script src="${js}/layer/layer.js"></script>
     <script type="text/javascript">
         function confirm() {
             top.layer.confirm('确认修改?', {

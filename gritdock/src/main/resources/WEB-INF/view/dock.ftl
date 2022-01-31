@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
-    <script src="${js}/layer.js"></script>
+    <script src="${js}/layer/layer.js"></script>
     <style>
         header aside > *{cursor: pointer;}
         header aside a {display:inline-block; height:100%; padding:0 15px; }

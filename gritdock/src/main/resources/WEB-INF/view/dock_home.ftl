@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="${css}/main.css"/>
     <script src="/_session/domain.js"></script>
     <script src="${js}/lib.js"></script>
-    <script src="${js}/layer.js"></script>
+    <script src="${js}/layer/layer.js"></script>
     <style>
         section{display: inline-block; margin-bottom: ${section_margin}px; margin-left: 3px; margin-right: 3px; border-left: #ccc solid 1px; padding-left: 4px;}
         section header{font-weight: bold;margin-bottom: ${header_margin}px;}
