@@ -1,3 +1,4 @@
+-- 资源表，分三个领域概念：资源空间，资源组，资源(或叫：资源实体)
 CREATE TABLE IF NOT EXISTS  `grit_resource` (
   `resource_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
   `resource_pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '资源父ID',
@@ -37,6 +38,7 @@ CREATE TABLE IF NOT EXISTS  `grit_resource_linked` (
   KEY `IX_grit_resource_linked__subject_id` (`subject_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源与主体连接表';
 
+-- 主体表，分二个领域概念：主体组，主体（或叫：主体实体）
 CREATE TABLE IF NOT EXISTS  `grit_subject` (
   `subject_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主体ID',
   `subject_pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '主体父ID',
