@@ -23,7 +23,7 @@
 
 ```sql
 -- 资源表，分三个领域概念：资源空间，资源组，资源(或叫：资源实体)
-CREATE TABLE `grit_resource` (
+CREATE TABLE IF NOT EXISTS  `grit_resource` (
   `resource_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
   `resource_pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '资源父ID',
   `resource_sid` bigint(20) NOT NULL DEFAULT '0' COMMENT '资源空间ID',
@@ -51,7 +51,7 @@ CREATE TABLE `grit_resource` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源表';
 
 
-CREATE TABLE `grit_resource_linked` (
+CREATE TABLE IF NOT EXISTS  `grit_resource_linked` (
   `link_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '连接ID',
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
   `subject_id` bigint(20) NOT NULL COMMENT '主体ID',
@@ -63,7 +63,7 @@ CREATE TABLE `grit_resource_linked` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-资源与主体连接表';
 
 -- 主体表，分二个领域概念：主体组，主体（或叫：主体实体）
-CREATE TABLE `grit_subject` (
+CREATE TABLE IF NOT EXISTS  `grit_subject` (
   `subject_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主体ID',
   `subject_pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '主体父ID',
   `subject_type` int(11) NOT NULL DEFAULT '0' COMMENT '主体类型(0:entity, 1:group)',
@@ -86,7 +86,7 @@ CREATE TABLE `grit_subject` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='grit-主体表';
 
 
-CREATE TABLE `grit_subject_linked` (
+CREATE TABLE IF NOT EXISTS  `grit_subject_linked` (
   `link_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '连接ID',
   `subject_id` bigint(20) NOT NULL COMMENT '主体ID',
   `group_subject_id` bigint(20) NOT NULL COMMENT '分组主体ID',
@@ -95,7 +95,6 @@ CREATE TABLE `grit_subject_linked` (
   UNIQUE KEY `IX_grit_subject_linked__key` (`subject_id`,`group_subject_id`) USING BTREE,
   KEY `IX_grit_subject_linked__group_subject_id` (`group_subject_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='grit-主体与分组连接表';
-
 
 ```
 
