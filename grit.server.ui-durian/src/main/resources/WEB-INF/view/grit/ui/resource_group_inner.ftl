@@ -39,6 +39,7 @@
             <td width="50px">排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
+            <td width="50px">是否<br/>全屏</td>
             <td width="50px">是否<br/>可见</td>
             <td width="50px">是否<br/>禁用</td>
             <td width="130px">操作</td>
@@ -57,6 +58,7 @@
                     </#if>
                 </td>
                 <td class="left">${m1.link_uri!}</td>
+                <td >${m1.is_fullview?string("Yes","")}</td>
                 <td >${m1.is_visibled?string("Yes","")}</td>
                 <td >${m1.is_disabled?string("Yes","")}</td>
                 <td class="op">

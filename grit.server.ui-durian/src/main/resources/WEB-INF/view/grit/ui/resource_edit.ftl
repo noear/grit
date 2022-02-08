@@ -215,14 +215,13 @@
                     <th>链接标签</th>
                     <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
                 </tr>
-
-                <tr>
-                    <th>是否全屏</th>
-                    <td>
-                        <switcher><label><input type="checkbox" id="is_fullview" value="1" ${m1.is_fullview?string("checked","")} /><a></a></label></switcher>
-                    </td>
-                </tr>
             </#if>
+            <tr>
+                <th>是否全屏</th>
+                <td>
+                    <switcher><label><input type="checkbox" id="is_fullview" value="1" ${m1.is_fullview?string("checked","")} /><a></a></label></switcher>
+                </td>
+            </tr>
             <tr>
                 <th>是否可见</th>
                 <td>
