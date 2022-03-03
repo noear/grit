@@ -80,36 +80,73 @@ public class LoginController extends BaseController {
         } else {
             log.info("userName={}, ip={}, 登录成功...", userName, ctx.realIp());
 
-            //用户登录::成功
+            //1.用户登录::成功
             Session.current().loadSubject(subject);
 
-            //最后一次使用的连接系统
-            String spaceCode = ctx.cookie("_lLnQIO4W");
-            ResourceSpace space = null;
+            //2.获取权限资源地址
+            String resUrl = getUriFrist(subject.subject_id, ctx);
 
-            Resource res = null;
-
-
-            //1.确定分支组
-            if (Utils.isEmpty(spaceCode) == false) {
-                space = GritClient.global().resource().getSpaceByCode(spaceCode);
-            }
-
-            if (space == null || space.resource_id == null) {
-                space = GritClient.global().auth().getSpaceFrist(subject.subject_id);
-            }
-
-            //2.如果没有，找自己默认的权限
-            res = GritClient.global().auth().getUriFristBySpace(subject.subject_id, space.resource_id);
-
-            //3.再没有，提示错误
-            if (Utils.isEmpty(res.link_uri)) {
+            //3.返回提示
+            if (Utils.isEmpty(resUrl)) {
                 return Result.failure("提示：请联系管理员开通权限！");
+            } else {
+                return Result.succeed(resUrl);
             }
+        }
+    }
 
-            String resUrl = GritUtil.buildDockSpaceUri(space, res);
-            return Result.succeed(resUrl);
+    //$共享SESSOIN$::自动跳转
+    @Mapping("/login/auto")
+    public void login_auto(Context ctx) throws Exception {
+        long subjectId = Session.current().getSubjectId();
 
+        if (subjectId > 0) {
+            //获取权限资源地址
+            String resUrl = getUriFrist(subjectId, ctx);
+
+            if (Utils.isNotEmpty(resUrl)) {
+                //日志一下
+                String userName = Session.current().getLoginName();
+
+                MDC.put("tag1", ctx.path());
+                MDC.put("tag2", userName);
+
+                log.info("userName={}, ip={}, 自动登录成功...", userName, ctx.realIp());
+
+                //跳转目标页
+                ctx.redirect(resUrl);
+                return;
+            }
+        }
+
+        ctx.redirect("/login");
+    }
+
+    public String getUriFrist(long subjectId, Context ctx) throws SQLException {
+        //最后一次使用的连接系统
+        String spaceCode = ctx.cookie("_lLnQIO4W");
+        ResourceSpace space = null;
+
+        Resource res = null;
+
+
+        //1.确定分支组
+        if (Utils.isEmpty(spaceCode) == false) {
+            space = GritClient.global().resource().getSpaceByCode(spaceCode);
+        }
+
+        if (space == null || space.resource_id == null) {
+            space = GritClient.global().auth().getSpaceFrist(subjectId);
+        }
+
+        //2.如果没有，找自己默认的权限
+        res = GritClient.global().auth().getUriFristBySpace(subjectId, space.resource_id);
+
+        //3.再没有，提示错误
+        if (Utils.isEmpty(res.link_uri)) {
+            return null;
+        } else {
+            return GritUtil.buildDockSpaceUri(space, res);
         }
     }
 
