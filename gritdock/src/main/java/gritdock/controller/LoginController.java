@@ -21,6 +21,7 @@ import org.slf4j.MDC;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,7 +115,14 @@ public class LoginController extends BaseController {
                 log.info("userName={}, ip={}, 自动登录成功...", userName, ctx.realIp());
 
                 //跳转目标页
+
+                String[] ss = resUrl.split("@");
+                if (ss.length == 2) {
+                    resUrl = ss[0] + "@" + URLEncoder.encode(ss[1], "UTF-8");
+                }
+
                 ctx.redirect(resUrl);
+
                 return;
             }
         }
