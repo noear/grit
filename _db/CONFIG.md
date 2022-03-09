@@ -26,7 +26,7 @@ grit.ldap:
 #### for client（建议将此配置放到配置中心, key=grit/gritclient.yml）
 
 ```yaml
-grit.server: "http://gritapi:7281"
+grit.server: "gritapi:7281"
 grit.token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 server.session:
