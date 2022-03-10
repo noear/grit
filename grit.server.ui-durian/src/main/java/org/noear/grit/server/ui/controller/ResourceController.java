@@ -81,6 +81,14 @@ public class ResourceController extends BaseController {
             resource.resource_code = resource.resource_code.trim();
         }
 
+        if(Utils.isNotEmpty(resource.link_uri)) {
+            resource.link_uri = resource.link_uri.trim();
+        }
+
+        if(Utils.isNotEmpty(resource.icon_uri)) {
+            resource.icon_uri = resource.icon_uri.trim();
+        }
+
         if (resource_id > 0) {
             resourceAdminService.updResourceById(resource_id, resource);
         } else {
