@@ -8,6 +8,7 @@ import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.grit.server.dso.service.SubjectAdminService;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.weed.DataItem;
 import org.noear.weed.DbContext;
@@ -48,6 +49,10 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
         resource.gmt_create = System.currentTimeMillis();
         resource.gmt_modified = resource.gmt_create;
+
+        if(Utils.isEmpty(resource.guid)){
+            resource.guid = Utils.guid();
+        }
 
         return db.table("grit_resource")
                 .setEntity(resource)
@@ -117,6 +122,17 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
         return db.table("grit_resource")
                 .whereEq("resource_id", resourceId)
+                .selectItem("*", Resource.class);
+    }
+
+    @Override
+    public Resource getResourceByGuid(String guid) throws SQLException {
+        if (Utils.isEmpty(guid)) {
+            return new Resource();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("guid", guid)
                 .selectItem("*", Resource.class);
     }
 

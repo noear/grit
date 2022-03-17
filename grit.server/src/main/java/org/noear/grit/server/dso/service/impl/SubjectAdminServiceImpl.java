@@ -55,6 +55,10 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
         subject.gmt_create = System.currentTimeMillis();
         subject.gmt_modified = subject.gmt_create;
 
+        if(Utils.isEmpty(subject.guid)){
+            subject.guid = Utils.guid();
+        }
+
         return db.table("grit_subject")
                 .setEntity(subject)
                 .usingNull(false)
@@ -137,6 +141,17 @@ public class SubjectAdminServiceImpl implements SubjectAdminService {
 
         return db.table("grit_subject")
                 .whereEq("subject_id", subjectId)
+                .selectItem("*", Subject.class);
+    }
+
+    @Override
+    public Subject getSubjectByGuid(String guid) throws SQLException {
+        if (Utils.isEmpty(guid)) {
+            return new Subject();
+        }
+
+        return db.table("grit_subject")
+                .whereEq("guid", guid)
                 .selectItem("*", Subject.class);
     }
 

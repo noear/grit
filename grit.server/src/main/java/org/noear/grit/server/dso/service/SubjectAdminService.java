@@ -56,6 +56,14 @@ public interface SubjectAdminService {
 
 
     /**
+     * 获取主体
+     *
+     * @param guid guid
+     */
+    Subject getSubjectByGuid(String guid) throws SQLException;
+
+
+    /**
      * 获取管理用的资源空间列表
      */
     List<SubjectGroup> getGroupList() throws SQLException;

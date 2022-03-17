@@ -42,6 +42,8 @@ public class ResourceDo implements Serializable {
     public Integer level;
     /** 属性(kv) */
     public String attrs;
+    /** guid */
+    public String guid;
     /** 是否全屏 */
     public Boolean is_fullview;
     /** 是否可见（可见为页面，不可见为操作） */

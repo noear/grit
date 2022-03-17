@@ -47,6 +47,13 @@ public interface ResourceAdminService {
     Resource getResourceById(long resourceId) throws SQLException;
 
     /**
+     * 获取资源
+     *
+     * @param guid guid
+     */
+    Resource getResourceByGuid(String guid) throws SQLException;
+
+    /**
      * 获取管理用的资源空间列表
      */
     List<ResourceSpace> getSpaceList() throws SQLException;

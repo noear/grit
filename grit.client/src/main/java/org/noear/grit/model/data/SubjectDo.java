@@ -36,6 +36,8 @@ public class SubjectDo implements Serializable {
     public Integer level;
     /** 属性(kv) */
     public String attrs;
+    /** guid */
+    public String guid;
     /** 是否禁用 */
     public Boolean is_disabled;
     /** 是否可见 */
