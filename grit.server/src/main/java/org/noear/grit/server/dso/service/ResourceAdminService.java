@@ -24,6 +24,14 @@ public interface ResourceAdminService {
      */
     long addResource(ResourceDo resource) throws SQLException;
 
+
+    /**
+     * 推入资源
+     *
+     * @param resource 资源
+     */
+    boolean putResourceByGuid(ResourceDo resource) throws SQLException;
+
     /**
      * 更新资源
      *
@@ -38,6 +46,18 @@ public interface ResourceAdminService {
      * @param resourceId 资源Id
      */
     boolean delResourceById(long resourceId) throws SQLException;
+
+
+    /**
+     * 批量删除资源
+     * */
+    boolean delResourceByIds(String ids) throws SQLException;
+
+
+    /**
+     * 批量禁用资源
+     * */
+    boolean desResourceByIds(String ids, boolean disabled) throws SQLException;
 
     /**
      * 获取资源
@@ -61,7 +81,7 @@ public interface ResourceAdminService {
     /**
      * 获取管理用的空间内所有资源
      *
-     * @param resourceId 资源Id
+     * @param resourceId 空间资源Id
      */
     List<Resource> getResourceListBySpace(long resourceId) throws SQLException;
 
@@ -69,14 +89,22 @@ public interface ResourceAdminService {
     /**
      * 获取管理用的空间内所有资源分组
      *
-     * @param resourceId 资源Id
+     * @param resourceId 空间资源Id
      */
     List<ResourceGroup> getResourceGroupListBySpace(long resourceId) throws SQLException;
 
     /**
+     * 获取管理用的空间内所有资源分组
+     *
+     * @param resourceId 空间资源Id
+     * @param ids        资源Ids
+     */
+    List<ResourceGroup> getResourceGroupListBySpaceAndIds(long resourceId, String ids) throws SQLException;
+
+    /**
      * 获取管理用的空间内所有资源实体
      *
-     * @param resourceId 资源Id
+     * @param resourceId 空间资源Id
      */
     List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException;
 
@@ -118,8 +146,8 @@ public interface ResourceAdminService {
     /**
      * 删除资源关联
      *
-     * @param subjectId 主体Id
-     * @param resourceSpaceId   资源空间Id
+     * @param subjectId       主体Id
+     * @param resourceSpaceId 资源空间Id
      */
     void delResourceLinkBySubjectBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 

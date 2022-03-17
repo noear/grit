@@ -10,12 +10,15 @@ import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
+import org.noear.solon.data.annotation.Tran;
 import org.noear.weed.DataItem;
 import org.noear.weed.DbContext;
+import org.noear.weed.DbTableQuery;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toCollection;
@@ -61,6 +64,30 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .insert();
     }
 
+    @Override
+    public boolean putResourceByGuid(ResourceDo resource) throws SQLException {
+        if (resource == null || Utils.isEmpty(resource.guid)) {
+            return false;
+        }
+
+        if (db.table("grit_resource").whereEq("guid", resource.guid).selectExists()) {
+            return false;
+        }
+
+        if (resource.gmt_create == null) {
+            resource.gmt_create = System.currentTimeMillis();
+            resource.gmt_modified = resource.gmt_create;
+        }
+
+        db.table("grit_resource")
+                .setEntity(resource)
+                .usingNull(false)
+                .usingExpr(false)
+                .insert();
+
+        return true;
+    }
+
     /**
      * 更新资源
      *
@@ -92,6 +119,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      *
      * @param resourceId 资源Id
      */
+    @Tran
     @Override
     public boolean delResourceById(long resourceId) throws SQLException {
         if (resourceId == 0) {
@@ -105,6 +133,54 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         db.table("grit_resource_linked")
                 .whereEq("resource_id", resourceId)
                 .delete();
+
+        return isOk;
+    }
+
+    @Tran
+    @Override
+    public boolean delResourceByIds(String ids) throws SQLException {
+        if(Utils.isEmpty(ids)){
+            return false;
+        }
+
+        List<Object> idList = Arrays.asList(ids.split(","))
+                .stream()
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
+
+        boolean isOk = db.table("grit_resource")
+                .whereIn("resource_id", idList)
+                .delete() > 0;
+
+        db.table("grit_resource_linked")
+                .whereIn("resource_id", idList)
+                .delete();
+
+        return isOk;
+    }
+
+    @Tran
+    @Override
+    public boolean desResourceByIds(String ids, boolean disabled) throws SQLException {
+        if(Utils.isEmpty(ids)){
+            return false;
+        }
+
+        List<Object> idList = Arrays.asList(ids.split(","))
+                .stream()
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
+
+        boolean isOk = db.table("grit_resource")
+                .set("is_disabled", disabled)
+                .whereIn("resource_id", idList)
+                .update() > 0;
+
+        db.table("grit_resource_linked")
+                .set("is_disabled", disabled)
+                .whereIn("resource_id", idList)
+                .update();
 
         return isOk;
     }
@@ -176,6 +252,24 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         return db.table("grit_resource")
                 .whereEq("resource_sid", resourceId)
                 .andEq("resource_type", ResourceType.group.code)
+                .selectList("*", ResourceGroup.class);
+    }
+
+    @Override
+    public List<ResourceGroup> getResourceGroupListBySpaceAndIds(long resourceId, String ids) throws SQLException {
+        if (resourceId == 0 || Utils.isEmpty(ids)) {
+            return new ArrayList<>();
+        }
+
+        List<Object> idList = Arrays.asList(ids.split(","))
+                .stream()
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
+
+        return db.table("grit_resource")
+                .whereEq("resource_sid", resourceId)
+                .andEq("resource_type", ResourceType.group.code)
+                .andIn("resource_id", idList)
                 .selectList("*", ResourceGroup.class);
     }
 
