@@ -24,7 +24,7 @@
         fromData.append("file", file);
         fromData.append("space_id", space_id);
 
-        top.layer.load(2);
+        layer.load(2);
 
         $.ajax({
             type:"POST",
@@ -33,20 +33,20 @@
             processData: false,
             contentType: false,
             success:function (data) {
-                top.layer.closeAll();
+                layer.closeAll();
 
                 if(data.code == 200) {
-                    top.layer.msg('操作成功');
+                    layer.msg('操作成功');
                     setTimeout(function(){
                         location.reload();
                     },800);
                 }else{
-                    top.layer.msg(data.msg);
+                    layer.msg(data.msg);
                 }
             },
             error:function(data){
-                top.layer.closeAll();
-                top.layer.msg('网络请求出错...');
+                layer.closeAll();
+                layer.msg('网络请求出错...');
             }
         });
     }
@@ -79,12 +79,12 @@
             data: {space_id: space_id, act: act, ids: vm.sel_id},
             success: function (data) {
                 if (data.code == 200) {
-                    top.layer.msg('操作成功');
+                    layer.msg('操作成功');
                     setTimeout(function () {
                         location.reload();
                     }, 800);
                 } else {
-                    top.layer.msg(data.msg);
+                    layer.msg(data.msg);
                 }
             }
         });
@@ -100,33 +100,35 @@
 </script>
 <body>
 <toolbar>
-        <left>
+    <flex>
+        <left class="col-4">
             <#if (space_id!0) gt 0>
-                <div>
-                    <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
-                </div>
-                <div>
-                    <a class="w60"></a><file>
-                        <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入</a></label>
-                    </file>
-
-                    <button type='button' class="minor w80 mar10-l" onclick="exp()" >导出</button>
-
-                    <#if state!=1>
-                        <button type='button' class="minor mar10-l" onclick="del(1,'禁用')" >禁用</button>
-                    <#else>
-                        <button type='button' class="minor mar10-l" onclick="del(0,'启用')" >启用</button>
-                        <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
-                    </#if>
-                </div>
+                <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
             </#if>
         </left>
-        <right>
+        <center  class="col-4">
+            <#if (space_id!0) gt 0>
+                <file>
+                    <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入</a></label>
+                </file>
+
+                <button type='button' class="minor w80 mar10-l" onclick="exp()" >导出</button>
+
+                <#if state!=1>
+                    <button type='button' class="minor mar10-l" onclick="del(1,'禁用')" >禁用</button>
+                <#else>
+                    <button type='button' class="minor mar10-l" onclick="del(0,'启用')" >启用</button>
+                    <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
+                </#if>
+            </#if>
+        </center>
+        <right  class="col-4">
             <selector>
                 <a class="${(state !=1)?string('sel','')}" href="./inner?space_id=${space_id}&state=0">启用</a>
                 <a class="${(state =1)?string('sel','')}" href="./inner?space_id=${space_id}&state=1">未启用</a>
             </selector>
         </right>
+    </flex>
 </toolbar>
 <datagrid class="list">
     <table>

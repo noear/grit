@@ -18,6 +18,7 @@ import org.noear.solon.core.handle.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author noear
@@ -44,13 +45,16 @@ public class ResourceGroupController extends BaseController {
     }
 
     @Mapping("inner")
-    public ModelAndView inner(long space_id) throws SQLException {
+    public ModelAndView inner(long space_id, int state) throws SQLException {
+        boolean disabled = state == 1;
         List<ResourceGroup> list = resourceAdminService.getResourceGroupListBySpace(space_id);
+        list = list.stream().filter(m -> m.is_disabled == disabled).collect(Collectors.toList());
         list = ResourceTreeUtils.build(list, space_id);
 
         ResourceSpaceCookie.set(space_id);
 
         viewModel.put("space_id", space_id);
+        viewModel.put("state", state);
         viewModel.put("list", list);
 
         return view("grit/ui/resource_group_inner");
@@ -67,9 +71,9 @@ public class ResourceGroupController extends BaseController {
 
         List<ResourceGroup> list = resourceAdminService.getResourceGroupListBySpaceAndIds(space_id, ids);
 
-        String jsonD = JsondUtils.encode("grit_resource", list);
+        String jsonD = JsondUtils.encode("grit_resource_group", list);
 
-        String filename = "grit_resource_" + space_id + "_" + LocalDate.now() + ".jsond";
+        String filename = "grit_resource_group_" + space_id + "_" + LocalDate.now() + ".jsond";
         ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         ctx.output(jsonD);
@@ -87,7 +91,7 @@ public class ResourceGroupController extends BaseController {
         String jsonD = Utils.transferToString(file.content, "UTF-8");
         JsondEntity entity = JsondUtils.decode(jsonD);
 
-        if (entity == null || "luffy_file".equals(entity.table) == false) {
+        if (entity == null || "grit_resource_group".equals(entity.table) == false) {
             return Result.failure("数据不对！");
         }
 
