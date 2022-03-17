@@ -27,6 +27,7 @@ public class GritUpdate {
         if (existsColumn(db, "grit_resource", "guid") == false) {
             db.exe("ALTER TABLE `grit_resource` ADD COLUMN `guid` varchar(40) NULL AFTER `attrs`;");
             db.exe("UPDATE `grit_resource` SET `guid`= UUID() WHERE `guid` IS NULL;");
+            db.exe("ALTER TABLE `grit_resource` MODIFY COLUMN `guid` varchar(40) NOT NULL COMMENT 'guid' AFTER `attrs`;");
             db.exe("ALTER TABLE `grit_resource` ADD UNIQUE INDEX `IX_grit_resource__guid`(`guid`) USING BTREE;");
 
         }
@@ -34,6 +35,7 @@ public class GritUpdate {
         if (existsColumn(db, "grit_subject", "guid") == false) {
             db.exe("ALTER TABLE `grit_subject` ADD COLUMN `guid` varchar(40) NULL AFTER `attrs`;");
             db.exe("UPDATE `grit_subject` SET `guid`= UUID() WHERE `guid` IS NULL;");
+            db.exe("ALTER TABLE `grit_subject` MODIFY COLUMN `guid` varchar(40) NOT NULL COMMENT 'guid' AFTER `attrs`;");
             db.exe("ALTER TABLE `grit_subject` ADD UNIQUE INDEX `IX_grit_subject__guid`(`guid`) USING BTREE;");
         }
     }
