@@ -167,17 +167,10 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
         List<Object> idList = getIdList(ids);
 
-        boolean isOk = db.table("grit_resource")
+        return db.table("grit_resource")
                 .set("is_disabled", disabled)
                 .whereIn("resource_id", idList)
                 .update() > 0;
-
-        db.table("grit_resource_linked")
-                .set("is_disabled", disabled)
-                .whereIn("resource_id", idList)
-                .update();
-
-        return isOk;
     }
 
     /**

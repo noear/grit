@@ -41,7 +41,7 @@
                         location.reload();
                     },800);
                 }else{
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             },
             error:function(data){
@@ -84,7 +84,7 @@
                         location.reload();
                     }, 800);
                 } else {
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             }
         });

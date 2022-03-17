@@ -41,7 +41,7 @@
                         location.reload();
                     },800);
                 }else{
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             },
             error:function(data){
@@ -84,7 +84,7 @@
                         location.reload();
                     }, 800);
                 } else {
-                    layer.msg(data.msg);
+                    layer.msg(data.description);
                 }
             }
         });
@@ -123,8 +123,8 @@
         </center>
         <right  class="col-3">
             <selector>
-                <a class="${(state !=1)?string('sel','')}" href="./inner?space_id=${space_id}&state=0">启用</a>
-                <a class="${(state =1)?string('sel','')}" href="./inner?space_id=${space_id}&state=1">未启用</a>
+                <a class="${(state !=1)?string('sel','')}" href="./inner?group_id=${group_id}&state=0">启用</a>
+                <a class="${(state =1)?string('sel','')}" href="./inner?group_id=${group_id}&state=1">未启用</a>
             </selector>
         </right>
     </flex>
