@@ -17,13 +17,13 @@ public class GritUpdate {
         }
 
         try {
-            updateDo(db);
+            update_20220307(db);
         } catch (Throwable e) {
             e.printStackTrace();
         }
     }
 
-    private static void updateDo(DbContext db) throws Throwable {
+    private static void update_20220307(DbContext db) throws Throwable {
         if (existsColumn(db, "grit_resource", "guid") == false) {
             db.exe("ALTER TABLE `grit_resource` ADD COLUMN `guid` varchar(40) NULL AFTER `attrs`;");
             db.exe("UPDATE `grit_resource` SET `guid`= UUID() WHERE `guid` IS NULL;");
@@ -41,8 +41,8 @@ public class GritUpdate {
     private static boolean existsColumn(DbContext db, String table, String column) throws SQLException {
         return db.table("information_schema.columns")
                 .whereEq("TABLE_SCHEMA", db.schema())
-                .andEq("table_name", "grit_resource")
-                .andEq("column_name", "guid")
+                .andEq("table_name", table)
+                .andEq("column_name", column)
                 .selectExists();
     }
 }
