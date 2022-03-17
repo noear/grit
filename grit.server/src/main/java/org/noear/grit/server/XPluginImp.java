@@ -11,5 +11,7 @@ public class XPluginImp implements Plugin {
     @Override
     public void start(SolonApp app) {
         app.beanScan(XPluginImp.class);
+
+        GritUpdate.tryUpdate();
     }
 }
