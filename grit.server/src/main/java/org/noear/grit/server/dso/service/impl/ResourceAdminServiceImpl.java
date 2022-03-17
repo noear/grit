@@ -3,6 +3,7 @@ package org.noear.grit.server.dso.service.impl;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.data.ResourceLinkedDo;
 import org.noear.grit.model.domain.Resource;
+import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
@@ -144,10 +145,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             return false;
         }
 
-        List<Object> idList = Arrays.asList(ids.split(","))
-                .stream()
-                .map(s -> Long.parseLong(s))
-                .collect(Collectors.toList());
+        List<Object> idList = getIdList(ids);
 
         boolean isOk = db.table("grit_resource")
                 .whereIn("resource_id", idList)
@@ -167,10 +165,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             return false;
         }
 
-        List<Object> idList = Arrays.asList(ids.split(","))
-                .stream()
-                .map(s -> Long.parseLong(s))
-                .collect(Collectors.toList());
+        List<Object> idList = getIdList(ids);
 
         boolean isOk = db.table("grit_resource")
                 .set("is_disabled", disabled)
@@ -261,10 +256,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             return new ArrayList<>();
         }
 
-        List<Object> idList = Arrays.asList(ids.split(","))
-                .stream()
-                .map(s -> Long.parseLong(s))
-                .collect(Collectors.toList());
+        List<Object> idList = getIdList(ids);
 
         return db.table("grit_resource")
                 .whereEq("resource_sid", resourceId)
@@ -279,7 +271,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
      * @param resourceId 资源Id
      */
     @Override
-    public List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException {
+    public List<ResourceEntity> getResourceEntityListBySpace(long resourceId) throws SQLException {
         if (resourceId == 0) {
             return new ArrayList<>();
         }
@@ -287,7 +279,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         return db.table("grit_resource")
                 .whereEq("resource_sid", resourceId)
                 .andEq("resource_type", ResourceType.entity.code)
-                .selectList("*", ResourceGroup.class);
+                .selectList("*", ResourceEntity.class);
     }
 
     /**
@@ -305,6 +297,20 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .whereEq("resource_pid", resourceId)
                 .selectList("*", Resource.class);
 
+    }
+
+    @Override
+    public List<Resource> getSubResourceListByPidAndIds(long resourceId, String ids) throws SQLException {
+        if (resourceId == 0 || Utils.isEmpty(ids)) {
+            return new ArrayList<>();
+        }
+
+        List<Object> idList = getIdList(ids);
+
+        return db.table("grit_resource")
+                .whereEq("resource_pid", resourceId)
+                .andIn("resource_id", idList)
+                .selectList("*", Resource.class);
     }
 
     ///////////////////
@@ -410,5 +416,12 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         subjectIds.add(subjectEntityId);
 
         return subjectIds;
+    }
+
+    private List<Object> getIdList(String ids){
+        return Arrays.asList(ids.split(","))
+                .stream()
+                .map(s -> Long.parseLong(s))
+                .collect(Collectors.toList());
     }
 }

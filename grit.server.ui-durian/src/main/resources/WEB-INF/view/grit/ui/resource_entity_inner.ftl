@@ -14,6 +14,82 @@
     </style>
 </head>
 <script>
+    var group_id = "${group_id!0}";
+    function imp(file) {
+        if(confirm("确定要导入吗？") == false){
+            return;
+        }
+
+        var fromData = new FormData();
+        fromData.append("file", file);
+        fromData.append("group_id", group_id);
+
+        layer.load(2);
+
+        $.ajax({
+            type:"POST",
+            url:"ajax/import",
+            data:fromData,
+            processData: false,
+            contentType: false,
+            success:function (data) {
+                layer.closeAll();
+
+                if(data.code == 200) {
+                    layer.msg('操作成功');
+                    setTimeout(function(){
+                        location.reload();
+                    },800);
+                }else{
+                    layer.msg(data.msg);
+                }
+            },
+            error:function(data){
+                layer.closeAll();
+                layer.msg('网络请求出错...');
+            }
+        });
+    }
+
+    function exp() {
+        var vm = formToMap(".sel_from");
+        if(!vm.sel_id){
+            alert("请选择..");
+            return;
+        }
+
+        window.open("ajax/export?group_id=${group_id!0}&ids=" + vm.sel_id, "_blank");
+    }
+
+    function del(act,hint) {
+        var vm = formToMap(".sel_from");
+
+        if (!vm.sel_id) {
+            alert("请选择..");
+            return;
+        }
+
+        if (confirm("确定要" + hint + "吗？") == false) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/batch",
+            data: {group_id: group_id, act: act, ids: vm.sel_id},
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg('操作成功');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 800);
+                } else {
+                    layer.msg(data.msg);
+                }
+            }
+        });
+    }
+
     $(function(){
         $('#sel_all').change(function(){
             var ckd= $(this).prop('checked');
@@ -23,19 +99,41 @@
 </script>
 <body>
 <toolbar>
-        <left>
+    <flex>
+        <left class="col-3">
             <#if (group_id!0) gt 0>
                 <a class="btn edit" href="/grit/ui/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
             </#if>
         </left>
-        <right>
+        <center  class="col-6">
+            <#if (group_id!0) gt 0>
+                <file>
+                    <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入</a></label>
+                </file>
 
+                <button type='button' class="minor w80 mar10-l" onclick="exp()" >导出</button>
+
+                <#if state!=1>
+                    <button type='button' class="minor mar10-l" onclick="del(1,'禁用')" >禁用</button>
+                <#else>
+                    <button type='button' class="minor mar10-l" onclick="del(0,'启用')" >启用</button>
+                    <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
+                </#if>
+            </#if>
+        </center>
+        <right  class="col-3">
+            <selector>
+                <a class="${(state !=1)?string('sel','')}" href="./inner?space_id=${space_id}&state=0">启用</a>
+                <a class="${(state =1)?string('sel','')}" href="./inner?space_id=${space_id}&state=1">未启用</a>
+            </selector>
         </right>
+    </flex>
 </toolbar>
 <datagrid class="list">
     <table>
         <thead>
         <tr>
+            <td width="20px"><checkbox><label><input type="checkbox" id="sel_all" /><a></a></label></checkbox></td>
             <td width="50px" >排序</td>
             <td width="250px" class="left">显示名</td>
             <td class="left">路径</td>
@@ -50,6 +148,7 @@
         <#list list as m1>
             <tr title="Id: ${m1.resource_id}"
                 class="${m1.is_visibled?string("","hid")} ${m1.is_disabled?string("dis","")}">
+                <td><checkbox><label><input type="checkbox" name="sel_id" value="${m1.resource_id}" /><a></a></label></checkbox></td>
                 <td >${m1.order_index}</td>
                 <td class="left">
                     ${m1.levelSpan()}

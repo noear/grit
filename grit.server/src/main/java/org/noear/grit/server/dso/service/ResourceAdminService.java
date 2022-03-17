@@ -3,6 +3,7 @@ package org.noear.grit.server.dso.service;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.data.ResourceLinkedDo;
 import org.noear.grit.model.domain.Resource;
+import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 
@@ -106,7 +107,9 @@ public interface ResourceAdminService {
      *
      * @param resourceId 空间资源Id
      */
-    List<ResourceGroup> getResourceEntityListBySpace(long resourceId) throws SQLException;
+    List<ResourceEntity> getResourceEntityListBySpace(long resourceId) throws SQLException;
+
+
 
     /**
      * 获取管理用的下级资源表表
@@ -114,6 +117,15 @@ public interface ResourceAdminService {
      * @param resourceId 资源Id
      */
     List<Resource> getSubResourceListByPid(long resourceId) throws SQLException;
+
+
+
+    /**
+     * 获取管理用的下级资源表表
+     *
+     * @param resourceId 资源Id
+     */
+    List<Resource> getSubResourceListByPidAndIds(long resourceId, String ids) throws SQLException;
 
 
     ////////////////

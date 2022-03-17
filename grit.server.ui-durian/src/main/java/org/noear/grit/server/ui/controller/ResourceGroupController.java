@@ -46,9 +46,10 @@ public class ResourceGroupController extends BaseController {
 
     @Mapping("inner")
     public ModelAndView inner(long space_id, int state) throws SQLException {
-        boolean disabled = state == 1;
+        boolean disabled = (state == 1);
+
         List<ResourceGroup> list = resourceAdminService.getResourceGroupListBySpace(space_id);
-        list = list.stream().filter(m -> m.is_disabled == disabled).collect(Collectors.toList());
+        list = list.stream().filter(r -> r.is_disabled == disabled).collect(Collectors.toList());
         list = ResourceTreeUtils.build(list, space_id);
 
         ResourceSpaceCookie.set(space_id);

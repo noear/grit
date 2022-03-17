@@ -101,12 +101,12 @@
 <body>
 <toolbar>
     <flex>
-        <left class="col-4">
+        <left class="col-3">
             <#if (space_id!0) gt 0>
                 <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
             </#if>
         </left>
-        <center  class="col-4">
+        <center  class="col-6">
             <#if (space_id!0) gt 0>
                 <file>
                     <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入</a></label>
@@ -122,7 +122,7 @@
                 </#if>
             </#if>
         </center>
-        <right  class="col-4">
+        <right  class="col-3">
             <selector>
                 <a class="${(state !=1)?string('sel','')}" href="./inner?space_id=${space_id}&state=0">启用</a>
                 <a class="${(state =1)?string('sel','')}" href="./inner?space_id=${space_id}&state=1">未启用</a>
