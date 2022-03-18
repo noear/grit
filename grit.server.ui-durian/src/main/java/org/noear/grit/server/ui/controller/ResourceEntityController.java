@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 public class ResourceEntityController extends BaseController {
     @Inject
     ResourceAdminService resourceAdminService;
-    
+
     @Mapping
     public ModelAndView home(long space_id, Long group_id) throws SQLException {
         List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
@@ -65,7 +65,7 @@ public class ResourceEntityController extends BaseController {
         boolean disabled = (state == 1);
 
         List<Resource> list = resourceAdminService.getSubResourceListByPid(group_id);
-        list = list.stream().filter(r->r.resource_type == 0 && r.is_disabled == disabled)
+        list = list.stream().filter(r -> r.resource_type == 0 && r.is_disabled == disabled)
                 .sorted(ResourceComparator.instance)
                 .collect(Collectors.toList());
 
@@ -80,7 +80,7 @@ public class ResourceEntityController extends BaseController {
 
     /**
      * 批量导出
-     * */
+     */
     @Mapping("ajax/export")
     public void exportDo(Context ctx, long group_id, String ids) throws Exception {
         if (group_id == 0) {
@@ -100,7 +100,7 @@ public class ResourceEntityController extends BaseController {
 
     /**
      * 批量导入
-     * */
+     */
     @Mapping("ajax/import")
     public Result importDo(Context ctx, long group_id, UploadedFile file) throws Exception {
         if (group_id == 0) {
@@ -108,38 +108,46 @@ public class ResourceEntityController extends BaseController {
         }
 
 
-        String jsonD = Utils.transferToString(file.content, "UTF-8");
-        JsondEntity entity = JsondUtils.decode(jsonD);
+        try {
+            String jsonD = Utils.transferToString(file.content, "UTF-8");
+            JsondEntity entity = JsondUtils.decode(jsonD);
 
-        if (entity == null || "grit_resource".equals(entity.table) == false) {
-            return Result.failure("数据不对！");
+            if (entity == null || "grit_resource".equals(entity.table) == false) {
+                return Result.failure("数据不对！");
+            }
+
+            List<ResourceDo> list = entity.data.toObjectList(ResourceDo.class);
+            Resource group = resourceAdminService.getResourceById(group_id);
+
+
+            for (ResourceDo m : list) {
+                m.resource_sid = group.resource_sid;
+                m.resource_pid = group_id;
+
+                resourceAdminService.putResourceByGuid(m);
+            }
+
+            return Result.succeed();
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
         }
-
-        List<ResourceDo> list = entity.data.toObjectList(ResourceDo.class);
-        Resource group = resourceAdminService.getResourceById(group_id);
-
-
-        for (ResourceDo m : list) {
-            m.resource_sid = group.resource_sid;
-            m.resource_pid = group_id;
-
-            resourceAdminService.putResourceByGuid(m);
-        }
-
-        return Result.succeed();
     }
 
     /**
      * 批量处理（删除，禁用，启用）
-     * */
+     */
     @Mapping("ajax/batch")
     public Result batchDo(Context ctx, long group_id, int act, String ids) throws Exception {
-        if (act == 9) {
-            resourceAdminService.delResourceByIds(ids);
-        } else {
-            resourceAdminService.desResourceByIds(ids, (act == 1));
-        }
+        try {
+            if (act == 9) {
+                resourceAdminService.delResourceByIds(ids);
+            } else {
+                resourceAdminService.desResourceByIds(ids, (act == 1));
+            }
 
-        return Result.succeed();
+            return Result.succeed();
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
+        }
     }
 }

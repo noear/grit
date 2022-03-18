@@ -80,6 +80,8 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             resource.gmt_modified = resource.gmt_create;
         }
 
+        resource.resource_id = null;
+
         db.table("grit_resource")
                 .setEntity(resource)
                 .usingNull(false)

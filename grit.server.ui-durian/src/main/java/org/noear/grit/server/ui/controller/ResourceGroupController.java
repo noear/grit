@@ -94,24 +94,27 @@ public class ResourceGroupController extends BaseController {
             return Result.failure();
         }
 
+        try {
+            String jsonD = Utils.transferToString(file.content, "UTF-8");
+            JsondEntity entity = JsondUtils.decode(jsonD);
 
-        String jsonD = Utils.transferToString(file.content, "UTF-8");
-        JsondEntity entity = JsondUtils.decode(jsonD);
+            if (entity == null || "grit_resource_group".equals(entity.table) == false) {
+                return Result.failure("数据不对！");
+            }
 
-        if (entity == null || "grit_resource_group".equals(entity.table) == false) {
-            return Result.failure("数据不对！");
+            List<ResourceDo> list = entity.data.toObjectList(ResourceDo.class);
+
+            for (ResourceDo m : list) {
+                m.resource_sid = space_id;
+                m.resource_pid = 0L;
+
+                resourceAdminService.putResourceByGuid(m);
+            }
+
+            return Result.succeed();
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
         }
-
-        List<ResourceDo> list = entity.data.toObjectList(ResourceDo.class);
-
-        for (ResourceDo m : list) {
-            m.resource_sid = space_id;
-            m.resource_pid = null;
-
-            resourceAdminService.putResourceByGuid(m);
-        }
-
-        return Result.succeed();
     }
 
     /**
@@ -119,12 +122,16 @@ public class ResourceGroupController extends BaseController {
      * */
     @Mapping("ajax/batch")
     public Result batchDo(Context ctx, long space_id, int act, String ids) throws Exception {
-        if (act == 9) {
-            resourceAdminService.delResourceByIds(ids);
-        } else {
-            resourceAdminService.desResourceByIds(ids, (act == 1));
-        }
+        try {
+            if (act == 9) {
+                resourceAdminService.delResourceByIds(ids);
+            } else {
+                resourceAdminService.desResourceByIds(ids, (act == 1));
+            }
 
-        return Result.succeed();
+            return Result.succeed();
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
+        }
     }
 }
