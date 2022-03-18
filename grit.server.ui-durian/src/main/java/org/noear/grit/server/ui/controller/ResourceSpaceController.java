@@ -1,14 +1,20 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.comparator.ResourceComparator;
+import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.service.ResourceAdminService;
+import org.noear.grit.server.utils.JsondEntity;
+import org.noear.grit.server.utils.JsondUtils;
 import org.noear.grit.service.ResourceSchemaService;
+import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
+import org.noear.solon.core.handle.Result;
+import org.noear.solon.core.handle.UploadedFile;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -28,6 +34,8 @@ public class ResourceSpaceController extends BaseController {
     @Inject
     ResourceSchemaService resourceSchemaService;
 
+    final String jsondTable = "grit_schema";
+
     @Mapping
     public ModelAndView home() throws SQLException {
         List<ResourceSpace> list = resourceAdminService.getSpaceList();
@@ -39,19 +47,38 @@ public class ResourceSpaceController extends BaseController {
     }
 
     /**
+     * 批量导入
+     * */
+    @Mapping("ajax/import")
+    public Result importDo(Context ctx, UploadedFile file) throws Exception {
+        if (file == null) {
+            return Result.failure();
+        }
+
+        try {
+            String jsonD = Utils.transferToString(file.content, "UTF-8");
+            resourceSchemaService.importSchema(jsonD);
+
+            return Result.succeed();
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
+        }
+    }
+
+    /**
      * 批量导出
      */
-    @Mapping("export")
+    @Mapping("ajax/export")
     public void exportDo(Context ctx, long space_id) throws Exception {
         if (space_id == 0) {
             return;
         }
 
-        String json = resourceSchemaService.exportSchema(space_id);
+        String jsond = resourceSchemaService.exportSchema(space_id);
 
-//        String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".json";
-//        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        String filename = jsondTable + "_" + space_id + "_" + LocalDate.now() + ".json";
+        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-        ctx.outputAsJson(json);
+        ctx.output(jsond);
     }
 }

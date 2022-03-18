@@ -12,15 +12,15 @@ public interface ResourceSchemaService {
     /**
      * 导入资源架构
      *
-     * @param json 数据
+     * @param jsond 数据
      */
-    boolean importSchema(String json) throws SQLException;
+    boolean importSchema(String jsond) throws Exception;
 
     /**
      * 导出资源架构
      *
      * @param resourceSpaceId 资源空间Id
-     * @return json
+     * @return jsond
      */
-    String exportSchema(long resourceSpaceId) throws SQLException;
+    String exportSchema(long resourceSpaceId) throws Exception;
 }

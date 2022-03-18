@@ -6,6 +6,8 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.server.dso.service.ResourceAdminService;
+import org.noear.grit.server.utils.JsondEntity;
+import org.noear.grit.server.utils.JsondUtils;
 import org.noear.grit.service.ResourceSchemaService;
 import org.noear.snack.ONode;
 import org.noear.solon.Utils;
@@ -29,14 +31,23 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
     @Inject
     ResourceAdminService adminService;
 
+    final String jsondTable = "grit_schema";
+
     @Override
-    public boolean importSchema(String json) throws SQLException {
-        if (Utils.isEmpty(json)) {
+    public boolean importSchema(String jsond) throws Exception {
+        if (Utils.isEmpty(jsond)) {
             return false;
         }
 
+        JsondEntity jsondEntity = JsondUtils.decode(jsond);
+
+        if (jsondTable.equals(jsondEntity.table) == false) {
+            throw new IllegalArgumentException("Invalid space schema json");
+        }
+
+
         //space
-        ONode oNode = ONode.loadStr(json);
+        ONode oNode = jsondEntity.data;
 
         ONode oSpace = oNode.getOrNull("space");
         if (oSpace == null) {
@@ -89,7 +100,7 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
 
     @Cache(seconds = 10)
     @Override
-    public String exportSchema(long resourceSpaceId) throws SQLException {
+    public String exportSchema(long resourceSpaceId) throws Exception {
         if (resourceSpaceId == 0) {
             return "";
         }
@@ -126,6 +137,6 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
             }
         }
 
-        return oNode.toJson();
+        return JsondUtils.encode(jsondTable, oNode);
     }
 }

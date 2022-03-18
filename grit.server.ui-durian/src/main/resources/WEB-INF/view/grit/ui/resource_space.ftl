@@ -14,10 +14,49 @@
     </style>
 </head>
 <script>
+    function imp(file) {
+        if(confirm("确定要导入吗？") == false){
+            return;
+        }
+
+        var fromData = new FormData();
+        fromData.append("file", file);
+
+        layer.load(2);
+
+        $.ajax({
+            type:"POST",
+            url:"ajax/import",
+            data:fromData,
+            processData: false,
+            contentType: false,
+            success:function (data) {
+                layer.closeAll();
+
+                if(data.code == 200) {
+                    layer.msg('操作成功');
+                    setTimeout(function(){
+                        location.reload();
+                    },800);
+                }else{
+                    layer.msg(data.description);
+                }
+            },
+            error:function(data){
+                layer.closeAll();
+                layer.msg('网络请求出错...');
+            }
+        });
+    }
+
     $(function(){
         $('#sel_all').change(function(){
             var ckd= $(this).prop('checked');
             $('[name=sel_id]').prop('checked',ckd);
+        });
+
+        $("#imp_file").change(function () {
+            imp(this.files[0]);
         });
     });
 </script>
@@ -25,6 +64,9 @@
 <toolbar>
         <left class="col-4">
             <a class="btn edit" href="/grit/ui/resource/edit?type=2">新增空间</a>
+            <file>
+                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入架构</a></label>
+            </file>
         </left>
         <right class="col-4">
 
@@ -62,7 +104,7 @@
                 <td class="op">
                     <a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/ui/resource/space/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出架构</a>
+                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出架构</a>
                 </td>
             </tr>
         </#list>
