@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * 资源空间
+ *
  * @author noear
  * @since 1.0
  */

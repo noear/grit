@@ -14,6 +14,8 @@ import org.noear.solon.core.handle.Result;
 import java.sql.SQLException;
 
 /**
+ * 资源编码
+ *
  * @author noear
  * @since 1.0
  */

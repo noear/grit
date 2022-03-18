@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 资源实体管理
+ *
  * @author noear
  * @since 1.0
  */
@@ -76,7 +78,9 @@ public class ResourceEntityController extends BaseController {
 
     ////////////////////
 
-    //批量导出
+    /**
+     * 批量导出
+     * */
     @Mapping("ajax/export")
     public void exportDo(Context ctx, long group_id, String ids) throws Exception {
         if (group_id == 0) {
@@ -94,7 +98,9 @@ public class ResourceEntityController extends BaseController {
     }
 
 
-    //批量导入
+    /**
+     * 批量导入
+     * */
     @Mapping("ajax/import")
     public Result importDo(Context ctx, long group_id, UploadedFile file) throws Exception {
         if (group_id == 0) {
@@ -123,7 +129,9 @@ public class ResourceEntityController extends BaseController {
         return Result.succeed();
     }
 
-    //批量删除
+    /**
+     * 批量处理（删除，禁用，启用）
+     * */
     @Mapping("ajax/batch")
     public Result batchDo(Context ctx, long group_id, int act, String ids) throws Exception {
         if (act == 9) {

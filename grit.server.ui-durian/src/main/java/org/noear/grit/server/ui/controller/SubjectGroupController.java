@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * 主体分组管理
+ *
  * @author noear
  * @since 1.0
  */
