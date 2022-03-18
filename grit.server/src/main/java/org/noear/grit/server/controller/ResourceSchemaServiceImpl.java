@@ -59,11 +59,10 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         }
 
         ResourceDo spaceD = oSpace.get(tag_meta).toObject(ResourceDo.class);
-        if (Utils.isEmpty(spaceD.guid)) {
-            throw new IllegalArgumentException("Invalid space schema json");
-        }
+
         spaceD.resource_sid = 0L;
         spaceD.resource_pid = 0L;
+
         if (adminService.synResourceByGuid(spaceD) == false) {
             //同步失则，表示格式不对
             throw new IllegalArgumentException("Invalid space schema json");
