@@ -62,7 +62,7 @@
                 <td class="op">
                     <a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出架构</a>
+                    <a href="/grit/ui/resource/space/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出架构</a>
                 </td>
             </tr>
         </#list>

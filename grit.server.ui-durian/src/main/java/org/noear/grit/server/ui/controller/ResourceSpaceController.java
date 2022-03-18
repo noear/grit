@@ -41,17 +41,16 @@ public class ResourceSpaceController extends BaseController {
     /**
      * 批量导出
      */
-    @Mapping("ajax/export")
+    @Mapping("export")
     public void exportDo(Context ctx, long space_id) throws Exception {
         if (space_id == 0) {
             return;
         }
 
         String json = resourceSchemaService.exportSchema(space_id);
-        String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".jsond";
 
-
-        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+//        String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".json";
+//        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         ctx.outputAsJson(json);
     }
