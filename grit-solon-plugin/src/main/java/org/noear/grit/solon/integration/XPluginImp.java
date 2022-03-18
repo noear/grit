@@ -4,6 +4,7 @@ import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.Utils;
 import org.noear.solon.cloud.CloudClient;
+import org.noear.solon.cloud.model.Config;
 import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.event.AppLoadEndEvent;
@@ -50,8 +51,19 @@ public class XPluginImp implements Plugin {
             return;
         }
 
+        //
+        //借用配置服务，做初始化版本管理
+        //
+
         String jsond_md5 = Utils.md5(jsond);
-        String jsond_md5C = CloudClient.config().pull("_grit", appName).value();
+        String jsond_md5C = null;
+
+        Config config = CloudClient.config().pull("_grit", appName);
+
+        if (config != null) {
+            jsond_md5C = config.value();
+        }
+
 
         if (jsond_md5.equals(jsond_md5C) == false) {
             GritClient.global().resourceSchema().importSchema(jsond);
