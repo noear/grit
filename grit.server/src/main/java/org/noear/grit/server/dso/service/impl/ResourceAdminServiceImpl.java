@@ -277,6 +277,17 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 .selectList("*", ResourceEntity.class);
     }
 
+    @Override
+    public boolean hasSubResourceByPid(long resourceId) throws SQLException {
+        if (resourceId == 0) {
+            return false;
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_pid", resourceId)
+                .selectExists();
+    }
+
     /**
      * 获取管理用的下级资源表表
      *
