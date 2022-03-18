@@ -108,7 +108,7 @@ public class ResourceController extends BaseController {
     public Result edit_ajax_del(long resource_id) throws SQLException {
         try {
             if (resourceAdminService.hasSubResourceByPid(resource_id)) {
-                return Result.failure("There are sub resources, cannot be deleted");
+                return Result.failure("存在下级资源,不可删除");
             } else {
                 resourceAdminService.delResourceById(resource_id);
                 return Result.succeed();
