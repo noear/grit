@@ -30,7 +30,7 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
     @Inject
     ResourceAdminService adminService;
 
-    final String jsondTable = "grit_schema";
+    final String jsondTable = "grit_space";
 
     final String tag_space = "space";
     final String tag_meta = "meta";

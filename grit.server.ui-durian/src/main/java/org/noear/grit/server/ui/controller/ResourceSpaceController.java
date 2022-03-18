@@ -32,7 +32,7 @@ public class ResourceSpaceController extends BaseController {
     @Inject
     ResourceSchemaService resourceSchemaService;
 
-    final String jsondTable = "grit_schema";
+    final String jsondTable = "grit_space";
 
     @Mapping
     public ModelAndView home() throws SQLException {
