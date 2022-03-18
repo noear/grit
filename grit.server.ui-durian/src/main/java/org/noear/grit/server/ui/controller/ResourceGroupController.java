@@ -108,7 +108,7 @@ public class ResourceGroupController extends BaseController {
                 m.resource_sid = space_id;
                 m.resource_pid = space_id;
 
-                resourceAdminService.putResourceByGuid(m);
+                resourceAdminService.synResourceByGuid(m);
             }
 
             return Result.succeed();

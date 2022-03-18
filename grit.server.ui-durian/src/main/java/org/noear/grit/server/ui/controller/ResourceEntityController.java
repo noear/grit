@@ -124,7 +124,7 @@ public class ResourceEntityController extends BaseController {
                 m.resource_sid = group.resource_sid;
                 m.resource_pid = group_id;
 
-                resourceAdminService.putResourceByGuid(m);
+                resourceAdminService.synResourceByGuid(m);
             }
 
             return Result.succeed();

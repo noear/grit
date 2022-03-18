@@ -78,13 +78,14 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             return false;
         }
 
-        resource.resource_id = null;
+        long tmp = db.table("grit_resource").whereEq("guid", resource.guid)
+                .selectValue("resource_id", 0L);
 
-        ResourceDo tmp = getResourceByGuid(resource.guid);
-        if (tmp.resource_id == null) {
-            resource.resource_id = addResource(resource);
+        if (tmp > 0) {
+            resource.resource_id = tmp;
         } else {
-            resource.resource_id = tmp.resource_id;
+            resource.resource_id = null;
+            resource.resource_id = addResource(resource);
         }
 
         return true;
