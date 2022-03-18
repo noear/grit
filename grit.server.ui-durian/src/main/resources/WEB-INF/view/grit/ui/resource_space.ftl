@@ -63,13 +63,12 @@
 <body>
 <toolbar>
         <left class="col-4">
+            <a class="btn edit mar10-r" href="/grit/ui/resource/edit?type=2">新增空间</a>
+        </left>
+        <right class="col-4">
             <file>
                 <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入空间</a></label>
             </file>
-            <a class="btn edit mar10-l" href="/grit/ui/resource/edit?type=2">新增空间</a>
-        </left>
-        <right class="col-4">
-
         </right>
 </toolbar>
 <datagrid class="list">

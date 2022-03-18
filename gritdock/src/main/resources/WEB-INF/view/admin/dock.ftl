@@ -24,7 +24,7 @@
 </head>
 <body>
 <header>
-    <label title='v2.4.2'>GRIT</label>
+    <label>GRIT</label>
     <nav>
     </nav>
     <aside>
