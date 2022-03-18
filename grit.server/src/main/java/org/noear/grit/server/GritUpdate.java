@@ -17,6 +17,8 @@ public class GritUpdate {
         }
 
         try {
+            db.initMetaData();
+
             update_20220307(db);
         } catch (Throwable e) {
             e.printStackTrace();
