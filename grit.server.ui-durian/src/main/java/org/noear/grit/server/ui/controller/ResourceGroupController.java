@@ -106,7 +106,7 @@ public class ResourceGroupController extends BaseController {
 
             for (ResourceDo m : list) {
                 m.resource_sid = space_id;
-                m.resource_pid = 0L;
+                m.resource_pid = space_id;
 
                 resourceAdminService.putResourceByGuid(m);
             }
