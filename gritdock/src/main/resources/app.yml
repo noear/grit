@@ -30,4 +30,5 @@ gritadmin:
 gritdock:
   env: "演示环境"
   title: "演示环境 - 跨系统管理中台"
+  enable: true
 

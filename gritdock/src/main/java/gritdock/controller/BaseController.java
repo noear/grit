@@ -29,7 +29,7 @@ public abstract class BaseController {
 
         viewModel.put("title", Config.title());
         viewModel.put("app", Config.title());
-        viewModel.put("env", Config.evn());
+        viewModel.put("env", Config.env());
 
         viewModel.put("css", "/_static/css");
         viewModel.put("js", "/_static/js");

@@ -7,11 +7,14 @@ import org.noear.solon.Solon;
  * @since 1.0
  * */
 public class Config {
+    public static boolean enable() {
+        return Solon.cfg().getBool("gritdock.enable", true);
+    }
 
     /**
      * 平台环境
      */
-    public static String evn() {
+    public static String env() {
         return Solon.cfg().get("gritdock.env", "");
     }
 

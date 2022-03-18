@@ -1,5 +1,6 @@
 package gritdock.controller;
 
+import gritdock.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
@@ -38,14 +39,22 @@ public class LoginController extends BaseController {
 
     @Mapping("/")
     public void home(Context ctx) throws Exception {
-        ctx.forward("/login");
+        if (Config.enable()) {
+            ctx.forward("/login");
+        } else {
+            ctx.status(404);
+        }
     }
 
     @Mapping("/login") //视图 返回
-    public ModelAndView login() {
-        Session.current().clear();
+    public void login(Context ctx) throws Throwable {
+        if (Config.enable()) {
+            Session.current().clear();
 
-        return view("login");
+            ctx.render(view("login"));
+        } else {
+            ctx.status(404);
+        }
     }
     //-----------------
 
