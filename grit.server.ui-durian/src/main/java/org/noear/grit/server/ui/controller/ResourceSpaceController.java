@@ -26,7 +26,7 @@ public class ResourceSpaceController extends BaseController {
     @Inject
     ResourceAdminService resourceAdminService;
     @Inject
-    ResourceSchemaService schemaService;
+    ResourceSchemaService resourceSchemaService;
 
     @Mapping
     public ModelAndView home() throws SQLException {
@@ -47,7 +47,7 @@ public class ResourceSpaceController extends BaseController {
             return;
         }
 
-        String json = schemaService.exportSchema(space_id);
+        String json = resourceSchemaService.exportSchema(space_id);
         String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".jsond";
 
 
