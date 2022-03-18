@@ -12,11 +12,11 @@ import org.noear.grit.service.*;
 public interface GritClient {
     /**
      * 约定Rpc路径
-     * */
-    static final String RPC_PATH =  "/grit/api/";
+     */
+    static final String RPC_PATH = "/grit/api/";
     /**
      * 约定Rpc路径和当前版本
-     * */
+     */
     static final String RPC_PATH_VER = "/grit/api/v1/";
 
     /**
@@ -68,6 +68,10 @@ public interface GritClient {
      */
     ResourceLinkService resourceLink();
 
+    /**
+     * 资源架构接口
+     */
+    ResourceSchemaService resourceSchema();
 
 
     /////////////////////////////////////////////

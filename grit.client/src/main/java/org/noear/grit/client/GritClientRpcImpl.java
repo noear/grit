@@ -25,6 +25,8 @@ public class GritClientRpcImpl implements GritClient {
     private ResourceService resourceService;
     private ResourceLinkService resourceLinkService;
 
+    private ResourceSchemaService resourceSchemaService;
+
     private SubjectService subjectService;
     private SubjectLinkService subjectLinkService;
 
@@ -46,6 +48,8 @@ public class GritClientRpcImpl implements GritClient {
             subjectLinkService = createService(gritServer, gritToken, SubjectLinkService.class);
 
             authService = createService(gritServer, gritToken, AuthService.class);
+
+            resourceSchemaService = createService(gritServer, gritToken, ResourceSchemaService.class);
         } else {
             if (TextUtils.isEmpty(gritServer)) {
                 System.out.println("[Grit] Invalid configuration: grit.server");
@@ -147,6 +151,12 @@ public class GritClientRpcImpl implements GritClient {
     }
 
 
+    @Override
+    public ResourceSchemaService resourceSchema() {
+        return resourceSchemaService;
+    }
+
+
     /////////////////////////////////////////////
 
     /**
@@ -171,7 +181,9 @@ public class GritClientRpcImpl implements GritClient {
     /**
      * 签权接口
      */
+    @Override
     public AuthService auth() {
         return authService;
     }
+
 }

@@ -174,19 +174,4 @@ public interface ResourceAdminService {
      * @param subjectId 主体Id
      */
     List<ResourceLinkedDo> getResourceLinkListBySubjectAll(long subjectId) throws SQLException;
-
-    /**
-     * 导入空间架构
-     *
-     * @param json 数据
-     */
-    boolean importSpaceSchema(String json) throws SQLException;
-
-    /**
-     * 导出空间架构
-     *
-     * @param resourceSpaceId 资源空间Id
-     * @return json
-     */
-    String exportSpaceSchema(long resourceSpaceId) throws SQLException;
 }

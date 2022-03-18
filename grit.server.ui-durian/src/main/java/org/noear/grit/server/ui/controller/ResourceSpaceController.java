@@ -1,18 +1,13 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.comparator.ResourceComparator;
-import org.noear.grit.model.data.ResourceDo;
-import org.noear.grit.model.domain.Resource;
-import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.service.ResourceAdminService;
-import org.noear.grit.server.utils.JsondUtils;
-import org.noear.snack.ONode;
+import org.noear.grit.service.ResourceSchemaService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Context;
-import org.noear.solon.core.handle.DownloadedFile;
 import org.noear.solon.core.handle.ModelAndView;
 
 import java.sql.SQLException;
@@ -30,6 +25,8 @@ import java.util.List;
 public class ResourceSpaceController extends BaseController {
     @Inject
     ResourceAdminService resourceAdminService;
+    @Inject
+    ResourceSchemaService schemaService;
 
     @Mapping
     public ModelAndView home() throws SQLException {
@@ -50,7 +47,7 @@ public class ResourceSpaceController extends BaseController {
             return;
         }
 
-        String json = resourceAdminService.exportSpaceSchema(space_id);
+        String json = schemaService.exportSpaceSchema(space_id);
         String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".jsond";
 
 
