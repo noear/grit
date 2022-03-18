@@ -26,7 +26,7 @@
 
         $.ajax({
             type:"POST",
-            url:"ajax/import",
+            url:"/grit/ui/resource/space/ajax/import",
             data:fromData,
             processData: false,
             contentType: false,
@@ -63,9 +63,9 @@
 <body>
 <toolbar>
         <left class="col-4">
-            <a class="btn edit" href="/grit/ui/resource/edit?type=2">新增空间</a>
+            <a class="btn edit mar10-r" href="/grit/ui/resource/edit?type=2">新增空间</a>
             <file>
-                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入架构</a></label>
+                <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入空间</a></label>
             </file>
         </left>
         <right class="col-4">
@@ -104,7 +104,7 @@
                 <td class="op">
                     <a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出架构</a>
+                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出空间</a>
                 </td>
             </tr>
         </#list>

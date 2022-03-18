@@ -76,7 +76,7 @@ public class ResourceSpaceController extends BaseController {
 
         String jsond = resourceSchemaService.exportSchema(space_id);
 
-        String filename = jsondTable + "_" + space_id + "_" + LocalDate.now() + ".json";
+        String filename = jsondTable + "_" + space_id + "_" + LocalDate.now() + ".jsond";
         ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         ctx.output(jsond);
