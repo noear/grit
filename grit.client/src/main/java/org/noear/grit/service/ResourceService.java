@@ -33,6 +33,13 @@ public interface ResourceService {
     Resource getResourceByGuid(long resourceGuid) throws SQLException;
 
     /**
+     * 检查是否存在资源
+     *
+     * @param resourceGuid 资源Guid
+     */
+    boolean hasResourceByGuid(long resourceGuid) throws SQLException;
+
+    /**
      * 资源获取
      *
      * @param resourceCode 资源代号
@@ -102,6 +109,13 @@ public interface ResourceService {
      * @param resourceSpaceCode 资源空间代号
      */
     ResourceSpace getSpaceByCode(String resourceSpaceCode) throws SQLException;
+
+    /**
+     * 检查是不存在资源空间
+     *
+     * @param resourceSpaceCode 资源空间代号
+     */
+    boolean hasSpaceByCode(String resourceSpaceCode) throws SQLException;
 
     /**
      * 获取所有的资源空间列表

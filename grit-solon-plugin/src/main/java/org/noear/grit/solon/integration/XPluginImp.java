@@ -23,8 +23,10 @@ public class XPluginImp implements Plugin {
 
             if (appName != null) {
                 //0.初始化架构
-                String jsond = Utils.getResourceAsString(GRIT_INIT_CONFIG);
-                GritClient.global().resourceSchema().importSchema(jsond);
+                if (GritClient.global().resource().hasSpaceByCode(appName) == false) {
+                    String jsond = Utils.getResourceAsString(GRIT_INIT_CONFIG);
+                    GritClient.global().resourceSchema().importSchema(jsond);
+                }
 
 
                 //1.初始化资源空间

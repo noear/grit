@@ -59,6 +59,14 @@ public class ResourceServiceImpl implements ResourceService {
                 .selectItem("*", Resource.class);
     }
 
+    @Override
+    public boolean hasResourceByGuid(long resourceGuid) throws SQLException {
+        return db.table("grit_resource")
+                .whereEq("guid", resourceGuid)
+                .caching(cache)
+                .selectExists();
+    }
+
     /**
      * 资源获取
      *
@@ -192,6 +200,18 @@ public class ResourceServiceImpl implements ResourceService {
                 .limit(1)
                 .caching(cache)
                 .selectItem("*", ResourceSpace.class);
+    }
+
+    @Override
+    public boolean hasSpaceByCode(String resourceSpaceCode) throws SQLException {
+        if (TextUtils.isEmpty(resourceSpaceCode)) {
+            return false;
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_code", resourceSpaceCode)
+                .caching(cache)
+                .selectExists();
     }
 
     /**
