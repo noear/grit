@@ -28,6 +28,13 @@ public interface ResourceService {
     /**
      * 资源获取
      *
+     * @param resourceGuid 资源Guid
+     */
+    Resource getResourceByGuid(long resourceGuid) throws SQLException;
+
+    /**
+     * 资源获取
+     *
      * @param resourceCode 资源代号
      */
     Resource getResourceByCodeAndSpace(long resourceSpaceId, String resourceCode) throws SQLException;

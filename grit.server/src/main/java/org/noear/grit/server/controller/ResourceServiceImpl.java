@@ -49,6 +49,19 @@ public class ResourceServiceImpl implements ResourceService {
     /**
      * 资源获取
      *
+     * @param resourceGuid 资源Guid
+     */
+    @Override
+    public Resource getResourceByGuid(long resourceGuid) throws SQLException {
+        return db.table("grit_resource")
+                .whereEq("guid", resourceGuid)
+                .caching(cache)
+                .selectItem("*", Resource.class);
+    }
+
+    /**
+     * 资源获取
+     *
      * @param resourceCode 资源代号
      */
     @Override
