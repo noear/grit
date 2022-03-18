@@ -14,7 +14,7 @@ import org.noear.solon.core.event.AppLoadEndEvent;
  * @since 1.0
  */
 public class XPluginImp implements Plugin {
-    final String GRIT_INIT = "grit-init.json";
+    final String GRIT_INIT_CONFIG = "grit-init.json";
 
     @Override
     public void start(SolonApp app) {
@@ -23,7 +23,7 @@ public class XPluginImp implements Plugin {
 
             if (appName != null) {
                 //0.初始化架构
-                String jsond = Utils.getResourceAsString(GRIT_INIT);
+                String jsond = Utils.getResourceAsString(GRIT_INIT_CONFIG);
                 GritClient.global().resourceSchema().importSchema(jsond);
 
 
