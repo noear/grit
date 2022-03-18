@@ -12,6 +12,7 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.Context;
+import org.noear.solon.core.handle.DownloadedFile;
 import org.noear.solon.core.handle.ModelAndView;
 
 import java.sql.SQLException;
@@ -26,10 +27,10 @@ import java.util.List;
  */
 @Mapping("/grit/ui/resource/space")
 @Controller
-public class ResourceSpaceController extends BaseController{
+public class ResourceSpaceController extends BaseController {
     @Inject
     ResourceAdminService resourceAdminService;
-    
+
     @Mapping
     public ModelAndView home() throws SQLException {
         List<ResourceSpace> list = resourceAdminService.getSpaceList();
@@ -49,44 +50,12 @@ public class ResourceSpaceController extends BaseController{
             return;
         }
 
-        ONode oNode = new ONode();
-
-        ResourceDo space = resourceAdminService.getResourceById(space_id);
-        List<ResourceGroup> groups = resourceAdminService.getResourceGroupListBySpace(space_id);
-
-        space.resource_id = null;
-        space.resource_pid = null;
-        space.resource_sid = null;
-
-        ONode oSpace = oNode.getOrNew("space");
-        oSpace.getOrNew("meta").fill(space);
-
-        ONode oGroups = oSpace.getOrNew("groups").asArray();
-        for(ResourceGroup g1 : groups) {
-            List<Resource> engitys = resourceAdminService.getSubResourceListByPid(g1.resource_id);
-
-            g1.resource_id = null;
-            g1.resource_pid = null;
-            g1.resource_sid = null;
-            ONode oG1 = oGroups.addNew();
-            oG1.getOrNew("meta").fill(g1);
-
-            ONode oEngitys = oG1.getOrNew("engitys");
-            for (Resource e1 : engitys) {
-                e1.resource_id = null;
-                e1.resource_pid = null;
-                e1.resource_sid = null;
-
-                oEngitys.addNew().fill(e1);
-            }
-        }
+        String json = resourceAdminService.exportSpaceSchema(space_id);
+        String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".jsond";
 
 
-//        String jsonD = JsondUtils.encode("grit_space", oNode);
-//
-//        String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".jsond";
-//        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-        ctx.outputAsJson(oNode.toJson());
+        ctx.outputAsJson(json);
     }
 }

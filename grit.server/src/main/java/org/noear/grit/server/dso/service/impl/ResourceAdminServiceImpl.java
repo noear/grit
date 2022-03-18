@@ -9,12 +9,14 @@ import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.type.ResourceType;
 import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.grit.server.dso.service.SubjectAdminService;
+import org.noear.snack.ONode;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
+import org.noear.solon.data.annotation.Cache;
 import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.extend.aspect.annotation.Service;
 import org.noear.weed.DataItem;
 import org.noear.weed.DbContext;
-import org.noear.weed.DbTableQuery;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
@@ -30,7 +32,7 @@ import static java.util.stream.Collectors.toCollection;
  * @author noear
  * @since 1.0
  */
-@Component
+@Service
 public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Inject("grit.db")
     private DbContext db;
@@ -54,7 +56,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         resource.gmt_create = System.currentTimeMillis();
         resource.gmt_modified = resource.gmt_create;
 
-        if(Utils.isEmpty(resource.guid)){
+        if (Utils.isEmpty(resource.guid)) {
             resource.guid = Utils.guid();
         }
 
@@ -143,7 +145,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Tran
     @Override
     public boolean delResourceByIds(String ids) throws SQLException {
-        if(Utils.isEmpty(ids)){
+        if (Utils.isEmpty(ids)) {
             return false;
         }
 
@@ -163,7 +165,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Tran
     @Override
     public boolean desResourceByIds(String ids, boolean disabled) throws SQLException {
-        if(Utils.isEmpty(ids)){
+        if (Utils.isEmpty(ids)) {
             return false;
         }
 
@@ -400,6 +402,49 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
                 );
     }
 
+    @Override
+    public boolean importSpaceSchema(String json) throws SQLException {
+        return false;
+    }
+
+    @Cache(seconds = 10)
+    @Override
+    public String exportSpaceSchema(long resourceSpaceId) throws SQLException {
+        ONode oNode = new ONode();
+
+        ResourceDo space = getResourceById(resourceSpaceId);
+        List<ResourceGroup> groups = getResourceGroupListBySpace(resourceSpaceId);
+
+        space.resource_id = null;
+        space.resource_pid = null;
+        space.resource_sid = null;
+
+        ONode oSpace = oNode.getOrNew("space");
+        oSpace.getOrNew("meta").fill(space);
+
+        ONode oGroups = oSpace.getOrNew("groups").asArray();
+        for (ResourceGroup g1 : groups) {
+            List<Resource> engitys = getSubResourceListByPid(g1.resource_id);
+
+            g1.resource_id = null;
+            g1.resource_pid = null;
+            g1.resource_sid = null;
+            ONode oG1 = oGroups.addNew();
+            oG1.getOrNew("meta").fill(g1);
+
+            ONode oEngitys = oG1.getOrNew("engitys");
+            for (Resource e1 : engitys) {
+                e1.resource_id = null;
+                e1.resource_pid = null;
+                e1.resource_sid = null;
+
+                oEngitys.addNew().fill(e1);
+            }
+        }
+
+        return oNode.toJson();
+    }
+
     /**
      * 获取实验验证时的所有主体Id
      */
@@ -413,7 +458,7 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
         return subjectIds;
     }
 
-    private List<Object> getIdList(String ids){
+    private List<Object> getIdList(String ids) {
         return Arrays.asList(ids.split(","))
                 .stream()
                 .map(s -> Long.parseLong(s))

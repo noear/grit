@@ -10,11 +10,11 @@ import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.extend.aspect.annotation.Service;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Component
+@Service
 public class SubjectAdminServiceImpl implements SubjectAdminService {
     @Inject("grit.db")
     private DbContext db;
