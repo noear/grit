@@ -40,7 +40,7 @@
             <td width="50px">是否<br/>全屏</td>
             <td width="50px">是否<br/>可见</td>
             <td width="50px">是否<br/>禁用</td>
-            <td width="60px">操作</td>
+            <td width="120px">操作</td>
         </tr>
         </thead>
         <tbody id="tbody" class="sel_from">
@@ -59,7 +59,11 @@
                 <td >${m1.is_fullview?string("Yes","")}</td>
                 <td >${m1.is_visibled?string("Yes","")}</td>
                 <td >${m1.is_disabled?string("Yes","")}</td>
-                <td class="op"><a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a></td>
+                <td class="op">
+                    <a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
+                    |
+                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出</a>
+                </td>
             </tr>
         </#list>
         </tbody>

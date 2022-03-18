@@ -15,7 +15,11 @@ public class JsondUtils {
     public static String encode(String table, Object data) throws IOException {
         JsondEntity entity = new JsondEntity();
         entity.table = table;
-        entity.data = ONode.loadObj(data);
+        if (data instanceof ONode) {
+            entity.data = (ONode) data;
+        } else {
+            entity.data = ONode.loadObj(data);
+        }
 
         //序列化
         String json = ONode.stringify(entity);
