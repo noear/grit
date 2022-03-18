@@ -107,23 +107,17 @@
     <flex>
         <left class="col-3">
             <#if (space_id!0) gt 0>
-                <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
-            </#if>
-        </left>
-        <center  class="col-6">
-            <#if (space_id!0) gt 0>
-                <file>
-                    <label><input id="imp_file" type="file" accept=".jsond"/><a class="btn minor w80">导入</a></label>
-                </file>
-
-                <button type='button' class="minor w80 mar10-l" onclick="exp()" >导出</button>
-
                 <#if state!=1>
                     <button type='button' class="minor mar10-l" onclick="del(1,'禁用')" >禁用</button>
                 <#else>
                     <button type='button' class="minor mar10-l" onclick="del(0,'启用')" >启用</button>
                     <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
                 </#if>
+            </#if>
+        </left>
+        <center  class="col-6">
+            <#if (space_id!0) gt 0>
+                <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
             </#if>
         </center>
         <right  class="col-3">

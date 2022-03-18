@@ -81,7 +81,7 @@ public class ResourceEntityController extends BaseController {
     /**
      * 批量导出
      */
-    @Mapping("ajax/export")
+//    @Mapping("ajax/export")
     public void exportDo(Context ctx, long group_id, String ids) throws Exception {
         if (group_id == 0) {
             return;
@@ -101,7 +101,7 @@ public class ResourceEntityController extends BaseController {
     /**
      * 批量导入
      */
-    @Mapping("ajax/import")
+//    @Mapping("ajax/import")
     public Result importDo(Context ctx, long group_id, UploadedFile file) throws Exception {
         if (group_id == 0) {
             return Result.failure();
