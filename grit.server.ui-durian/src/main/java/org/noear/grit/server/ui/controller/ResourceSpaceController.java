@@ -1,6 +1,7 @@
 package org.noear.grit.server.ui.controller;
 
 import org.noear.grit.client.comparator.ResourceComparator;
+import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.grit.service.ResourceSchemaService;
@@ -45,7 +46,7 @@ public class ResourceSpaceController extends BaseController {
 
     /**
      * 批量导入
-     * */
+     */
     @Mapping("ajax/import")
     public Result importDo(Context ctx, UploadedFile file) throws Exception {
         if (file == null) {
@@ -73,7 +74,9 @@ public class ResourceSpaceController extends BaseController {
 
         String jsond = resourceSchemaService.exportSchema(space_id);
 
-        String filename = jsondTable + "_" + space_id + "_" + LocalDate.now() + ".jsond";
+        ResourceDo space = resourceAdminService.getResourceById(space_id);
+
+        String filename = jsondTable + "_" + space.resource_code + "_" + LocalDate.now() + ".jsond";
         ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
         ctx.output(jsond);
