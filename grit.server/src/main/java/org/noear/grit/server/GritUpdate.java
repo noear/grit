@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * @since 1.1
  */
 public class GritUpdate {
-    public static void tryUpdate() {
+    protected static void tryUpdate() {
         DbContext db = Aop.get("grit.db");
         if (db == null) {
             return;
