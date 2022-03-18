@@ -14,7 +14,7 @@ import org.noear.solon.core.event.AppLoadEndEvent;
  * @since 1.0
  */
 public class XPluginImp implements Plugin {
-    final String GRIT_INIT_CONFIG = "grit-init.jsond";
+    static final String GRIT_INIT_CONFIG = "grit-init.jsond";
 
     @Override
     public void start(SolonApp app) {
