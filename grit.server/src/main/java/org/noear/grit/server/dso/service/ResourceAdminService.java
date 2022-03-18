@@ -108,9 +108,15 @@ public interface ResourceAdminService {
      */
     List<ResourceEntity> getResourceEntityListBySpace(long resourceId) throws SQLException;
 
+    /**
+     * 检检是否有下级资源表
+     *
+     * @param resourceId 资源Id
+     */
+    boolean hasSubResourceByPid(long resourceId) throws SQLException;
 
     /**
-     * 获取管理用的下级资源表表
+     * 获取管理用的下级资源表
      *
      * @param resourceId 资源Id
      */

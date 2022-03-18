@@ -83,27 +83,38 @@ public class ResourceController extends BaseController {
             resource.resource_code = resource.resource_code.trim();
         }
 
-        if(Utils.isNotEmpty(resource.link_uri)) {
+        if (Utils.isNotEmpty(resource.link_uri)) {
             resource.link_uri = resource.link_uri.trim();
         }
 
-        if(Utils.isNotEmpty(resource.icon_uri)) {
+        if (Utils.isNotEmpty(resource.icon_uri)) {
             resource.icon_uri = resource.icon_uri.trim();
         }
 
-        if (resource_id > 0) {
-            resourceAdminService.updResourceById(resource_id, resource);
-        } else {
-            resourceAdminService.addResource(resource);
-        }
+        try {
+            if (resource_id > 0) {
+                resourceAdminService.updResourceById(resource_id, resource);
+            } else {
+                resourceAdminService.addResource(resource);
+            }
 
-        return Result.succeed();
+            return Result.succeed();
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
+        }
     }
 
     @Mapping("edit/ajax/del")
     public Result edit_ajax_del(long resource_id) throws SQLException {
-        resourceAdminService.delResourceById(resource_id);
-
-        return Result.succeed();
+        try {
+            if (resourceAdminService.hasSubResourceByPid(resource_id)) {
+                return Result.failure("There are sub resources, cannot be deleted");
+            } else {
+                resourceAdminService.delResourceById(resource_id);
+                return Result.succeed();
+            }
+        } catch (Throwable e) {
+            return Result.failure(e.getLocalizedMessage());
+        }
     }
 }
