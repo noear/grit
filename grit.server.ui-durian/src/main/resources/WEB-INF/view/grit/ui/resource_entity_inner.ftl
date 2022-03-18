@@ -107,10 +107,10 @@
         <left class="col-3">
             <#if (group_id!0) gt 0>
                 <#if state!=1>
-                    <button type='button' class="minor mar10-l" onclick="del(1,'禁用')" >禁用</button>
+                    <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
                 <#else>
-                    <button type='button' class="minor mar10-l" onclick="del(0,'启用')" >启用</button>
-                    <button type='button' class="minor mar10-l" onclick="del(9,'删除')" >删除</button>
+                    <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
+                    <button type='button' class="minor mar10-r" onclick="del(9,'删除')" >删除</button>
                 </#if>
             </#if>
         </left>
