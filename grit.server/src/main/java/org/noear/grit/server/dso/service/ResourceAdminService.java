@@ -25,13 +25,12 @@ public interface ResourceAdminService {
      */
     long addResource(ResourceDo resource) throws SQLException;
 
-
     /**
-     * 推入资源
+     * 同步资源
      *
      * @param resource 资源
-     */
-    boolean putResourceByGuid(ResourceDo resource) throws SQLException;
+     * */
+    boolean synResourceByGuid(ResourceDo resource) throws SQLException;
 
     /**
      * 更新资源

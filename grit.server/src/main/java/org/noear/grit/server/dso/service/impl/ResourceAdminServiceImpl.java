@@ -53,11 +53,16 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
             return -1;
         }
 
-        resource.gmt_create = System.currentTimeMillis();
-        resource.gmt_modified = resource.gmt_create;
+        if (resource.gmt_create == null) {
+            resource.gmt_create = System.currentTimeMillis(); //可能是导入的
+        }
+
+        if (resource.gmt_modified == null) {
+            resource.gmt_modified = resource.gmt_create; //可能是导入的
+        }
 
         if (Utils.isEmpty(resource.guid)) {
-            resource.guid = Utils.guid();
+            resource.guid = Utils.guid(); //guid 必须要有
         }
 
         return db.table("grit_resource")
@@ -68,27 +73,19 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
     }
 
     @Override
-    public boolean putResourceByGuid(ResourceDo resource) throws SQLException {
+    public boolean synResourceByGuid(ResourceDo resource) throws SQLException {
         if (resource == null || Utils.isEmpty(resource.guid)) {
             return false;
         }
 
-        if (db.table("grit_resource").whereEq("guid", resource.guid).selectExists()) {
-            return false;
-        }
-
-        if (resource.gmt_create == null) {
-            resource.gmt_create = System.currentTimeMillis();
-            resource.gmt_modified = resource.gmt_create;
-        }
-
         resource.resource_id = null;
 
-        db.table("grit_resource")
-                .setEntity(resource)
-                .usingNull(false)
-                .usingExpr(false)
-                .insert();
+        ResourceDo tmp = getResourceByGuid(resource.guid);
+        if (tmp.resource_id == null) {
+            resource.resource_id = addResource(resource);
+        } else {
+            resource.resource_id = tmp.resource_id;
+        }
 
         return true;
     }
@@ -404,12 +401,69 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
     @Override
     public boolean importSpaceSchema(String json) throws SQLException {
+        if (Utils.isEmpty(json)) {
+            return false;
+        }
+
+        //space
+        ONode oNode = ONode.loadStr(json);
+
+        ONode oSpace = oNode.getOrNull("space");
+        if (oSpace == null) {
+            throw new IllegalArgumentException("Invalid space schema json");
+        }
+
+        ResourceDo spaceD = oSpace.get("meta").toObject(ResourceDo.class);
+        if (Utils.isEmpty(spaceD.guid)) {
+            throw new IllegalArgumentException("Invalid space schema json");
+        }
+        spaceD.resource_sid = 0L;
+        spaceD.resource_pid = 0L;
+        if (synResourceByGuid(spaceD) == false) {
+            //同步失则，表示格式不对
+            throw new IllegalArgumentException("Invalid space schema json");
+        }
+
+        // groups
+        ONode oGroups = oSpace.getOrNull("groups");
+        if (oGroups == null) {
+            throw new IllegalArgumentException("Invalid space schema json");
+        }
+
+        for (ONode oG1 : oGroups.ary()) {
+            ResourceDo g1 = oG1.get("meta").toObject(ResourceDo.class);
+
+            g1.resource_pid = spaceD.resource_id;
+            g1.resource_sid = spaceD.resource_id;
+
+            if (synResourceByGuid(g1) == false) {
+                //同步失则，表示格式不对
+                throw new IllegalArgumentException("Invalid space schema json");
+            }
+
+            List<ResourceDo> engitys = oG1.get("engitys").toObjectList(ResourceDo.class);
+
+            for (ResourceDo e1 : engitys) {
+                e1.resource_sid = g1.resource_sid;
+                e1.resource_pid = g1.resource_id;
+
+                if (synResourceByGuid(e1) == false) {
+                    //同步失则，表示格式不对
+                    throw new IllegalArgumentException("Invalid space schema json");
+                }
+            }
+        }
+
         return false;
     }
 
     @Cache(seconds = 10)
     @Override
     public String exportSpaceSchema(long resourceSpaceId) throws SQLException {
+        if(resourceSpaceId == 0){
+            return "";
+        }
+
         ONode oNode = new ONode();
 
         ResourceDo space = getResourceById(resourceSpaceId);
