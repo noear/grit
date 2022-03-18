@@ -95,6 +95,10 @@
             var ckd= $(this).prop('checked');
             $('[name=sel_id]').prop('checked',ckd);
         });
+
+        $("#imp_file").change(function () {
+            imp(this.files[0]);
+        });
     });
 </script>
 <body>
