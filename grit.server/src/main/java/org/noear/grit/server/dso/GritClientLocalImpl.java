@@ -18,6 +18,8 @@ public class GritClientLocalImpl implements GritClient {
     private ResourceService resourceService;
     @Inject
     private ResourceLinkService resourceLinkService;
+    @Inject
+    private ResourceSchemaService resourceSchemaService;
 
     @Inject
     private SubjectService subjectService;
@@ -86,6 +88,11 @@ public class GritClientLocalImpl implements GritClient {
     @Override
     public ResourceLinkService resourceLink() {
         return resourceLinkService;
+    }
+
+    @Override
+    public ResourceSchemaService resourceSchema() {
+        return resourceSchemaService;
     }
 
 

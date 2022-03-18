@@ -47,7 +47,7 @@ public class ResourceSpaceController extends BaseController {
             return;
         }
 
-        String json = schemaService.exportSpaceSchema(space_id);
+        String json = schemaService.exportSchema(space_id);
         String filename = "grit_space" + space_id + "_" + LocalDate.now() + ".jsond";
 
 

@@ -30,7 +30,7 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
     ResourceAdminService adminService;
 
     @Override
-    public boolean importSpaceSchema(String json) throws SQLException {
+    public boolean importSchema(String json) throws SQLException {
         if (Utils.isEmpty(json)) {
             return false;
         }
@@ -89,7 +89,7 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
 
     @Cache(seconds = 10)
     @Override
-    public String exportSpaceSchema(long resourceSpaceId) throws SQLException {
+    public String exportSchema(long resourceSpaceId) throws SQLException {
         if (resourceSpaceId == 0) {
             return "";
         }
