@@ -14,7 +14,6 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Cache;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -33,6 +32,11 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
 
     final String jsondTable = "grit_schema";
 
+    final String tag_space = "space";
+    final String tag_meta = "meta";
+    final String tag_groups = "groups";
+    final String tag_engitys = "engitys";
+
     @Override
     public boolean importSchema(String jsond) throws Exception {
         if (Utils.isEmpty(jsond)) {
@@ -49,12 +53,12 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         //space
         ONode oNode = jsondEntity.data;
 
-        ONode oSpace = oNode.getOrNull("space");
+        ONode oSpace = oNode.getOrNull(tag_space);
         if (oSpace == null) {
             throw new IllegalArgumentException("Invalid space schema json");
         }
 
-        ResourceDo spaceD = oSpace.get("meta").toObject(ResourceDo.class);
+        ResourceDo spaceD = oSpace.get(tag_meta).toObject(ResourceDo.class);
         if (Utils.isEmpty(spaceD.guid)) {
             throw new IllegalArgumentException("Invalid space schema json");
         }
@@ -66,13 +70,13 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         }
 
         // groups
-        ONode oGroups = oSpace.getOrNull("groups");
+        ONode oGroups = oSpace.getOrNull(tag_groups);
         if (oGroups == null) {
             throw new IllegalArgumentException("Invalid space schema json");
         }
 
         for (ONode oG1 : oGroups.ary()) {
-            ResourceDo g1 = oG1.get("meta").toObject(ResourceDo.class);
+            ResourceDo g1 = oG1.get(tag_meta).toObject(ResourceDo.class);
 
             g1.resource_pid = spaceD.resource_id;
             g1.resource_sid = spaceD.resource_id;
@@ -82,7 +86,7 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
                 throw new IllegalArgumentException("Invalid space schema json");
             }
 
-            List<ResourceDo> engitys = oG1.get("engitys").toObjectList(ResourceDo.class);
+            List<ResourceDo> engitys = oG1.get(tag_engitys).toObjectList(ResourceDo.class);
 
             for (ResourceDo e1 : engitys) {
                 e1.resource_sid = g1.resource_sid;
@@ -114,10 +118,10 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         space.resource_pid = null;
         space.resource_sid = null;
 
-        ONode oSpace = oNode.getOrNew("space");
-        oSpace.getOrNew("meta").fill(space);
+        ONode oSpace = oNode.getOrNew(tag_space);
+        oSpace.getOrNew(tag_meta).fill(space);
 
-        ONode oGroups = oSpace.getOrNew("groups").asArray();
+        ONode oGroups = oSpace.getOrNew(tag_groups).asArray();
         for (ResourceGroup g1 : groups) {
             List<Resource> engitys = adminService.getSubResourceListByPid(g1.resource_id);
 
@@ -125,9 +129,9 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
             g1.resource_pid = null;
             g1.resource_sid = null;
             ONode oG1 = oGroups.addNew();
-            oG1.getOrNew("meta").fill(g1);
+            oG1.getOrNew(tag_meta).fill(g1);
 
-            ONode oEngitys = oG1.getOrNew("engitys");
+            ONode oEngitys = oG1.getOrNew(tag_engitys);
             for (Resource e1 : engitys) {
                 e1.resource_id = null;
                 e1.resource_pid = null;
