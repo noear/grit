@@ -3,6 +3,7 @@ package org.noear.grit.solon.integration;
 import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.Utils;
+import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.event.AppLoadEndEvent;
@@ -23,11 +24,7 @@ public class XPluginImp implements Plugin {
 
             if (appName != null) {
                 //0.初始化架构
-                if (GritClient.global().resource().hasSpaceByCode(appName) == false) {
-                    String jsond = Utils.getResourceAsString(GRIT_INIT_CONFIG);
-                    GritClient.global().resourceSchema().importSchema(jsond);
-                }
-
+                initGritSpace(appName);
 
                 //1.初始化资源空间
                 GritClient.global().setCurrentSpaceByCode(appName);
@@ -44,5 +41,21 @@ public class XPluginImp implements Plugin {
                 }
             });
         });
+    }
+
+    private void initGritSpace(String appName) throws Exception {
+        String jsond = Utils.getResourceAsString(GRIT_INIT_CONFIG);
+
+        if (Utils.isEmpty(jsond)) {
+            return;
+        }
+
+        String jsond_md5 = Utils.md5(jsond);
+        String jsond_md5C = CloudClient.config().pull("_grit", appName).value();
+
+        if (jsond_md5.equals(jsond_md5C) == false) {
+            GritClient.global().resourceSchema().importSchema(jsond);
+            CloudClient.config().push("_grit", appName, jsond_md5);
+        }
     }
 }
