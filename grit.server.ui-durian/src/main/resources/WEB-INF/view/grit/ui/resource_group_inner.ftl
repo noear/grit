@@ -111,7 +111,6 @@
                     <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
                 <#else>
                     <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
-                    <button type='button' class="minor mar10-r" onclick="del(9,'删除')" >删除</button>
                 </#if>
             </#if>
         </left>
