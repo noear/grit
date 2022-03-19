@@ -1,6 +1,5 @@
 package org.noear.grit.server.ui.controller;
 
-import org.noear.solon.Solon;
 import org.noear.solon.annotation.Singleton;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.validation.annotation.Valid;
