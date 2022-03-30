@@ -56,18 +56,23 @@ public class XPluginImp implements Plugin {
         //
 
         String jsond_md5 = Utils.md5(jsond);
-        String jsond_md5C = null;
 
-        Config config = CloudClient.config().pull("_grit", appName);
+        if (GritClient.global().resource().hasSpaceByCode(appName)) {
+            //如果存在空间资源（则比较初始化文件的哈希码）
+            String jsond_md5C = null;
 
-        if (config != null) {
-            jsond_md5C = config.value();
+            Config config = CloudClient.config().pull("_grit", appName);
+
+            if (config != null) {
+                jsond_md5C = config.value();
+            }
+
+            if (jsond_md5.equals(jsond_md5C)) {
+                return;
+            }
         }
 
-
-        if (jsond_md5.equals(jsond_md5C) == false) {
-            GritClient.global().resourceSchema().importSchema(jsond);
-            CloudClient.config().push("_grit", appName, jsond_md5);
-        }
+        GritClient.global().resourceSchema().importSchema(jsond);
+        CloudClient.config().push("_grit", appName, jsond_md5);
     }
 }
