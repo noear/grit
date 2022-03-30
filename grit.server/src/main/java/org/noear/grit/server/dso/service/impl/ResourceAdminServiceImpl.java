@@ -83,6 +83,13 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
         if (tmp > 0) {
             resource.resource_id = tmp;
+
+            //尝试关系修正
+            db.table("grit_resource")
+                    .set("resource_pid", resource.resource_pid)
+                    .set("resource_sid", resource.resource_sid)
+                    .whereEq("resource_id", tmp)
+                    .update();
         } else {
             resource.resource_id = null;
             resource.resource_id = addResource(resource);
