@@ -58,7 +58,7 @@ public class XPluginImp implements Plugin {
         String jsond_md5 = Utils.md5(jsond);
 
         if (GritClient.global().resource().hasSpaceByCode(appName)) {
-            //如果存在空间资源（则比较初始化文件的哈希码）
+            //如果存在资源空间（则比较初始化文件的哈希码）
             String jsond_md5C = null;
 
             Config config = CloudClient.config().pull("_grit", appName);
