@@ -9,14 +9,14 @@
 
 ## 二、部署服务说明
 
-| 服务 | 说明 |  镜像 |
-| -------- | --------  |  -------- | 
-| gritdock    | Grit 权限管理、接口服务及菜单导航服务 |  noearorg/gritdock | 
+| 服务 | 说明 | 镜像                 |
+| -------- | --------  |--------------------| 
+| gritdock    | Grit 权限管理、接口服务及菜单导航服务 | noearorg/gritdock:1.0.11 | 
 
 
 ## 三、开始部署服务
 
-* 添加 water/gritdock 服务（镜像：noearorg/gritdock:latest）
+* 添加 water/gritdock 服务（镜像：noearorg/gritdock:1.0.11）
   * 镜像端口：7281
   * 对外端口：7281
   * 建议2个副本起步
