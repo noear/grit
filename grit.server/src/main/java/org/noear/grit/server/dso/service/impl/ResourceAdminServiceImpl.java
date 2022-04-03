@@ -206,6 +206,19 @@ public class ResourceAdminServiceImpl implements ResourceAdminService {
 
         return db.table("grit_resource")
                 .whereEq("guid", guid)
+                .limit(1)
+                .selectItem("*", Resource.class);
+    }
+
+    @Override
+    public Resource getResourceByCode(String resourceCode) throws SQLException {
+        if (Utils.isEmpty(resourceCode)) {
+            return new Resource();
+        }
+
+        return db.table("grit_resource")
+                .whereEq("resource_code", resourceCode)
+                .limit(1)
                 .selectItem("*", Resource.class);
     }
 

@@ -63,10 +63,21 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         spaceD.resource_sid = 0L;
         spaceD.resource_pid = 0L;
 
+        if(Utils.isEmpty(spaceD.guid)) {
+            if (Utils.isNotEmpty(spaceD.resource_code)) {
+                //如果没有 guid ，尝试用 resource_code 找到对应的 guid
+                ResourceDo spaceTmp = adminService.getResourceByCode(spaceD.resource_code);
+                if (spaceTmp.guid != null) {
+                    spaceD.guid = spaceTmp.guid;
+                }
+            }
+        }
+
         if (adminService.synResourceByGuid(spaceD) == false) {
             //同步失则，表示格式不对
             throw new IllegalArgumentException("Invalid space schema json");
         }
+
 
         // groups
         ONode oGroups = oSpace.getOrNull(tag_groups);
