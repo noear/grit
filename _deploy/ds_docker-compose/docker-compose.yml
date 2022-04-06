@@ -7,7 +7,7 @@ version: '3'
 
 services:
   gritdock:
-    image: noearorg/gritdock:1.0.11
+    image: noearorg/gritdock:1.0.12
     container_name: gritdock
     environment:
       - grit.db.schema=grit

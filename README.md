@@ -36,7 +36,7 @@
 
 | 镜像输出               | 说明                    | 
 |--------------------|-----------------------| 
-| noearorg/gritdock:1.0.11 | Grit 权限管理、接口服务及菜单导航服务 | 
+| noearorg/gritdock:1.0.12 | Grit 权限管理、接口服务及菜单导航服务 | 
 
 
 单体项目，可通过 grit.server.ui-durian 集成，直接获取客户端接口与管理能力
@@ -68,7 +68,7 @@
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit.client</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
 </dependency>
 
 <!-- solon cloud 集成版本（也可用于 Spring boot 项目） -->
@@ -76,7 +76,7 @@
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
 </dependency>
 ```
 
