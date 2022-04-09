@@ -23,7 +23,7 @@ public class XPluginImp implements Plugin {
         app.onEvent(AppLoadEndEvent.class, e -> {
             String appName = Solon.cfg().appName();
 
-            if (appName != null) {
+            if (appName != null && "gritdock".equals(appName) == false) {
                 //0.初始化架构
                 initGritSpace(appName);
 

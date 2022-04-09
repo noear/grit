@@ -1,5 +1,6 @@
 package gritdock;
 
+import org.noear.grit.client.GritClient;
 import org.noear.solon.Solon;
 import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.cloud.model.Instance;
