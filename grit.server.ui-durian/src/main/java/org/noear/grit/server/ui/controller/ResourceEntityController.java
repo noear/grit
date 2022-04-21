@@ -60,6 +60,30 @@ public class ResourceEntityController extends BaseController {
         return view("grit/ui/resource_entity");
     }
 
+    @Mapping("s")
+    public ModelAndView home_s(long space_id, Long group_id) throws SQLException {
+        List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
+        spaceList.sort(ResourceComparator.instance);
+        space_id = ResourceSpaceCookie.build(space_id, spaceList);
+        ResourceSpaceCookie.set(space_id);
+
+        List<ResourceGroup> groupList = resourceAdminService.getResourceGroupListBySpace(space_id);
+        groupList = ResourceTreeUtils.build(groupList, space_id);
+
+        if (group_id == null) {
+            if (groupList.size() > 0) {
+                group_id = groupList.get(0).resource_id;
+            }
+        }
+
+        viewModel.put("space_id", space_id);
+        viewModel.put("group_id", group_id);
+        viewModel.put("spaceList", spaceList);
+        viewModel.put("groupList", groupList);
+
+        return view("grit/ui/resource_entity_s");
+    }
+
     @Mapping("inner")
     public ModelAndView inner(long group_id, int state) throws SQLException {
         boolean disabled = (state == 1);
