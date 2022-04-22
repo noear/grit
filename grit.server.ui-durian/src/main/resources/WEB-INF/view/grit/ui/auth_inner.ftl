@@ -18,56 +18,56 @@
         section boxlist{}
         section boxlist label{margin: 0 0 5px;}
     </style>
-</head>
-<script>
-    let subject_id = ${subject_id!0};
-    let subject_type = ${subject.subject_type!0}
-    let space_id   = ${space_id!0};
+    <script>
+        let subject_id = ${subject_id!0};
+        let subject_type = ${subject.subject_type!0}
+        let space_id   = ${space_id!0};
 
-    function save() {
-        var vm = formToMap('form');
+        function save() {
+            var vm = formToMap('form');
 
-        vm.subject_id= subject_id;
-        vm.subject_type = subject_type;
-        vm.space_id = space_id;
+            vm.subject_id= subject_id;
+            vm.subject_type = subject_type;
+            vm.space_id = space_id;
 
-        $.ajax({
-            type:"POST",
-            url:"/grit/ui/auth/ajax/save",
-            data:vm,
-            success:function (rst) {
-                if(rst.code==200) {
-                    layer.msg('操作成功');
-                }else{
-                    layer.msg(rst.description);
+            $.ajax({
+                type:"POST",
+                url:"/grit/ui/auth/ajax/save",
+                data:vm,
+                success:function (rst) {
+                    if(rst.code==200) {
+                        layer.msg('操作成功');
+                    }else{
+                        layer.msg(rst.description);
+                    }
                 }
-            }
-        });
-    }
-
-    function selNode(cls, type){
-        if(type){
-            //1
-            $("."+cls).each(function(){
-                $(this).prop('checked', true);
-            });
-        }else{
-            //0
-            $("."+cls).each(function(){
-                $(this).prop('checked', !$(this).prop('checked'));
             });
         }
-    }
 
-    function queryForm() {
-        location.href = "/grit/ui/auth/inner?subject_id=${subject_id!0}&space_id="+$('#space_id').val();
-    };
+        function selNode(cls, type){
+            if(type){
+                //1
+                $("."+cls).each(function(){
+                    $(this).prop('checked', true);
+                });
+            }else{
+                //0
+                $("."+cls).each(function(){
+                    $(this).prop('checked', !$(this).prop('checked'));
+                });
+            }
+        }
 
-    $(function(){
-        $('#space_id').val(${space_id!});
-        valToForm('authRes','${authRes!}');
-    });
-</script>
+        function queryForm() {
+            location.href = "/grit/ui/auth/inner?subject_id=${subject_id!0}&space_id="+$('#space_id').val();
+        };
+
+        $(function(){
+            $('#space_id').val(${space_id!});
+            valToForm('authRes','${authRes!}');
+        });
+    </script>
+</head>
 <body>
 <toolbar>
     <div class="center">
