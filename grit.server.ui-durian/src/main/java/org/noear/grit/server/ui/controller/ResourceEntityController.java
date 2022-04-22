@@ -75,6 +75,8 @@ public class ResourceEntityController extends BaseController {
             ResourceSpaceCookie.set(space_id);
 
             groupList = resourceAdminService.getResourceGroupListBySpace(space_id);
+            groupList.removeIf(g -> g.is_visibled == false);
+
             groupList = ResourceTreeUtils.build(groupList, space_id);
 
             if (group_id == null) {
