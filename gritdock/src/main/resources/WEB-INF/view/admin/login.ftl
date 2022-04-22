@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${css}/main.css"/>
     <script src="${js}/lib.js" ></script>
     <style type="text/css">
-        section{width: 400px; padding: 50px 60px 50px 50px; left: calc(50vw - 200px); top: calc(50vh - 5vh - 150px); position: absolute; background: #ddd;}
+        section{width: 400px; padding: 50px 60px 50px 50px; left: calc(50vw - 200px); top: calc(50vh - 5vh - 130px); position: absolute; background: #ddd;}
         section table {width: 100%; }
         section table th{text-align: right;}
         section table td{padding-top: 5px; padding-bottom: 5px;}
@@ -14,7 +14,8 @@
         section table input{height: 30px!important; width: 100%;}
         section table button{color: #000; height: 30px; width: 120px;}
 
-        flex p{margin: 10px;line-height: 30px;}
+        header p{margin: 10px;line-height: 30px;}
+        header sup{color: #fd6721; border-radius: 10px;margin-left: 5px;}
     </style>
 
     <script type="text/javascript">
@@ -47,9 +48,10 @@
 <body onkeydown="checkKey()">
 
 <main>
+    <header>
     <flex>
         <left class="col-6">
-            <p>${title}</p>
+            <p>${title}<sup>${_version}</sup></p>
         </left>
         <right class="col-6">
             <p>
@@ -57,7 +59,7 @@
             </p>
         </right>
     </flex>
-    <br />
+    </header>
 
     <section>
         <form method="post">
