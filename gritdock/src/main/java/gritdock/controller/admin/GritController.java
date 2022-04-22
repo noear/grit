@@ -1,5 +1,6 @@
 package gritdock.controller.admin;
 
+import gritdock.Config;
 import gritdock.dso.Session;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
@@ -43,6 +44,8 @@ public class GritController {
         viewModel.put("js", "/_static/js");
         viewModel.put("img", "/_static/img");
         viewModel.put("title", title);
+
+        viewModel.put("_version", Config.grit_version);
 
 
         return viewModel.view(viewName + ".ftl");
