@@ -121,12 +121,12 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
 
     @Cache(seconds = 10)
     @Override
-    public ONode exportSchema(long resourceSpaceId) throws Exception {
-        ONode oNode = new ONode();
-
+    public String exportSchema(long resourceSpaceId, String fmt) throws Exception {
         if (resourceSpaceId == 0) {
-            return oNode;
+            return "";
         }
+
+        ONode oNode = new ONode();
 
         ResourceDo space = adminService.getResourceById(resourceSpaceId);
         List<ResourceGroup> groups = adminService.getResourceGroupListBySpace(resourceSpaceId);
@@ -158,6 +158,10 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
             }
         }
 
-        return oNode;
+        if ("json".equals(fmt)) {
+            return oNode.toJson();
+        } else {
+            return JsondUtils.encode(jsondTable, oNode);
+        }
     }
 }

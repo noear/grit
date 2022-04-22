@@ -22,7 +22,7 @@ public interface ResourceSchemaService {
      * 导出资源架构
      *
      * @param resourceSpaceId 资源空间Id
-     * @return jsond
+     * @return jsond or json
      */
-    ONode exportSchema(long resourceSpaceId) throws Exception;
+    String exportSchema(long resourceSpaceId, String fmt) throws Exception;
 }
