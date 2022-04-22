@@ -36,6 +36,7 @@ public abstract class BaseController {
         viewModel.put("img", "/_static/img");
 
 
+        viewModel.put("_version", Config.grit_version);
         viewModel.put("timenow", Datetime.Now().toString("(yyyy-MM-dd HH:mm Z)"));
 
 

@@ -9,7 +9,7 @@
   <style type="text/css">
 
 
-    section{width: 400px; padding: 50px 60px 50px 50px; left: calc(50vw - 200px); top: calc(50vh - 5vh - 150px); position: absolute; background: #ddd;}
+    section{width: 400px; padding: 50px 60px 50px 50px; left: calc(50vw - 200px); top: calc(50vh - 5vh - 130px); position: absolute; background: #ddd;}
     section table {width: 100%; }
     section table th{text-align: right;}
     section table td{padding-top: 5px; padding-bottom: 5px;}
@@ -50,17 +50,18 @@
 
 <main>
 
-  <flex>
-    <left class="col-6">
-      <p>${title}</p>
-    </left>
-    <right class="col-6">
-      <p>
-        <a href="https://gite.com/noear/grit" target="_blank">gitee</a> | <a href="https://github.com/noear/grit">github</a>
-      </p>
-    </right>
-  </flex>
-  <br />
+  <header>
+    <flex>
+      <left class="col-6">
+        <p>${title}</p>
+      </left>
+      <right class="col-6">
+        <p>
+          <a href="https://gite.com/noear/grit" target="_blank">gitee</a> | <a href="https://github.com/noear/grit">github</a>
+        </p>
+      </right>
+    </flex>
+  </header>
 
   <section>
     <form method="post">
