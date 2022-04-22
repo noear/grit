@@ -42,16 +42,21 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         if (Utils.isEmpty(jsond)) {
             return false;
         }
+        ONode oNode = null;
 
-        JsondEntity jsondEntity = JsondUtils.decode(jsond);
+        if(jsond.startsWith("{")){ //支持 json
+            //space
+            oNode = ONode.loadStr(jsond);
+        }else{ //支持 jsond
+            JsondEntity jsondEntity = JsondUtils.decode(jsond);
 
-        if (jsondTable.equals(jsondEntity.table) == false) {
-            throw new IllegalArgumentException("Invalid space schema json");
+            if (jsondTable.equals(jsondEntity.table) == false) {
+                throw new IllegalArgumentException("Invalid space schema json");
+            }
+
+            //space
+            oNode = jsondEntity.data;
         }
-
-
-        //space
-        ONode oNode = jsondEntity.data;
 
         ONode oSpace = oNode.getOrNull(tag_space);
         if (oSpace == null) {
