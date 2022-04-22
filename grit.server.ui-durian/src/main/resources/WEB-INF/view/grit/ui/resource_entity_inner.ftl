@@ -103,25 +103,23 @@
 </script>
 <body>
 <toolbar>
-    <flex>
-        <left class="col-6">
-            <#if (group_id!0) gt 0>
-                <#if state!=1>
-                    <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
-                <#else>
-                    <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
-                    <button type='button' class="minor mar10-r" onclick="del(9,'删除')" >删除</button>
-                </#if>
-                <a class="btn edit" href="/grit/ui/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
+    <left>
+        <#if (group_id!0) gt 0>
+            <#if state!=1>
+                <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
+            <#else>
+                <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
+                <button type='button' class="minor mar10-r" onclick="del(9,'删除')" >删除</button>
             </#if>
-        </left>
-        <right  class="col-6">
-            <selector>
-                <a class="${(state !=1)?string('sel','')}" href="./inner?group_id=${group_id}&state=0">启用</a>
-                <a class="${(state =1)?string('sel','')}" href="./inner?group_id=${group_id}&state=1">未启用</a>
-            </selector>
-        </right>
-    </flex>
+            <a class="btn edit" href="/grit/ui/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
+        </#if>
+    </left>
+    <right>
+        <selector>
+            <a class="${(state !=1)?string('sel','')}" href="./inner?group_id=${group_id}&state=0">启用</a>
+            <a class="${(state =1)?string('sel','')}" href="./inner?group_id=${group_id}&state=1">未启用</a>
+        </selector>
+    </right>
 </toolbar>
 <datagrid class="list">
     <table>

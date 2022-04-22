@@ -104,24 +104,22 @@
 </script>
 <body>
 <toolbar>
-    <flex>
-        <left class="col-6">
-            <#if (space_id!0) gt 0>
-                <#if state!=1>
-                    <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
-                <#else>
-                    <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
-                </#if>
-                <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
+    <left>
+        <#if (space_id!0) gt 0>
+            <#if state!=1>
+                <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
+            <#else>
+                <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
             </#if>
-        </left>
-        <right  class="col-6">
-            <selector>
-                <a class="${(state !=1)?string('sel','')}" href="./inner?space_id=${space_id}&state=0">启用</a>
-                <a class="${(state =1)?string('sel','')}" href="./inner?space_id=${space_id}&state=1">未启用</a>
-            </selector>
-        </right>
-    </flex>
+            <a class="btn edit" href="/grit/ui/resource/edit?group_id=${space_id!}&type=1">新增分组</a>
+        </#if>
+    </left>
+    <right>
+        <selector>
+            <a class="${(state !=1)?string('sel','')}" href="./inner?space_id=${space_id}&state=0">启用</a>
+            <a class="${(state =1)?string('sel','')}" href="./inner?space_id=${space_id}&state=1">未启用</a>
+        </selector>
+    </right>
 </toolbar>
 <datagrid class="list">
     <table>
