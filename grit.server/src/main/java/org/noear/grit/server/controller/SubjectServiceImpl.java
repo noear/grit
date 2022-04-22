@@ -11,6 +11,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
+import org.noear.weed.cache.ICacheServiceEx;
 
 import java.sql.SQLException;
 
@@ -28,7 +29,7 @@ public class SubjectServiceImpl implements SubjectService {
     @Inject("grit.db")
     private  DbContext db;
     @Inject("grit.cache")
-    private  ICacheService cache;
+    private ICacheServiceEx cache;
 
 
     /**

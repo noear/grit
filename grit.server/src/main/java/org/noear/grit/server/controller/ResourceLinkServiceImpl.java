@@ -11,6 +11,7 @@ import org.noear.grit.service.ResourceLinkService;
 import org.noear.solon.annotation.*;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
+import org.noear.weed.cache.ICacheServiceEx;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -30,7 +31,7 @@ public class ResourceLinkServiceImpl implements ResourceLinkService {
     @Inject("grit.db")
     private DbContext db;
     @Inject("grit.cache")
-    private ICacheService cache;
+    private ICacheServiceEx cache;
 
 
     /**
