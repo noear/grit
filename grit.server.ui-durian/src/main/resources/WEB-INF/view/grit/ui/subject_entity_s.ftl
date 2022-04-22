@@ -23,13 +23,20 @@
 </script>
 <body>
 <toolbar>
-    <div class="center">
-        <form class="mar10-r">
-        <input type="text" name="key" class="w200" value="${key!}" />
-        <button>查询</button>
-        </form>
-        <a class="btn edit" href="/grit/ui/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
-    </div>
+    <flex>
+        <left class="col-4">
+            <a class="btn edit" href="/grit/ui/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
+        </left>
+        <middle class="col-4 center">
+            <form class="mar10-r">
+                <input type="text" name="key" class="w200" value="${key!}" />
+                <button>查询</button>
+            </form>
+        </middle>
+        <right class="col-4">
+
+        </right>
+    </flex>
 </toolbar>
 <datagrid class="list">
     <table>

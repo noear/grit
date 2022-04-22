@@ -99,23 +99,23 @@
 <body>
 <toolbar>
     <flex>
-        <left class="col-3">
+        <left class="col-4">
             <a class="btn minor" onclick="copy()">复制</a>
             <#if group_id gt 0>
                 <a class="btn minor" onclick="paste()">粘贴</a>
                 <a class="btn minor" onclick="remove()">移除</a>
             </#if>
+            <a class="btn edit mar10-l" href="/grit/ui/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
         </left>
-        <mid class="col-6 center">
-            <#if group_id == 0>
+        <middle class="col-4 center">
+            <#if group_id gt 0>
                 <form class="mar10-r">
                     <input type="text" name="key" class="w200" value="${key!}" />
                     <button>查询</button>
                 </form>
             </#if>
-            <a class="btn edit" href="/grit/ui/subject/edit?type=0&group_id=${group_id!0}">新增主体</a>
-        </mid>
-        <right class="col-3">
+        </middle>
+        <right class="col-4">
 
         </right>
     </flex>

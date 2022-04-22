@@ -104,7 +104,7 @@
 <body>
 <toolbar>
     <flex>
-        <left class="col-3">
+        <left class="col-6">
             <#if (group_id!0) gt 0>
                 <#if state!=1>
                     <button type='button' class="minor mar10-r" onclick="del(1,'禁用')" >禁用</button>
@@ -112,14 +112,10 @@
                     <button type='button' class="minor mar10-r" onclick="del(0,'启用')" >启用</button>
                     <button type='button' class="minor mar10-r" onclick="del(9,'删除')" >删除</button>
                 </#if>
-            </#if>
-        </left>
-        <center  class="col-6">
-            <#if (group_id!0) gt 0>
                 <a class="btn edit" href="/grit/ui/resource/edit?group_id=${group_id!}&type=0">新增资源</a>
             </#if>
-        </center>
-        <right  class="col-3">
+        </left>
+        <right  class="col-6">
             <selector>
                 <a class="${(state !=1)?string('sel','')}" href="./inner?group_id=${group_id}&state=0">启用</a>
                 <a class="${(state =1)?string('sel','')}" href="./inner?group_id=${group_id}&state=1">未启用</a>
