@@ -12,95 +12,95 @@
         .dis{text-decoration:line-through; color:#aaa;}
         .hid{color:#888;}
     </style>
+    <script>
+        var group_id = "${group_id!0}";
+        function imp(file) {
+            if(confirm("确定要导入吗？") == false){
+                return;
+            }
+
+            var fromData = new FormData();
+            fromData.append("file", file);
+            fromData.append("group_id", group_id);
+
+            layer.load(2);
+
+            $.ajax({
+                type:"POST",
+                url:"ajax/import",
+                data:fromData,
+                processData: false,
+                contentType: false,
+                success:function (data) {
+                    layer.closeAll();
+
+                    if(data.code == 200) {
+                        layer.msg('操作成功');
+                        setTimeout(function(){
+                            location.reload();
+                        },800);
+                    }else{
+                        layer.msg(data.description);
+                    }
+                },
+                error:function(data){
+                    layer.closeAll();
+                    layer.msg('网络请求出错...');
+                }
+            });
+        }
+
+        function exp() {
+            var vm = formToMap(".sel_from");
+            if(!vm.sel_id){
+                alert("请选择..");
+                return;
+            }
+
+            window.open("ajax/export?group_id=${group_id!0}&ids=" + vm.sel_id, "_blank");
+        }
+
+        function del(act,hint) {
+            var vm = formToMap(".sel_from");
+
+            if (!vm.sel_id) {
+                alert("请选择..");
+                return;
+            }
+
+            if (confirm("确定要" + hint + "吗？") == false) {
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/batch",
+                data: {group_id: group_id, act: act, ids: vm.sel_id},
+                success: function (data) {
+                    if (data.code == 200) {
+                        layer.msg('操作成功');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 800);
+                    } else {
+                        layer.msg(data.description);
+                    }
+                }
+            });
+        }
+
+        $(function(){
+            $('#sel_all').change(function(){
+                var ckd= $(this).prop('checked');
+                $('[name=sel_id]').prop('checked',ckd);
+            });
+
+            $("#imp_file").change(function () {
+                imp(this.files[0]);
+            });
+        });
+    </script>
 </head>
-<script>
-    var group_id = "${group_id!0}";
-    function imp(file) {
-        if(confirm("确定要导入吗？") == false){
-            return;
-        }
-
-        var fromData = new FormData();
-        fromData.append("file", file);
-        fromData.append("group_id", group_id);
-
-        layer.load(2);
-
-        $.ajax({
-            type:"POST",
-            url:"ajax/import",
-            data:fromData,
-            processData: false,
-            contentType: false,
-            success:function (data) {
-                layer.closeAll();
-
-                if(data.code == 200) {
-                    layer.msg('操作成功');
-                    setTimeout(function(){
-                        location.reload();
-                    },800);
-                }else{
-                    layer.msg(data.description);
-                }
-            },
-            error:function(data){
-                layer.closeAll();
-                layer.msg('网络请求出错...');
-            }
-        });
-    }
-
-    function exp() {
-        var vm = formToMap(".sel_from");
-        if(!vm.sel_id){
-            alert("请选择..");
-            return;
-        }
-
-        window.open("ajax/export?group_id=${group_id!0}&ids=" + vm.sel_id, "_blank");
-    }
-
-    function del(act,hint) {
-        var vm = formToMap(".sel_from");
-
-        if (!vm.sel_id) {
-            alert("请选择..");
-            return;
-        }
-
-        if (confirm("确定要" + hint + "吗？") == false) {
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "ajax/batch",
-            data: {group_id: group_id, act: act, ids: vm.sel_id},
-            success: function (data) {
-                if (data.code == 200) {
-                    layer.msg('操作成功');
-                    setTimeout(function () {
-                        location.reload();
-                    }, 800);
-                } else {
-                    layer.msg(data.description);
-                }
-            }
-        });
-    }
-
-    $(function(){
-        $('#sel_all').change(function(){
-            var ckd= $(this).prop('checked');
-            $('[name=sel_id]').prop('checked',ckd);
-        });
-
-        $("#imp_file").change(function () {
-            imp(this.files[0]);
-        });
-    });
-</script>
 <body>
 <toolbar>
     <left>

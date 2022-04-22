@@ -12,54 +12,55 @@
         .dis{text-decoration:line-through; color:#aaa;}
         .hid{color:#888;}
     </style>
-</head>
-<script>
-    function imp(file) {
-        if(confirm("确定要导入吗？") == false){
-            return;
+
+    <script>
+        function imp(file) {
+            if(confirm("确定要导入吗？") == false){
+                return;
+            }
+
+            var fromData = new FormData();
+            fromData.append("file", file);
+
+            layer.load(2);
+
+            $.ajax({
+                type:"POST",
+                url:"/grit/ui/resource/space/ajax/import",
+                data:fromData,
+                processData: false,
+                contentType: false,
+                success:function (data) {
+                    layer.closeAll();
+
+                    if(data.code == 200) {
+                        layer.msg('操作成功');
+                        setTimeout(function(){
+                            location.reload();
+                        },800);
+                    }else{
+                        layer.msg(data.description);
+                    }
+                },
+                error:function(data){
+                    layer.closeAll();
+                    layer.msg('网络请求出错...');
+                }
+            });
         }
 
-        var fromData = new FormData();
-        fromData.append("file", file);
+        $(function(){
+            $('#sel_all').change(function(){
+                var ckd= $(this).prop('checked');
+                $('[name=sel_id]').prop('checked',ckd);
+            });
 
-        layer.load(2);
-
-        $.ajax({
-            type:"POST",
-            url:"/grit/ui/resource/space/ajax/import",
-            data:fromData,
-            processData: false,
-            contentType: false,
-            success:function (data) {
-                layer.closeAll();
-
-                if(data.code == 200) {
-                    layer.msg('操作成功');
-                    setTimeout(function(){
-                        location.reload();
-                    },800);
-                }else{
-                    layer.msg(data.description);
-                }
-            },
-            error:function(data){
-                layer.closeAll();
-                layer.msg('网络请求出错...');
-            }
+            $("#imp_file").change(function () {
+                imp(this.files[0]);
+            });
         });
-    }
-
-    $(function(){
-        $('#sel_all').change(function(){
-            var ckd= $(this).prop('checked');
-            $('[name=sel_id]').prop('checked',ckd);
-        });
-
-        $("#imp_file").change(function () {
-            imp(this.files[0]);
-        });
-    });
-</script>
+    </script>
+</head>
 <body>
 <toolbar>
     <left>

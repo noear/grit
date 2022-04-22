@@ -12,19 +12,19 @@
         .dis{text-decoration:line-through; color:#aaa;}
         .hid{color:#888;}
     </style>
-</head>
-<script>
-    $(function(){
-        $('#sel_all').change(function(){
-            var ckd= $(this).prop('checked');
-            $('[name=sel_id]').prop('checked',ckd);
-        });
+    <script>
+        $(function(){
+            $('#sel_all').change(function(){
+                var ckd= $(this).prop('checked');
+                $('[name=sel_id]').prop('checked',ckd);
+            });
 
-        $("#imp_file").change(function () {
-            imp(this.files[0]);
-        })
-    });
-</script>
+            $("#imp_file").change(function () {
+                imp(this.files[0]);
+            })
+        });
+    </script>
+</head>
 <body>
 <toolbar>
     <left>
