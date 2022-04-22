@@ -27,10 +27,10 @@
 </script>
 <body>
 <toolbar>
-    <left class="col-4">
+    <left>
         <a class="btn edit" href="/grit/ui/subject/edit?type=1">新增分组</a>
     </left>
-    <right class="col-4">
+    <right>
 
     </right>
 </toolbar>
