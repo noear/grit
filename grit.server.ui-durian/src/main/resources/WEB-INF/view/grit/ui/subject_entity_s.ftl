@@ -29,7 +29,7 @@
         </left>
         <middle class="col-4 center">
             <form class="mar10-r">
-                <input type="text" name="key" class="w200" value="${key!}" />
+                <input type="text" name="key" class="w200" value="${key!}" placeholder="登录名 或 显示名"/>
                 <button>查询</button>
             </form>
         </middle>
