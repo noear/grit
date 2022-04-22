@@ -1,5 +1,6 @@
 package org.noear.grit.solon.integration;
 
+import org.noear.snack.ONode;
 import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.Utils;
@@ -45,9 +46,9 @@ public class XPluginImp implements Plugin {
     }
 
     private void initGritSpace(String appName) throws Exception {
-        String jsond = Utils.getResourceAsString(GRIT_INIT_CONFIG);
+        String data = Utils.getResourceAsString(GRIT_INIT_CONFIG);
 
-        if (Utils.isEmpty(jsond)) {
+        if (Utils.isEmpty(data)) {
             return;
         }
 
@@ -55,24 +56,25 @@ public class XPluginImp implements Plugin {
         //借用配置服务，做初始化版本管理
         //
 
-        String jsond_md5 = Utils.md5(jsond);
+        String data_md5 = Utils.md5(data);
 
         if (GritClient.global().resource().hasSpaceByCode(appName)) {
             //如果存在资源空间（则比较初始化文件的哈希码）
-            String jsond_md5C = null;
+            String data_md5C = null;
 
             Config config = CloudClient.config().pull("_grit", appName);
 
             if (config != null) {
-                jsond_md5C = config.value();
+                data_md5C = config.value();
             }
 
-            if (jsond_md5.equals(jsond_md5C)) {
+            if (data_md5.equals(data_md5C)) {
                 return;
             }
         }
 
-        GritClient.global().resourceSchema().importSchema(jsond);
-        CloudClient.config().push("_grit", appName, jsond_md5);
+
+        GritClient.global().resourceSchema().importSchema(data);
+        CloudClient.config().push("_grit", appName, data_md5);
     }
 }

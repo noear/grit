@@ -6,6 +6,8 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.server.dso.service.ResourceAdminService;
+import org.noear.grit.server.utils.JsondEntity;
+import org.noear.grit.server.utils.JsondUtils;
 import org.noear.grit.service.ResourceSchemaService;
 import org.noear.snack.ONode;
 import org.noear.solon.Utils;
@@ -36,11 +38,28 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
     final String tag_engitys = "engitys";
 
     @Override
-    public boolean importSchema(ONode oNode) throws Exception {
-        if (oNode == null || oNode.isObject() == false) {
+    public boolean importSchema(String data) throws Exception {
+        if (Utils.isEmpty(data)) {
             return false;
         }
 
+        //解析数据
+        ONode oNode = null;
+        if (data.startsWith("{")) { //支持 json
+            //space
+            oNode = ONode.loadStr(data);
+        } else { //支持 jsond
+            JsondEntity jsondEntity = JsondUtils.decode(data);
+
+            if (jsondTable.equals(jsondEntity.table) == false) {
+                throw new IllegalArgumentException("Invalid space schema json");
+            }
+
+            //space
+            oNode = jsondEntity.data;
+        }
+
+        //开始导入
         ONode oSpace = oNode.getOrNull(tag_space);
         if (oSpace == null) {
             throw new IllegalArgumentException("Invalid space schema json");

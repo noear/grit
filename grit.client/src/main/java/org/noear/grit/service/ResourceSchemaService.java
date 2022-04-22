@@ -14,9 +14,9 @@ public interface ResourceSchemaService {
     /**
      * 导入资源架构
      *
-     * @param oNode 数据
+     * @param data 数据
      */
-    boolean importSchema(ONode oNode) throws Exception;
+    boolean importSchema(String data) throws Exception;
 
     /**
      * 导出资源架构

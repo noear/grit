@@ -59,23 +59,9 @@ public class ResourceSpaceController extends BaseController {
         try {
             //转换数据
             String data = Utils.transferToString(file.content, "UTF-8");
-            ONode oNode = null;
-            if (data.startsWith("{")) { //支持 json
-                //space
-                oNode = ONode.loadStr(data);
-            } else { //支持 jsond
-                JsondEntity jsondEntity = JsondUtils.decode(data);
-
-                if (jsondTable.equals(jsondEntity.table) == false) {
-                    throw new IllegalArgumentException("Invalid space schema json");
-                }
-
-                //space
-                oNode = jsondEntity.data;
-            }
 
             //开始导入
-            resourceSchemaService.importSchema(oNode);
+            resourceSchemaService.importSchema(data);
 
             return Result.succeed();
         } catch (Throwable e) {
