@@ -17,7 +17,7 @@
     section table input{height: 30px!important; width: 100%;}
     section table button{color: #000; height: 30px; width: 120px;}
 
-    flex p{margin: 10px;line-height: 30px;}
+    header p{margin: 10px;line-height: 30px;}
   </style>
   <script type="text/javascript">
     function checkClick() {
