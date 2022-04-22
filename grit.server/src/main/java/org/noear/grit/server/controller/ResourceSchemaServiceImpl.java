@@ -6,8 +6,6 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.server.dso.service.ResourceAdminService;
-import org.noear.grit.server.utils.JsondEntity;
-import org.noear.grit.server.utils.JsondUtils;
 import org.noear.grit.service.ResourceSchemaService;
 import org.noear.snack.ONode;
 import org.noear.solon.Utils;
@@ -38,24 +36,9 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
     final String tag_engitys = "engitys";
 
     @Override
-    public boolean importSchema(String jsond) throws Exception {
-        if (Utils.isEmpty(jsond)) {
+    public boolean importSchema(ONode oNode) throws Exception {
+        if (oNode == null || oNode.isObject() == false) {
             return false;
-        }
-        ONode oNode = null;
-
-        if(jsond.startsWith("{")){ //支持 json
-            //space
-            oNode = ONode.loadStr(jsond);
-        }else{ //支持 jsond
-            JsondEntity jsondEntity = JsondUtils.decode(jsond);
-
-            if (jsondTable.equals(jsondEntity.table) == false) {
-                throw new IllegalArgumentException("Invalid space schema json");
-            }
-
-            //space
-            oNode = jsondEntity.data;
         }
 
         ONode oSpace = oNode.getOrNull(tag_space);
@@ -68,7 +51,7 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         spaceD.resource_sid = 0L;
         spaceD.resource_pid = 0L;
 
-        if(Utils.isEmpty(spaceD.guid)) {
+        if (Utils.isEmpty(spaceD.guid)) {
             if (Utils.isNotEmpty(spaceD.resource_code)) {
                 //如果没有 guid ，尝试用 resource_code 找到对应的 guid
                 ResourceDo spaceTmp = adminService.getResourceByCode(spaceD.resource_code);
@@ -119,12 +102,12 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
 
     @Cache(seconds = 10)
     @Override
-    public String exportSchema(long resourceSpaceId) throws Exception {
-        if (resourceSpaceId == 0) {
-            return "";
-        }
-
+    public ONode exportSchema(long resourceSpaceId) throws Exception {
         ONode oNode = new ONode();
+
+        if (resourceSpaceId == 0) {
+            return oNode;
+        }
 
         ResourceDo space = adminService.getResourceById(resourceSpaceId);
         List<ResourceGroup> groups = adminService.getResourceGroupListBySpace(resourceSpaceId);
@@ -156,6 +139,6 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
             }
         }
 
-        return JsondUtils.encode(jsondTable, oNode);
+        return oNode;
     }
 }

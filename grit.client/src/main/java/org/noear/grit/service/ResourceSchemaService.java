@@ -1,5 +1,7 @@
 package org.noear.grit.service;
 
+import org.noear.snack.ONode;
+
 import java.sql.SQLException;
 
 /**
@@ -12,9 +14,9 @@ public interface ResourceSchemaService {
     /**
      * 导入资源架构
      *
-     * @param jsond 数据
+     * @param oNode 数据
      */
-    boolean importSchema(String jsond) throws Exception;
+    boolean importSchema(ONode oNode) throws Exception;
 
     /**
      * 导出资源架构
@@ -22,5 +24,5 @@ public interface ResourceSchemaService {
      * @param resourceSpaceId 资源空间Id
      * @return jsond
      */
-    String exportSchema(long resourceSpaceId) throws Exception;
+    ONode exportSchema(long resourceSpaceId) throws Exception;
 }
