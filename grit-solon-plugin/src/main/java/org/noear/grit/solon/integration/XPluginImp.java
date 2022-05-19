@@ -1,11 +1,10 @@
 package org.noear.grit.solon.integration;
 
-import org.noear.snack.ONode;
 import org.noear.solon.Solon;
-import org.noear.solon.SolonApp;
 import org.noear.solon.Utils;
 import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.cloud.model.Config;
+import org.noear.solon.core.AopContext;
 import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.event.AppLoadEndEvent;
@@ -20,8 +19,8 @@ public class XPluginImp implements Plugin {
     static final String GRIT_INIT_CONFIG = "grit-init.jsond";
 
     @Override
-    public void start(SolonApp app) {
-        app.onEvent(AppLoadEndEvent.class, e -> {
+    public void start(AopContext context) {
+        Solon.global().onEvent(AppLoadEndEvent.class, e -> {
             String appName = Solon.cfg().appName();
 
             if (appName != null && "gritdock".equals(appName) == false) {
@@ -33,8 +32,8 @@ public class XPluginImp implements Plugin {
             }
 
             //2.加载domain.js
-            app.get("/_session/domain.js", (ctx) -> {
-                String domain = app.cfg().get("server.session.state.domain");
+            Solon.global().get("/_session/domain.js", (ctx) -> {
+                String domain = Solon.cfg().get("server.session.state.domain");
                 if (Utils.isEmpty(domain) == false) {
                     if (ctx.uri().getHost().indexOf(domain) >= 0) {
                         ctx.contentType("text/javascript");
