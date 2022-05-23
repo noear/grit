@@ -10,6 +10,8 @@ import org.noear.okldap.LdapClient;
 import org.noear.okldap.LdapSession;
 import org.noear.okldap.entity.LdapPerson;
 import org.noear.solon.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import java.util.List;
 @Mapping("/grit/api/v1/AuthService")
 @Remoting
 public class AuthServiceImpl implements AuthService {
+    static Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Inject
     LdapClient ldapClient;
@@ -40,10 +43,13 @@ public class AuthServiceImpl implements AuthService {
     public Subject login(String loginName, String loginPassword) throws Exception {
         if (loginPassword == null || loginPassword.length() < 4) {
             //密码太短不让登录
+            log.warn("Warn ... loginPassword == null || loginPassword.length() < 4");
             return new Subject();
         }
 
         if (ldapClient != null) {
+            log.info("Using ldap account ...");
+
             //尝试用ldap登录
             LdapPerson person = null;
             try (LdapSession session = ldapClient.open()) {
@@ -51,12 +57,13 @@ public class AuthServiceImpl implements AuthService {
             }
 
             if (person != null) {
+                log.info("Found ldap account : " + loginName);
                 //ldap登录成功后，直接查出用户信息
                 Subject subject = GritClient.global().subject().getSubjectByLoginName(loginName);
 
                 if (subject.subject_id == null || subject.subject_id == 0) {
                     //如果b没有这个账号，则创建一个
-                    subject.subject_id = GritClient.global().subject().regSubject(loginName,loginPassword,person.getDisplayName());
+                    subject.subject_id = GritClient.global().subject().regSubject(loginName, loginPassword, person.getDisplayName());
                     subject.login_name = loginName;
                     subject.display_name = person.getDisplayName();
                 }
@@ -66,6 +73,7 @@ public class AuthServiceImpl implements AuthService {
                 return new Subject();
             }
         } else {
+            log.info("Using grit account ...");
             //尝试用原生账号登录
             return GritClient.global().subject().getSubjectByLoginNameAndPassword(loginName, loginPassword);
         }
