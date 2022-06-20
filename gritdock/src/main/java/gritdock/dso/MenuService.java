@@ -8,7 +8,7 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.Utils;
 import org.noear.solon.data.annotation.Cache;
-import org.noear.solon.extend.aspect.annotation.Service;
+import org.noear.solon.aspect.annotation.Service;
 
 import java.sql.SQLException;
 import java.util.List;

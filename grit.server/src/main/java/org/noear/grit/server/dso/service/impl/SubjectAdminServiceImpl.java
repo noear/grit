@@ -10,7 +10,7 @@ import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Tran;
-import org.noear.solon.extend.aspect.annotation.Service;
+import org.noear.solon.aspect.annotation.Service;
 import org.noear.weed.DbContext;
 import org.noear.weed.cache.ICacheService;
 
