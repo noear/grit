@@ -38,7 +38,7 @@
         }
 
         function node_show(subject_id){
-            $("#table").attr('src',"/grit/ui/auth/inner?subject_id="+subject_id);
+            $("#table").attr('src',"/grit/ui/auth/inner?spaceCode=${spaceCode!}&subject_id="+subject_id);
         }
 
         function node_onclick(group_id,obj) {

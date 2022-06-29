@@ -36,7 +36,7 @@ public class AuthController extends BaseController {
 
 
     @Mapping
-    public ModelAndView home(Long group_id) throws SQLException {
+    public ModelAndView home(Long group_id, String spaceCode) throws SQLException {
         List<SubjectGroup> list = subjectAdminService.getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
@@ -47,17 +47,19 @@ public class AuthController extends BaseController {
         }
 
         viewModel.put("group_id", group_id);
+        viewModel.put("spaceCode", spaceCode);
         viewModel.put("list", list);
 
         return view("grit/ui/auth");
     }
 
     @Mapping("s")
-    public ModelAndView auth_s() throws SQLException {
+    public ModelAndView auth_s(String spaceCode) throws SQLException {
         List<SubjectEntity> enityList = subjectAdminService.getSubjectEntityListByAll();
         enityList.sort(SubjectComparator.instance);
 
         viewModel.put("group_id", 0L);
+        viewModel.put("spaceCode", spaceCode);
         viewModel.put("enityList", enityList);
 
         return view("grit/ui/auth_s");
@@ -79,7 +81,7 @@ public class AuthController extends BaseController {
 
 
     @Mapping("inner")
-    public ModelAndView inner(long subject_id, long space_id) throws SQLException {
+    public ModelAndView inner(long subject_id, long space_id, String spaceCode) throws SQLException {
         if (subject_id == 0) {
             return null;
         }
@@ -108,13 +110,24 @@ public class AuthController extends BaseController {
         //获取资源空间列表
         List<ResourceSpace> spaceList = resourceAdminService.getSpaceList();
         spaceList.sort(ResourceComparator.instance);
-        if (space_id == 0 && GritClient.global().getCurrentSpaceId() > 0) {
-            //尝试用当前系统的空间id
-            space_id = GritClient.global().getCurrentSpaceId();
+
+        if (Utils.isEmpty(spaceCode)) {
+            //未指定资源空间
+            if (space_id == 0 && GritClient.global().getCurrentSpaceId() > 0) {
+                //尝试用当前系统的空间id
+                space_id = GritClient.global().getCurrentSpaceId();
+            }
+
+            space_id = ResourceSpaceCookie.build(space_id, spaceList);
+            ResourceSpaceCookie.set(space_id);
+        } else {
+            //指定资源空间
+            space_id = GritClient.global().resource().getSpaceByCode(spaceCode).resource_id;
         }
 
-        space_id = ResourceSpaceCookie.build(space_id, spaceList);
-        ResourceSpaceCookie.set(space_id);
+        if (space_id == 0) {
+            return null;
+        }
 
         //获取当前空间的资源组列表
         List<ResourceGroup> groupList = resourceAdminService.getResourceGroupListBySpace(space_id);
