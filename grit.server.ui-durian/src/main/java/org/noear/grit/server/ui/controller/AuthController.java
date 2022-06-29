@@ -139,9 +139,11 @@ public class AuthController extends BaseController {
 
         viewModel.put("subject_id", subject_id);
         viewModel.put("subject", subject);
+
         viewModel.put("authRes", authRes);
 
         viewModel.put("space_id", space_id);
+        viewModel.put("spaceCode", spaceCode);
         viewModel.put("spaceList", spaceList);
         viewModel.put("groupList", groupList);
         viewModel.put("resourceList", resourceList);

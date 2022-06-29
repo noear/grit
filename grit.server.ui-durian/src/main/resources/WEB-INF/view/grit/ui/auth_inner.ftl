@@ -59,7 +59,7 @@
         }
 
         function queryForm() {
-            location.href = "/grit/ui/auth/inner?subject_id=${subject_id!0}&space_id="+$('#space_id').val();
+            location.href = "/grit/ui/auth/inner?spaceCode=${spaceCode!}&subject_id=${subject_id!0}&space_id="+$('#space_id').val();
         };
 
         $(function(){
