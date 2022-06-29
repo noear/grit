@@ -143,6 +143,7 @@ public class AuthController extends BaseController {
         viewModel.put("authRes", authRes);
 
         viewModel.put("space_id", space_id);
+        viewModel.put("space_disabled", Utils.isEmpty(spaceCode) ? "" :"disabled");
         viewModel.put("spaceCode", spaceCode);
         viewModel.put("spaceList", spaceList);
         viewModel.put("groupList", groupList);

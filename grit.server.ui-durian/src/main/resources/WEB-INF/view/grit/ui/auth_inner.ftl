@@ -77,7 +77,7 @@
     </div>
     <div>
         <left>
-            <select style="width: 200px;" id="space_id"  onchange="queryForm();">
+            <select style="width: 200px;" ${space_disabled!} id="space_id"  onchange="queryForm();">
                 <#list spaceList as m>
                     <option value=${m.resource_id}>${m.display_name!}</option>
                 </#list>
