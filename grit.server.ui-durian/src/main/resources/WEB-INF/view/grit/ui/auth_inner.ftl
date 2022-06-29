@@ -63,7 +63,6 @@
         };
 
         $(function(){
-            $('#space_id').val(${space_id!});
             valToForm('authRes','${authRes!}');
         });
     </script>
@@ -82,6 +81,9 @@
                     <option value=${m.resource_id}>${m.display_name!}</option>
                 </#list>
             </select>
+            <script>
+                $('#space_id').val(${space_id!});
+            </script>
         </left>
         <right>
             <button type="button" class="edit" onclick="save()">保存</button>
