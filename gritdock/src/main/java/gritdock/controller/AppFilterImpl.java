@@ -11,6 +11,7 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
 import org.noear.solon.core.handle.Result;
+import org.noear.solon.health.HealthHandler;
 
 /**
  * 应用过滤器，增加访问控制
@@ -43,7 +44,8 @@ public class AppFilterImpl implements Filter {
         if (path.startsWith("/grit/login") ||
                 path.startsWith("/login") ||
                 path.startsWith("/_") ||
-                path.endsWith(".ico")) {
+                path.endsWith(".ico") ||
+                path.equals(HealthHandler.HANDLER_PATH) ) {
             return true;
         }
 
