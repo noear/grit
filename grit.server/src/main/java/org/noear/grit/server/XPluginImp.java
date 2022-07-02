@@ -1,6 +1,5 @@
 package org.noear.grit.server;
 
-import org.noear.solon.SolonApp;
 import org.noear.solon.core.AopContext;
 import org.noear.solon.core.Plugin;
 
