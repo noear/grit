@@ -2,6 +2,7 @@ package org.noear.grit.server.controller;
 
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.utils.TextUtils;
+import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
@@ -167,7 +168,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public long regSubject(String loginName, String loginPassword, String displayName) throws SQLException {
-        Subject subject = new Subject();
+        SubjectDo subject = new SubjectDo();
         subject.subject_pid = -1L;
         subject.login_name = loginName;
         subject.login_password = loginPassword;
