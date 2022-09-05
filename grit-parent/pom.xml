@@ -14,9 +14,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <solon.ver>1.10.0</solon.ver>
-        <weed3.ver>3.4.27</weed3.ver>
-        <snack3.ver>3.2.32</snack3.ver>
+        <solon.ver>1.10.2</solon.ver>
+        <weed3.ver>3.4.29</weed3.ver>
+        <snack3.ver>3.2.35</snack3.ver>
 
         <okldap.ver>1.1</okldap.ver>
 
