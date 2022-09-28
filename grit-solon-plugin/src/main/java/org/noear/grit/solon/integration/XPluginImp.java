@@ -20,7 +20,7 @@ public class XPluginImp implements Plugin {
 
     @Override
     public void start(AopContext context) {
-        Solon.global().onEvent(AppLoadEndEvent.class, e -> {
+        Solon.app().onEvent(AppLoadEndEvent.class, e -> {
             String appName = Solon.cfg().appName();
 
             if (appName != null && "gritdock".equals(appName) == false) {
@@ -32,7 +32,7 @@ public class XPluginImp implements Plugin {
             }
 
             //2.加载domain.js
-            Solon.global().get("/_session/domain.js", (ctx) -> {
+            Solon.app().get("/_session/domain.js", (ctx) -> {
                 String domain = Solon.cfg().get("server.session.state.domain");
                 if (Utils.isEmpty(domain) == false) {
                     if (ctx.uri().getHost().indexOf(domain) >= 0) {

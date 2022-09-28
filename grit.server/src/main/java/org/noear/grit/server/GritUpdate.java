@@ -1,5 +1,6 @@
 package org.noear.grit.server;
 
+import org.noear.solon.Solon;
 import org.noear.solon.core.Aop;
 import org.noear.weed.DbContext;
 
@@ -11,7 +12,7 @@ import java.sql.SQLException;
  */
 public class GritUpdate {
     protected static void tryUpdate() {
-        DbContext db = Aop.get("grit.db");
+        DbContext db = Solon.context().getBean("grit.db");
         if (db == null) {
             return;
         }
