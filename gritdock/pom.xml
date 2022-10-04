@@ -24,7 +24,7 @@
         <!-- 可以换成任何 solon cloud 的其它配置服务组件 -->
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>water-solon-plugin</artifactId>
+            <artifactId>water-solon-cloud-plugin</artifactId>
             <version>${solon.ver}</version>
         </dependency>
 

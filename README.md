@@ -72,7 +72,7 @@
 </dependency>
 
 <!-- solon cloud 集成版本（也可用于 Spring boot 项目） -->
-<!-- 用的时候再加个配置服务的插件，例如：water-solon-plugin -->
+<!-- 用的时候再加个配置服务的插件，例如：water-solon-cloud-plugin -->
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
