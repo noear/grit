@@ -13,7 +13,7 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.cache.CacheServiceSupplier;
 import org.noear.solon.data.cache.CacheService;
 import org.noear.solon.data.cache.LocalCacheService;
-import org.noear.weed.DbContext;
+import org.noear.wood.DbContext;
 
 import java.util.Properties;
 

@@ -9,8 +9,8 @@ import org.noear.grit.server.dso.AfterHandler;
 import org.noear.grit.server.dso.BeforeHandler;
 import org.noear.grit.service.ResourceService;
 import org.noear.solon.annotation.*;
-import org.noear.weed.DbContext;
-import org.noear.weed.cache.ICacheServiceEx;
+import org.noear.wood.DbContext;
+import org.noear.wood.cache.ICacheServiceEx;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

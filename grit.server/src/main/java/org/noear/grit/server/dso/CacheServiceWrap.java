@@ -2,7 +2,7 @@ package org.noear.grit.server.dso;
 
 import org.noear.solon.Solon;
 import org.noear.solon.data.cache.CacheService;
-import org.noear.weed.cache.ICacheServiceEx;
+import org.noear.wood.cache.ICacheServiceEx;
 
 /**
  * @author noear

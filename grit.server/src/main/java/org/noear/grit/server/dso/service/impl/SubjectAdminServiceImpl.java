@@ -11,8 +11,8 @@ import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.aspect.annotation.Service;
-import org.noear.weed.DbContext;
-import org.noear.weed.cache.ICacheService;
+import org.noear.wood.DbContext;
+import org.noear.wood.cache.ICacheService;
 
 import java.sql.SQLException;
 import java.util.Collection;
