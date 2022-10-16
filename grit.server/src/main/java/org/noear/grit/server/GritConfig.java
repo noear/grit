@@ -29,7 +29,7 @@ public class GritConfig {
 
 
     @Bean("grit.cache")
-    public CacheService cache(@Inject("${grit.cache}") Properties props) {
+    public CacheService cache(@Inject(value = "${grit.cache}",required = false) Properties props) {
         if (props.size() > 0) {
             CacheServiceSupplier supplier = new CacheServiceSupplier(props);
             return new CacheServiceWrap(supplier.get());
@@ -39,7 +39,7 @@ public class GritConfig {
     }
 
     @Bean("grit.db")
-    public DbContext db(@Inject("${grit.db}") Properties props) {
+    public DbContext db(@Inject(value = "${grit.db}", required = false) Properties props) {
         if (props.size() > 0) {
 
             String server = props.getProperty("server");
@@ -69,7 +69,7 @@ public class GritConfig {
     }
 
     @Bean
-    public LdapClient ldapClient(@Inject("${grit.ldap}") Properties props) {
+    public LdapClient ldapClient(@Inject(value = "${grit.ldap}",required = false) Properties props) {
         if (props.size() > 0) {
             return new LdapClient(props);
         } else {
@@ -78,7 +78,7 @@ public class GritConfig {
     }
 
     @Bean
-    public GritClient gritClient(@Inject("${grit.db}") Properties props, @Inject GritClientLocalImpl clientLocal) {
+    public GritClient gritClient(@Inject(value = "${grit.db}", required = false) Properties props, @Inject GritClientLocalImpl clientLocal) {
         if (props.size() > 0) {
             GritClient.setGlobal(clientLocal);
             return clientLocal;
