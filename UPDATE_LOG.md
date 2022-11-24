@@ -1,4 +1,5 @@
 #### 1.4.2
+* gritdock 改由 smart-http 驱动
 * solon 升级为：1.10.13
 * snack3 升级为：3.2.46
 
