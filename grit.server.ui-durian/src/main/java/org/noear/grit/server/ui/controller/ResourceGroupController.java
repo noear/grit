@@ -95,7 +95,7 @@ public class ResourceGroupController extends BaseController {
         }
 
         try {
-            String jsonD = Utils.transferToString(file.content, "UTF-8");
+            String jsonD = Utils.transferToString(file.getContent(), "UTF-8");
             JsondEntity entity = JsondUtils.decode(jsonD);
 
             if (entity == null || "grit_resource_group".equals(entity.table) == false) {

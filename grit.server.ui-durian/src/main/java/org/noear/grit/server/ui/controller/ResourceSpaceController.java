@@ -55,7 +55,7 @@ public class ResourceSpaceController extends BaseController {
 
         try {
             //转换数据
-            String data = Utils.transferToString(file.content, "UTF-8");
+            String data = Utils.transferToString(file.getContent(), "UTF-8");
 
             //开始导入
             resourceSchemaService.importSchema(data);
