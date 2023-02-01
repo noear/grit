@@ -1,6 +1,5 @@
 ## 两种部署模式：
 
-
 ### 一、基于配置服务部署（以 water 为例）
 
 * water_docker-compose ：基于 water 的 docker-compose 部署模式
