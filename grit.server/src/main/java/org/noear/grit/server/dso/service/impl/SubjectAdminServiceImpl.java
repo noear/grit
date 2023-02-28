@@ -10,7 +10,6 @@ import org.noear.grit.server.dso.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Tran;
-import org.noear.solon.aspect.annotation.Service;
 import org.noear.wood.DbContext;
 import org.noear.wood.cache.ICacheService;
 
@@ -24,7 +23,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Service
+@ProxyComponent
 public class SubjectAdminServiceImpl implements SubjectAdminService {
     @Inject("grit.db")
     private DbContext db;

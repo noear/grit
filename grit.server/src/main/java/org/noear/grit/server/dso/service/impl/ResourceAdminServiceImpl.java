@@ -31,7 +31,7 @@ import static java.util.stream.Collectors.toCollection;
  * @author noear
  * @since 1.0
  */
-@Service
+@ProxyComponent
 public class ResourceAdminServiceImpl implements ResourceAdminService {
     @Inject("grit.db")
     private DbContext db;
