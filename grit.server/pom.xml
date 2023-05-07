@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>grit-parent</artifactId>
-        <version>1.5.3</version>
+        <version>1.5.5</version>
         <relativePath>../grit-parent/pom.xml</relativePath>
     </parent>
 
@@ -23,25 +23,25 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.logging</artifactId>
-            <version>${solon.ver}</version>
+            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.cache.jedis</artifactId>
-            <version>${solon.ver}</version>
+            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon.cache.spymemcached</artifactId>
-            <version>${solon.ver}</version>
+            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>wood-solon-plugin</artifactId>
-            <version>${solon.ver}</version>
+            <version>${solon.version}</version>
         </dependency>
 
         <dependency>

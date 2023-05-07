@@ -19,7 +19,7 @@
 
 ## 四、开始部署服务
 
-* 添加 water/gritdock 服务（镜像：noearorg/gritdock:1.5.3）
+* 添加 water/gritdock 服务（镜像：noearorg/gritdock:1.5.5）
   * 镜像端口：7281
   * 对外端口：7281
   * 建议2个副本起步

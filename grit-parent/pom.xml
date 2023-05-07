@@ -6,7 +6,7 @@
 
     <groupId>org.noear</groupId>
     <artifactId>grit-parent</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.5</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -14,15 +14,15 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <solon.ver>2.2.15</solon.ver>
-        <wood.ver>1.1.1</wood.ver>
-        <snack3.ver>3.2.66</snack3.ver>
+        <solon.version>2.2.17</solon.version>
+        <wood.version>1.1.1</wood.version>
+        <snack3.version>3.2.66</snack3.version>
 
-        <okldap.ver>1.1.3</okldap.ver>
+        <okldap.version>1.1.3</okldap.version>
 
-        <okhttp.ver>3.14.9</okhttp.ver>
+        <okhttp.version>3.14.9</okhttp.version>
 
-        <grit.ver>1.5.3</grit.ver>
+        <grit.version>1.5.5</grit.version>
     </properties>
 
     <modules>
@@ -38,31 +38,31 @@
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.client</artifactId>
-               <version>${grit.ver}</version>
+               <version>${grit.version}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.server</artifactId>
-               <version>${grit.ver}</version>
+               <version>${grit.version}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.server.ui-durian</artifactId>
-               <version>${grit.ver}</version>
+               <version>${grit.version}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit-solon-plugin</artifactId>
-               <version>${grit.ver}</version>
+               <version>${grit.version}</version>
            </dependency>
 
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>okldap</artifactId>
-               <version>${okldap.ver}</version>
+               <version>${okldap.version}</version>
            </dependency>
 
            <dependency>

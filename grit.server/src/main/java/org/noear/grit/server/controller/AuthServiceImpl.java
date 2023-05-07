@@ -30,7 +30,7 @@ import java.util.List;
 public class AuthServiceImpl implements AuthService {
     static Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    @Inject
+    @Inject(required = false)
     LdapClient ldapClient;
 
     /**
