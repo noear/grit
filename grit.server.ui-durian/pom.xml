@@ -22,7 +22,13 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-web</artifactId>
+            <artifactId>solon.view.freemarker</artifactId>
+            <version>${solon.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon.validation</artifactId>
             <version>${solon.version}</version>
         </dependency>
 
