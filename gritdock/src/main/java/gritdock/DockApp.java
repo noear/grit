@@ -1,6 +1,7 @@
 package gritdock;
 
 import org.noear.solon.Solon;
+import org.noear.solon.annotation.SolonMain;
 import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.cloud.model.Instance;
 import org.noear.solon.core.event.EventBus;
@@ -11,6 +12,7 @@ import java.util.Properties;
  * @author noear
  * @since 1.0
  */
+@SolonMain
 public class DockApp {
     public static void main(String[] args) {
         Solon.start(DockApp.class, args, app -> {
