@@ -23,7 +23,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@ProxyComponent
+@Component
 public class SubjectAdminServiceImpl implements SubjectAdminService {
     @Inject("grit.db")
     private DbContext db;

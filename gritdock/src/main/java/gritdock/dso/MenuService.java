@@ -7,7 +7,7 @@ import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.Utils;
-import org.noear.solon.annotation.ProxyComponent;
+import org.noear.solon.annotation.Component;
 import org.noear.solon.data.annotation.Cache;
 
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@ProxyComponent
+@Component
 public class MenuService {
 
     @Cache
