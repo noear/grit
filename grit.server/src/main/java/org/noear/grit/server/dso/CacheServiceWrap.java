@@ -22,7 +22,12 @@ public class CacheServiceWrap implements CacheService, ICacheServiceEx {
 
     @Override
     public Object get(String key) {
-        return real.get(key);
+        return get(key, Object.class);
+    }
+
+    @Override
+    public <T> T get(String key, Class<T> clz) {
+        return real.get(key, clz);
     }
 
     @Override
