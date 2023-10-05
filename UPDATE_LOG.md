@@ -3,6 +3,7 @@
 * wood 升级为 1.2.2
 * snack3 升级为 3.2.80
 * water 升级为：2.11.4
+* 调整视图目录为 `resources/WEB-INF/templates/`
 
 #### 1.6.3
 * solon 升级为 2.4.2
