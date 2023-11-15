@@ -1,14 +1,12 @@
 package example2;
 
-import org.noear.solon.SolonBuilder;
+import org.noear.solon.Solon;
 
 /**
  * @author noear 2021/7/30 created
  */
 public class Example2App {
     public static void main(String[] args) {
-        new SolonBuilder()
-                .onError(e->e.printStackTrace())
-                .start(Example2App.class, args);
+        Solon.start(Example2App.class, args);
     }
 }
