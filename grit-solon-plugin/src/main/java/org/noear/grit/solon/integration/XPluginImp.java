@@ -4,7 +4,7 @@ import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.cloud.CloudClient;
 import org.noear.solon.cloud.model.Config;
-import org.noear.solon.core.AopContext;
+import org.noear.solon.core.AppContext;
 import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.event.AppLoadEndEvent;
@@ -19,7 +19,7 @@ public class XPluginImp implements Plugin {
     static final String GRIT_INIT_CONFIG = "grit-init.jsond";
 
     @Override
-    public void start(AopContext context) {
+    public void start(AppContext context) {
         Solon.app().onEvent(AppLoadEndEvent.class, e -> {
             String appName = Solon.cfg().appName();
 

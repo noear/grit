@@ -10,7 +10,6 @@ import org.noear.nami.NamiManager;
 import org.noear.nami.channel.http.okhttp.HttpChannel;
 import org.noear.nami.coder.snack3.SnackDecoder;
 import org.noear.nami.coder.snack3.SnackEncoder;
-import org.noear.solon.core.Bridge;
 import org.noear.solon.core.LoadBalance;
 
 import java.sql.SQLException;
@@ -70,8 +69,8 @@ public class GritClientRpcImpl implements GritClient {
             String name = gritServer.substring(1);
             namiBuilder.name(name).path(path);
 
-            if(Bridge.upstreamFactory() != null){
-                LoadBalance loadBalance = Bridge.upstreamFactory().create("grit", name);
+            LoadBalance loadBalance = LoadBalance.get("grit", name);
+            if (loadBalance != null) {
                 namiBuilder.upstream(loadBalance::getServer);
             }
         } else {
@@ -128,8 +127,6 @@ public class GritClientRpcImpl implements GritClient {
     public long getCurrentSpaceId() {
         return currentSpaceId;
     }
-
-
 
 
     /////////////////////////////////////////////
