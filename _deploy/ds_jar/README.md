@@ -1,4 +1,4 @@
-# Grit jar 模式部署说明  (for ds)
+# Grit jar 模式部署或运行说明  (for ds)
 
 ## 请在完整的看完文档后，再开始动手!!!
 
@@ -16,7 +16,7 @@
 
 * 添加配置
 
-在 ./gritdock_ext/app.yml 文件里添加配置
+在 ./gritdock_ext/app.yml 文件里添加配置（如果没有，则新建文件）
 
 ```yaml
 grit.db.schema: grit
