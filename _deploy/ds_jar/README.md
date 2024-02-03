@@ -17,7 +17,7 @@
 
 * 添加配置
 
-在 ./gritdock_ext/app.yml 文件里添加配置（如果没有，则新建文件）
+在 ./gritdock_ext/app.yml 文件里添加配置（如果没有，则新建文件）//（改成自己环境的内容）
 
 
 ```yaml
@@ -40,7 +40,7 @@ java -jar gritdock.jar
 
 * 添加配置
 
-在 app.yml 资源文件里添加配置
+在 app.yml 资源文件里添加配置 //（改成自己环境的内容）
 
 ```yaml
 grit.db.schema: grit
