@@ -15,7 +15,7 @@ import org.slf4j.MDC;
  */
 @Component
 public class BeforeHandler implements Handler {
-    @Inject("${grit.token}")
+    @Inject("${grit.token:}")
     String gritToken = "";
 
     @Override
