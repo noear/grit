@@ -152,7 +152,7 @@ public class LoginController extends BaseController {
             space = GritClient.global().resource().getSpaceByCode(spaceCode);
         }
 
-        if (space == null || space.resource_id == null) {
+        if (space == null || space.isEmpty()) {
             space = GritClient.global().auth().getSpaceFrist(subjectId);
         }
 

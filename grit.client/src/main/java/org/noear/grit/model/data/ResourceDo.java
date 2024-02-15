@@ -14,44 +14,91 @@ import java.io.Serializable;
 @ToString
 @Getter
 public class ResourceDo implements Serializable {
-    /** 资源ID */
+    /**
+     * 资源ID
+     */
     public Long resource_id;
-    /** 资源父ID */
+    /**
+     * 资源父ID
+     */
     public Long resource_pid;
-    /** 资源空间ID */
+    /**
+     * 资源空间ID
+     */
     public Long resource_sid;
-    /** 资源类型(0:entity, 1:group, 2:namespace) */
+    /**
+     * 资源类型(0:entity, 1:group, 2:namespace)
+     */
     public Integer resource_type;
-    /** 资源代码(例，user:del) */
+    /**
+     * 资源代码(例，user:del)
+     */
     public String resource_code;
-    /** 显示名 */
+    /**
+     * 显示名
+     */
     public String display_name;
-    /** 排序值 */
+    /**
+     * 排序值
+     */
     public Integer order_index;
-    /** 链接地址(例，/user/add) */
+    /**
+     * 链接地址(例，/user/add)
+     */
     public String link_uri;
-    /** 链接目标 */
+    /**
+     * 链接目标
+     */
     public String link_target;
-    /** 链接标签(用,隔开) */
+    /**
+     * 链接标签(用,隔开)
+     */
     public String link_tags;
-    /** 图标地址 */
+    /**
+     * 图标地址
+     */
     public String icon_uri;
-    /** 备注 */
+    /**
+     * 备注
+     */
     public String remark;
-    /** 节点级别 */
+    /**
+     * 节点级别
+     */
     public Integer level;
-    /** 属性(kv) */
+    /**
+     * 属性(kv)
+     */
     public String attrs;
-    /** guid */
+    /**
+     * guid
+     */
     public String guid;
-    /** 是否全屏 */
+    /**
+     * 是否全屏
+     */
     public Boolean is_fullview;
-    /** 是否可见（可见为页面，不可见为操作） */
+    /**
+     * 是否可见（可见为页面，不可见为操作）
+     */
     public Boolean is_visibled;
-    /** 是否禁用 */
+    /**
+     * 是否禁用
+     */
     public Boolean is_disabled;
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     public Long gmt_create;
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     public Long gmt_modified;
+
+    /**
+     * 是否为空
+     * */
+    public boolean isEmpty() {
+        return resource_id == null || resource_id == 0;
+    }
 }

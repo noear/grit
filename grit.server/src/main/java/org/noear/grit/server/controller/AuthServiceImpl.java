@@ -94,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
 
         Resource resource = GritClient.global().resource().getResourceByUriAndSpace(resourceSpaceId, uri);
 
-        if (resource.resource_id == null) {
+        if (resource.isEmpty()) {
             return false;
         }
 
@@ -119,7 +119,7 @@ public class AuthServiceImpl implements AuthService {
 
         Resource resource = GritClient.global().resource().getResourceByCodeAndSpace(resourceSpaceId, permission);
 
-        if (resource.resource_id == null) {
+        if (resource.isEmpty()) {
             return false;
         }
 
@@ -155,7 +155,7 @@ public class AuthServiceImpl implements AuthService {
     public List<ResourceEntity> getResListByGroupCode(long subjectId, String resourceGroupCode) throws SQLException {
         Resource group = GritClient.global().resource().getResourceByCode(resourceGroupCode);
 
-        if (group.resource_id == null) {
+        if (group.isEmpty()) {
             return new ArrayList<>();
         }
 

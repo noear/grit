@@ -29,7 +29,7 @@ public class ResourceController extends BaseController {
     public ModelAndView edit(long resource_id, long group_id, int type) throws SQLException {
         Resource m1 = resourceAdminService.getResourceById(resource_id);
 
-        if (m1.resource_id == null) {
+        if (m1.isEmpty()) {
             m1.resource_type = type;
             m1.is_fullview = false;
             m1.is_disabled = false;

@@ -46,4 +46,11 @@ public class SubjectDo implements Serializable {
     public Long gmt_create;
     /** 更新时间 */
     public Long gmt_modified;
+
+    /**
+     * 是否为空
+     * */
+    public boolean isEmpty() {
+        return subject_id == null || subject_id == 0;
+    }
 }
