@@ -76,32 +76,89 @@
 具体参考：[_deploy](_deploy)
 
 
-### 管理应用
+### 管理说明
 
 看视频，但暂无。上面的演示控制台，可以先上去看看
 
-### 开发应用
+## 应用
 
-#### 1）配置
-* pom.xml / mevan 配置
+### 配置应用
+
+#### 1、单体模式
+
+* 依赖包配置（pom.xml）
+
 ```xml
-<!-- 客户端版本 -->
-<dependency>
+<dependencies>
+  <!-- 引入客户端 -->
+  <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit.client</artifactId>
     <version>1.8.0</version>
-</dependency>
+  </dependency>
 
-<!-- solon cloud 集成版本（也可用于 Spring boot 项目） -->
-<!-- 用的时候再加个配置服务的插件，例如：water-solon-cloud-plugin -->
-<dependency>
+  <!-- 引入客户端的接口实现（需要配置数据库连接） -->
+  <dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>grit.server</artifactId>
+    <version>1.8.0</version>
+  </dependency>
+
+  <!-- 引入 solon 的签权适配版本，方便做签权 -->
+  <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
     <version>1.8.0</version>
-</dependency>
+  </dependency>
+</dependencies>
 ```
 
-* app.yml / 配置说明
+* 应用属性配置（app.yml）//需要先初始化好数据库
+
+```yml
+solon.app:
+  name: "demoadmin"
+  group: "demo"
+
+grit.db:
+  schema: grit
+  server: grit.io:3306
+  username: demo
+  password: 123456
+```
+
+#### 2、分布式模式
+
+
+* 依赖包配置（pom.xml）
+
+```xml
+<dependencies>
+  <!-- 引入客户端（默认通过发现服务，通过 rpc 连接 grit 服务） -->
+  <dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>grit.client</artifactId>
+    <version>1.8.0</version>
+  </dependency>
+
+  <!-- 引入 solon 的签权适配版本，方便做签权 -->
+  <dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>grit-solon-plugin</artifactId>
+    <version>1.8.0</version>
+  </dependency>
+
+  <!-- 引入 solon 的注册与发现组件（比如：water-solon-cloud-plugin） -->
+  <dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>water-solon-cloud-plugin</artifactId>
+    <version>2.7.0</version>
+  </dependency>
+</dependencies>
+```
+
+* 应用属性配置（app.yml）
+
 ```yml
 solon.app:
   name: "demoadmin"
@@ -109,11 +166,13 @@ solon.app:
 
 solon.cloud.water:
   server: "waterapi:9371"           #WATER服务地址
-  config:
-    load: "grit:gritclient.yml"     #加载gritclient的配置
 ```
 
-#### 2）代码
+#### 3、其它模式
+
+略...
+
+### 代码应用
 
 ```java
 //1，定义认证处理器
