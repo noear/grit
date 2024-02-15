@@ -1,6 +1,7 @@
 package gritdock.controller;
 
 import gritdock.Config;
+import gritdock.util.CookieUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
@@ -140,24 +141,19 @@ public class LoginController extends BaseController {
     }
 
     public String getUriFrist(long subjectId, Context ctx) throws SQLException {
-        //最后一次使用的连接系统
-        String spaceCode = ctx.cookie("_lLnQIO4W");
-        ResourceSpace space = null;
-
-        Resource res = null;
-
-
-        //1.确定分支组
-        if (Utils.isEmpty(spaceCode) == false) {
-            space = GritClient.global().resource().getSpaceByCode(spaceCode);
-        }
+        //1.确定空间
+        ResourceSpace space = CookieUtils.getResourceSpace(ctx);
 
         if (Resource.isEmpty(space)) {
             space = GritClient.global().auth().getSpaceFrist(subjectId);
         }
 
-        //2.如果没有，找自己默认的权限
-        res = GritClient.global().auth().getUriFristBySpace(subjectId, space.resource_id);
+        if (Resource.isEmpty(space)) {
+            return null;
+        }
+
+        //2.找第一个可见资源
+        Resource res = GritClient.global().auth().getUriFristBySpace(subjectId, space.resource_id);
 
         //3.再没有，提示错误
         if (Utils.isEmpty(res.link_uri)) {

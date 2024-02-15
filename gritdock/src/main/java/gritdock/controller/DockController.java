@@ -1,6 +1,7 @@
 package gritdock.controller;
 
 import gritdock.dso.MenuService;
+import gritdock.util.CookieUtils;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -124,7 +125,7 @@ public class DockController extends BaseController {
                 }
             }
 
-            ctx.cookieSet("_lLnQIO4W", p, 60 * 60 * 24 * 365);
+            CookieUtils.logResourceSpace(ctx, p);
         }
 
         //传递参数
