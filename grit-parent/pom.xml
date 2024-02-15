@@ -32,6 +32,7 @@
 
     <modules>
         <module>../grit.client</module>
+        <module>../grit.client.local</module>
         <module>../grit.server</module>
         <module>../grit.server.ui-durian</module>
 
@@ -49,6 +50,12 @@
            <dependency>
                <groupId>org.noear</groupId>
                <artifactId>grit.client</artifactId>
+               <version>${grit.version}</version>
+           </dependency>
+
+           <dependency>
+               <groupId>org.noear</groupId>
+               <artifactId>grit.client.local</artifactId>
                <version>${grit.version}</version>
            </dependency>
 
