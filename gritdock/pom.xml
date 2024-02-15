@@ -22,8 +22,14 @@
 
         <dependency>
             <groupId>org.noear</groupId>
+            <artifactId>solon</artifactId>
+            <version>2.7.1-M1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
             <artifactId>solon-web</artifactId>
-            <version>${solon.version}</version>
+            <version>2.7.1-M1</version>
         </dependency>
 
         <!-- 可以换成任何 solon cloud 的其它配置服务组件 -->
