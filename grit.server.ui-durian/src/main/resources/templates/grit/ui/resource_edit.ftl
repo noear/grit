@@ -181,7 +181,7 @@
                 <th>代号<#if m1.resource_type==2>*</#if></th>
                 <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/>
                     <#if m1.resource_type==0>
-                        <n-l>为 hasPermission 鉴权提供支持（如果填写，请确保是全局唯一的）</n-l>
+                        <n-l>为 hasPermission 检测提供依据（如果填写，请确保是全局唯一的）</n-l>
                     </#if>
                     <#if m1.resource_type==1>
                         <n-l>如果填写，请确保是全局唯一的</n-l>
@@ -197,7 +197,7 @@
                 <th>链接路径</th>
                 <td><input type="text" class="longtxt" id="link_uri" value="${m1.link_uri!}"/>
                     <#if m1.resource_type==0>
-                        <n-l>为 hasUri 鉴权提供支持</n-l>
+                        <n-l>为 hasUri 检测提供依据</n-l>
                     <#else>
 
                     </#if>
