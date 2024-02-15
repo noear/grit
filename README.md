@@ -90,14 +90,7 @@
 
 ```xml
 <dependencies>
-  <!-- 引入客户端 -->
-  <dependency>
-    <groupId>org.noear</groupId>
-    <artifactId>grit.client</artifactId>
-    <version>1.8.1</version>
-  </dependency>
-
-  <!-- 引入客户端的接口实现（需要配置数据库连接） -->
+  <!-- 自己就是服务实现（需要配置数据库连接） -->
   <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit.server</artifactId>
@@ -134,13 +127,6 @@ grit.db:
 
 ```xml
 <dependencies>
-  <!-- 引入客户端（默认通过发现服务，通过 rpc 连接 grit 服务） -->
-  <dependency>
-    <groupId>org.noear</groupId>
-    <artifactId>grit.client</artifactId>
-    <version>1.8.1</version>
-  </dependency>
-
   <!-- 引入 solon 的签权适配版本，方便做签权 -->
   <dependency>
     <groupId>org.noear</groupId>
