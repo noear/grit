@@ -45,7 +45,7 @@
 
 ## 开始
 
-### 了解框架与构件
+* 了解框架与构件
 
 | 开发框架                  | 说明 | 
 |-----------------------| -------- | 
@@ -62,21 +62,21 @@
 
 单体项目，可通过 grit.server.ui-durian 集成，直接获取客户端接口与管理能力
 
-### 控制台演示站
+* 控制台演示站
 
-地址： [http://grit.noear.org/grit/](http://grit.noear.org/grit/)  （账号：grit ；密码：UjKeQwBK1oCUOCvl ）
+授权管理地址： [http://grit.noear.org/grit/](http://grit.noear.org/grit/)  （账号：grit ；密码：UjKeQwBK1oCUOCvl ）
 
-**在里面配置权限之后，可以在此处看效果：（会有5分钟缓存）**
+（授权后，效果预览会有5分钟缓存）
 
-地址：[http://grit.noear.org/](http://grit.noear.org/)  （已有演示主体，账号：admin ；密码：admin ）
+效果预览地址：[http://grit.noear.org/](http://grit.noear.org/)  （已有演示主体，账号：admin ；密码：admin ）
 
 
-### 部署说明
+* 部署说明
 
 具体参考：[_deploy](_deploy)
 
 
-### 管理说明
+* 管理说明
 
 看视频，但暂无。上面的演示控制台，可以先上去看看
 
