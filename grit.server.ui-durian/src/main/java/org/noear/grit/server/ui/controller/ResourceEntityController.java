@@ -47,7 +47,7 @@ public class ResourceEntityController extends BaseController {
         List<ResourceGroup> groupList = resourceAdminService.getResourceGroupListBySpace(space_id);
         groupList = ResourceTreeUtils.build(groupList, space_id);
 
-        if (group_id == null) {
+        if (group_id == null || group_id == 0) {
             if (groupList.size() > 0) {
                 group_id = groupList.get(0).resource_id;
             }
@@ -79,7 +79,7 @@ public class ResourceEntityController extends BaseController {
 
             groupList = ResourceTreeUtils.build(groupList, space_id);
 
-            if (group_id == null) {
+            if (group_id == null || group_id == 0) {
                 if (groupList.size() > 0) {
                     group_id = groupList.get(0).resource_id;
                 }

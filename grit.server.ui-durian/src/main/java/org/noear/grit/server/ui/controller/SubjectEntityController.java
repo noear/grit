@@ -31,7 +31,7 @@ public class SubjectEntityController extends BaseController {
         List<SubjectGroup> list = subjectAdminService.getGroupList();
         list = SujectTreeUtils.build(list, 0);
 
-        if (group_id == null) {
+        if (group_id == null || group_id == 0) {
             if (list.size() > 0) {
                 group_id = list.get(0).subject_id;
             }
