@@ -7,7 +7,7 @@ version: '3'
 
 services:
   gritdock:
-    image: noearorg/gritdock:1.8.0
+    image: noearorg/gritdock:1.8.1
     container_name: gritdock
     environment:
       - solon.cloud.water.server=waterapi:9371    # Water 服务地址
