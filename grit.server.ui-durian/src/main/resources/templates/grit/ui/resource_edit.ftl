@@ -209,10 +209,6 @@
                     <th>链接目标</th>
                     <td><input type="text" id="link_target" value="${m1.link_target!}"/></td>
                 </tr>
-                <tr>
-                    <th>链接标签</th>
-                    <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
-                </tr>
             </#if>
 
             <tr>
