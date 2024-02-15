@@ -173,36 +173,25 @@
         <input type="hidden" id="resource_sid" value="${m1.resource_sid!0}">
         <table>
             <tr>
+                <th>显示名*</th>
+                <td><input type="text" id="display_name" value="${m1.display_name!}"/></td>
+            </tr>
+
+            <tr>
                 <th>代号<#if m1.resource_type==2>*</#if></th>
                 <td><input type="text" id="resource_code" autofocus value="${m1.resource_code!}"/>
                     <#if m1.resource_type==0>
                         <n-l>为 hasPermission 鉴权提供支持（如果填写，请确保是全局唯一的）</n-l>
-                    <#else>
+                    </#if>
+                    <#if m1.resource_type==1>
                         <n-l>如果填写，请确保是全局唯一的</n-l>
+                    </#if>
+                    <#if m1.resource_type==2>
+                        <n-l>请确保是全局唯一的</n-l>
                     </#if>
                 </td>
             </tr>
-            <tr>
-                <th>显示名*</th>
-                <td><input type="text" id="display_name" value="${m1.display_name!}"/></td>
-            </tr>
-            <tr>
-                <th>排序</th>
-                <td><input type="text" id="order_index" value="${m1.order_index!}"/></td>
-            </tr>
 
-
-            <tr>
-                <th>备注</th>
-                <td><input type="text" id="remark" value="${m1.remark!}"/></td>
-            </tr>
-
-            <tr>
-                <th>图标资源</th>
-                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/>
-                    <n-l>图片地址或者图标字体</n-l>
-                </td>
-            </tr>
 
             <tr>
                 <th>链接路径</th>
@@ -225,6 +214,22 @@
                     <td><input type="text" id="link_tags" value="${m1.link_tags!}"/></td>
                 </tr>
             </#if>
+
+            <tr>
+                <th>图标资源</th>
+                <td><input type="text" class="longtxt" id="icon_uri" value="${m1.icon_uri!}"/>
+                    <n-l>图片地址或者图标字体</n-l>
+                </td>
+            </tr>
+
+            <tr>
+                <th>排序</th>
+                <td><input type="text" id="order_index" value="${m1.order_index!}"/></td>
+            </tr>
+            <tr>
+                <th>备注</th>
+                <td><input type="text" id="remark" value="${m1.remark!}"/></td>
+            </tr>
             <tr>
                 <th>是否全屏</th>
                 <td>

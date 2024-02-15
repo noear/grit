@@ -170,18 +170,19 @@
         </#if>
 
         <table>
-            <#if m1.subject_type == 1>
-            <tr>
-                <th>代号</th>
-                <td><input type="text" id="subject_code" autofocus value="${m1.subject_code!}"/>
-                    <n-l>如果填写，请确保是全局唯一的</n-l>
-                </td>
-            </tr>
-            </#if>
             <tr>
                 <th>显示名*</th>
                 <td><input type="text" id="display_name" value="${m1.display_name!}"/></td>
             </tr>
+
+            <#if m1.subject_type == 1>
+                <tr>
+                    <th>代号</th>
+                    <td><input type="text" id="subject_code" autofocus value="${m1.subject_code!}"/>
+                        <n-l>如果填写，请确保是全局唯一的</n-l>
+                    </td>
+                </tr>
+            </#if>
 
             <#if m1.subject_type == 0>
                 <tr>
