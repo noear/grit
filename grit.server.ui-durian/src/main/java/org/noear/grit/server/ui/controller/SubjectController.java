@@ -34,7 +34,7 @@ public class SubjectController extends BaseController {
     public ModelAndView edit(long subject_id, long group_id, int type) throws SQLException {
         Subject m1 = subjectAdminService.getSubjectById(subject_id);
 
-        if (m1.subject_id == null) {
+        if (m1.isEmpty()) {
             m1.subject_type = type;
             m1.is_disabled = false;
             m1.is_visibled = true;

@@ -61,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
                 //ldap登录成功后，直接查出用户信息
                 Subject subject = GritClient.global().subject().getSubjectByLoginName(loginName);
 
-                if (subject.subject_id == null || subject.subject_id == 0) {
+                if (subject.isEmpty()) {
                     //如果b没有这个账号，则创建一个
                     subject.subject_id = GritClient.global().subject().regSubject(loginName, loginPassword, person.getDisplayName());
                     subject.login_name = loginName;

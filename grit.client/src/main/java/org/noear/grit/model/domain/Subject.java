@@ -18,7 +18,7 @@ public class Subject extends SubjectDo {
      * 是否为空
      * */
     public static boolean isEmpty(Subject subject) {
-        if (subject == null || subject.subject_id == null || subject.subject_id == 0) {
+        if (subject == null || subject.isEmpty()) {
             return true;
         } else {
             return false;
