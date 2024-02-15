@@ -72,7 +72,7 @@ public class LoginController extends BaseController {
 
         Subject subject = GritClient.global().auth().login(userName, passWord);
 
-        if (subject == null || subject.isEmpty()) {
+        if (Subject.isEmpty(subject)) {
             return Result.failure("提示：账号或密码不对！");
         } else {
 

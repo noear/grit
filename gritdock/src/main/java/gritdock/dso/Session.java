@@ -19,7 +19,7 @@ public final class Session extends SessionBase {
 
     @Override
     public void loadSubject(Subject subject) throws Exception {
-        if (subject == null || subject.isEmpty()) {
+        if (Subject.isEmpty(subject)) {
             return;
         }
 
