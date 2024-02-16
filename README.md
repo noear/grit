@@ -76,7 +76,7 @@
 
 * 管理说明
 
-看视频，但暂无。上面的演示控制台，可以先上去看看
+上面的演示控制台，可以先上去看看。或者看视频：[https://www.bilibili.com/video/BV1Hy42187cn/](https://www.bilibili.com/video/BV1Hy42187cn/)
 
 ## 应用
 
