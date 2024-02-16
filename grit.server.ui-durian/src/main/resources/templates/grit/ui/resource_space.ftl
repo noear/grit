@@ -103,7 +103,7 @@
                 <td class="op">
                     <a href="/grit/ui/resource/edit?resource_id=${m1.resource_id}" class="t2">编辑</a>
                     |
-                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}" target="_blank" class="t2">导出空间</a>
+                    <a href="/grit/ui/resource/space/ajax/export?space_id=${m1.resource_id}&fmt=jsond" target="_blank" class="t2">导出空间</a>
                 </td>
             </tr>
         </#list>
