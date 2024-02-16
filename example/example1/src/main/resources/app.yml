@@ -5,8 +5,7 @@ solon.app:
   group: "grit"
   title: "DEMO"
 
-solon.cloud.water:
-  server: "waterapi:9371"
-  config:
-    load: "grit:gritclient.yml"
 
+grit:
+  server: "http://localhost:7281"
+  token: B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j

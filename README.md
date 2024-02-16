@@ -120,7 +120,38 @@ grit.db:
   password: 123456
 ```
 
-#### 2、分布式模式（使用注册与发现服务）
+
+
+#### 2、分布式模式（无注册与发现服务）
+
+* 依赖包配置（pom.xml）
+
+```xml
+<dependencies>
+  <!-- 引入 solon 的签权适配版本，方便做签权（server 由 rpc 提供） -->
+  <dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>grit-solon-plugin</artifactId>
+    <version>1.8.1</version>
+  </dependency>
+</dependencies>
+```
+
+* 应用属性配置（app.yml）//直接申明服务地址
+
+```yml
+solon.app:
+  name: "demoadmin"
+  group: "demo"
+
+grit:
+  server: "http://localhost:7281"
+  token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
+```
+
+
+
+#### 3、分布式模式（使用注册与发现服务）
 
 
 * 依赖包配置（pom.xml）
@@ -152,39 +183,6 @@ solon.app:
 
 solon.cloud.water:
   server: "waterapi:9371"           #WATER服务地址
-```
-
-
-
-
-#### 3、分布式模式（无注册与发现服务）
-
-
-* 依赖包配置（pom.xml）
-
-```xml
-<dependencies>
-  <!-- 引入 solon 的签权适配版本，方便做签权（server 由 rpc 提供） -->
-  <dependency>
-    <groupId>org.noear</groupId>
-    <artifactId>grit-solon-plugin</artifactId>
-    <version>1.8.1</version>
-  </dependency>
-</dependencies>
-```
-
-* 应用属性配置（app.yml）//直接申明服务地址
-
-```yml
-solon.app:
-  name: "demoadmin"
-  group: "demo"
-
-solon.cloud.local:
-  discovery:
-    service:
-      gritapi:
-        - "http://localhost:7281"
 ```
 
 
