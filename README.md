@@ -214,7 +214,7 @@ public class DemoConfig{
                 .addRule(r -> r.exclude("/login**").exclude(HealthHandler.HANDLER_PATH).exclude("/_**").verifyPath()) //增加uri验证规则
                 .processor(new AuthProcessorImpl()) //绑定验证处理器
                 .failure((ctx, rst) -> {
-                    ctx.outputAsJson(new ONode().set("code", 403).set("msg", "你，没有权限哟!").toJson());
+                    ctx.render(Result.failure(403,"你，没有权限哟!"));
                 });
     }
 }
