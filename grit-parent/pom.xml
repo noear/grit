@@ -6,7 +6,7 @@
 
     <groupId>org.noear</groupId>
     <artifactId>grit-parent</artifactId>
-    <version>1.8.1</version>
+    <version>1.8.2</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -22,7 +22,7 @@
 
         <okhttp.version>3.14.9</okhttp.version>
 
-        <grit.version>1.8.1</grit.version>
+        <grit.version>1.8.2</grit.version>
         <slf4j.version>2.0.9</slf4j.version>
 
         <maven-compiler.version>3.11.0</maven-compiler.version>
