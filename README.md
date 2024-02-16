@@ -66,8 +66,6 @@
 
 授权管理地址： [http://grit.noear.org/grit/](http://grit.noear.org/grit/)  （账号：grit ；密码：UjKeQwBK1oCUOCvl ）
 
-（授权后，效果预览会有5分钟缓存）
-
 效果预览地址：[http://grit.noear.org/](http://grit.noear.org/)  （已有演示主体，账号：admin ；密码：admin ）
 
 
@@ -174,7 +172,7 @@ grit:
 </dependencies>
 ```
 
-* 应用属性配置（app.yml）
+* 应用属性配置（app.yml）//从发现服务获取服务地址
 
 ```yml
 solon.app:
