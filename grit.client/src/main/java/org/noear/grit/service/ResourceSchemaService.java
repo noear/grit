@@ -1,9 +1,5 @@
 package org.noear.grit.service;
 
-import org.noear.snack.ONode;
-
-import java.sql.SQLException;
-
 /**
  * 资源架构服务
  *
