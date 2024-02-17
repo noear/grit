@@ -181,6 +181,7 @@ solon.app:
 solon.cloud.water:
   server: "waterapi:9371"           #WATER服务地址
 
+#此内容可以放到配置服务里
 grit:
   server: "@gritapi"                #会借用发现服务获取集群节点
   token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
