@@ -22,9 +22,8 @@ public interface AuthService {
     Subject login(String loginName, String loginPassword) throws Exception;
 
 
-
     /**
-     * 检测主体是否有Uri
+     * 检测主体是否有路径授予
      *
      * @param subjectId       主体Id
      * @param resourceSpaceId 资源空间Id
@@ -33,7 +32,7 @@ public interface AuthService {
     boolean hasUriBySpace(long subjectId, long resourceSpaceId, String uri) throws SQLException;
 
     /**
-     * 检测主体是否有Uri
+     * 检测主体是否有路径授予
      *
      * @param subjectId       主体Id
      * @param uri             路径（例：/user/add）
@@ -43,7 +42,7 @@ public interface AuthService {
     }
 
     /**
-     * 检测主体是否有权限
+     * 检测主体是否有权限授予
      *
      * @param subjectId       主体Id
      * @param resourceSpaceId 资源空间Id
@@ -52,7 +51,7 @@ public interface AuthService {
     boolean hasPermissionBySpace(long subjectId, long resourceSpaceId, String permission) throws SQLException;
 
     /**
-     * 检测主体是否有权限
+     * 检测主体是否有权限授予
      *
      * @param subjectId       主体Id
      * @param permission      权限（例：user:add）
@@ -62,7 +61,7 @@ public interface AuthService {
     }
 
     /**
-     * 检测是否有角色
+     * 检测是否有角色关联
      *
      * @param subjectId
      * @param role      角色（例：water-admin）
@@ -71,7 +70,7 @@ public interface AuthService {
 
 
     /**
-     * 获取主体的授与资源列表（启可见与不可见）
+     * 获取主体的授与资源列表（包括，可见与不可见）
      *
      * @param subjectId 主体Id
      * @param resourceGroupId 资源组Id
@@ -79,7 +78,7 @@ public interface AuthService {
     List<ResourceEntity> getResListByGroup(long subjectId, long resourceGroupId) throws SQLException;
 
     /**
-     * 获取主体的授与资源列表（启可见与不可见）
+     * 获取主体的授与资源列表（包括，可见与不可见）
      *
      * @param subjectId 主体Id
      * @param resourceGroupCode 资源组Code
@@ -88,7 +87,7 @@ public interface AuthService {
 
 
     /**
-     * 获取主体的授与路径列表
+     * 获取主体的授与路径资源列表
      *
      * @param subjectId 主体Id
      * @param resourceGroupId 资源组Id
@@ -96,7 +95,7 @@ public interface AuthService {
     List<ResourceEntity> getUriListByGroup(long subjectId, long resourceGroupId) throws SQLException;
 
     /**
-     * 获取主体的授与路径列表
+     * 获取主体的授与路径资源列表
      *
      * @param subjectId 主体Id
      * @param resourceSpaceId 资源空间Id
@@ -104,7 +103,7 @@ public interface AuthService {
     List<ResourceEntity> getUriListBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
-     * 获取主体的授与路径列表
+     * 获取主体的授与路径资源列表
      *
      * @param subjectId 主体Id
      */
@@ -113,7 +112,7 @@ public interface AuthService {
     }
 
     /**
-     * 获取主体的首个授与路径
+     * 获取主体的首个授与路径资源
      *
      * @param subjectId 主体Id
      * @param resourceSpaceId 资源空间Id
@@ -121,7 +120,7 @@ public interface AuthService {
     ResourceEntity getUriFristBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
-     * 获取主体的首个授与路径
+     * 获取主体的首个授与路径资源
      *
      * @param subjectId
      */
@@ -130,7 +129,7 @@ public interface AuthService {
     }
 
     /**
-     * 获取主体在某分组下的首个授与路径
+     * 获取主体在某分组下的首个授与路径资源
      *
      * @param subjectId 主体Id
      * @param resourceGroupId 资源组Id
@@ -140,7 +139,7 @@ public interface AuthService {
 
 
     /**
-     * 获取主体的授与路径分组列表
+     * 获取主体的授与路径资源分组列表
      *
      * @param subjectId 主体Id
      * @param resourceSpaceId 资源空间Id
@@ -148,7 +147,7 @@ public interface AuthService {
     List<ResourceGroup> getUriGroupListBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
-     * 获取主体的授与路径分组列表
+     * 获取主体的授与路径资源分组列表
      *
      * @param subjectId 主体Id
      */
@@ -159,7 +158,7 @@ public interface AuthService {
 
 
     /**
-     * 获取主体的授与权限列表
+     * 获取主体的授与权限资源列表
      *
      * @param subjectId 主体Id
      * @param resourceSpaceId 资源空间Id
@@ -167,7 +166,7 @@ public interface AuthService {
     List<ResourceEntity> getPermissionListBySpace(long subjectId, long resourceSpaceId) throws SQLException;
 
     /**
-     * 获取主体的授与权限列表
+     * 获取主体的授与权限资源列表
      *
      * @param subjectId 主体Id
      */
@@ -177,7 +176,7 @@ public interface AuthService {
 
 
     /**
-     * 获取主体的角色列表
+     * 获取主体关联的角色列表
      *
      * @param subjectId 主体Id
      */
@@ -186,14 +185,14 @@ public interface AuthService {
 
 
     /**
-     * 获取主体的资源空间列表
+     * 获取主体关联的资源空间列表
      *
      * @param subjectId 主体Id
      */
     List<ResourceSpace> getSpaceList(long subjectId) throws SQLException;
 
     /**
-     * 获取主体的首个资源空间
+     * 获取主体关联的首个资源空间
      *
      * @param subjectId 主体Id
      */
