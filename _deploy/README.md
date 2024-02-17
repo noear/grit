@@ -21,7 +21,7 @@
 
 ## 附：LDAP登录支持：
 
-* 基于 water 环境
+可以放到配置服务里，也可做为外部配置（或环境变量）
 
 ```yaml
 # 配置项 grit/grit.yml ，添加 ldap 连接配置：
@@ -34,9 +34,4 @@ grit.ldap:
   groupFilter: "cn=%s"
 ```
 
-* 自建数据源
-
-```
-将上面的配置做为 gritdock 的环境变量添加即可
-```
 
