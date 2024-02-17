@@ -5,9 +5,6 @@ solon.app:
   group: "water"
   title: "DEMO"
 
-#  可以换成任何 solon cloud 的其它配置服务组件
-solon.cloud.water:
-  server: "waterapi:9371"
-  config:
-    load: "grit:gritclient.yml"
-
+grit:
+  server: "http://localhost:7281"
+  token: B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j

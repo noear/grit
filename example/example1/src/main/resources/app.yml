@@ -1,10 +1,9 @@
 server.port: 8082
 
 solon.app:
-  name: "gritexcmple1"
+  name: "gritexample1"
   group: "grit"
   title: "DEMO"
-
 
 grit:
   server: "http://localhost:7281"
