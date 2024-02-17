@@ -119,8 +119,7 @@ grit.db:
 ```
 
 
-
-#### 2、分布式模式（无注册与发现服务）
+#### 2、分布式模式
 
 * 依赖包配置（pom.xml）
 
@@ -181,9 +180,11 @@ solon.app:
 
 solon.cloud.water:
   server: "waterapi:9371"           #WATER服务地址
+
+grit:
+  server: "@gritapi"                #会借用发现服务获取集群节点
+  token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 ```
-
-
 
 
 #### 4、其它模式
