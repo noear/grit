@@ -4,6 +4,8 @@ import org.noear.solon.Solon;
 import org.noear.solon.data.cache.CacheService;
 import org.noear.wood.cache.ICacheServiceEx;
 
+import java.lang.reflect.Type;
+
 /**
  * @author noear
  * @since 1.0
@@ -26,8 +28,13 @@ public class CacheServiceWrap implements CacheService, ICacheServiceEx {
     }
 
     @Override
-    public <T> T get(String key, Class<T> clz) {
-        return real.get(key, clz);
+    public <T> T get(String key, Type type) {
+        return real.get(key, type);
+    }
+
+    @Override
+    public <T> T get(String key, Class<T> type) {
+        return real.get(key, type);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package features;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.noear.grit.model.domain.Subject;
-import org.noear.solon.test.SolonJUnit4ClassRunner;
 import org.noear.solon.test.SolonTest;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.Resource;
@@ -12,7 +10,6 @@ import gritdock.DockApp;
 /**
  * @author noear 2021/7/23 created
  */
-@RunWith(SolonJUnit4ClassRunner.class)
 @SolonTest(DockApp.class)
 public class BaseTest {
     @Test
