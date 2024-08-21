@@ -45,7 +45,9 @@ public class DockApp {
     private static void gritApiRegTry() {
         try {
             if (CloudClient.discovery() != null) {
-                Instance instance = new Instance("gritapi", Instance.local().address()).protocol("http");
+                Instance instance = new Instance("gritapi",
+                        Instance.local().host(),
+                        Instance.local().port()).protocol("http");
                 CloudClient.discovery().register("grit", instance);
             }
         } catch (Exception e) {

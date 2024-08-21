@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>grit-parent</artifactId>
-        <version>1.8.5</version>
+        <version>1.9.0</version>
         <relativePath>../grit-parent/pom.xml</relativePath>
     </parent>
 
@@ -22,7 +22,7 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon.auth</artifactId>
+            <artifactId>solon.security.auth</artifactId>
             <version>${solon.version}</version>
         </dependency>
 
