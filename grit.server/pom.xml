@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>grit-parent</artifactId>
-        <version>1.9.1</version>
+        <version>1.9.2-M1</version>
         <relativePath>../grit-parent/pom.xml</relativePath>
     </parent>
 
@@ -27,25 +27,19 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon.mvc</artifactId>
+            <artifactId>solon-logging</artifactId>
             <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon.logging</artifactId>
+            <artifactId>solon-cache-jedis</artifactId>
             <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon.cache.jedis</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon.cache.spymemcached</artifactId>
+            <artifactId>solon-cache-spymemcached</artifactId>
             <version>${solon.version}</version>
         </dependency>
 
