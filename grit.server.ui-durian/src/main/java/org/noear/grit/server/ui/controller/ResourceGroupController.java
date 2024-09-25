@@ -9,11 +9,11 @@ import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.grit.server.dso.service.ResourceAdminService;
-import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.*;
+import org.noear.solon.core.util.IoUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -95,7 +95,7 @@ public class ResourceGroupController extends BaseController {
         }
 
         try {
-            String jsonD = Utils.transferToString(file.getContent(), "UTF-8");
+            String jsonD = IoUtil.transferToString(file.getContent(), "UTF-8");
             JsondEntity entity = JsondUtils.decode(jsonD);
 
             if (entity == null || "grit_resource_group".equals(entity.table) == false) {

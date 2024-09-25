@@ -8,6 +8,7 @@ import org.noear.solon.core.AppContext;
 import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.event.AppLoadEndEvent;
+import org.noear.solon.core.util.ResourceUtil;
 
 /**
  * Grit 集成插件
@@ -45,7 +46,7 @@ public class XPluginImp implements Plugin {
     }
 
     private void initGritSpace(String appName) throws Exception {
-        String data = Utils.getResourceAsString(GRIT_INIT_CONFIG);
+        String data = ResourceUtil.getResourceAsString(GRIT_INIT_CONFIG);
 
         if (Utils.isEmpty(data)) {
             return;

@@ -18,8 +18,7 @@ import java.util.List;
  * @author noear
  * @since 1.0
  */
-@Before(BeforeHandler.class)
-@After(AfterHandler.class)
+@Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/SubjectLinkService")
 @Remoting
 public class SubjectLinkServiceImpl implements SubjectLinkService {

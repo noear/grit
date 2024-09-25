@@ -5,17 +5,19 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import gritdock.controller.DockController;
 import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
-import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.Resource;
 import gritdock.dso.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ import java.util.Map;
 
 @Component("ftl:leftmenu")
 public class LeftmenuTag implements TemplateDirectiveModel {
+    static Logger log = LoggerFactory.getLogger(DockController.class.getName());
+
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         if (Session.current().getSubjectId() == 0) {   //检查用户是已登录
@@ -34,7 +38,7 @@ public class LeftmenuTag implements TemplateDirectiveModel {
         try {
             build(env);
         } catch (Exception e) {
-            EventBus.push(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

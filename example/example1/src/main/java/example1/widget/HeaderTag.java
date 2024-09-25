@@ -35,7 +35,7 @@ public class HeaderTag implements TemplateDirectiveModel {
         Context ctx = Context.current();
         String cPath = ctx.path();
         long userId = ctx.sessionAsLong("user_id");
-        String userDisplayName = ctx.session("user_display_name", "");
+        String userDisplayName = ctx.sessionOrDefault("user_display_name", "");
 
 
         if (userId == 0) {   //检查用户是已登录

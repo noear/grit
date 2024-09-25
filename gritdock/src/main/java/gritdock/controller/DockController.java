@@ -14,6 +14,8 @@ import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.domain.Resource;
 import gritdock.dso.Session;
 import gritdock.model.MenuViewModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URLDecoder;
 import java.sql.SQLException;
@@ -26,6 +28,7 @@ import java.sql.SQLException;
  */
 @Controller
 public class DockController extends BaseController {
+    static Logger log = LoggerFactory.getLogger(DockController.class.getName());
 
     @Inject
     MenuService menuService;
@@ -82,7 +85,7 @@ public class DockController extends BaseController {
                 viewModel.set("fun_type", 0);
             }
         } catch (Exception e) {
-            EventBus.push(e);
+            log.warn(e.getMessage(), e);
         }
 
         return view("dock");
@@ -148,7 +151,7 @@ public class DockController extends BaseController {
                 viewModel.set("fun_type", 0);
             }
         } catch (Exception e) {
-            EventBus.push(e);
+            log.warn(e.getMessage(), e);
         }
 
         return view("dock");

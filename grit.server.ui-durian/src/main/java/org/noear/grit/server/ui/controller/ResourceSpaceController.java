@@ -5,7 +5,6 @@ import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.grit.service.ResourceSchemaService;
-import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -13,6 +12,7 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 import org.noear.solon.core.handle.UploadedFile;
+import org.noear.solon.core.util.IoUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -55,7 +55,7 @@ public class ResourceSpaceController extends BaseController {
 
         try {
             //转换数据
-            String data = Utils.transferToString(file.getContent(), "UTF-8");
+            String data = IoUtil.transferToString(file.getContent(), "UTF-8");
 
             //开始导入
             resourceSchemaService.importSchema(data);

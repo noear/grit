@@ -4,7 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.noear.snack.ONode;
 import org.noear.solon.Utils;
 import org.noear.solon.core.handle.Context;
-import org.noear.solon.core.handle.Handler;
+import org.noear.solon.core.handle.Filter;
+import org.noear.solon.core.handle.FilterChain;
 import org.slf4j.MDC;
 
 /**
@@ -14,13 +15,16 @@ import org.slf4j.MDC;
  * @since 1.0
  */
 @Slf4j
-public class AfterHandler implements Handler {
+public class AfterHandler implements Filter {
+
     @Override
-    public void handle(Context ctx) throws Throwable {
+    public void doFilter(Context ctx, FilterChain chain) throws Throwable {
+        chain.doFilter(ctx);
+
         Long time_start = ctx.attr("time_start");
         StringBuilder buf = new StringBuilder();
-        buf.append("> Header: ").append(ONode.stringify(ctx.headerMap())).append("\n");
-        buf.append("> Param: ").append(ONode.stringify(ctx.paramsMap())).append("\n");
+        buf.append("> Header: ").append(ctx.headerMap()).append("\n");
+        buf.append("> Param: ").append(ctx.paramMap()).append("\n");
         buf.append("> Body: ").append(ctx.body()).append("\n");
         if (time_start != null) {
             buf.append("T Elapsed time: ")

@@ -6,12 +6,13 @@ import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.cloud.CloudClient;
-import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
 import org.noear.solon.core.handle.Result;
 import org.noear.solon.health.HealthHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 应用过滤器，增加访问控制
@@ -21,13 +22,15 @@ import org.noear.solon.health.HealthHandler;
  */
 @Component
 public class AppFilterImpl implements Filter {
+    static Logger log = LoggerFactory.getLogger(AppFilterImpl.class.getName());
+
     @Override
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
         if (authCheck(ctx)) {
             try {
                 chain.doFilter(ctx);
             } catch (Throwable e) {
-                EventBus.push(e);
+                log.error(e.getMessage(), e);
                 ctx.render(Result.failure(e.getLocalizedMessage()));
             }
         }
@@ -69,7 +72,7 @@ public class AppFilterImpl implements Filter {
             String password0 = Solon.cfg().get("gritadmin.password", "");
             String admin_token = Utils.md5(user0 + "#" + password0);
 
-            if (admin_token.equals(ctx.session(Session.GRIT_ADMIN_TOKEN, ""))) {
+            if (admin_token.equals(ctx.sessionOrDefault(Session.GRIT_ADMIN_TOKEN, ""))) {
                 return true;
             }
 

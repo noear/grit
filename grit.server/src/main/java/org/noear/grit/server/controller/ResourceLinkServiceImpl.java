@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
  * @author noear
  * @since 1.0
  */
-@Before(BeforeHandler.class)
-@After(AfterHandler.class)
+@Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/ResourceLinkService")
 @Remoting
 public class ResourceLinkServiceImpl implements ResourceLinkService {

@@ -14,8 +14,9 @@ import org.noear.grit.model.domain.Resource;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
-import org.noear.solon.core.event.EventBus;
 import org.noear.solon.core.handle.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,12 +24,14 @@ import java.util.Map;
 
 @Component("view:header")
 public class HeaderTag implements TemplateDirectiveModel {
+    static Logger log = LoggerFactory.getLogger(HeaderTag.class);
+
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         try {
             build(env);
         } catch (Exception e) {
-            EventBus.push(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

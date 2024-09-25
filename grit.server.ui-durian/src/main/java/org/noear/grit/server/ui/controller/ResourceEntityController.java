@@ -10,7 +10,6 @@ import org.noear.grit.server.dso.ResourceSpaceCookie;
 import org.noear.grit.server.dso.service.ResourceAdminService;
 import org.noear.grit.server.utils.JsondEntity;
 import org.noear.grit.server.utils.JsondUtils;
-import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -18,6 +17,7 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 import org.noear.solon.core.handle.UploadedFile;
+import org.noear.solon.core.util.IoUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -144,7 +144,7 @@ public class ResourceEntityController extends BaseController {
 
 
         try {
-            String jsonD = Utils.transferToString(file.getContent(), "UTF-8");
+            String jsonD = IoUtil.transferToString(file.getContent(), "UTF-8");
             JsondEntity entity = JsondUtils.decode(jsonD);
 
             if (entity == null || "grit_resource".equals(entity.table) == false) {

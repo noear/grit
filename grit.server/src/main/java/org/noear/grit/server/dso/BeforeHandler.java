@@ -1,10 +1,9 @@
 package org.noear.grit.server.dso;
 
-
-import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.handle.Context;
-import org.noear.solon.core.handle.Handler;
+import org.noear.solon.core.handle.Filter;
+import org.noear.solon.core.handle.FilterChain;
 import org.slf4j.MDC;
 
 /**
@@ -13,13 +12,13 @@ import org.slf4j.MDC;
  * @author noear
  * @since 1.0
  */
-@Component
-public class BeforeHandler implements Handler {
+public class BeforeHandler implements Filter {
     @Inject("${grit.token:}")
     String gritToken = "";
 
+
     @Override
-    public void handle(Context ctx) throws Throwable {
+    public void doFilter(Context ctx, FilterChain chain) throws Throwable {
         if (gritToken.equals(ctx.header("Grit-Token")) == false) {
             //
             //如果令牌不相同
@@ -29,5 +28,7 @@ public class BeforeHandler implements Handler {
         }
 
         ctx.attrSet("time_start", System.currentTimeMillis());
+
+        chain.doFilter(ctx);
     }
 }

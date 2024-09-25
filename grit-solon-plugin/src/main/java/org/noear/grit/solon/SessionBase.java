@@ -36,7 +36,7 @@ public abstract class SessionBase extends SessionAbstractBase {
 
         if (ctx != null) {
             //获取 admin token
-            String adminToken = ctx.session(GRIT_ADMIN_TOKEN, "");
+            String adminToken = ctx.sessionOrDefault(GRIT_ADMIN_TOKEN, "");
 
             //清除 session
             ctx.sessionClear();
