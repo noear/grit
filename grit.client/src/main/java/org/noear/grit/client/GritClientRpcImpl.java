@@ -7,7 +7,7 @@ import org.noear.nami.Filter;
 import org.noear.nami.Nami;
 import org.noear.nami.NamiBuilder;
 import org.noear.nami.NamiManager;
-import org.noear.nami.channel.http.okhttp.HttpChannel;
+import org.noear.nami.channel.http.HttpChannel;
 import org.noear.nami.coder.snack3.SnackDecoder;
 import org.noear.nami.coder.snack3.SnackEncoder;
 import org.noear.solon.core.LoadBalance;
