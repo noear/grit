@@ -57,7 +57,7 @@
 
 | 镜像输出               | 说明                    | 
 |--------------------|-----------------------| 
-| noearorg/gritdock:1.10.1 | Grit 权限管理、接口服务及菜单导航服务 | 
+| noearorg/gritdock:2.0.0-SNAPSHOT | Grit 权限管理、接口服务及菜单导航服务 | 
 
 
 单体项目，可通过 grit.server.ui-durian 集成，直接获取客户端接口与管理能力
@@ -92,14 +92,14 @@
   <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
-    <version>1.10.1</version>
+    <version>2.0.0-SNAPSHOT</version>
   </dependency>
   
   <!-- 单体自己就是 server（需要配置数据库连接） -->
   <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit.server</artifactId>
-    <version>1.10.1</version>
+    <version>2.0.0-SNAPSHOT</version>
   </dependency>
 </dependencies>
 ```
@@ -129,7 +129,7 @@ grit.db:
   <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
-    <version>1.10.1</version>
+    <version>2.0.0-SNAPSHOT</version>
   </dependency>
 </dependencies>
 ```
@@ -159,7 +159,7 @@ grit:
   <dependency>
     <groupId>org.noear</groupId>
     <artifactId>grit-solon-plugin</artifactId>
-    <version>1.10.1</version>
+    <version>2.0.0-SNAPSHOT</version>
   </dependency>
 
   <!-- 引入 solon 的注册与发现组件（比如：water-solon-cloud-plugin） -->

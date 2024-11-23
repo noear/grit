@@ -8,7 +8,7 @@ import org.noear.solon.Solon;
  * */
 public class Config {
 
-    public static final String grit_version = "v1.10.1";
+    public static final String grit_version = "v2.0.0-SNAPSHOT";
 
     public static boolean enable() {
         return Solon.cfg().getBool("gritdock.enable", true);

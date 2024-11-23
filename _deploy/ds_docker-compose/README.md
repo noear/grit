@@ -10,7 +10,7 @@
 ## 二、部署服务说明
 | 服务 | 说明 | 镜像                 |
 | -------- | --------  |--------------------| 
-| gritdock    | Grit 权限管理、接口服务及菜单导航服务 | noearorg/gritdock:1.10.1 | 
+| gritdock    | Grit 权限管理、接口服务及菜单导航服务 | noearorg/gritdock:2.0.0-SNAPSHOT | 
 
 ## 三、初始化数据库
 
