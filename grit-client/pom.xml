@@ -11,7 +11,7 @@
         <relativePath>../grit-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>grit.client</artifactId>
+    <artifactId>grit-client</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

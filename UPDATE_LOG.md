@@ -1,3 +1,11 @@
+#### 2.0.0
+
+* 调整模块名
+  * grit.client -> grit-client
+  * grit.server -> grit-server
+  * grit.server.ui-durian -> grit-server-ui-durian
+
+
 #### 1.10.2
 * solon 升为 3.0.3
 * wood 升为 1.3.14
