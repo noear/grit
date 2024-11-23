@@ -14,10 +14,10 @@ import org.noear.solon.test.SolonTest;
 public class BaseTest {
     @Test
     public void getUser() throws Exception {
-        Subject user = GritClient.global().subject().getSubjectById(2);
+        Subject user = GritClient.global().subject().getSubjectById(16);
 
         System.out.println(user);
-        assert user.subject_id == 2;
+        assert user.subject_id == 16;
 
 
         Subject user2 = GritClient.global().subject().getSubjectByLoginName("noear");

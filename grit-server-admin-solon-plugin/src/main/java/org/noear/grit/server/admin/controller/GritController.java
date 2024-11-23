@@ -1,6 +1,7 @@
 package org.noear.grit.server.admin.controller;
 
 import org.noear.grit.Grit;
+import org.noear.grit.server.GritServerConfig;
 import org.noear.grit.server.admin.AdminConfig;
 import org.noear.grit.server.admin.dso.Session;
 import org.noear.grit.server.admin.util.ImageUtils;
@@ -42,9 +43,10 @@ public class GritController {
         //设置必要参数
         viewModel.put("app", "Grit");
 
-        viewModel.put("css", "/grit/css");
-        viewModel.put("js", "/grit/js");
-        viewModel.put("img", "/grit/img");
+        viewModel.put("css", GritServerConfig.staticPrefix() + "/css");
+        viewModel.put("js", GritServerConfig.staticPrefix() + "/js");
+        viewModel.put("img", GritServerConfig.staticPrefix() + "/img");
+
         viewModel.put("title", title);
 
         viewModel.put("_version", Grit.version());

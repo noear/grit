@@ -19,7 +19,7 @@ public class LoginTest {
     @Test
     public void login() throws Exception {
 
-        Subject user = GritClient.global().auth().login("test", "1234");
+        Subject user = GritClient.global().auth().login("noear", "1234");
         System.out.println(user);
         assert user.subject_id > 0;
 

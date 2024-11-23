@@ -31,7 +31,7 @@ public class GritServerConfig {
     static final String TML_MARK_SCHEMA = "${schema}";
     static final String TML_JDBC_URL = "jdbc:mysql://${server}/${schema}?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true";
 
-    static String staticPrefix = "/grit";
+    static String staticPrefix = "/_static";
 
     public static String staticPrefix() {
         return staticPrefix;
