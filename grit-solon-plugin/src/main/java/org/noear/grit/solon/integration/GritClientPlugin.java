@@ -16,7 +16,7 @@ import org.noear.solon.core.util.ResourceUtil;
  * @author noear
  * @since 1.0
  */
-public class XPluginImp implements Plugin {
+public class GritClientPlugin implements Plugin {
     static final String GRIT_INIT_CONFIG = "grit-init.jsond";
 
     @Override
