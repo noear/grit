@@ -31,6 +31,22 @@ public class GritServerConfig {
     static final String TML_MARK_SCHEMA = "${schema}";
     static final String TML_JDBC_URL = "jdbc:mysql://${server}/${schema}?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true";
 
+    static String staticPrefix = "/_static";
+
+    public static String staticPrefix() {
+        return staticPrefix;
+    }
+
+    public static void staticPrefix(String prefix) {
+        if (prefix != null) {
+            if (prefix.endsWith("/")) {
+                staticPrefix = prefix.substring(0, prefix.length() - 1);
+            } else {
+                staticPrefix = prefix;
+            }
+        }
+    }
+
 
     @Bean("grit.cache")
     public CacheService cache(@Inject(value = "${grit.cache}", required = false) Properties props) {

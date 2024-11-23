@@ -4,7 +4,7 @@
 <head>
     <title>${env} - ${fun_name} ${timenow!}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8 "/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="${css}/main.css"/>
     <link rel="stylesheet" href="${css}/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script src="/_session/domain.js"></script>

@@ -23,9 +23,9 @@ public class BaseController {
         //设置必要参数
         viewModel.put("app", "Grit");
 
-        viewModel.put("css", GritServerConfig.staticBase() + "css");
-        viewModel.put("js", GritServerConfig.staticBase() + "js");
-        viewModel.put("img", GritServerConfig.staticBase() + "img");
+        viewModel.put("css", GritServerConfig.staticPrefix() + "/css");
+        viewModel.put("js", GritServerConfig.staticPrefix() + "/js");
+        viewModel.put("img", GritServerConfig.staticPrefix() + "/img");
         viewModel.put("title", "Grit");
 
 
