@@ -11,7 +11,7 @@
         <relativePath>../grit-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>grit-solon-plugin</artifactId>
+    <artifactId>grit-client-solon-plugin</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * @author noear
  * @since 1.1
  */
-public class GritUpdate {
+public class GritServerUpdate {
     protected static void tryUpdate() {
         DbContext db = Solon.context().getBean("grit.db");
         if (db == null) {

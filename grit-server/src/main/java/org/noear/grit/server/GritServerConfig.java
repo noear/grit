@@ -24,8 +24,8 @@ import java.util.Properties;
  * @since 1.0
  */
 @Configuration
-public class GritConfig {
-    static final Logger log = LoggerFactory.getLogger(GritConfig.class);
+public class GritServerConfig {
+    static final Logger log = LoggerFactory.getLogger(GritServerConfig.class);
 
     static final String TML_MARK_SERVER = "${server}";
     static final String TML_MARK_SCHEMA = "${schema}";
