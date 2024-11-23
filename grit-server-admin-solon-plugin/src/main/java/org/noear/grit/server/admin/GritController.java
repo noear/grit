@@ -1,7 +1,9 @@
-package gritdock.controller.admin;
+package org.noear.grit.server.admin;
 
-import gritdock.dso.Session;
 import org.noear.grit.Grit;
+import org.noear.grit.server.admin.dso.Session;
+import org.noear.grit.server.admin.util.ImageUtils;
+import org.noear.grit.server.admin.util.RandomUtils;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
@@ -12,8 +14,6 @@ import org.noear.solon.core.handle.MethodType;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 import org.noear.solon.validation.annotation.Valid;
-import org.noear.water.utils.ImageUtils;
-import org.noear.water.utils.RandomUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

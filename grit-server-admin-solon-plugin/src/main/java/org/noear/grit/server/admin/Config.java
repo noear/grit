@@ -1,4 +1,4 @@
-package gritdock;
+package org.noear.grit.server.admin;
 
 import org.noear.solon.Solon;
 
@@ -7,6 +7,7 @@ import org.noear.solon.Solon;
  * @since 1.0
  * */
 public class Config {
+
 
     public static boolean enable() {
         return Solon.cfg().getBool("gritdock.enable", true);

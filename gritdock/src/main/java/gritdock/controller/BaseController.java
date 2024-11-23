@@ -1,6 +1,7 @@
 package gritdock.controller;
 
 
+import org.noear.grit.Grit;
 import org.noear.solon.annotation.Singleton;
 import org.noear.solon.core.handle.ModelAndView;
 import gritdock.Config;
@@ -36,7 +37,7 @@ public abstract class BaseController {
         viewModel.put("img", "/_static/img");
 
 
-        viewModel.put("_version", Config.grit_version);
+        viewModel.put("_version", Grit.version());
         viewModel.put("timenow", Datetime.Now().toString("(yyyy-MM-dd HH:mm Z)"));
 
 

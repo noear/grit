@@ -25,5 +25,7 @@
 
         <module>example/example1</module>
         <module>example/example2</module>
+        <module>example/example3-server</module>
+        <module>example/example3-client</module>
     </modules>
 </project>
