@@ -1,13 +1,13 @@
-package org.noear.grit.server.controller;
+package org.noear.grit.server.api.service;
 
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.ResourceGroup;
-import org.noear.grit.server.dso.AfterHandler;
-import org.noear.grit.server.dso.BeforeHandler;
-import org.noear.grit.server.dso.service.ResourceAdminService;
-import org.noear.grit.server.utils.JsondEntity;
-import org.noear.grit.server.utils.JsondUtils;
+import org.noear.grit.server.api.dso.AfterHandler;
+import org.noear.grit.server.api.dso.BeforeHandler;
+import org.noear.grit.server.ui.service.ResourceAdminService;
+import org.noear.grit.server.api.utils.JsondEntity;
+import org.noear.grit.server.api.utils.JsondUtils;
 import org.noear.grit.service.ResourceSchemaService;
 import org.noear.snack.ONode;
 import org.noear.solon.Utils;

@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso;
+package org.noear.grit.server.ui.utils;
 
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.solon.Utils;

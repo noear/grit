@@ -1,4 +1,4 @@
-package org.noear.grit.server.integration;
+package org.noear.grit.server.api.integration;
 
 import org.noear.grit.server.GritServerConfig;
 import org.noear.solon.core.AppContext;

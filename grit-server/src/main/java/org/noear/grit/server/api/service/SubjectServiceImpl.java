@@ -1,11 +1,11 @@
-package org.noear.grit.server.controller;
+package org.noear.grit.server.api.service;
 
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
-import org.noear.grit.server.dso.AfterHandler;
-import org.noear.grit.server.dso.BeforeHandler;
+import org.noear.grit.server.api.dso.AfterHandler;
+import org.noear.grit.server.api.dso.BeforeHandler;
 import org.noear.grit.service.SubjectService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;

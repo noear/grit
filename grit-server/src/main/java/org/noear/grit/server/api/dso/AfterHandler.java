@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso;
+package org.noear.grit.server.api.dso;
 
 import lombok.extern.slf4j.Slf4j;
 import org.noear.snack.ONode;

@@ -1,10 +1,10 @@
-package org.noear.grit.server.controller;
+package org.noear.grit.server.api.service;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.*;
-import org.noear.grit.server.dso.AfterHandler;
-import org.noear.grit.server.dso.BeforeHandler;
+import org.noear.grit.server.api.dso.AfterHandler;
+import org.noear.grit.server.api.dso.BeforeHandler;
 import org.noear.grit.service.AuthService;
 import org.noear.okldap.LdapClient;
 import org.noear.okldap.LdapSession;

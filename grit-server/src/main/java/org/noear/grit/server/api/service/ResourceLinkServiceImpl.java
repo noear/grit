@@ -1,12 +1,12 @@
-package org.noear.grit.server.controller;
+package org.noear.grit.server.api.service;
 
 import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.ResourceEntity;
 import org.noear.grit.model.domain.ResourceGroup;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Subject;
-import org.noear.grit.server.dso.AfterHandler;
-import org.noear.grit.server.dso.BeforeHandler;
+import org.noear.grit.server.api.dso.AfterHandler;
+import org.noear.grit.server.api.dso.BeforeHandler;
 import org.noear.grit.service.ResourceLinkService;
 import org.noear.solon.annotation.*;
 import org.noear.wood.DbContext;

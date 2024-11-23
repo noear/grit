@@ -3,8 +3,8 @@ package org.noear.grit.server;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.noear.grit.client.GritClient;
-import org.noear.grit.server.dso.CacheServiceWrap;
-import org.noear.grit.server.dso.GritClientLocalImpl;
+import org.noear.grit.server.api.dso.CacheServiceWrap;
+import org.noear.grit.server.api.dso.GritClientLocalImpl;
 import org.noear.okldap.LdapClient;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Bean;
@@ -31,7 +31,7 @@ public class GritServerConfig {
     static final String TML_MARK_SCHEMA = "${schema}";
     static final String TML_JDBC_URL = "jdbc:mysql://${server}/${schema}?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true";
 
-    static String staticPrefix = "/_static";
+    static String staticPrefix = "/grit";
 
     public static String staticPrefix() {
         return staticPrefix;

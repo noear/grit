@@ -1,6 +1,7 @@
-package org.noear.grit.server.admin;
+package org.noear.grit.server.admin.controller;
 
 import org.noear.grit.Grit;
+import org.noear.grit.server.admin.AdminConfig;
 import org.noear.grit.server.admin.dso.Session;
 import org.noear.grit.server.admin.util.ImageUtils;
 import org.noear.grit.server.admin.util.RandomUtils;
@@ -36,13 +37,14 @@ public class GritController {
      * @param viewName 视图名字(内部uri)
      * */
     public ModelAndView view(String viewName) {
-        String title = Solon.cfg().get("gritadmin.title", "Grit - 控制台");
+        String title = AdminConfig.title();
+
         //设置必要参数
         viewModel.put("app", "Grit");
 
-        viewModel.put("css", "/_static/css");
-        viewModel.put("js", "/_static/js");
-        viewModel.put("img", "/_static/img");
+        viewModel.put("css", "/grit/css");
+        viewModel.put("js", "/grit/js");
+        viewModel.put("img", "/grit/img");
         viewModel.put("title", title);
 
         viewModel.put("_version", Grit.version());
@@ -53,14 +55,14 @@ public class GritController {
 
     @Mapping("/")
     public ModelAndView home() {
-        return view("admin/dock");
+        return view("grit/dock");
     }
 
     @Mapping("/login") //视图 返回
     public ModelAndView login(Context ctx) {
         ctx.sessionSet(Session.GRIT_ADMIN_TOKEN,"");
 
-        return view("admin/login");
+        return view("grit/login");
     }
     //-----------------
 

@@ -3,7 +3,7 @@ package org.noear.grit.server.ui.controller;
 import org.noear.grit.model.data.ResourceDo;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.type.ResourceType;
-import org.noear.grit.server.dso.service.ResourceAdminService;
+import org.noear.grit.server.ui.service.ResourceAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;

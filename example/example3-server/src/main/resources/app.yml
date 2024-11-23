@@ -1,1 +1,25 @@
 server.port: 8081
+
+solon.app:
+  name: "grit-example3"
+  group: "grit"
+  title: "跨系统通用管理平台"
+
+solon.logging.logger:
+  "org.eclipse.jetty.*":
+    level: "WARN"
+  "com.zaxxer.hikari.*":
+    level: "WARN"
+
+
+grit:
+  db.schema: grit
+  db.server: localhost:3306
+  db.username: root
+  db.password: 123456
+  cache.driverType: local
+
+gritadmin:
+  user: admin
+  password: SykSYLWN9WTpzCHq
+  title: "Grit - 控制台"

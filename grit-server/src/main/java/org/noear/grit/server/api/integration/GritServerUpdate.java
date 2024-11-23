@@ -1,4 +1,4 @@
-package org.noear.grit.server.integration;
+package org.noear.grit.server.api.integration;
 
 import org.noear.solon.Solon;
 import org.noear.wood.DbContext;

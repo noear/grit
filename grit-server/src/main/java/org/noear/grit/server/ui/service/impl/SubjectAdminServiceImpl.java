@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso.service.impl;
+package org.noear.grit.server.ui.service.impl;
 
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.data.SubjectDo;
@@ -6,7 +6,7 @@ import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.domain.SubjectEntity;
 import org.noear.grit.model.domain.SubjectGroup;
 import org.noear.grit.model.type.SubjectType;
-import org.noear.grit.server.dso.service.SubjectAdminService;
+import org.noear.grit.server.ui.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.data.annotation.Tran;

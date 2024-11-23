@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso;
+package org.noear.grit.server.api.dso;
 
 import org.noear.solon.Solon;
 import org.noear.solon.data.cache.CacheService;

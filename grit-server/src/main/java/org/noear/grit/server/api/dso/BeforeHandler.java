@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso;
+package org.noear.grit.server.api.dso;
 
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.handle.Context;

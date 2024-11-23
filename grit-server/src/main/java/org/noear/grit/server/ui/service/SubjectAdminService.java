@@ -1,4 +1,4 @@
-package org.noear.grit.server.dso.service;
+package org.noear.grit.server.ui.service;
 
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;

@@ -3,7 +3,7 @@ package org.noear.grit.server.ui.controller;
 import org.noear.grit.model.data.SubjectDo;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.model.type.SubjectType;
-import org.noear.grit.server.dso.service.SubjectAdminService;
+import org.noear.grit.server.ui.service.SubjectAdminService;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -11,10 +11,8 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
 import org.noear.solon.validation.annotation.NotEmpty;
-import org.noear.solon.validation.annotation.NotZero;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
