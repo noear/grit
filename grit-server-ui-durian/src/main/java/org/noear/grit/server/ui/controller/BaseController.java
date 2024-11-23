@@ -1,5 +1,6 @@
 package org.noear.grit.server.ui.controller;
 
+import org.noear.grit.server.GritServerConfig;
 import org.noear.solon.annotation.Singleton;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.validation.annotation.Valid;
@@ -22,9 +23,9 @@ public class BaseController {
         //设置必要参数
         viewModel.put("app", "Grit");
 
-        viewModel.put("css", "/_static/css");
-        viewModel.put("js", "/_static/js");
-        viewModel.put("img", "/_static/img");
+        viewModel.put("css", GritServerConfig.staticBase() + "css");
+        viewModel.put("js", GritServerConfig.staticBase() + "js");
+        viewModel.put("img", GritServerConfig.staticBase() + "img");
         viewModel.put("title", "Grit");
 
 
