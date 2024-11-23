@@ -11,7 +11,7 @@
         <relativePath>../grit-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>grit-server-ui-durian</artifactId>
+    <artifactId>grit-server-admin-solon-plugin</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
