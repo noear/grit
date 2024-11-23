@@ -16,7 +16,7 @@ public class Subject extends SubjectDo {
 
     /**
      * 是否为空
-     * */
+     */
     public static boolean isEmpty(Subject subject) {
         if (subject == null || subject.isEmpty()) {
             return true;
@@ -25,7 +25,14 @@ public class Subject extends SubjectDo {
         }
     }
 
-    transient Properties attrsProp;
+    /**
+     * 是否为非空
+     */
+    public static boolean isNotEmpty(Subject subject) {
+        return !isEmpty(subject);
+    }
+
+    private transient Properties attrsProp;
 
     /**
      * 获取属性集
