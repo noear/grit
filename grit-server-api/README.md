@@ -16,7 +16,7 @@ grit.db.url=jdbc:mysql://mysql.water.io:3306/water?useSSL=false&useUnicode=true&
 grit.db.password=123456
 grit.db.username=demo
 
-grit.token=GmatSe7QJeZpmRmP1sltJ8p1sbNpVEpj
+grit.rpc.token=GmatSe7QJeZpmRmP1sltJ8p1sbNpVEpj
 
 grit.admin.user=admin
 grit.admin.password=4rvCrCQcFWkxK89G
@@ -25,8 +25,8 @@ grit.admin.password=4rvCrCQcFWkxK89G
 * gritclient.yml，客户端用
 
 ```properties
-grit.server=http://localhost:7281
-grit.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j
+gritclient.server=http://localhost:7281
+gritclient.token=B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j
 
 server.session.state.domain=water.noear.org
 server.session.timeout=7200
