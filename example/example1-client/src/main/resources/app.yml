@@ -1,9 +1,4 @@
-server.port: 8081
-
-solon.app:
-  name: "wateradmin"
-  group: "water"
-  title: "DEMO"
+server.port: 8080
 
 gritclient:
   server: "http://localhost:8081"

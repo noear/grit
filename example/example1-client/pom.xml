@@ -11,25 +11,13 @@
         <relativePath>../../grit-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>example1</artifactId>
+    <artifactId>example1-client</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-view-freemarker</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-security-auth</artifactId>
             <version>${solon.version}</version>
         </dependency>
 
@@ -43,6 +31,12 @@
             <groupId>org.noear</groupId>
             <artifactId>grit-client-solon-plugin</artifactId>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-test</artifactId>
+            <version>${solon.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
