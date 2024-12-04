@@ -1,1 +1,5 @@
 server.port: 8080
+
+grit:
+  server: "http://localhost:8081"
+  token: "1234"

@@ -5,6 +5,8 @@ import org.noear.grit.model.domain.Subject;
 import org.noear.solon.Utils;
 import org.noear.solon.core.handle.Context;
 
+import java.io.IOException;
+
 /**
  * 跨应用会话状态
  *
@@ -51,7 +53,7 @@ public abstract class SessionBase extends SessionAbstractBase {
     /**
      * 推送会话状态（起到附助作用）
      * */
-    public void publish() {
+    public void publish() throws IOException {
         Context ctx = context();
         if (ctx != null) {
             ctx.sessionState().sessionPublish();
