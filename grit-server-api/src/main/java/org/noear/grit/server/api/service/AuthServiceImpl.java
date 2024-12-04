@@ -5,6 +5,7 @@ import org.noear.grit.client.comparator.ResourceComparator;
 import org.noear.grit.model.domain.*;
 import org.noear.grit.server.api.dso.AfterHandler;
 import org.noear.grit.server.api.dso.BeforeHandler;
+import org.noear.grit.server.api.utils.TokenUtils;
 import org.noear.grit.service.AuthService;
 import org.noear.okldap.LdapClient;
 import org.noear.okldap.LdapSession;
@@ -75,6 +76,26 @@ public class AuthServiceImpl implements AuthService {
             log.info("Using grit account ...");
             //尝试用原生账号登录
             return GritClient.global().subject().getSubjectByLoginNameAndPassword(loginName, loginPassword);
+        }
+    }
+
+    @Override
+    public Subject loginByToken(String loginToken) throws Exception {
+        if (loginToken == null || loginToken.length() < 4) {
+            //密码太短不让登录
+            log.warn("Warn ... loginToken == null || loginToken.length() < 4");
+            return new Subject();
+        }
+
+        long subjectId = TokenUtils.decode(loginToken);
+
+        if (subjectId > 0L) {
+            log.info("Using grit token ...");
+            //尝试用原生账号登录
+            return GritClient.global().subject().getSubjectById(subjectId);
+        } else {
+            //无效或已失效
+            return new Subject();
         }
     }
 
