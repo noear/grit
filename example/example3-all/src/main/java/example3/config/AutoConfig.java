@@ -1,6 +1,5 @@
 package example3.config;
 
-import example1.client.config.AuthProcessorImpl;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 import org.noear.solon.auth.AuthAdapter;
