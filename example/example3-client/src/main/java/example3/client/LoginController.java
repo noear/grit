@@ -11,7 +11,7 @@ import org.noear.solon.core.handle.Result;
  */
 @Controller
 public class LoginController {
-    @Mapping
+    @Mapping("login")
     public Result login(String username, String password) throws Exception {
         Subject subject = GritClient.global().auth().login(username, password);
 
