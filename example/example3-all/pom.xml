@@ -11,7 +11,7 @@
         <relativePath>../../grit-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>example2-client</artifactId>
+    <artifactId>example3-all</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -23,26 +23,13 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-view-freemarker</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-security-auth</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-sessionstate-jwt</artifactId>
-            <version>${solon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
             <artifactId>solon-logging-simple</artifactId>
             <version>${solon.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>grit-server-solon-plugin</artifactId>
         </dependency>
 
         <dependency>
@@ -52,8 +39,21 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>water.utils</artifactId>
-            <version>2.15.1</version>
+            <artifactId>solon-sessionstate-jwt</artifactId>
+            <version>${solon.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-test</artifactId>
+            <version>${solon.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

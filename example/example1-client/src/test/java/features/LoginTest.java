@@ -1,6 +1,6 @@
 package features;
 
-import example1.client.ClientApp;
+import example1.client.App;
 import org.junit.jupiter.api.Test;
 import org.noear.grit.model.domain.Subject;
 import org.noear.solon.core.handle.Result;
@@ -10,7 +10,7 @@ import org.noear.solon.test.SolonTest;
 /**
  * @author noear 2024/12/4 created
  */
-@SolonTest(ClientApp.class)
+@SolonTest(App.class)
 public class LoginTest extends HttpTester {
     @Test
     public void test() throws Exception {

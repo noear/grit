@@ -1,8 +1,8 @@
-server.port: 8082
+server.port: 8081
 
 solon.app:
-  name: "gritexample2"
-  group: "grit"
+  name: "wateradmin"
+  group: "water"
   title: "DEMO"
 
 gritclient:

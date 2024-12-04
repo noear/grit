@@ -1,19 +1,22 @@
 package example2.widget;
 
+import example2.dso.Session;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.client.GritClient;
+import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.ResourceGroup;
+import org.noear.grit.model.domain.Resource;
 import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.GritClient;
-import org.noear.grit.client.GritUtil;
-import org.noear.grit.model.domain.ResourceGroup;
-import org.noear.grit.model.domain.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,87 +24,83 @@ import java.util.Map;
 
 @Component("view:header")
 public class HeaderTag implements TemplateDirectiveModel {
+    static Logger log = LoggerFactory.getLogger(HeaderTag.class);
+
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         try {
             build(env);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
         }
     }
 
     private void build(Environment env) throws Exception {
-        //当前视图path //此处改过，noear，20180831
         Context ctx = Context.current();
-        String cPath = ctx.path();
-        long userId = ctx.sessionAsLong("user_id");
-        String userDisplayName = ctx.sessionOrDefault("user_display_name", "");
+        long subjectId = Session.current().getSubjectId();
+        String path = ctx.pathNew();
 
-
-        if (userId == 0) {   //检查用户是已登录
+        if (subjectId == 0) {
+            //如果用户未登录
             ctx.redirect("/login");
             return;
         }
 
-        List<ResourceGroup> list = GritClient.global().auth().getUriGroupList(userId);
+        List<ResourceGroup> groupList = GritClient.global().auth().getUriGroupList(subjectId);
 
-        if (list.size() == 0) {
+        if (groupList.size() == 0) {
             ctx.redirect("/login");
             return;
         }
 
 
-        StringBuffer sb = new StringBuffer();
-        sb.append("<header>");
+        StringBuilder buf = new StringBuilder();
+        buf.append("<header>");
 
-        sb.append("<label>"); //new
-        sb.append(Solon.cfg().appTitle());
-        sb.append("</label>\n");//new
+        buf.append("<label>"); //new
+        buf.append(Solon.cfg().appTitle());
+        buf.append("</label>\n");//new
 
+        buf.append("<nav>");
 
-        sb.append("<nav>");
+        for (ResourceGroup group : groupList) {
+            ResourceEntity res = GritClient.global().auth().getUriFristByGroup(subjectId, group.resource_id);
 
-        for (ResourceGroup g : list) {
-            List<ResourceEntity> resourceList = GritClient.global().auth().getUriListByGroup(userId, g.resource_id);
-
-            if (resourceList.size() > 0) {
-                if (Utils.isEmpty(resourceList.get(0).link_uri) == false) {
-                    buildItem(sb, g.display_name, resourceList.get(0), cPath, g.link_uri); //::en_name 改为 uri_path
-                }
+            if (Utils.isEmpty(res.link_uri) == false) {
+                buildGroupItem(buf, group, res, path);
             }
         }
 
-        sb.append("</nav>\n");
+        buf.append("</nav>\n");
+        buf.append("<aside>");
 
-        sb.append("<aside>");//new
-
+        String userDisplayName = Session.current().getDisplayName();
         if (Utils.isNotEmpty(userDisplayName)) {
-            sb.append("<i class='fa fa-user'></i> ");
-            sb.append(userDisplayName);
+            buf.append("<a>");
+            buf.append("<i class='fa fa-user'></i> ");
+            buf.append(userDisplayName);
+            buf.append("</a>");
         }
 
-        sb.append("<a class='logout' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
-        sb.append("</aside>");//new
+        buf.append("<a class='split' href='/'><i class='fa fa-fw fa-circle-o-notch'></i>退出</a>");
+        buf.append("</aside>");
 
-        sb.append("</header>\n");
+        buf.append("</header>\n");
 
-        env.getOut().write(sb.toString());
+        env.getOut().write(buf.toString());
     }
 
-    private void buildItem(StringBuffer sb, String title, Resource res, String cPath, String pack) {
-
-        //此处改过，noear，201811(uadmin)
+    private void buildGroupItem(StringBuilder buf, ResourceGroup resourceGroup, Resource res, String path) {
         String newUrl = GritUtil.buildDockUri(res);
 
-        if (cPath.indexOf(pack) == 0) {
-            sb.append("<a class='sel' href='" + newUrl + "'>");
-            sb.append(title);
-            sb.append("</a>");
+        if (path.indexOf(resourceGroup.link_uri) == 0) {
+            buf.append("<a class='sel' href='" + newUrl + "'>");
+            buf.append(resourceGroup.display_name);
+            buf.append("</a>");
         } else {
-            sb.append("<a href='" + newUrl + "'>");
-            sb.append(title);
-            sb.append("</a>");
+            buf.append("<a href='" + newUrl + "'>");
+            buf.append(resourceGroup.display_name);
+            buf.append("</a>");
         }
-
     }
 }

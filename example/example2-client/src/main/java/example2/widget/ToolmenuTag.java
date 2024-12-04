@@ -1,20 +1,20 @@
 package example2.widget;
 
 
+import example2.dso.Session;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.noear.grit.client.GritClient;
 import org.noear.grit.model.domain.ResourceEntity;
+import org.noear.grit.model.domain.Resource;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.core.NvMap;
 import org.noear.solon.core.handle.Context;
-import org.noear.grit.client.GritClient;
-import org.noear.grit.model.domain.Resource;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +23,6 @@ import java.util.Map;
  */
 @Component("view:toolmenu")
 public class ToolmenuTag implements TemplateDirectiveModel {
-    private String pack;
-
     @Override
     public void execute(Environment env, Map map, TemplateModel[] templateModels, TemplateDirectiveBody body) throws TemplateException, IOException {
         try {
@@ -34,43 +32,37 @@ public class ToolmenuTag implements TemplateDirectiveModel {
         }
     }
 
-    public void build(Environment env, Map map) throws Exception {
+    private void build(Environment env, Map map) throws Exception {
         NvMap mapExt = NvMap.from(map);
 
-        pack = mapExt.getOrDefault("pack", "");
+        String groupCode = mapExt.get("pack");
 
-        Context ctx = Context.current();
-        //当前视图path
-        String cPath = ctx.path();
-        long userId = ctx.sessionAsLong("user_id");
+        Context request = Context.current();
+        String path = request.pathNew();
+        StringBuffer buf = new StringBuffer();
 
-        StringBuffer sb = new StringBuffer();
+        Resource resourceGroup = GritClient.global().resource().getResourceByCode(groupCode);
 
-        Resource gPack = GritClient.global().resource().getResourceByCode(pack);
+        if (resourceGroup.resource_id > 0) {
+            buf.append("<toolmenu>");
+            buf.append("<tabbar>");
 
-        if (gPack.resource_id > 0) {
-            sb.append("<toolmenu>");
-            sb.append("<tabbar>");
+            List<ResourceEntity> list = GritClient.global().auth()
+                    .getUriListByGroup(Session.current().getSubjectId(), resourceGroup.resource_id);
 
-            forPack(ctx, userId, gPack.resource_id, sb, cPath);
+            for (Resource r : list) {
+                buildItem(request, buf, r.display_name, r.link_uri, path);
+            }
 
-            sb.append("</tabbar>");
-            sb.append("</toolmenu>");
+            buf.append("</tabbar>");
+            buf.append("</toolmenu>");
 
-            env.getOut().write(sb.toString());
+            env.getOut().write(buf.toString());
         }
     }
 
-    private void forPack(Context ctx, long userId, long packID, StringBuffer sb, String cPath) throws SQLException {
-        List<ResourceEntity> list = GritClient.global().auth().getUriListByGroup(userId, packID);
-
-        for (Resource r : list) {
-            buildItem(ctx, sb, r.display_name, r.link_uri, cPath);
-        }
-    }
-
-    private void buildItem(Context ctx, StringBuffer sb, String title, String url, String cPath) {
-        String url2 = url + "?" + ctx.uri().getQuery();
+    private void buildItem(Context request, StringBuffer sb, String title, String url, String cPath) {
+        String url2 = url + "?" + request.uri().getQuery();
 
         if (cPath.indexOf(url) > 0) {
             sb.append("<button onclick=\"location='" + url2 + "'\" class='sel'>");

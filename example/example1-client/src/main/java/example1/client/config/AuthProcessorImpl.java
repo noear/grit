@@ -1,6 +1,7 @@
-package example2.dso;
+package example1.client.config;
 
 import org.noear.grit.solon.GritAuthProcessor;
+import org.noear.solon.core.handle.Context;
 
 /**
  * @author noear 2021/5/28 created
@@ -8,6 +9,6 @@ import org.noear.grit.solon.GritAuthProcessor;
 public class AuthProcessorImpl extends GritAuthProcessor {
     @Override
     protected long getSubjectId() {
-        return Session.current().getSubjectId();
+        return Context.current().sessionAsLong("user_id");
     }
 }
