@@ -11,6 +11,8 @@ solon.logging.logger:
   "com.zaxxer.hikari.*":
     level: "WARN"
 
+# server, client 同时存在时；client 不需要配置，自动切换为 jdbc 模式
+
 grit:
   db.schema: grit
   db.server: localhost:3306
