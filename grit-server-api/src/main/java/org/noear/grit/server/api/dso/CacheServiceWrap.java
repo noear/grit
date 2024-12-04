@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 public class CacheServiceWrap implements CacheService, ICacheServiceEx {
-    CacheService real;
+    private CacheService real;
 
     public CacheServiceWrap(CacheService real) {
         this.real = real;

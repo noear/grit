@@ -32,7 +32,7 @@
         <module>../grit-client</module>
         <module>../grit-client-solon-plugin</module>
 
-        <module>../grit-server</module>
+        <module>../grit-server-api</module>
         <module>../grit-server-ui-durian</module>
         <module>../grit-server-solon-plugin</module>
     </modules>
@@ -53,7 +53,7 @@
 
            <dependency>
                <groupId>org.noear</groupId>
-               <artifactId>grit-server</artifactId>
+               <artifactId>grit-server-api</artifactId>
                <version>${grit.version}</version>
            </dependency>
 
