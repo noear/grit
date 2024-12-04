@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/ResourceSchemaService")
-@Remoting
+@Component
 public class ResourceSchemaServiceImpl implements ResourceSchemaService {
     @Inject
     ResourceAdminService adminService;

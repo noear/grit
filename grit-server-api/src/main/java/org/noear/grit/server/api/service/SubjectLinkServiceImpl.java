@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/SubjectLinkService")
-@Remoting
+@Component
 public class SubjectLinkServiceImpl implements SubjectLinkService {
     @Inject("grit.db")
     private DbContext db;

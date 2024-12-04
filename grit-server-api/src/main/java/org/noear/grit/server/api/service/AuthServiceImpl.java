@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/AuthService")
-@Remoting
+@Component
 public class AuthServiceImpl implements AuthService {
     static Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 

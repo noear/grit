@@ -17,7 +17,7 @@ grit:
   db.username: root
   db.password: 123456
   cache.driverType: local
-  token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
+  rpc.token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 gritadmin:
   user: admin

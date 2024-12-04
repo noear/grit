@@ -1,5 +1,6 @@
 package org.noear.grit.server.api.dso;
 
+import org.noear.grit.server.GritServerConfig;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
@@ -13,13 +14,13 @@ import org.slf4j.MDC;
  * @since 1.0
  */
 public class BeforeHandler implements Filter {
-    @Inject("${grit.token:}")
-    String gritToken = "";
+    @Inject
+    GritServerConfig serverConfig;
 
 
     @Override
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
-        if (gritToken.equals(ctx.header("Grit-Token")) == false) {
+        if (serverConfig.gritRpcToken().equals(ctx.header("Grit-Token")) == false) {
             //
             //如果令牌不相同
             //

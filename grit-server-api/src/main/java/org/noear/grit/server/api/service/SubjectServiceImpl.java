@@ -22,7 +22,7 @@ import java.sql.SQLException;
  */
 @Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/SubjectService")
-@Remoting
+@Component
 public class SubjectServiceImpl implements SubjectService {
     @Inject("grit.db")
     private  DbContext db;

@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Addition({BeforeHandler.class, AfterHandler.class})
 @Mapping("/grit/api/v1/ResourceLinkService")
-@Remoting
+@Component
 public class ResourceLinkServiceImpl implements ResourceLinkService {
     @Inject("grit.db")
     private DbContext db;

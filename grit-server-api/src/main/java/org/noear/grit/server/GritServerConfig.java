@@ -33,6 +33,9 @@ public class GritServerConfig {
 
     static String staticPrefix = "/_static";
 
+    /**
+     * 静态文件前缀
+     */
     public static String staticPrefix() {
         return staticPrefix;
     }
@@ -45,6 +48,14 @@ public class GritServerConfig {
                 staticPrefix = prefix;
             }
         }
+    }
+
+
+    @Inject("${grit.rpc.token:}")
+    private String gritRpcToken = "";
+
+    public String gritRpcToken(){
+        return gritRpcToken;
     }
 
 
