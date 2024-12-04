@@ -1,9 +1,9 @@
 server.port: 8081
 
 solon.app:
-  name: "grit-example3"
+  name: "gritexample1-server"
   group: "grit"
-  title: "跨系统通用管理平台"
+  title: "DEMO-SERVER"
 
 solon.logging.logger:
   "org.eclipse.jetty.*":

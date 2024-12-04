@@ -1,7 +1,7 @@
 server.port: 8082
 
 solon.app:
-  name: "gritexample1"
+  name: "gritexample2"
   group: "grit"
   title: "DEMO"
 

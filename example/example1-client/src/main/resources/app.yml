@@ -1,5 +1,10 @@
 server.port: 8080
 
+solon.app:
+  name: "gritexample1"
+  group: "grit"
+  title: "DEMO"
+
 gritclient:
   server: "http://localhost:8081"
   token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"

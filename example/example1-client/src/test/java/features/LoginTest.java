@@ -15,7 +15,7 @@ public class LoginTest extends HttpTester {
     @Test
     public void test() throws Exception {
         Result<Subject> rs = path("/login")
-                .data("username", "noear")
+                .data("username", "test")
                 .data("password", "1234")
                 .getAs(new Result<Subject>() {}.getClass());
 
