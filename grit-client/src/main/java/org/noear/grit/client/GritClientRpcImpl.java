@@ -39,15 +39,6 @@ public class GritClientRpcImpl implements GritClient {
         String gritServer = System.getProperty("gritclient.server");
         String gritToken = System.getProperty("gritclient.token");
 
-        //兼容旧配置
-        if (gritServer == null) {
-            gritServer = System.getProperty("grit.server");
-        }
-
-        if (gritToken == null) {
-            gritToken = System.getProperty("grit.token");
-        }
-
         if (TextUtils.isEmpty(gritServer) == false || TextUtils.isEmpty(gritToken) == false) {
             resourceService = createService(gritServer, gritToken, ResourceService.class);
             resourceLinkService = createService(gritServer, gritToken, ResourceLinkService.class);

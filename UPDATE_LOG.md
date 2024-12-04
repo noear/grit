@@ -2,8 +2,19 @@
 
 * 调整模块名
   * grit.client -> grit-client
-  * grit.server -> grit-server
+  * grit.server -> grit-server-api
   * grit.server.ui-durian -> grit-server-ui-durian
+* 新增模块
+  * grit-server-solon-plugin
+
+* 配置名调整
+
+| 旧名             | 新名                   | 备注                       |
+|----------------|----------------------|--------------------------|
+| `grit.server`  | `gritclient.server`  | 突出客户端语义（`grit.` 留给服务端专用） |
+| `grit.token`   | `gritclient.token`   |                          |
+| `grit.token`   | `grit.rpc.token`     | 突出突出rpc语义                |
+
 
 
 #### 1.10.2
