@@ -118,7 +118,6 @@ public class ResourceSchemaServiceImpl implements ResourceSchemaService {
         return false;
     }
 
-    @Cache(seconds = 10)
     @Override
     public String exportSchema(long resourceSpaceId, String fmt) throws Exception {
         if (resourceSpaceId == 0) {

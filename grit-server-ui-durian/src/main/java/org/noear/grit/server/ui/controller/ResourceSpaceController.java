@@ -8,10 +8,7 @@ import org.noear.grit.service.ResourceSchemaService;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
-import org.noear.solon.core.handle.Context;
-import org.noear.solon.core.handle.ModelAndView;
-import org.noear.solon.core.handle.Result;
-import org.noear.solon.core.handle.UploadedFile;
+import org.noear.solon.core.handle.*;
 import org.noear.solon.core.util.IoUtil;
 
 import java.sql.SQLException;
@@ -70,9 +67,9 @@ public class ResourceSpaceController extends BaseController {
      * 批量导出
      */
     @Mapping("ajax/export")
-    public void exportDo(Context ctx, long space_id, String fmt) throws Exception {
+    public DownloadedFile exportDo(Context ctx, long space_id, String fmt) throws Exception {
         if (space_id == 0) {
-            return;
+            return null;
         }
 
         //导出结构
@@ -88,7 +85,6 @@ public class ResourceSpaceController extends BaseController {
             filename = jsondTable + "_" + space.resource_code + "_" + LocalDate.now() + ".jsond";
         }
 
-        ctx.headerSet("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-        ctx.output(data);
+        return new DownloadedFile("text/json", data.getBytes(), filename);
     }
 }
