@@ -1,4 +1,4 @@
-server.port: 8081
+server.port: 8083
 
 solon.app:
   name: "grit-example3"
@@ -19,7 +19,6 @@ grit:
   db.username: root
   db.password: 123456
   cache.driverType: local
-  rpc.token: "B6uWZDYUm4kMscdEAERXQ2wMBW1nLL0j"
 
 gritadmin:
   user: admin
