@@ -68,7 +68,7 @@
           <td colspan="2">
             <br />
             <button type="button" onclick="checkClick()" >登录</button>
-            <a href="/login/oss">oss login</a>
+            <a href="/login/oss">use oss login</a>
           </td>
         </tr>
       </table>
