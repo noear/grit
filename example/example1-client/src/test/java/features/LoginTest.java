@@ -1,6 +1,6 @@
 package features;
 
-import example3.client.ClientApp;
+import example1.client.ClientApp;
 import org.junit.jupiter.api.Test;
 import org.noear.grit.model.domain.Subject;
 import org.noear.solon.core.handle.Result;
