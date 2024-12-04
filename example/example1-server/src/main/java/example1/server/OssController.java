@@ -1,11 +1,13 @@
-package example2.controller;
+package example1.server;
 
-import example2.dso.Session;
 import org.noear.grit.client.GritClient;
 import org.noear.grit.client.GritUtil;
 import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.Subject;
-import org.noear.solon.Solon;
+import org.noear.grit.server.admin.dso.Session;
+import org.noear.grit.server.admin.util.ImageUtils;
+import org.noear.grit.server.admin.util.RandomUtils;
+import org.noear.grit.server.api.utils.TokenUtils;
 import org.noear.solon.Utils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
@@ -13,62 +15,43 @@ import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.MethodType;
 import org.noear.solon.core.handle.ModelAndView;
 import org.noear.solon.core.handle.Result;
-import org.noear.water.utils.ImageUtils;
-import org.noear.water.utils.RandomUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 /**
- * 登录控制器
- *
- * @author noear 2014-10-19
- * @since 1.0
+ * @author noear 2024/12/4 created
  */
 @Controller
-public class LoginController extends BaseController {
-
-    @Mapping("login") //视图 返回
-    public ModelAndView login() {
-        Session.current().clear();
-        return view("login");
-    }
-
-    @Mapping("login/oss") //视图 返回
-    public void login(Context ctx, String token) throws Exception {
-        if (token != null) {
-            Subject subject = GritClient.global().auth().loginByToken(token);
-            Session.current().loadSubject(subject);
-
-            long subjectId = Session.current().getSubjectId();
-            if (subjectId > 0) {
-                Resource res = GritClient.global().auth().getUriFrist(subjectId);
-
-                if (Utils.isEmpty(res.link_uri) == false) {
-                    String resUrl = GritUtil.buildDockUri(res);
-                    redirect(resUrl);
-                    return;
-                }
-            }
+public class OssController {
+    @Mapping("oss")
+    public ModelAndView oss(Context ctx, String url) throws Exception {
+        if(url == null){
+            ctx.output("缺少 url");
+            return null;
         }
 
-        String url = "http://localhost:" + Solon.cfg().serverPort() + "/login/oss";
-        ctx.redirect("http://localhost:8081/oss?url=" + URLEncoder.encode(url, "UTF-8"));
-    }
+        long user_id = ctx.sessionAsLong("user_id");
 
-    @Mapping("/")
-    public void index() {
-        redirect("/login");
+        if (user_id > 0L) {
+            if (url.indexOf('?') > 0) {
+                url = url + "&token=" + TokenUtils.encode(user_id);
+            } else {
+                url = url + "?token=" + TokenUtils.encode(user_id);
+            }
+            ctx.redirect(url);
+            return null;
+        } else {
+            ModelAndView mv = new ModelAndView("login.ftl");
+            mv.put("url", url);
+            return mv;
+        }
     }
-    //-----------------
-
-    //ajax.path like "{view}/ajax/{cmd}"
 
 
     @Mapping("/login/ajax/check")  // Map<,> 返回[json]  (ViewModel 是 Map<String,Object> 的子类)
-    public Result login_ajax_check(String userName, String passWord, String captcha) throws Exception {
+    public Result login_ajax_check(Context ctx, String userName, String passWord, String captcha, String url) throws Exception {
 
         //验证码检查
         if (!captcha.toLowerCase().equals(Session.current().getValidation())) {
@@ -84,17 +67,17 @@ public class LoginController extends BaseController {
         if (Subject.isEmpty(subject)) {
             return Result.failure("提示：账号或密码不对！");
         } else {
+            long user_id = subject.subject_id;
 
-            Session.current().loadSubject(subject);
-            Resource res = GritClient.global().auth().getUriFrist(subject.subject_id);
+            ctx.sessionSet("user_id", user_id);
 
-            if (Utils.isEmpty(res.link_uri)) {
-                return Result.failure("提示：请联系管理员开通权限！");
+            if (url.indexOf('?') > 0) {
+                url = url + "&token=" + TokenUtils.encode(user_id);
             } else {
-                String resUrl = GritUtil.buildDockUri(res);
-
-                return Result.succeed(resUrl);
+                url = url + "?token=" + TokenUtils.encode(user_id);
             }
+
+            return Result.succeed(url);
         }
     }
 

@@ -5,6 +5,8 @@ import org.noear.grit.client.utils.TextUtils;
 import org.noear.grit.model.domain.ResourceSpace;
 import org.noear.grit.model.domain.Resource;
 
+import java.net.URLEncoder;
+
 /**
  * @author noear
  * @since 1.0
@@ -40,9 +42,9 @@ public class GritUtil {
                 }
             } else {
                 if (res.is_fullview) {
-                    return res.link_uri + "/@" + res.display_name + "?@=";
+                    return res.link_uri + "/@" + URLEncoder.encode(res.display_name) + "?@=";
                 } else {
-                    return res.link_uri + "/@" + res.display_name;
+                    return res.link_uri + "/@" + URLEncoder.encode(res.display_name);
                 }
             }
         }

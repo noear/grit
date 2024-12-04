@@ -50,6 +50,12 @@
             <version>${solon.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>water.utils</artifactId>
+            <version>2.15.1</version>
+        </dependency>
     </dependencies>
 
 </project>

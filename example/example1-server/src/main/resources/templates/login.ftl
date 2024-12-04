@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>${app} - 登录</title>
+  <title>登录</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="stylesheet" href="${css}/main.css" />
+  <link rel="stylesheet" href="/css/main.css" />
   <script src="/_session/domain.js"></script>
-  <script type="text/javascript" src="${js}/jtadmin.js" ></script>
+  <script type="text/javascript" src="/js/jtadmin.js" ></script>
   <style type="text/css">
 
     section{width: 400px; padding: 50px 60px 50px 50px; left: calc(50vw - 200px); top: calc(50vh - 5vh - 150px); position: absolute; background: #ddd;}
@@ -45,10 +45,11 @@
 </head>
 <body onkeydown="checkKey()">
 <main>
-  <p>${app}</p>
+  <p>OSS-server</p>
   <br />
   <section>
     <form>
+      <input type="hidden" name="url" value="${url!}">
       <table>
         <tr><th width="70">账号：</th>
           <td colspan="2"><input type="text" name="userName" placeholder="用户名"/></td>
@@ -68,7 +69,6 @@
           <td colspan="2">
             <br />
             <button type="button" onclick="checkClick()" >登录</button>
-            <a href="/login/oss">oss login</a>
           </td>
         </tr>
       </table>
