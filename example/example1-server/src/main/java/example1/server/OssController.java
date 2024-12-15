@@ -1,8 +1,6 @@
 package example1.server;
 
 import org.noear.grit.client.GritClient;
-import org.noear.grit.client.GritUtil;
-import org.noear.grit.model.domain.Resource;
 import org.noear.grit.model.domain.Subject;
 import org.noear.grit.server.admin.dso.Session;
 import org.noear.grit.server.admin.util.ImageUtils;
@@ -50,7 +48,7 @@ public class OssController {
     }
 
 
-    @Mapping("/login/ajax/check")  // Map<,> 返回[json]  (ViewModel 是 Map<String,Object> 的子类)
+    @Mapping("/oss/ajax/check")  // Map<,> 返回[json]  (ViewModel 是 Map<String,Object> 的子类)
     public Result login_ajax_check(Context ctx, String userName, String passWord, String captcha, String url) throws Exception {
 
         //验证码检查
@@ -84,7 +82,7 @@ public class OssController {
     /*
      * 获取验证码图片
      */
-    @Mapping(value = "/login/validation/img", method = MethodType.GET, produces = "image/jpeg")
+    @Mapping(value = "/oss/validation/img", method = MethodType.GET, produces = "image/jpeg")
     public void getValidationImg(Context ctx) throws IOException {
         // 生成验证码存入session
         String validation = RandomUtils.code(4);

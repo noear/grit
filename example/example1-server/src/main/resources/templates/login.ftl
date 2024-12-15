@@ -22,7 +22,7 @@
   <script type="text/javascript">
     function checkClick() {
       $.ajax({
-        url: "/login/ajax/check",
+        url: "/oss/ajax/check",
         data: $("form").serialize(),
         success: function (rst) {
           if (rst.code == 200) {
@@ -60,8 +60,8 @@
         <tr><th>验证码：</th>
           <td><input type="text" name="captcha"/></td>
           <td style="width: 60px; padding-left: 10px;">
-            <img src="/login/validation/img"
-                 onclick="this.src='/login/validation/img?d='+Math.random();"/></td>
+            <img src="/oss/validation/img"
+                 onclick="this.src='/oss/validation/img?d='+Math.random();"/></td>
         </tr>
 
         <tr>
