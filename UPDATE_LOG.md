@@ -9,11 +9,11 @@
 
 * 配置名调整
 
-| 旧名             | 新名                   | 备注                       |
-|----------------|----------------------|--------------------------|
-| `grit.server`  | `gritclient.server`  | 突出客户端语义（`grit.` 留给服务端专用） |
-| `grit.token`   | `gritclient.token`   |                          |
-| `grit.token`   | `grit.rpc.token`     | 突出突出rpc语义                |
+| 旧名             | 新名                  | 备注                       |
+|----------------|---------------------|--------------------------|
+| `grit.server`  | `gritclient.server` | 突出客户端语义（`grit.` 留给服务端专用） |
+| `grit.token`   | `gritclient.token`  |                          |
+| `grit.token`   | `grit.api.token`    | 突出突出 api 语义              |
 
 
 

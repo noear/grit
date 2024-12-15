@@ -20,7 +20,7 @@ public class BeforeHandler implements Filter {
 
     @Override
     public void doFilter(Context ctx, FilterChain chain) throws Throwable {
-        if (serverConfig.gritRpcToken().equals(ctx.header("Grit-Token")) == false) {
+        if (serverConfig.gritApiToken().equals(ctx.header("Grit-Token")) == false) {
             //
             //如果令牌不相同
             //

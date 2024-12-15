@@ -16,7 +16,7 @@ grit.db.url=jdbc:mysql://mysql.water.io:3306/water?useSSL=false&useUnicode=true&
 grit.db.password=123456
 grit.db.username=demo
 
-grit.rpc.token=GmatSe7QJeZpmRmP1sltJ8p1sbNpVEpj
+grit.api.token=GmatSe7QJeZpmRmP1sltJ8p1sbNpVEpj
 
 grit.admin.user=admin
 grit.admin.password=4rvCrCQcFWkxK89G

@@ -17,7 +17,7 @@ public class GritServerPlugin implements Plugin {
         context.beanScan(GritServerConfig.class);
         GritServerConfig serverConfig = context.getBean(GritServerConfig.class);
 
-        if (Utils.isNotEmpty(serverConfig.gritRpcToken())) {
+        if (Utils.isNotEmpty(serverConfig.gritApiToken())) {
             routerAdd(context, AuthServiceImpl.class);
             routerAdd(context, ResourceLinkServiceImpl.class);
             routerAdd(context, ResourceSchemaServiceImpl.class);

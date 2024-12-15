@@ -51,11 +51,11 @@ public class GritServerConfig {
     }
 
 
-    @Inject("${grit.rpc.token:}")
-    private String gritRpcToken = "";
+    @Inject("${grit.api.token:}")
+    private String gritApiToken = "";
 
-    public String gritRpcToken(){
-        return gritRpcToken;
+    public String gritApiToken(){
+        return gritApiToken;
     }
 
 
