@@ -1,5 +1,8 @@
 #### 2.0.0
 
+* solon 升为 3.0.5
+* wood 升为 1.3.16
+* snack3 升为 3.2.122
 * 调整模块名
   * grit.client -> grit-client
   * grit.server -> grit-server-api
