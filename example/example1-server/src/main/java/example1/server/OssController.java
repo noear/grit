@@ -19,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
+ * 可选能力
+ *
  * @author noear 2024/12/4 created
  */
 @Controller
