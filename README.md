@@ -47,12 +47,13 @@
 
 * 了解框架与构件
 
-| 开发框架                  | 说明 | 
-|-----------------------| -------- | 
-| grit.client           | grit 接口申明及数据实体定义。支持Remote调用与Local调用     | 
-| grit-solon-solon      | grit.client 与 solon.auth 集成    | 
-| grit.server           | grit.client 接口实现（可做为插件集成到别的服务）     | 
-| grit.server.ui-durian | grit.server + 管理界面实现（可做为插件集成到别的管理后台）     | 
+| 开发框架                     | 说明                                   | 
+|--------------------------|--------------------------------------| 
+| grit-client              | grit 接口申明及数据实体定义。支持Remote调用与Local调用  | 
+| grit-client-solon-solon  | grit-client 集成插件（带 solon-auth 适配）    | 
+| grit-server-api          | grit-client 接口实现（可做为插件集成到别的服务）       | 
+| grit-server-ui-durian    | grit-server + 管理界面实现（可做为插件集成到别的管理后台） | 
+| grit-server-solon-solon  | grit-server 集成插件                     | 
 
 
 | 镜像输出               | 说明                    | 
@@ -60,7 +61,7 @@
 | noearorg/gritdock:2.0.0 | Grit 权限管理、接口服务及菜单导航服务 | 
 
 
-单体项目，可通过 grit.server.ui-durian 集成，直接获取客户端接口与管理能力
+单体项目，可通过 grit-server-ui-durian 集成，直接获取客户端接口与管理能力
 
 * 控制台演示站
 
