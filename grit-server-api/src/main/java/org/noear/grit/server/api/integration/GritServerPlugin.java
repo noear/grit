@@ -6,6 +6,7 @@ import org.noear.solon.Utils;
 import org.noear.solon.core.AppContext;
 import org.noear.solon.core.BeanWrap;
 import org.noear.solon.core.Plugin;
+import org.noear.solonx.licence.LicenceInfo;
 
 /**
  * @author noear
@@ -14,6 +15,9 @@ import org.noear.solon.core.Plugin;
 public class GritServerPlugin implements Plugin {
     @Override
     public void start(AppContext context) {
+        //避免补排除
+        LicenceInfo.check();
+
         context.beanScan(GritServerConfig.class);
         GritServerConfig serverConfig = context.getBean(GritServerConfig.class);
 

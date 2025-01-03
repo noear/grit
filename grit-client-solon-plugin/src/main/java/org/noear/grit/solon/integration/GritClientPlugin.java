@@ -9,6 +9,7 @@ import org.noear.solon.core.Plugin;
 import org.noear.grit.client.GritClient;
 import org.noear.solon.core.event.AppLoadEndEvent;
 import org.noear.solon.core.util.ResourceUtil;
+import org.noear.solonx.licence.LicenceInfo;
 
 /**
  * Grit 集成插件
@@ -21,6 +22,9 @@ public class GritClientPlugin implements Plugin {
 
     @Override
     public void start(AppContext context) {
+        //避免补排除
+        LicenceInfo.check();
+
         Solon.app().onEvent(AppLoadEndEvent.class, e -> {
             String appName = Solon.cfg().appName();
 
